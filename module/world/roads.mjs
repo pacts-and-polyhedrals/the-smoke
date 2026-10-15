@@ -1,6 +1,8 @@
 // The traced road polylines for a scene (from data/london-street-atlas.json), with their crossings, cached.
 import {loadAtlas} from '../map/map-transit.mjs';
 import {mapIdOf} from './spawn.mjs';
+import {buildRoadNetwork} from '../rules/roads.mjs';
+import {NS} from '../config.mjs';
 import {crossings, nearestRoad} from '../rules/roads-core.mjs';
 const cache = new Map();
 export async function roadsFor(scene) {
@@ -14,3 +16,11 @@ export async function roadsFor(scene) {
 }
 export const drivableIndexes = roads => roads.map((r, i) => r.cls === 'P' ? -1 : i).filter(i => i >= 0);
 export {nearestRoad};
+
+const networkCache=new Map();
+/** Clipped, split road graph for pathfinding; uses the supplied 15 October polylines. */
+export function networkOf(scene){
+ const roads=scene?.getFlag(NS,'streetAtlas')?.roads??[];
+ const old=networkCache.get(scene?.id);if(old?.source===roads)return old.network;
+ const network=buildRoadNetwork(roads,scene?.width,scene?.height);networkCache.set(scene?.id,{source:roads,network});return network;
+}

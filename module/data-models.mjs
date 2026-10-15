@@ -1,4 +1,4 @@
-import {STAT_KEYS} from './config.mjs';
+import {STAT_KEYS,DIE_LADDER} from './config.mjs';
 import {statModifier, guardValue} from './rules/core.mjs';
 import {guardPenalty} from './rules/conditions.mjs';
 
@@ -8,13 +8,14 @@ const S = (initial = '') => new StringField({required: true, blank: true, initia
 const B = (initial = false) => new BooleanField({required: true, initial});
 const H = () => new HTMLField({required: true, blank: true, initial: ''});
 const res = (v = 0, max = v) => new SchemaField({value: N({min: 0, initial: v}), max: N({min: 0, initial: max})});
-const die = (d = 4) => new SchemaField({die: N({min: 4, max: 20, initial: d})});
+const die = (d = 4) => new SchemaField({die: N({choices:DIE_LADDER, min: 4, max: 20, initial: d})});
 
 class PersonData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       stats: new SchemaField(Object.fromEntries(STAT_KEYS.map(k => [k, die(4)]))),
       stage: N({min: 1, max: 5, initial: 1}),
+      advancement:new SchemaField({available:N({min:0}),spent:N({min:0})}),
       resources: new SchemaField({health: res(10), hustle: res(3)}),
       heat: new SchemaField({value: N({min: 0, max: 5}), coolSince: N({min: 0}), seenBy: S()}),
       cash: N({min: 0, initial: 40}),
@@ -22,7 +23,7 @@ class PersonData extends foundry.abstract.TypeDataModel {
       rep: new SchemaField({crew: N(), street: N(), police: N()}),
       guard: new SchemaField({base: N({min: 0, initial: 4}), armour: N(), value: N({min: 0, initial: 9})}),
       armour: N({min: 0}),
-      states: new SchemaField({onARoll: B(), offGame: B(), down: B(), surrendered: B()}),
+      states: new SchemaField({onARoll: B(), offGame: B(), down: B(), surrendered: B(), reactionUsed:B(), downRounds:N({min:0})}),
       identity: new SchemaField({alias: S(), ends: S('Hackney'), crew: S('The Chainring'), look: S(), hustle: S(), vice: S(), bond: S(), ambition: S(), pronouns: S(), age: S()}),
       role: S('civilian'),           // pc, crew, gang, police, paramedic, fire, civilian, suspect
       disposition: S('neutral'),
@@ -35,24 +36,27 @@ class PersonData extends foundry.abstract.TypeDataModel {
       try { return [k, statModifier(this.stats[k]?.die ?? 4)]; } catch (_e) { return [k, 2]; }
     }));
     const conditions = new Set((this.parent?.items ?? []).filter(i => i.type === 'condition').map(i => i.name));
-    const worn = (this.parent?.items ?? []).filter(i => i.type === 'armour' && i.system.equipped).reduce((t, i) => t + Number(i.system.guard || 0), 0);
+    const wornItem=(this.parent?.items??[]).filter(i=>i.type==='armour'&&i.system.equipped).at(-1);
+    const worn=Number(wornItem?.system.guard||0);
     this.guard.armour = worn;
     try {
       this.guard.value = Math.max(0, guardValue({base: this.guard.base, movDie: this.stats.mov.die, grtDie: this.stats.grt.die, armour: worn}) + guardPenalty(conditions));
     } catch (_e) { this.guard.value = 9; }
-    this.armour = (this.parent?.items ?? []).filter(i => i.type === 'armour' && i.system.equipped).reduce((t, i) => t + Number(i.system.reduction || 0), 0);
+    this.armour=Number(wornItem?.system.reduction||0);
     this.heatStars = Math.max(0, Math.min(5, Number(this.heat.value || 0)));
   }
 }
-export class CharacterData extends PersonData {}
+export class CharacterData extends PersonData {
+  static defineSchema(){return {...super.defineSchema(),stats:new SchemaField(Object.fromEntries(STAT_KEYS.map((k,i)=>[k,die(i===0?8:i<4?6:4)])))};}
+}
 export class NPCData extends PersonData {}
 
 export class VehicleData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       vehicle: new SchemaField({
-        klass: S('car'), size: N({min: 0, initial: 2}), perfDie: N({min: 4, max: 20, initial: 6}), handling: N({min: -4, max: 4}),
-        speed: N({min: 0, initial: 9}), body: res(12), armour: N({min: 0}), fuel: res(10),
+        klass: S('car'), size: N({min: 0, initial: 2}), perfDie: N({choices:DIE_LADDER,min: 4, max: 20, initial: 6}), handling: N({min: -4, max: 4}),
+        speed: N({min: 0, initial: 9}), body: res(12), destroyed:B(), armour: N({min: 0}), fuel: res(10),
         crewFull: N({min: 1, initial: 1}), passengers: N({min: 0, initial: 3}), fireControl: N({min: 0}),
         crewAssignments: S('[]'), control: S('driver'), aiPilot: S(),
         value: N({min: 0, initial: 5000}), lock: S('medium'), jobs: new ArrayField(new StringField({blank: false}), {required: true, initial: []}),
@@ -84,7 +88,7 @@ export class GearData extends ItemBase {
   static defineSchema() { return {...super.defineSchema(), uses: S(), tool: S(), stat: S(), bonus: N()}; }
 }
 export class ConditionData extends foundry.abstract.TypeDataModel {
-  static defineSchema() { return {category: S('physical'), severity: N({min: 0, initial: 1}), description: H(), removal: S()}; }
+  static defineSchema() { return {category: S('physical'), severity: N({min: 0, initial: 1}), stacks:N({min:0}), description: H(), removal: S()}; }
 }
 export class PerkData extends foundry.abstract.TypeDataModel {
   static defineSchema() { return {stat: S(), description: H(), when: S(), hustleCost: N({min: 0})}; }

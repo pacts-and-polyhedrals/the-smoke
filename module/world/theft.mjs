@@ -17,7 +17,7 @@ const occupants = vt => { const o = vt?.getFlag?.(NS, 'vehicleOccupants'); retur
 const TOOLS = ['angle grinder', 'relay box', 'bolt cutters', 'slim jim', 'screwdriver'];
 /** The best tool this character carries for this lock (a gear Item whose `tool` names it). */
 export function bestTool(actor, vehicle) {
-  const have = new Set(actor.items.filter(i => i.type === 'gear' && i.system.tool).map(i => String(i.system.tool).toLowerCase()));
+  const have = new Set(actor.items.filter(i => i.type === 'gear' && Number(i.system.quantity)>0 && i.system.tool).map(i => String(i.system.tool).toLowerCase()));
   const pedal = PEDAL(vehicle);
   const usable = TOOLS.filter(t => have.has(t) && (pedal ? ['angle grinder', 'bolt cutters'].includes(t) : ['relay box', 'slim jim', 'screwdriver', 'angle grinder'].includes(t)));
   return usable[0] || 'none';
@@ -74,7 +74,11 @@ registerHandler('theft.resolve', async ({sceneId, vehicleTokenId, tokenId, messa
   if (!vt || !who) throw new Error('Vehicle or character not found.');
   if (!user?.isGM && !who.actor?.testUserPermission(user, 'OWNER')) throw new Error('Not your character.');
   if (vt.getFlag(NS, 'jammed')) throw new Error(`The lock on the ${vt.name} is jammed solid.`);
-  const {m, r} = readRoll(messageId, 'theft', vt.id); await m.setFlag(NS, 'consumed', true);
+  const {m, r} = readRoll(messageId, 'theft', vt.id);
+  if(r.actorUuid!==who.actor.uuid)throw new Error('That is not this character’s roll.');
+  if(String(r.context.tool)!==String(tool)||tool!==bestTool(who.actor,vt.actor))throw new Error('The tool does not match the roll or inventory.');
+  if(distanceSquares(who,vt)>Math.max(vt.width,vt.height)+2&&!user.isGM)throw new Error('Get beside the vehicle.');
+  await m.setFlag(NS, 'consumed', true);
   const res = theftResult(r.outcomeKey, {loudTool: LOUD.has(String(tool))});
   const seen = res.witnessed && (witnessesNear(scene, who) || policeNear(scene, who) || r.outcomeKey === 'severeFailure');
   const byPolice = res.witnessed && policeNear(scene, who);
@@ -83,7 +87,7 @@ registerHandler('theft.resolve', async ({sceneId, vehicleTokenId, tokenId, messa
     await vt.update({[`flags.${NS}.locked`]: false, [`flags.${NS}.stolen`]: true, [`flags.${NS}.thief`]: who.actor.id, [`flags.${NS}.parked`]: false, [`flags.${NS}.traffic`]: null, [`flags.${NS}.hotUntil`]: Date.now() + 180000,
       ...(plate ? {[`flags.${NS}.marker`]: {kind: 'stolen', label: 'REPORTED STOLEN', since: 'reported minutes ago', note: 'Stolen from the street. Stop and detain the driver.'}} : {})}, {acVehicleCarry: true});
   } else if (res.jammed) await vt.update({[`flags.${NS}.jammed`]: true}, {acVehicleCarry: true});
-  await card('NICKED?', `${who.name} · ${vt.name}`, `<p>${esc(res.note)}</p>${res.unlocked ? `<p><b>It's yours.</b> Right-click it → Board → Driver. ${PEDAL(vt.actor) ? 'Ride it to <b>The Arches</b> on Morning Lane for Auntie Pat.' : 'Sell it at <b>Bow Breakers Yard</b> (Mile End & Bow), or keep it.'}</p>` : ''}${seen ? '<p class="smoke-bad">Someone saw.</p>' : ''}`, res.unlocked ? 'win' : 'lose');
+  await card('NICKED?', `${who.name} · ${vt.name}`, `<p>${esc(res.note)}</p>${res.unlocked ? `<p><b>It's yours.</b> Right-click it → Board → Driver. ${PEDAL(vt.actor) ? 'Ride it to <b>The Arches</b> on Morning Lane for Auntie Pat.' : 'Sell it at <b>Bow Breakers Yard</b> (Old Ford & Bow), or keep it.'}</p>` : ''}${seen ? '<p class="smoke-bad">Someone saw.</p>' : ''}`, res.unlocked ? 'win' : 'lose');
   if (seen) await who.actor.reportCrime(PEDAL(vt.actor) ? 'nickBike' : 'nickCar', {witnessed: true, byPolice});
   Hooks.callAll('smokeVehicleNicked', {vt, who, unlocked: res.unlocked});
   return res;
@@ -94,7 +98,10 @@ registerHandler('theft.carjack', async ({sceneId, vehicleTokenId, tokenId, messa
   if (!vt || !who) throw new Error('Vehicle or character not found.');
   if (!user?.isGM && !who.actor?.testUserPermission(user, 'OWNER')) throw new Error('Not your character.');
   if (!isTraffic(vt)) throw new Error('Nobody is driving that one — nick it instead.');
-  const {m, r} = readRoll(messageId, 'carjack', vt.id); await m.setFlag(NS, 'consumed', true);
+  const {m, r} = readRoll(messageId, 'carjack', vt.id);
+  if(r.actorUuid!==who.actor.uuid)throw new Error('That is not this character’s roll.');
+  if(distanceSquares(who,vt)>Math.max(vt.width,vt.height)+2&&!user.isGM)throw new Error('Get beside the vehicle.');
+  await m.setFlag(NS, 'consumed', true);
   const byPolice = policeNear(scene, who);
   if (!isSuccess(r.outcomeKey)) {
     await card('CARJACK', `${vt.name} gets away`, `<p>The driver floors it and you are left in the road${r.outcomeKey === 'severeFailure' ? ' — clipped by the wing mirror (2 damage)' : ''}.</p>`, 'lose');
@@ -122,7 +129,7 @@ registerHandler('theft.sell', async ({sceneId, vehicleTokenId, userId}) => {
   if (!isStolen(vt)) throw new Error(`Pat only buys nicked gear — the ${vt.name} is not stolen.`);
   if (hasAbility(vt.actor, 'docked')) throw new Error('A docking-station bike? Every one is tracked. Nobody will touch it.');
   if (['police', 'ambulance', 'fire', 'bus'].some(j => (vt.actor.system.vehicle.jobs || []).includes(j))) throw new Error('Nobody in their right mind buys an emergency vehicle. Dump it somewhere.');
-  const here = fenceHere(vt); if (!here) throw new Error(`${vt.name}: ${BIKE_CLASSES.has(vt.actor.system.vehicle.klass) && Number(vt.actor.system.vehicle.size) <= 1 ? 'bikes go to Auntie Pat at The Arches (Hackney Central)' : 'motors go to Bow Breakers Yard (Mile End & Bow)'} — pull up outside first.`);
+  const here = fenceHere(vt); if (!here) throw new Error(`${vt.name}: ${BIKE_CLASSES.has(vt.actor.system.vehicle.klass) && Number(vt.actor.system.vehicle.size) <= 1 ? 'bikes go to Auntie Pat at The Arches (Hackney Central)' : 'motors go to Bow Breakers Yard (Old Ford & Bow)'} — pull up outside first.`);
   const v = vt.actor.system.vehicle;
   const hot = Number(vt.getFlag(NS, 'hotUntil') || 0) > Date.now();
   const price = fencePrice({value: v.value, body: v.body.value, bodyMax: v.body.max, share: here.service === 'gang' ? 0.35 : 0.25, hot});

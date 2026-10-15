@@ -1,0 +1,15 @@
+# Project sources
+
+- The Smoke work in progress, supplied by the user: 14 October and updated 15 October 2026 packages. The 15 October map assets and map metadata are the final base.
+- `altered-carbon-rpg-v2.7.5.zip`, supplied by the user: implementation reference for vehicle boarding, map transit, LevelDB packing and Foundry interface conventions.
+- `covenant-dice-v1.3.7.zip`, supplied by the user: Covenant dice, difficulty and rules implementation reference.
+- New interface, integration repairs, starter writing, compendium build and tests were authored for this requested project.
+
+The Covenant reference's rights notice is retained as `LICENSE-COVENANT.txt`. This build does not broaden permissions in the supplied source material or claim sole authorship of it. No Foundry proprietary source files or complete commercial reference rulebooks are bundled.
+
+Foundry API references used during implementation:
+
+- https://foundryvtt.com/api/v14/modules/foundry.applications.sheets.html
+- https://foundryvtt.com/api/v14/classes/foundry.applications.api.DialogV2.html
+- https://foundryvtt.com/api/v14/classes/foundry.applications.sheets.ActorSheetV2.html
+- https://foundryvtt.com/api/v14/functions/hookEvents.getSceneControlButtons.html

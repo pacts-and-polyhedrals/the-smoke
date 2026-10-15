@@ -66,18 +66,18 @@ export function zoneKindAt(token) {
   const g = scene.grid?.size || 100, cx = Number(token.x) + Number(token.width || 1) * g / 2, cy = Number(token.y) + Number(token.height || 1) * g / 2;
   return zones.find(z => Array.isArray(z.rect) && cx >= z.rect[0] && cx < z.rect[0] + z.rect[2] && cy >= z.rect[1] && cy < z.rect[1] + z.rect[3])?.kind || null;
 }
-function tokensOfActor(actor) {
+function tokensOfActor(actor, sceneId = null, tokenId = null) {
   if (actor?.token) return [actor.token];
-  const scene = globalThis.canvas?.scene ?? game.scenes?.viewed; if (!scene) return [];
-  return scene.tokens.filter(t => t.actorId === actor?.id);
+  const scene = (sceneId && game.scenes.get(sceneId)) || globalThis.canvas?.scene || game.scenes?.viewed; if (!scene) return [];
+  return scene.tokens.filter(t => t.actorId === actor?.id && (!tokenId || t.id === tokenId));
 }
 /** If this character is in a driver seat: the vehicle's dice for a Wheels roll. Never throws. */
-export function driverContext(actor) {
+export function driverContext(actor, {sceneId = null, tokenId = null} = {}) {
   try {
-    const info = tokensOfActor(actor).map(seatInfo).find(i => i?.seatId === 'pilot');
+    const info = tokensOfActor(actor, sceneId, tokenId).map(seatInfo).find(i => i?.seatId === 'pilot');
     if (!info?.vehicle) return null;
     const v = info.vehicle.system.vehicle, p = pilotModifiers({vehicle: info.vehicle, zoneKind: zoneKindAt(info.vt), lightsOn: lightsOn(info.vt)});
-    return {vehicleName: info.vehicle.name, vehicleToken: info.vt, perfDie: Number(v.perfDie || 6), handling: Number(v.handling || 0), modifier: p.modifier, notes: p.notes, wrecked: Number(v.body.value) <= 0};
+    return {vehicleName: info.vehicle.name, vehicleToken: info.vt, perfDie: Number(v.perfDie || 6), handling: Number(v.handling || 0), modifier: p.modifier, notes: p.notes, destroyed:Boolean(v.destroyed),wrecked: Number(v.body.value) <= 0};
   } catch (error) { console.warn('The Smoke | driver context', error); return null; }
 }
 

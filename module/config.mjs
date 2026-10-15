@@ -64,9 +64,6 @@ export const SERVICE_LABELS = Object.freeze({
   clothes: 'Market / clobber', rank: 'Taxi rank', chop: 'Chop shop', dealer: 'Dealer'
 });
 
-export const DEFAULT_ICONS = Object.freeze({
-  character: 'icons/svg/mystery-man.svg', npc: 'icons/svg/mystery-man.svg', vehicle: 'icons/svg/target.svg',
-  weapon: 'icons/svg/sword.svg', armour: 'icons/svg/shield.svg', gear: 'icons/svg/item-bag.svg', condition: 'icons/svg/aura.svg', perk: 'icons/svg/upgrade.svg'
-});
+export const DEFAULT_ICONS=Object.freeze(Object.fromEntries(['character','npc','vehicle','weapon','armour','gear','condition','perk'].map(k=>[k,`systems/${NS}/assets/ui/${k}.svg`])));
 
 export const RANGE_ZONES = Object.freeze(['Engaged', 'Near', 'Far', 'Distant']);

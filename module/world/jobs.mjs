@@ -6,26 +6,35 @@
 import {NS, JOB_TYPES} from '../config.mjs';
 import {isSuccess, challengeContribution} from '../rules/core.mjs';
 import * as J from '../rules/jobs-core.mjs';
-import {isLeader, registerHandler, request, card, esc, ownersOf, notify} from './net.mjs';
+import {isLeader, registerHandler, request, dispatch, card, esc, ownersOf, notify} from './net.mjs';
 import {ensureVehicleActor, ensurePersonActor, randomPedKey, placeToken, zonesOf, mapIdOf, isStreetScene, tokenCentre, tokenRect, distanceSquares, lanePoint, loadCatalogs} from './spawn.mjs';
 import {loadAtlas} from '../map/map-transit.mjs';
 import {boardVehicle, exitVehicle, VEHICLE_ACTIONS, seatLayout} from '../vehicles/vehicle-boarding.mjs';
 import {lightsOn, hasAbility, isCagedSeat} from '../vehicles/vehicle-abilities.mjs';
-import {roadSpawn} from './traffic.mjs';
 
 const KEY = 'jobState';
 const now = () => Date.now();
 const uid = () => foundry.utils.randomID(10);
 export function registerJobSettings() {
   game.settings.register(NS, KEY, {scope: 'world', config: false, type: Object, default: {shifts: {}, calls: {}}});
+  game.settings.register(NS, 'pausedAt', {scope: 'world', config: false, type: Number, default: 0});
   game.settings.register(NS, 'jobsPaused', {scope: 'world', config: false, type: Boolean, default: false});
   game.settings.register(NS, 'offerEvery', {name: 'Jobs: seconds between callouts on a shift', scope: 'world', config: true, type: Number, default: 25, range: {min: 5, max: 180, step: 5}});
   game.settings.register(NS, 'jobClock', {name: 'Jobs: clock speed', hint: 'Multiply every job deadline. 1 = normal, 2 = twice as long (slower tables), 0.5 = frantic.', scope: 'world', config: true, type: Number, default: 1, range: {min: .5, max: 4, step: .25}});
 }
 export const state = () => foundry.utils.deepClone(game.settings.get(NS, KEY) || {shifts: {}, calls: {}});
+export async function remapJobsForTransit({target,idMap}){
+ return mutate(s=>{
+  for(const sh of Object.values(s.shifts))if(idMap[sh.vehicleTokenId]){sh.vehicleTokenId=idMap[sh.vehicleTokenId];sh.sceneId=target.id;}
+  for(const c of Object.values(s.calls)){
+   if(c.cleanup)c.cleanup=c.cleanup.map(id=>idMap[id]??id);
+   for(const k of ['fareTokenId','patientTokenId','suspectTokenId','stolenTokenId'])if(idMap[c.data?.[k]])c.data[k]=idMap[c.data[k]];
+  }
+ });
+}
 let writing = Promise.resolve();
 async function mutate(fn) {
-  writing = writing.then(async () => { const s = state(); const out = await fn(s); await game.settings.set(NS, KEY, s); return out; }).catch(e => { console.error('The Smoke | job state', e); throw e; });
+  writing = writing.catch(() => {}).then(async () => { const s = state(); const out = await fn(s); await game.settings.set(NS, KEY, s); return out; }).catch(e => { console.error('The Smoke | job state', e); throw e; });
   return writing;
 }
 const clock = () => { try { return Number(game.settings.get(NS, 'jobClock')) || 1; } catch (_e) { return 1; } };
@@ -40,12 +49,18 @@ function vehicleOfShift(sh) {
   return t ?? null;
 }
 const driverActor = sh => game.actors.get(sh.actorId);
+const mayManage=(sh,userId)=>{const u=game.users.get(userId);return Boolean(u?.isGM||driverActor(sh)?.testUserPermission(u,'OWNER'));};
+export function canWorkCall(call,actor){
+ if(call.actorId===actor?.id)return true;
+ if(!['fire','ambulance'].includes(call.type))return false;
+ const sh=state().shifts[call.shiftId],vt=sh&&vehicleOfShift(sh);return Boolean(vt&&(vt.getFlag(NS,'vehicleOccupants')||[]).some(o=>o.actorId===actor?.id));
+}
 const occupants = vt => { const o = vt?.getFlag?.(NS, 'vehicleOccupants'); return Array.isArray(o) ? o : []; };
 const freeSeat = (vt, pred = () => true) => { const occ = occupants(vt).map(o => o.seatId); return seatLayout(vt.actor).find(s => s.role === 'passenger' && !occ.includes(s.id) && pred(s.id))?.id ?? null; };
-async function whisperOwners(sh, kicker, title, body, cls = '') { return card(kicker, title, body, cls, {whisper: [...(sh.userIds || []), ...game.users.filter(u => u.isGM).map(u => u.id)]}); }
+async function whisperOwners(sh, kicker, title, body, cls = '') { return card(kicker, title, body, cls, {whisper: [...ownersOf(game.actors.get(sh.actorId)), ...game.users.filter(u => u.isGM).map(u => u.id)]}); }
 const rollButton = (actorId, stat, band, label, ctx, extra = '') => {
   const a = game.actors.get(actorId);
-  return `<button type="button" data-smoke-roll="${esc(a?.uuid || '')}" data-stat="${stat}" data-band="${band}" data-label="${esc(label)}" data-context='${esc(JSON.stringify(ctx))}' ${extra}><i class="fa-solid fa-dice"></i> ${esc(label)}</button>`;
+  return `<button type="button" data-smoke-roll="${esc(a?.uuid || '')}" data-stat="${stat}" ${band ? `${band ? `data-band="${band}"` : ''}` : ''} data-label="${esc(label)}" data-context='${esc(JSON.stringify(ctx))}' ${extra}><i class="fa-solid fa-dice"></i> ${esc(label)}</button>`;
 };
 
 /* ------------------------------------------------------------------ shifts */
@@ -72,7 +87,7 @@ registerHandler('job.start', async ({sceneId, vehicleTokenId, type, userId}) => 
 });
 registerHandler('job.end', async ({shiftId, userId}) => {
   const sh = state().shifts[shiftId]; if (!sh) return;
-  const user = game.users.get(userId); if (!user?.isGM && !sh.userIds.includes(userId)) throw new Error('Not your shift.');
+  const user = game.users.get(userId); if (!mayManage(sh,userId)) throw new Error('Not your shift.');
   if (sh.activeCall) await failCall(sh.activeCall, 'Shift ended mid-job.');
   await mutate(s => { delete s.shifts[shiftId]; for (const [id, c] of Object.entries(s.calls)) if (c.shiftId === shiftId) delete s.calls[id]; });
   const vt = vehicleOfShift(sh); if (vt) await vt.unsetFlag(NS, 'shiftId');
@@ -81,19 +96,19 @@ registerHandler('job.end', async ({shiftId, userId}) => {
 registerHandler('job.accept', async ({callId, userId}) => {
   const call = state().calls[callId]; if (!call) throw new Error('That callout has gone.');
   const sh = state().shifts[call.shiftId]; if (!sh) throw new Error('Shift over.');
-  if (!game.users.get(userId)?.isGM && !sh.userIds.includes(userId)) throw new Error('Not your callout.');
+  if (!mayManage(sh,userId)) throw new Error('Not your callout.');
   if (call.status !== 'offered') return;
   if (sh.activeCall) throw new Error('Finish the job you are on first.');
   await GEN[call.type].accept(call, sh);
   await mutate(s => { s.calls[callId] = {...call, status: 'active'}; s.shifts[sh.id].activeCall = callId; });
 });
-registerHandler('job.decline', async ({callId}) => { await mutate(s => { const c = s.calls[callId]; if (c && c.status === 'offered') { delete s.calls[callId]; if (s.shifts[c.shiftId]) s.shifts[c.shiftId].nextOfferAt = now() + 8000; } }); });
+registerHandler('job.decline', async ({callId, userId}) => { const call = state().calls[callId]; const sh = call && state().shifts[call.shiftId]; if (call && (!sh || !mayManage(sh,userId))) throw new Error('Not your callout.'); await mutate(s => { const c = s.calls[callId]; if (c && c.status === 'offered') { delete s.calls[callId]; if (s.shifts[c.shiftId]) s.shifts[c.shiftId].nextOfferAt = now() + 8000; } }); });
 registerHandler('job.pause', async ({paused: p, userId}) => {
   if (!game.users.get(userId)?.isGM) throw new Error('GM only.');
   const was = paused(); if (Boolean(p) === was) return;
-  if (p) await game.settings.set(NS, 'pausedAt', now()).catch(() => null);
+  if (p) await game.settings.set(NS, 'pausedAt', now());
   await game.settings.set(NS, 'jobsPaused', Boolean(p));
-  if (!p) { const since = Number(pausedAtMemo || now()); const add = now() - since; await mutate(s => { for (const c of Object.values(s.calls)) if (c.deadline) c.deadline += add; }); }
+  if (!p) { const since = Number(game.settings.get(NS, 'pausedAt') || pausedAtMemo || now()); const add = now() - since; await mutate(s => { for (const c of Object.values(s.calls)) for (const k of ['deadline','expires','worsenAt']) if (c[k]) c[k] += add; for (const sh of Object.values(s.shifts)) if (sh.nextOfferAt) sh.nextOfferAt += add; }); }
   pausedAtMemo = p ? now() : null;
 });
 let pausedAtMemo = null;
@@ -104,7 +119,7 @@ async function completeCall(id, pay, text, {repKey = null} = {}) {
   const call = state().calls[id]; if (!call) return; const sh = state().shifts[call.shiftId];
   const actor = game.actors.get(call.actorId ?? sh?.actorId);
   await cleanup(call);
-  await mutate(s => { delete s.calls[id]; const x = s.shifts[call.shiftId]; if (x) { x.activeCall = null; x.earned += pay; x.done += 1; x.nextOfferAt = now() + 12000; } });
+  await mutate(s => { delete s.calls[id]; const x = s.shifts[call.shiftId]; if (x) { x.activeCall = null; x.earned += pay; x.done += 1; x.nextOfferAt = now() + Number(game.settings.get(NS,'offerEvery'))*1000; } });
   if (actor && pay) await actor.changeCash(pay, text);
   else if (text) await card('JOB DONE', JOB_TYPES[call.type]?.label || 'Job', `<p>${esc(text)}</p>`, 'win');
   if (actor && repKey) await actor.update({[`system.rep.${repKey}`]: Number(actor.system.rep?.[repKey] || 0) + 1});
@@ -113,7 +128,7 @@ async function completeCall(id, pay, text, {repKey = null} = {}) {
 async function failCall(id, why) {
   const call = state().calls[id]; if (!call) return;
   await cleanup(call);
-  await mutate(s => { delete s.calls[id]; const x = s.shifts[call.shiftId]; if (x) { x.activeCall = null; x.failed += 1; x.nextOfferAt = now() + 15000; } });
+  await mutate(s => { delete s.calls[id]; const x = s.shifts[call.shiftId]; if (x) { x.activeCall = null; x.failed += 1; x.nextOfferAt = now() + Number(game.settings.get(NS,'offerEvery'))*1000; } });
   const sh = state().shifts[call.shiftId];
   if (sh) await whisperOwners(sh, 'JOB BLOWN', call.title, `<p>${esc(why)}</p>`, 'lose');
   else await card('JOB BLOWN', call.title, `<p>${esc(why)}</p>`, 'lose');
@@ -169,7 +184,7 @@ GEN.taxi = {
       if (!J.arrivedAt(zonesOf(vt.parent), call.data.dest.zoneId, tokenRect(vt))) return;
       const left = J.timeFraction(call.deadline - now(), call.total);
       const pay = J.taxiPay({hops: call.data.hops, timeLeft: left, rideOutcome: call.chat || 'fullSuccess', vehicleKind: vt.actor?.getFlag(NS, 'catalogId') === 'LV12' ? 'cab' : 'minicab'});
-      const total = pay.total * (call.rush ? 1 : 1) + (call.rush ? pay.tip : 0);
+      const total = pay.total + (call.rush ? pay.tip : 0);
       return completeCall(call.id, total, `Taxi fare to ${call.data.dest.label}: £${pay.fare} + £${total - pay.fare} tip.`, {repKey: 'street'});
     }
   },
@@ -240,12 +255,15 @@ GEN.ambulance = {
       const {token: pt} = sceneOfToken(call.data.patientTokenId); const vt = vehicleOfShift(sh);
       if (next === 'Lost') return failCall(call.id, 'They arrest on the pavement and do not come back.');
       const seat = vt && freeSeat(vt, s => hasAbility(vt.actor, 'stretcher', s)) || (vt && freeSeat(vt));
-      if (pt && vt && seat) await boardVehicle(vt, pt, seat);
+      if(!pt||!vt||!seat){await whisperOwners(sh,'PARAMEDIC','No free patient seat','<p>Make room in the ambulance and try loading again.</p>','lose');return;}
+      if(vt.parent.id!==pt.parent.id||distanceSquares(vt,pt)>3.2)throw new Error('Get the ambulance beside the patient.');
+      await boardVehicle(vt, pt, seat);
       const at = await atlas(); const dest = J.nearestService(at, mapIdOf(vt.parent), 'hospital');
+      if(!dest)throw new Error('No reachable hospital.');
       const total = J.deadlineSeconds('ambulance', 'hospital', dest.hops) * 1000 * clock();
-      await updateCall(call.id, {patient: next, stage: 'hospital', dest, deadline: now() + total, total, instruction: `Blue-light them to ${dest.label} (${dest.mapName}). Patient: ${next}.`, ping: null});
+      await updateCall(call.id, {patient: next, stage: 'hospital', dest, worsenAt:now()+45000*clock(), deadline: now() + total, total, instruction: `Blue-light them to ${dest.label} (${dest.mapName}). Patient: ${next}.`, ping: null});
       await whisperOwners(sh, 'PARAMEDIC', `Loaded — ${next}`, `<p>Go: <b>${esc(dest.label)}</b>, ${esc(dest.mapName)}. Lights on.</p>`, 'job');
-    } else if (r.context.step === 'treat') {
+    } else if (r.context.step === 'treat'&&['treat','hospital'].includes(call.stage)) {
       await updateCall(call.id, {patient: next, worsenAt: now() + 45000 * clock()});
       if (next === 'Lost') return failCall(call.id, 'Lost them in the back of the ambulance.');
     }
@@ -278,7 +296,7 @@ GEN.fire = {
     if (call.stage !== 'fight' || r.context.step !== 'hose') return;
     const f = J.fireStep(call.fire, r.outcomeKey);
     await updateCall(call.id, {fire: {progress: f.progress, consequences: f.consequences}});
-    if (f.out) return completeCall(call.id, J.firePay({progress: f.progress, consequences: f.consequences}), `Fire at ${call.title.replace('Fire: ', '')} out. Stop. Nobody hurt.`, {repKey: 'street'});
+    if (f.out && !f.lost) return completeCall(call.id, J.firePay({progress: f.progress, consequences: f.consequences}), `Fire at ${call.title.replace('Fire: ', '')} out. Stop. Nobody hurt.`, {repKey: 'street'});
     if (f.lost) return failCall(call.id, 'The roof goes in. The building is lost — but everyone got out.');
     await whisperOwners(sh, 'FIRE', `Progress ${f.progress}/4 · Fire ${f.consequences}/3`, rollButton(sh.actorId, 'grt', 'hard', 'Hose it down', {callId: call.id, step: 'hose'}), 'job');
   },
@@ -335,20 +353,19 @@ GEN.police = {
     const roads = zonesOf(scene).filter(z => z.kind === 'road'); const r = Math.random;
     const stolen = await ensureVehicleActor(call.data.carId);
     const far = roads.filter(z => !vt || Math.hypot(z.rect[0] - vt.x, z.rect[1] - vt.y) > scene.grid.size * 10);
-    const rs = await roadSpawn(scene, r, {awayFrom: vt ? [vt.x, vt.y] : null, minDist: scene.grid.size * 10});
-    const p = rs ?? lanePoint(J.pick(far.length ? far : roads), r);
+    const p = lanePoint(J.pick(far.length ? far : roads), r, null, scene);
     const plate = J.ukPlate();
-    const st = await placeToken(scene, stolen, p.x, p.y, {rotation: p.rotation, flags: {traffic: {kind: 'moving', ...(rs ? rs.road : {dir: p.dir}), speed: call.data.kind === 'pursuit' ? 3 : 1, keep: true}, plate,
+    const st = await placeToken(scene, stolen, p.x, p.y, {rotation: p.rotation, flags: {traffic: {kind: 'moving', dir: p.dir, edgeId:p.edgeId, distance:p.distance, travelDir:p.travelDir, speed: call.data.kind === 'pursuit' ? 3 : 1, keep: true}, plate,
       marker: {kind: 'stolen', label: 'REPORTED STOLEN', since: 'stolen two days ago, Clapton', note: 'Occupants believed to be responsible for a burglary. Stop and detain.'}, jobTarget: call.id}});
     const cleanup = [st.id];
     if (call.data.kind === 'anpr') {
-      for (let i = 0; i < 3; i++) { const d = await ensureVehicleActor(call.data.carId === 'LV14' ? 'LV16' : 'LV14'); const rq = await roadSpawn(scene, r); const q = rq ?? lanePoint(J.pick(roads), r);
-        const t = await placeToken(scene, d, q.x, q.y, {rotation: q.rotation, flags: {traffic: {kind: 'moving', ...(rq ? rq.road : {dir: q.dir}), speed: 1}, keeper: 'Registered keeper on file'}}); cleanup.push(t.id); }
-      const decoy = await ensureVehicleActor(call.data.carId); const rq = await roadSpawn(scene, r); const q = rq ?? lanePoint(J.pick(roads), r);   // same model, clean plate
-      const t = await placeToken(scene, decoy, q.x, q.y, {rotation: q.rotation, flags: {traffic: {kind: 'moving', ...(rq ? rq.road : {dir: q.dir}), speed: 1}}}); cleanup.push(t.id);
+      for (let i = 0; i < 3; i++) { const d = await ensureVehicleActor(call.data.carId === 'LV14' ? 'LV16' : 'LV14'); const q = lanePoint(J.pick(roads), r, null, scene);
+        const t = await placeToken(scene, d, q.x, q.y, {rotation: q.rotation, flags: {traffic: {kind: 'moving', dir: q.dir, edgeId:q.edgeId, distance:q.distance, travelDir:q.travelDir, speed: 1}, keeper: 'Registered keeper on file'}}); cleanup.push(t.id); }
+      const decoy = await ensureVehicleActor(call.data.carId); const q = lanePoint(J.pick(roads), r, null, scene);   // same model, clean plate
+      const t = await placeToken(scene, decoy, q.x, q.y, {rotation: q.rotation, flags: {traffic: {kind: 'moving', dir: q.dir, edgeId:q.edgeId, distance:q.distance, travelDir:q.travelDir, speed: 1}}}); cleanup.push(t.id);
     }
     Object.assign(call, {stage: call.data.kind === 'pursuit' ? 'pursuit' : 'search', gap: J.CHASE.start, deadline: deadline('police', call.data.kind === 'pursuit' ? 'respond' : 'anpr'), total: J.deadlineSeconds('police', call.data.kind === 'pursuit' ? 'respond' : 'anpr') * 1000 * clock(),
-      cleanup, data: {...call.data, stolenTokenId: st.id, plate},
+      chaseTN:J.getawayTN({driverDie:8,perfDie:stolen.system.vehicle.perfDie,handling:stolen.system.vehicle.handling}),cleanup, data: {...call.data, stolenTokenId: st.id, plate},
       instruction: call.data.kind === 'pursuit' ? 'Chase it down: roll Wheels each round.' : `Find the stolen ${call.data.carName}: target passing cars and run their plates (ANPR).`});
     if (call.data.kind === 'pursuit') await whisperOwners(sh, 'PURSUIT', `${call.data.carName} — ${plate}`, `<p>Gap ${J.CHASE.start}. Close to 0 to box it in; at 5 you have lost it.</p>${rollButton(sh.actorId, 'whl', null, 'Pursuit roll', {callId: call.id, step: 'chase'}, `data-tn="${J.getawayTN({driverDie: 8, perfDie: stolen.system.vehicle.perfDie, handling: stolen.system.vehicle.handling})}"`)}`, 'job');
   },
@@ -381,7 +398,7 @@ GEN.police = {
     const {scene, token: target} = sceneOfToken(call.data.stolenTokenId ?? call.data.suspectTokenId);
     if (step === 'stop' && call.stage === 'stop') {
       if (ok && target) { await target.setFlag(NS, 'traffic', {kind: 'stopped'}); await updateCall(call.id, {stage: 'arrest', instruction: 'It pulls over. Get out and arrest the driver (stand next to it).'}); await whisperOwners(sh, 'STOP', 'It pulls over', '<p>Hazards on. Get out and walk up to it.</p>', 'job'); }
-      else { if (target) await target.setFlag(NS, 'traffic', {...(target.getFlag(NS, 'traffic') || {}), kind: 'moving', speed: 3, keep: true}); await updateCall(call.id, {stage: 'pursuit', gap: J.CHASE.start, deadline: now() + 240000 * clock(), total: 240000 * clock(), instruction: 'It floors it! Pursuit: roll Wheels each round.'});
+      else { if (target) await target.setFlag(NS, 'traffic', {...(target.getFlag(NS, 'traffic') || {}), kind: 'moving', speed: 3, keep: true}); await updateCall(call.id, {stage: 'pursuit', gap: J.CHASE.start, chaseTN:J.getawayTN({driverDie:8,perfDie:target?.actor?.system.vehicle.perfDie??8,handling:target?.actor?.system.vehicle.handling??0}),deadline: now() + 240000 * clock(), total: 240000 * clock(), instruction: 'It floors it! Pursuit: roll Wheels each round.'});
         const v = target?.actor?.system?.vehicle || {perfDie: 8, handling: 0};
         await whisperOwners(sh, 'PURSUIT', `${call.data.carName} — failing to stop`, `<p>Gap ${J.CHASE.start}.</p>${rollButton(sh.actorId, 'whl', null, 'Pursuit roll', {callId: call.id, step: 'chase'}, `data-tn="${J.getawayTN({driverDie: 8, perfDie: v.perfDie, handling: v.handling})}"`)}`, 'job'); }
       return;
@@ -402,17 +419,22 @@ GEN.police = {
     }
     if (step === 'cuff' && ['arrest', 'calm'].includes(call.stage)) {
       if (!ok) { await updateCall(call.id, {cuffAsked: false, messy: true}); return whisperOwners(sh, 'ARREST', 'They wriggle free', '<p>Try again — before they leg it.</p>', 'lose'); }
-      const vt = vehicleOfShift(sh); let suspectTok;
+      const vt = vehicleOfShift(sh);
+      const cageSeat=vt&&freeSeat(vt,s=>isCagedSeat(vt.actor,s));
+      if(!vt||!cageSeat){await whisperOwners(sh,'ARREST','No free cage seat','<p>Make room in a caged police vehicle before booking an arrest.</p>','lose');return;}
+      let suspectTok;
       if (call.data.kind === 'disturbance') suspectTok = target;
       else { const sus = await ensurePersonActor('suspect'); const g = scene.grid.size; suspectTok = await placeToken(scene, sus, target.x + (target.width + .8) * g, target.y + g, {name: 'Suspect'}); await updateCall(call.id, c => ({cleanup: [...(c.cleanup || []), suspectTok.id]}));
         await target.setFlag(NS, 'traffic', null); await target.setFlag(NS, 'locked', false); }
-      const seat = vt && (freeSeat(vt, s => isCagedSeat(vt.actor, s)) || freeSeat(vt));
+      const seat = cageSeat;
+      if (!suspectTok || vt.parent.id!==suspectTok.parent.id)throw new Error('Bring the police vehicle to the suspect.');
       if (vt && seat && suspectTok && vt.parent.id === suspectTok.parent.id) {
         // walk them to the car: put them beside it, then in the cage
         const g = vt.parent.grid.size; await suspectTok.update({x: vt.x + vt.width * g, y: vt.y}, {acVehicleCarry: true});
         await boardVehicle(vt, vt.parent.tokens.get(suspectTok.id), seat);
       }
       const at = await atlas(); const dest = J.nearestService(at, mapIdOf(vt?.parent ?? scene), 'police');
+      if(!dest)throw new Error('No reachable police station.');
       const total = J.deadlineSeconds('police', 'custody', dest.hops) * 1000 * clock();
       await updateCall(call.id, {stage: 'custody', dest, deadline: now() + total, total, instruction: `Take the suspect to ${dest.label} (${dest.mapName}).`});
       return whisperOwners(sh, 'ARREST', 'In cuffs', `<p>"You do not have to say anything…" Take them to <b>${esc(dest.label)}</b>, ${esc(dest.mapName)}.</p>`, 'win');
@@ -460,7 +482,11 @@ registerHandler('job.crew', async ({actorId, userId}) => {
   return call.id;
 });
 /** Seed the tipped-off bikes the first time anyone loads the map they are on. */
+let seeding=Promise.resolve();
 async function seedCrewBikes(scene) {
+ seeding=seeding.catch(()=>{}).then(()=>seedCrewBikesNow(scene));return seeding;
+}
+async function seedCrewBikesNow(scene) {
   const id = mapIdOf(scene); if (!id) return;
   for (const call of Object.values(state().calls).filter(c => c.type === 'crew')) {
     const todo = call.data.spots.filter(s => s.mapId === id && !s.seeded); if (!todo.length) continue;
@@ -470,7 +496,7 @@ async function seedCrewBikes(scene) {
       await placeToken(scene, a, x, y, {flags: {locked: true, parked: true, orderFor: call.id, traffic: {kind: 'bike'}}});
       s.seeded = true;
     }
-    await updateCall(call.id, {data: call.data});
+    await updateCall(call.id, current=>({data:{...current.data,spots:call.data.spots}}));
   }
 }
 
@@ -491,8 +517,8 @@ async function offerTick() {
     await whisperOwners(sh, `${JOB_TYPES[sh.type].label.toUpperCase()} · CALLOUT`, offer.title, `<p>${offer.text}</p><div class="smoke-buttons"><button type="button" data-smoke-job-accept="${call.id}"><i class="fa-solid fa-check"></i> Accept</button><button type="button" data-smoke-job-decline="${call.id}"><i class="fa-solid fa-xmark"></i> Pass</button></div>`, 'job offer');
   }
 }
-async function clockTick() {
-  if (!isLeader() || paused()) return;
+export async function clockTick() {
+  if (!isLeader() || game.paused || paused()) return;
   try {
     await offerTick();
     const s = state();
@@ -507,17 +533,28 @@ async function clockTick() {
   } catch (error) { console.warn('The Smoke | job clock', error); }
 }
 
+registerHandler('job.tick',async({userId})=>{if(!game.users.get(userId)?.isGM)throw new Error('GM only.');return clockTick();});
+registerHandler('job.roll',async({messageId})=>{
+ const msg=game.messages.get(messageId),r=msg?.getFlag(NS,'roll'),callId=r?.context?.callId;
+ if(!r||!callId||msg.getFlag(NS,'jobConsumed'))return;
+ const call=state().calls[callId];if(!call||call.status!=='active')return;
+ const author=r.userId?game.users.get(r.userId):(msg.author??game.users.get(msg.user?.id??msg.user)),actor=await fromUuid(r.actorUuid);
+ if(!author||!actor||(!author.isGM&&!actor.testUserPermission(author,'OWNER'))||!canWorkCall(call,actor))return;
+ const expected={chat:'frt',load:'sav',treat:'sav',hose:'grt',chase:'whl',stop:'frt',calm:'frt',cuff:'mus'}[r.context.step];
+ if(expected!==r.stat)return;
+ await msg.setFlag(NS,'jobConsumed',true);
+ const sh=state().shifts[call.shiftId]??{id:null,actorId:call.actorId,userIds:call.userIds||[]};
+ return GEN[call.type].roll?.(call,sh,r);
+});
 /* ------------------------------------------------------------------ install */
 let timer = null;
 export function installJobs() {
   if (timer) clearInterval(timer);
-  timer = setInterval(clockTick, 2000);
+  timer = setInterval(()=>{if(isLeader())void dispatch('job.tick',{userId:game.user.id}).catch(e=>console.warn('The Smoke | jobs',e));}, 2000);
   // Rolls made from job buttons come back here (on the leader) through their chat message.
-  Hooks.on('createChatMessage', async msg => {
-    if (!isLeader()) return; const r = msg.getFlag(NS, 'roll'); const callId = r?.context?.callId; if (!callId) return;
-    const call = state().calls[callId]; if (!call || call.status !== 'active') return;
-    const sh = state().shifts[call.shiftId] ?? {id: null, actorId: call.actorId, userIds: call.userIds || []};
-    try { await GEN[call.type].roll?.(call, sh, r); } catch (error) { console.warn('The Smoke | job roll', error); }
+  Hooks.on('createChatMessage', msg => {
+    if(!isLeader()||!msg.getFlag(NS,'roll')?.context?.callId)return;
+    void dispatch('job.roll',{messageId:msg.id}).catch(e=>console.warn('The Smoke | job roll',e));
   });
   Hooks.on('smokePlateScanned', async ({policeToken, target}) => {
     if (!isLeader()) return; const sid = policeToken.getFlag(NS, 'shiftId'); if (!sid) return;
@@ -534,7 +571,9 @@ export function installJobs() {
     notify(`Pat's order: ${delivered}/${o.want}`, {userIds: call.userIds});
   });
   Hooks.on('canvasReady', () => { if (isLeader()) seedCrewBikes(canvas.scene).catch(() => null); });
-  Hooks.on('smokeTransit', ({target}) => { if (isLeader()) seedCrewBikes(target).catch(() => null); });
+  Hooks.on('smokeTransit', ({target}) => { if(isLeader())void seedCrewBikes(target).catch(e=>console.warn('The Smoke | job transit',e)); });
+  let pausedWithFoundry=false;
+  Hooks.on('pauseGame',p=>{if(!isLeader())return;if(p&&!paused()){pausedWithFoundry=true;void request('job.pause',{paused:true});}else if(!p&&pausedWithFoundry){pausedWithFoundry=false;void request('job.pause',{paused:false});}});
   Hooks.on('updateSetting', s => { if (s.key === `${NS}.${KEY}`) Hooks.callAll('smokeJobsChanged'); });
   // Start / end a shift from the vehicle's right-click.
   VEHICLE_ACTIONS.push(vt => {

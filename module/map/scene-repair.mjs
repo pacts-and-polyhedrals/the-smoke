@@ -8,7 +8,7 @@ async function mapIndex() {
   if (index) return index; index = new Map();
   for (const file of DATA_FILES) {
     try { const r = await fetch(`systems/${NS}/data/${file}`); if (!r.ok) continue; const d = await r.json();
-      for (const m of d.maps || []) index.set(m.id, {src: `systems/${NS}/assets/maps/${m.file}`, links: m.links || [], zones: m.zones || [], kind: file.includes('places') ? 'place' : 'streetAtlas'}); } catch (error) { console.warn('The Smoke | map index', file, error); }
+      for (const m of d.maps || []) index.set(m.id, {src: `systems/${NS}/assets/maps/${m.file}`, links: m.links || [], zones: m.zones || [], roads:m.roads||[], kind: file.includes('places') ? 'place' : 'streetAtlas'}); } catch (error) { console.warn('The Smoke | map index', file, error); }
   }
   return index;
 }
@@ -21,7 +21,7 @@ export async function repairSceneBackground(scene) {
   const src = await expectedImage(scene); if (!src) return false;
   if (scene.levels !== undefined) {
     const levels = scene.levels?.contents ?? scene.levels ?? [];
-    const level = scene.initialLevel ?? levels[0];
+    const level = (typeof scene.initialLevel === 'string' ? scene.levels.get?.(scene.initialLevel) : scene.initialLevel) ?? levels[0];
     if (!level) {
       const [created] = await scene.createEmbeddedDocuments('Level', [{name: 'Street', background: {src}, elevation: {bottom: 0, top: 20}, sort: 0}]);
       if (created && !scene.initialLevel) await scene.update({initialLevel: created.id});
@@ -38,8 +38,8 @@ export async function syncSceneLinks(scene) {
   const f = scene?.flags?.[NS] || {}; const id = f.place?.id || f.streetAtlas?.id; if (!id) return false;
   const entry = (await mapIndex()).get(id); if (!entry) return false;
   const current = f[entry.kind]?.links || [];
-  if (JSON.stringify(current) === JSON.stringify(entry.links)) return false;
-  await scene.update({[`flags.${NS}.${entry.kind}.links`]: entry.links, [`flags.${NS}.zoneGraph`]: {zones: entry.zones.map(z => ({id: z.id, name: z.name, kind: z.kind, service: z.service || null, adjacent: z.adjacent, rect: z.rect}))}});
+  if (JSON.stringify(current) === JSON.stringify(entry.links) && JSON.stringify(f[entry.kind]?.roads||[])===JSON.stringify(entry.roads) && f.zoneGraph?.zones?.[0]?.kind) return false;
+  await scene.update({[`flags.${NS}.${entry.kind}.links`]: entry.links, [`flags.${NS}.${entry.kind}.roads`]:entry.roads, [`flags.${NS}.zoneGraph`]: {zones: entry.zones.map(z => ({id: z.id, name: z.name, kind: z.kind, service: z.service || null, adjacent: z.adjacent, rect: z.rect, roads:z.roads||[], landmark:z.landmark||false}))}});
   return true;
 }
 export async function repairAllSceneBackgrounds({notify = true} = {}) {

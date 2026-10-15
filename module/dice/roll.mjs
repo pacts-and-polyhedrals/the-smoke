@@ -5,7 +5,9 @@ import {buildFormula, countExplosions} from './formula.mjs';
 import {outcomeFromMargin, blinderTier, isSuccess, damageValue, damageConsequences} from '../rules/core.mjs';
 import {statPenalty, offGameFor, blocksEffortExplosion} from '../rules/conditions.mjs';
 import {suggestTN, successChance} from '../rules/difficulty.mjs';
-import {driverContext} from '../vehicles/vehicle-abilities.mjs';
+import {driverContext,seatInfo,isExposedSeat} from '../vehicles/vehicle-abilities.mjs';
+import {cannotDrive,CONDITION_EFFECTS} from '../rules/conditions.mjs';
+import {isLeader, registerHandler, request} from '../world/net.mjs';
 
 const esc = v => foundry.utils.escapeHTML(String(v ?? ''));
 const BAND_LABEL = {easy: 'Easy', medium: 'Medium', hard: 'Hard', miracle: 'Long Shot'};
@@ -16,12 +18,15 @@ export function prepareRoll(actor, stat, options = {}) {
   if (!STAT_KEYS.includes(stat)) throw new Error(`Unknown stat ${stat}`);
   const conditions = new Set(actor.items.filter(i => i.type === 'condition').map(i => i.name));
   const notes = [];
+  if((actor.system.states?.down||conditions.has('Down')) && options.context?.kind!=='stayUp' && options.label!=='Stay Conscious')throw new Error('Down characters can only roll to stay conscious until helped.');
   let effortDie = Number(options.effortDie || 6), modifier = Number(options.modifier || 0);
   let effortUpgrades = Number(options.effortUpgrades || 0), statUpgrades = Number(options.statUpgrades || 0);
   let onARoll = options.onARoll ?? Boolean(actor.system.states?.onARoll);
   let offGame = options.offGame ?? Boolean(actor.system.states?.offGame);
   // Behind the wheel: the vehicle's Performance die is the Effort die.
-  const drive = stat === 'whl' && options.vehicle !== false ? driverContext(actor) : null;
+  const drive = stat === 'whl' && options.vehicle !== false ? driverContext(actor, options) : null;
+  if(drive?.destroyed)throw new Error('This vehicle is written off and cannot be driven.');
+  if (drive && cannotDrive(conditions))throw new Error('You cannot drive while Cuffed or Down.');
   if (drive) {
     effortDie = drive.perfDie; modifier += drive.handling + drive.modifier;
     notes.push(`${drive.vehicleName}: Performance d${drive.perfDie}, Handling ${drive.handling >= 0 ? '+' : ''}${drive.handling}`, ...drive.notes);
@@ -32,7 +37,8 @@ export function prepareRoll(actor, stat, options = {}) {
   const hustle = Math.max(0, Math.min(2, Number(options.hustle || 0)));
   if (hustle === 1) { effortUpgrades += 1; notes.push('Hustle 1: Effort die one step up'); }
   if (hustle === 2) { onARoll = true; notes.push('Hustle 2: On a Roll'); }
-  const perk = options.perk ? (actor.items.get(options.perk) ?? actor.items.find(i => i.type === 'perk' && i.name === options.perk)) : null;
+  let perk = options.perk ? (actor.items.get(options.perk) ?? actor.items.find(i => i.type === 'perk' && i.name === options.perk)) : null;
+  if (perk && (perk.type!=='perk' || (perk.system.stat && perk.system.stat!==stat)))perk=null;
   if (perk) notes.push(`Perk: ${perk.name}`);
   const state = onARoll && !offGame ? 'onARoll' : offGame && !onARoll ? 'offGame' : 'normal';
   const built = buildFormula({
@@ -42,12 +48,18 @@ export function prepareRoll(actor, stat, options = {}) {
   });
   let tn = options.tn === '' || options.tn == null ? null : Number(options.tn);
   let band = options.band || null;
-  if (tn == null && band) tn = suggestTN({attributeDie: built.statDie, effortDie: built.effortDie, modifier: built.staticModifier - built.statModifier}, band).tn;
-  const chance = tn == null ? null : successChance({attributeDie: built.statDie, effortDie: built.effortDie, modifier: built.staticModifier - built.statModifier, state: state === 'offGame' ? 'cursed' : 'normal'}, tn);
-  return {stat, built, tn, band, chance, notes, hustle, perk, drive, state};
+  if (tn == null && band) tn = suggestTN({attributeDie:Number(actor.system.stats?.[stat]?.die??4), effortDie:drive?.perfDie??Number(options.effortDie||6)}, band).tn;
+  const chance = tn == null ? null : successChance({attributeDie: built.statDie, effortDie: built.effortDie, modifier: built.staticModifier - built.statModifier, state, noEffortExplosion:blocksEffortExplosion(conditions)}, tn);
+  return {stat, built, tn, band, chance, notes, hustle:hustle+Number(perk?.system.hustleCost||0), perk, drive, state};
 }
 
-export async function rollStat(actor, stat, options = {}) {
+const rollQueues=new Map();
+export function rollStat(actor,stat,options={}){
+ if (!isLeader()) return remoteRoll('dice.stat', actor, {stat, options});
+ const key=actor.uuid;const next=(rollQueues.get(key)||Promise.resolve()).catch(()=>{}).then(()=>rollStatNow(actor,stat,options));rollQueues.set(key,next);
+ void next.finally(()=>{if(rollQueues.get(key)===next)rollQueues.delete(key);}).catch(()=>{});return next;
+}
+async function rollStatNow(actor, stat, options = {}) {
   const prep = prepareRoll(actor, stat, options);
   if (prep.hustle && !(await actor.spendHustle(prep.hustle, options.label || STATS[prep.stat].label))) return null;
   const roll = await new Roll(prep.built.formula).evaluate();
@@ -58,7 +70,7 @@ export async function rollStat(actor, stat, options = {}) {
   const label = options.label || `${STATS[prep.stat].label} roll`;
   const result = {actorUuid: actor.uuid, actorName: actor.name, stat: prep.stat, total: Number(roll.total), tn: prep.tn, band: prep.band, margin,
                   outcomeKey: outcome?.key ?? null, outcome: outcome?.label ?? null, success: outcome ? isSuccess(outcome.key) : null,
-                  explosions, blinder: blinder.key, label, context: options.context ?? null, formula: prep.built.formula};
+                  explosions, blinder: blinder.key, label, context: options.context ?? null, formula: prep.built.formula, userId: options.requestedBy ?? game.user.id};
   const content = rollCard({actor, label, prep, roll, result, outcome, blinder, extra: options.cardExtra || ''});
   const message = await ChatMessage.implementation.create({
     speaker: ChatMessage.getSpeaker({actor}), content, rolls: [roll],
@@ -66,8 +78,8 @@ export async function rollStat(actor, stat, options = {}) {
   });
   if (options.consumeState !== false) {
     const up = {};
-    if (actor.system.states?.onARoll && prep.state === 'onARoll' && !prep.hustle) up['system.states.onARoll'] = false;
-    if (actor.system.states?.offGame && prep.state === 'offGame') up['system.states.offGame'] = false;
+    if (actor.system.states?.onARoll ) up['system.states.onARoll'] = false;
+    if (actor.system.states?.offGame ) up['system.states.offGame'] = false;
     if (Object.keys(up).length) await actor.update(up);
   }
   return {message, result, roll};
@@ -89,37 +101,84 @@ export function rollCard({actor, label, prep, roll, result, outcome, blinder, ex
 }
 
 /** An attack: Aim or Muscle against the target's Guard; damage = margin + impact − armour. */
-export async function rollAttack(actor, weapon, targetToken = null, options = {}) {
+const attackQueues=new Map();
+export function rollAttack(actor,weapon,targetToken=null,options={}){
+ if (!isLeader()) return remoteRoll('dice.attack', actor, {weaponId:weapon?.id ?? null,targetUuid:targetToken?.uuid ?? null,options});
+ const key=actor.uuid,next=(attackQueues.get(key)||Promise.resolve()).catch(()=>{}).then(()=>rollAttackNow(actor,weapon,targetToken,options));attackQueues.set(key,next);
+ void next.finally(()=>{if(attackQueues.get(key)===next)attackQueues.delete(key);}).catch(()=>{});return next;
+}
+async function rollAttackNow(actor, weapon, targetToken = null, options = {}) {
+  if(!actor.isOwner && !game.user.isGM)throw new Error('Not your character.');
   const target = targetToken?.actor ?? null;
-  const guard = target ? Number(target.type === 'vehicle' ? 6 + Number(target.system.vehicle.size || 0) * 2 : target.system.guard?.value ?? 9) : null;
+  if(!target){ui.notifications.warn('Target a person or vehicle first: hover their token and press T.');return null;}
+  if(weapon && !weapon.system.equipped)throw new Error('Equip the weapon first.');
+  const scene=(options.sceneId&&game.scenes.get(options.sceneId))||canvas?.scene;
+  const me=actor.token??scene?.tokens.find(t=>t.actorId===actor.id&&(!options.tokenId||t.id===options.tokenId)),seat=me&&seatInfo(me);
+  if(seat?.vehicle && !isExposedSeat(seat.vehicle,seat.seatId) && seat.vehicle.getFlag(NS,'vehicleAbilities')?.some(a=>a.key==='windowless'&&(!a.seats||a.seats.includes(seat.seatId))))throw new Error('You cannot attack out of a windowless load bay.');
+  if(weapon?.system?.ammo?.max>0 && weapon.system.ammo.value<1)throw new Error('Empty magazine. Reload from the sheet.');
+  if(me&&targetToken.parent?.id===me.parent?.id&&(!weapon||weapon.system.range==='Engaged')){
+    const g=me.parent.grid.size,ax=me.x+me.width*g/2,ay=me.y+me.height*g/2,bx=targetToken.x+targetToken.width*g/2,by=targetToken.y+targetToken.height*g/2;
+    if(Math.hypot(ax-bx,ay-by)>g*2.2)throw new Error('Move next to the target for a hand-to-hand attack.');
+  }
+  const cover=seatInfo(targetToken);const coverBonus=cover&&!isExposedSeat(cover.vehicle,cover.seatId)?2:0;
+  const guard = Number(target.type === 'vehicle' ? 6 + Number(target.system.vehicle.size || 0) * 2 : target.system.guard?.value ?? 9)+coverBonus;
   const stat = weapon?.system?.stat || 'mus';
-  const out = await rollStat(actor, stat, {...options, tn: guard, label: `${weapon?.name || 'Unarmed'}${target ? ` → ${target.name}` : ''}`, context: {kind: 'attack', weaponId: weapon?.id, target: targetToken?.uuid}});
-  if (!out || out.result.margin == null || out.result.margin < 0) return out;
-  const armour = target?.type === 'vehicle' ? Number(target.system.vehicle.armour || 0) : Number(target?.system?.armour || 0);
+  const prepared = prepareRoll(actor, stat, {...options, tn:guard});
+  if (prepared.hustle > Number(actor.system.resources.hustle.value)) { ui.notifications.warn('Not enough Hustle for that attack.'); return null; }
+  const out = await rollStat(actor, stat, {...options, tn: guard, label: `${weapon?.name || 'Unarmed'} → ${target.name}`, context: {kind: 'attack', weaponId: weapon?.id, target: targetToken.uuid}});
+  if(out&&weapon?.system?.ammo?.max>0)await weapon.update({'system.ammo.value':weapon.system.ammo.value-1});
+  if (!out || out.result.margin < 0) return out;
+  const armour = target.type === 'vehicle' ? Number(target.system.vehicle.armour || 0) : Number(target.system.armour || 0);
   const dmg = damageValue({margin: out.result.margin, impact: Number(weapon?.system?.impact ?? 1), armour});
   const cons = damageConsequences(dmg, {explosions: out.result.explosions});
-  const html = `<section class="smoke-card damage"><header><span class="kicker">DAMAGE</span><strong>${esc(target?.name || 'Target')}: ${dmg}</strong></header>
-    <p>${esc(cons.label)}</p>
-    ${target ? `<button type="button" data-smoke-damage="${esc(targetToken.uuid)}" data-amount="${dmg}"><i class="fa-solid fa-burst"></i> Apply ${dmg} damage</button>` : ''}
-    ${target && target.type !== 'vehicle' ? [...cons.conditions, ...cons.breakthrough].map(c => `<button type="button" data-smoke-condition="${esc(targetToken.uuid)}" data-condition="${esc(c)}">${esc(c)}</button>`).join('') : ''}
-    ${weapon?.system?.crime ? `<button type="button" class="gm" data-smoke-crime="${esc(actor.uuid)}" data-crime="${esc(target?.system?.role === 'police' ? 'assaultCop' : weapon.system.crime)}"><i class="fa-solid fa-star"></i> Witnessed: add Heat</button>` : ''}
+  const attack={target:targetToken.uuid,total:out.result.total,damage:dmg,attacker:actor.uuid,attackerName:actor.name,severity:cons.label,conditions:[...new Set([...cons.conditions,...cons.breakthrough])]};
+  const html = `<section class="smoke-card damage"><header><span class="kicker">HIT · DAMAGE</span><strong>${esc(target.name)}: ${dmg}</strong></header>
+    <p>${esc(cons.label)}. Damage = margin ${out.result.margin} + Impact ${weapon?.system?.impact??1} − Armour ${armour}.</p>
+    <div class="smoke-buttons"><button type="button" data-smoke-damage="${esc(targetToken.uuid)}" data-amount="${dmg}">Take hit · ${dmg} damage</button>
+    ${target.type!=='vehicle'&&!target.system.states.reactionUsed?`<button type="button" data-smoke-dodge="${esc(targetToken.uuid)}">Dodge · use reaction</button>`:''}</div>
+    ${target.type !== 'vehicle' && cons.conditions.length ? `<p class="smoke-dim">GM: choose one fitting condition if the fiction warrants it.</p>${[...new Set([...cons.conditions,...cons.breakthrough])].map(c => `<button type="button" data-smoke-condition="${esc(targetToken.uuid)}" data-condition="${esc(c)}">${esc(c)}</button>`).join('')}` : ''}
+    ${weapon?.system?.crime ? `<button type="button" class="gm" data-smoke-crime="${esc(actor.uuid)}" data-crime="${esc(target.system.role === 'police' ? 'assaultCop' : weapon.system.crime)}">Witnessed: add Heat</button>` : ''}
   </section>`;
-  await ChatMessage.implementation.create({speaker: ChatMessage.getSpeaker({actor}), content: html});
+  await ChatMessage.implementation.create({speaker: ChatMessage.getSpeaker({actor}), content: html,flags:{[NS]:{attack}}});
   return out;
 }
 
+async function remoteRoll(type, actor, data) {
+  const token=actor.token??canvas?.scene?.tokens.find(t=>t.actorId===actor.id);
+  data.options={...data.options,sceneId:token?.parent.id??canvas?.scene?.id,tokenId:token?.id};
+  const response = await request(type, {actorUuid:actor.uuid, ...data});
+  return response ? {result:response.result, message:game.messages.get(response.messageId) ?? {id:response.messageId}, roll:null} : null;
+}
+async function authorizedActor(actorUuid, userId) {
+  const doc = await fromUuid(actorUuid), actor = doc?.actor ?? doc, user = game.users.get(userId);
+  if (!actor?.isPerson || !user || (!user.isGM && !actor.testUserPermission(user, 'OWNER'))) throw new Error('Roll from your own character.');
+  return actor;
+}
+const rollReply = out => out ? {messageId:out.message.id, result:out.result} : null;
+registerHandler('dice.stat', async ({actorUuid, stat, options={}, userId}) => {
+  const actor = await authorizedActor(actorUuid,userId);
+  return rollReply(await rollStat(actor,stat,{...options,requestedBy:userId}));
+});
+registerHandler('dice.attack', async ({actorUuid, weaponId, targetUuid, options={}, userId}) => {
+  const actor = await authorizedActor(actorUuid,userId), weapon = weaponId ? actor.items.get(weaponId) : null;
+  if (weaponId && weapon?.type !== 'weapon') throw new Error('Weapon not found on this character.');
+  const target = targetUuid ? await fromUuid(targetUuid) : null;
+  return rollReply(await rollAttack(actor,weapon,target,{...options,requestedBy:userId}));
+});
+
 /** Roll dialog: band or TN, Hustle, Perk, modifier. Returns the rollStat promise or null. */
 export async function rollDialog(actor, stat, defaults = {}) {
-  const perks = actor.items.filter(i => i.type === 'perk');
+  const perks = actor.items.filter(i => i.type === 'perk'&&(!i.system.stat||i.system.stat===stat));
   const hustle = Number(actor.system.resources?.hustle?.value ?? 0);
-  const content = `<div class="smoke-roll-dialog">
-    <label>Difficulty <select name="band"><option value="">— no target —</option>${Object.entries(BAND_LABEL).map(([k, v]) => `<option value="${k}" ${defaults.band === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
-    <label>…or Target Number <input type="number" name="tn" value="${defaults.tn ?? ''}" placeholder="auto"></label>
-    <label>Modifier <input type="number" name="modifier" value="${defaults.modifier ?? 0}"></label>
+  const fixed=Boolean(defaults.context?.callId||defaults.fixedTarget);
+  const content = `<div class="the-smoke smoke-roll-dialog"><p>The target is set before Hustle and perks. Their bonuses improve your chances.</p>
+    <label>Difficulty <select name="band" ${fixed?'disabled':''}><option value="">— no target —</option>${Object.entries(BAND_LABEL).map(([k, v]) => `<option value="${k}" ${defaults.band === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label>
+    <label>…or Target Number <input type="number" name="tn" value="${esc(defaults.tn ?? '')}" placeholder="auto" ${fixed?'disabled':''}></label>
+    <label>Modifier <input type="number" name="modifier" value="${esc(defaults.modifier ?? 0)}"></label>
     <label>Hustle (${hustle} left) <select name="hustle"><option value="0">none</option><option value="1" ${hustle < 1 ? 'disabled' : ''}>1 — Effort die up a step</option><option value="2" ${hustle < 2 ? 'disabled' : ''}>2 — On a Roll</option></select></label>
     ${perks.length ? `<label>Perk <select name="perk"><option value="">none</option>${perks.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></label>` : ''}
   </div>`;
   const form = await foundry.applications.api.DialogV2.input({window: {title: `${actor.name}: ${STATS[stat].label}`}, content, ok: {label: 'Roll', icon: 'fa-solid fa-dice'}});
   if (!form) return null;
-  return rollStat(actor, stat, {...defaults, band: form.band || null, tn: form.tn === '' || form.tn == null ? null : Number(form.tn), modifier: Number(form.modifier || 0), hustle: Number(form.hustle || 0), perk: form.perk || null});
+  return rollStat(actor, stat, {...defaults, band: fixed?(defaults.band||null):(form.band||null), tn:fixed?(defaults.tn??null):(form.tn === '' || form.tn == null ? null : Number(form.tn)), modifier: Number(form.modifier || 0), hustle: Number(form.hustle || 0), perk: form.perk || null});
 }

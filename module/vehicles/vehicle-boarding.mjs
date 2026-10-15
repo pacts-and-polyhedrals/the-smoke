@@ -60,7 +60,8 @@ export function moveVehicle(vehicleToken,transform,{animate=true}={}){
 }
 
 function requireUserCanMove(user,token){
-  if(user?.isGM)return;
+  if(!user)throw new Error('Unknown user.');
+  if(user.isGM)return;
   if(!token?.actor?.testUserPermission?.(user,'OWNER'))throw new Error(`${user?.name||'That player'} does not control ${token?.name||'that token'}.`);
 }
 async function announce(vt,text){
@@ -80,7 +81,14 @@ function driverUsers(occupants,scene){
 }
 // Give the driver's players OWNER on the vehicle Actor so they can drag the token; remember
 // what each had before so leaving the seat restores it exactly.
-async function applyDriverControl(vt,occupants){
+export async function applyDriverControl(vt,occupants){
+  if(occupants.pilot && !vt.getFlag(NS,'dedicatedVehicle')){
+    const source=vt.actor?.toObject();
+    if(source){delete source._id;source.name=vt.name;source.ownership={default:0};
+      foundry.utils.setProperty(source,`flags.${NS}.streetLife`,false);foundry.utils.setProperty(source,`flags.${NS}.dedicatedFor`,vt.id);
+      const dedicated=await Actor.implementation.create(source);
+      await vt.update({actorId:dedicated.id,actorLink:false,[`flags.${NS}.dedicatedVehicle`]:true,[`flags.${NS}.${GRANT}`]:[]},{acVehicleCarry:true});}
+  }
   const base=vt.baseActor??game.actors.get(vt.actorId)??vt.actor;if(!base)return;
   const previous=grantsOf(vt);
   const wanted=controlMode(vt)==='ai'?[]:driverUsers(occupants,vt.parent).map(u=>u.id);
@@ -230,6 +238,7 @@ const HANDLERS={
     return (async()=>{
       const scene=game.scenes.get(sceneId),vt=scene?.tokens.get(vehicleTokenId);
       if(!vt||!isVehicleToken(vt))throw new Error('Vehicle token not found on this scene.');
+      if(!user.isGM&&vt.actor.system.vehicle.destroyed)throw new Error('This vehicle is written off.');
       const passengers=await reconcileOccupants(vt);
       if(!user.isGM){
         requireUserCanMove(user,vt);
@@ -476,7 +485,7 @@ function renderVehicleHUD(hud,html){
       // Always render this action. A non-GM player may have lost character
       // selection when they right-clicked the vehicle.
       col.append(hudButton('fa-solid fa-car-side','Board vehicle / choose seat',()=>openVehicleBoardDialog(doc)));
-      for(const a of extraActions(doc))col.append(hudButton(a.icon,a.title,a.fn));
+      for(const a of extraActions(doc))col.append(hudButton(a.icon,a.title,()=>a.fn(doc)));
       if(game.user.isGM)col.append(hudButton('fa-solid fa-users','Who is inside / control',()=>openVehicleControl(doc)));
       const occNow=occupantsOf(doc),riders=Object.keys(occNow).filter(k=>k!=='pilot').length;
       if(riders&&(game.user.isGM||doc.actor?.isOwner||doc.parent.tokens.get(occNow.pilot?.tokenId)?.actor?.isOwner))col.append(hudButton('fa-solid fa-people-arrows','Everyone out (the driver stays)',()=>exitAllFromVehicle(doc)));

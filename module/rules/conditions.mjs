@@ -22,7 +22,7 @@ export const CONDITION_EFFECTS = Object.freeze({
 export const CONDITION_LIBRARY = Object.freeze([
   {name: 'Bruised', category: 'physical', severity: 1, description: 'Knocked about. No effect on its own; two more Bruises make you Hurt.', removal: 'A rest or a night\'s kip.'},
   {name: 'Hurt', category: 'physical', severity: 2, description: '-1 to Muscle, Grit and Moves rolls.', removal: 'First aid (Savvy, Medium) or a night at the safehouse.'},
-  {name: 'Bleeding', category: 'physical', severity: 3, description: '-1 to Muscle and Moves. Lose 1 Health at the end of each round until patched up.', removal: 'First aid (Savvy, Medium), a paramedic or A&E.'},
+  {name: 'Bleeding', category: 'physical', severity: 3, description: '-1 to Muscle and Moves. Lose 1 Health at the start of your turn until patched up.', removal: 'First aid (Savvy, Medium), a paramedic or A&E.'},
   {name: 'In Pain', category: 'physical', severity: 3, description: 'Your Effort die does not explode.', removal: 'Painkillers, rest or A&E.'},
   {name: 'Broken', category: 'physical', severity: 3, description: 'Muscle and Moves are rolled Off Your Game (no exploding).', removal: 'A&E and a week.'},
   {name: 'Knackered', category: 'physical', severity: 2, description: 'Muscle, Grit and Moves are rolled Off Your Game.', removal: 'Sleep.'},
@@ -31,7 +31,7 @@ export const CONDITION_LIBRARY = Object.freeze([
   {name: 'Prone', category: 'physical', severity: 1, description: 'On the floor: -2 Guard.', removal: 'Get up (your move).'},
   {name: 'Down', category: 'physical', severity: 4, description: 'At 0 Health. You cannot act. Roll Grit (Stay Conscious) each round or be Wasted.', removal: 'First aid or a paramedic gets you back to 1 Health.'},
   {name: 'Shaken', category: 'head', severity: 1, description: '-1 to Bottle rolls.', removal: 'A breather somewhere safe.'},
-  {name: 'Bricking It', category: 'head', severity: 3, description: 'Terrified: -1 Front, and Bottle is Off Your Game.', removal: 'Keep Your Bottle (Bottle, Medium) or get away.'},
+  {name: 'Bricking It', category: 'head', severity: 3, description: 'Terrified: -1 to Front and Bottle; Bottle is also Off Your Game.', removal: 'Keep Your Bottle (Bottle, Medium) or get away.'},
   {name: 'Mullered', category: 'head', severity: 2, description: 'Drunk: -2 Wheels, -1 Aim and Savvy. Drink-driving is a crime if you are stopped.', removal: 'A kebab and four hours.'},
   {name: 'Gassed', category: 'head', severity: 2, description: 'CS spray or smoke: -2 Aim and Savvy.', removal: 'Fresh air and water: one round out of it.'},
   {name: 'Cuffed', category: 'physical', severity: 3, description: 'Hands cuffed: Muscle, Moves, Aim and Graft are Off Your Game; you cannot drive.', removal: 'A key, a Graft roll (Hard), or the custody suite.'}

@@ -1,6 +1,8 @@
 // Spawning and moving things in the open world: world Actors from the bundled catalogues, tokens on zones,
 // and relocation between maps (Wasted → A&E, Busted → custody).
 import {NS} from '../config.mjs';
+import {networkOf} from './roads.mjs';
+import {randomLane} from '../rules/roads.mjs';
 import {pick, pointIn, kerbside, drivable, zoneAtPoint, ukPlate} from '../rules/jobs-core.mjs';
 import {findOrImportScene, retarget, loadAtlas} from '../map/map-transit.mjs';
 
@@ -73,7 +75,10 @@ export function distanceSquares(a, b) { const g = a.parent?.grid?.size || 100; c
 export function zoneOfToken(t) { const [x, y] = tokenCentre(t); return zoneAtPoint(zonesOf(t.parent), x, y); }
 
 /** Lane placement on a road zone: the UK drives on the left. Returns {x, y, rotation, dir}. */
-export function lanePoint(zone, r = Math.random, dir = null) {
+export function lanePoint(zone, r = Math.random, dir = null, scene = null, kerb = false) {
+  const net = scene && networkOf(scene);
+  if(net?.edges.length){const p=randomLane(net,r,zone?.roads,{kerb});return {...p,dir:p.travelDir};}
+  if(!zone)throw new Error('No road to spawn on.');
   const [x, y, w, h] = zone.rect;
   if (zone.o === 'h' || (!zone.o && w >= h)) {
     dir = dir || (r() < .5 ? 'E' : 'W');
@@ -92,7 +97,6 @@ export async function relocate(token, mapId, {service = null, zoneId = null} = {
   const target = await findOrImportScene(mapId);
   const zones = zonesOf(target).length ? zonesOf(target) : ((await loadAtlas()).places.maps.concat((await loadAtlas()).atlas.maps).find(m => m.id === mapId)?.zones || []);
   let zone = zoneId ? zones.find(z => z.id === zoneId) : service ? zones.find(z => z.service === service) : null;
-  if (zone && !['land', 'park', 'room'].includes(zone.kind)) zone = zone;
   if (zone && ['land', 'park'].includes(zone.kind)) {   // stand on the pavement outside, not inside the block
     const road = zones.find(z => (z.kind === 'road' || z.kind === 'junction') && (zone.adjacent || []).includes(z.id)); if (road) zone = road;
   }

@@ -1,440 +1,1723 @@
 {
- "items": [
-  {
-   "name": "Fists",
-   "type": "weapon",
-   "img": "icons/svg/fist.svg",
-   "system": {
-    "stat": "mus",
-    "impact": 0,
-    "range": "Engaged",
-    "kind": "melee",
-    "crime": "assault",
-    "value": 0,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 0,
-     "max": 0
+  "items": [
+    {
+      "_id": "ea0497ccc82545c8",
+      "name": "Fists",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>A shove, a punch, a boot. Always available through the Unarmed button.</p>",
+        "stat": "mus",
+        "impact": 1,
+        "range": "Engaged",
+        "kind": "melee-fist",
+        "value": 0,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "fists"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Your own two hands.</p>"
-   }
-  },
-  {
-   "name": "Bike Chain",
-   "type": "weapon",
-   "img": "icons/svg/sword.svg",
-   "system": {
-    "stat": "mus",
-    "impact": 2,
-    "range": "Engaged",
-    "kind": "melee",
-    "crime": "assault",
-    "value": 5,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 0,
-     "max": 0
+    {
+      "_id": "49ac939f0dfe5018",
+      "name": "Cricket Bat",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>A sporting explanation becomes less convincing with every swing.</p>",
+        "stat": "mus",
+        "impact": 3,
+        "range": "Engaged",
+        "kind": "melee",
+        "value": 20,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": false,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "bat"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Swung from the hand. Doubles as a lock nobody trusts.</p>"
-   }
-  },
-  {
-   "name": "Cricket Bat",
-   "type": "weapon",
-   "img": "icons/svg/sword.svg",
-   "system": {
-    "stat": "mus",
-    "impact": 3,
-    "range": "Engaged",
-    "kind": "melee",
-    "crime": "assault",
-    "value": 25,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 0,
-     "max": 0
+    {
+      "_id": "5bdd9835b1660e5c",
+      "name": "Crowbar",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>A short, heavy lever. Also a perfectly respectable tool.</p>",
+        "stat": "mus",
+        "impact": 3,
+        "range": "Engaged",
+        "kind": "melee",
+        "value": 15,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "crowbar"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Willow. Kept in the car \"for the nets\".</p>"
-   }
-  },
-  {
-   "name": "Kitchen Knife",
-   "type": "weapon",
-   "img": "icons/svg/sword.svg",
-   "system": {
-    "stat": "mus",
-    "impact": 3,
-    "range": "Engaged",
-    "kind": "melee",
-    "crime": "assault",
-    "value": 8,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 0,
-     "max": 0
+    {
+      "_id": "2d39a7b6d7489f01",
+      "name": "Lock Knife",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Easy to hide. Drawing it changes what kind of night this is.</p>",
+        "stat": "mus",
+        "impact": 3,
+        "range": "Engaged",
+        "kind": "melee",
+        "value": 25,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "knife"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Carrying one is a crime on its own if you are searched.</p>"
-   }
-  },
-  {
-   "name": "Machete",
-   "type": "weapon",
-   "img": "icons/svg/sword.svg",
-   "system": {
-    "stat": "mus",
-    "impact": 4,
-    "range": "Engaged",
-    "kind": "melee",
-    "crime": "assault",
-    "value": 30,
-    "loud": false,
-    "concealable": false,
-    "ammo": {
-     "value": 0,
-     "max": 0
+    {
+      "_id": "6dc90a97b1fd3e8e",
+      "name": "Police Baton",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Issued equipment for police NPCs and duty scenarios.</p>",
+        "stat": "mus",
+        "impact": 3,
+        "range": "Engaged",
+        "kind": "melee",
+        "value": 60,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "baton"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Big, ugly, illegal. Draws attention the moment it comes out.</p>"
-   }
-  },
-  {
-   "name": "Converted Pistol",
-   "type": "weapon",
-   "img": "icons/svg/target.svg",
-   "system": {
-    "stat": "aim",
-    "impact": 4,
-    "range": "Near",
-    "kind": "firearm",
-    "crime": "shooting",
-    "value": 900,
-    "loud": true,
-    "concealable": true,
-    "ammo": {
-     "value": 8,
-     "max": 8
+    {
+      "_id": "d0cf6b41e01cee09",
+      "name": "Broken Bottle",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Improvised glass. Discard it after the scene.</p>",
+        "stat": "mus",
+        "impact": 2,
+        "range": "Engaged",
+        "kind": "melee",
+        "value": 0,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "bottle"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>A blank-firer drilled out in a garage in Leyton. Jams on a Proper Mess.</p>"
-   }
-  },
-  {
-   "name": "Sawn-off Shotgun",
-   "type": "weapon",
-   "img": "icons/svg/target.svg",
-   "system": {
-    "stat": "aim",
-    "impact": 6,
-    "range": "Engaged",
-    "kind": "firearm",
-    "crime": "shooting",
-    "value": 1500,
-    "loud": true,
-    "concealable": false,
-    "ammo": {
-     "value": 2,
-     "max": 2
+    {
+      "_id": "e9f9898e1494efae",
+      "name": "Compact Pistol",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Rare, illegal and loud. Firing it is a serious escalation; witnessed shots add two Heat.</p>",
+        "stat": "aim",
+        "impact": 4,
+        "range": "Far",
+        "kind": "firearm",
+        "value": 900,
+        "ammo": {
+          "value": 8,
+          "max": 8
+        },
+        "loud": true,
+        "concealable": true,
+        "crime": "shooting",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "pistol"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Two barrels, short range, very loud.</p>"
-   }
-  },
-  {
-   "name": "Taser",
-   "type": "weapon",
-   "img": "icons/svg/lightning.svg",
-   "system": {
-    "stat": "aim",
-    "impact": 1,
-    "range": "Near",
-    "kind": "firearm",
-    "crime": "assault",
-    "value": 0,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 2,
-     "max": 2
+    {
+      "_id": "9d24a5bed0ab7175",
+      "name": "Sawn-Off Shotgun",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Brutal at close range. Two shots before reloading.</p>",
+        "stat": "aim",
+        "impact": 6,
+        "range": "Near",
+        "kind": "firearm",
+        "value": 1200,
+        "ammo": {
+          "value": 2,
+          "max": 2
+        },
+        "loud": true,
+        "concealable": false,
+        "crime": "shooting",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "shotgun"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Police issue. A hit also inflicts Stunned.</p>"
-   }
-  },
-  {
-   "name": "CS Spray",
-   "type": "weapon",
-   "img": "icons/svg/poison.svg",
-   "system": {
-    "stat": "aim",
-    "impact": 0,
-    "range": "Engaged",
-    "kind": "spray",
-    "crime": "assault",
-    "value": 0,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 3,
-     "max": 3
+    {
+      "_id": "4fb4a61fdf1315c2",
+      "name": "ARV Carbine",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Armed response equipment. The GM controls its availability.</p>",
+        "stat": "aim",
+        "impact": 5,
+        "range": "Distant",
+        "kind": "firearm",
+        "value": 2200,
+        "ammo": {
+          "value": 30,
+          "max": 30
+        },
+        "loud": true,
+        "concealable": false,
+        "crime": "shooting",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "carbine"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Police issue. A hit inflicts Gassed.</p>"
-   }
-  },
-  {
-   "name": "Extendable Baton",
-   "type": "weapon",
-   "img": "icons/svg/sword.svg",
-   "system": {
-    "stat": "mus",
-    "impact": 2,
-    "range": "Engaged",
-    "kind": "melee",
-    "crime": "assault",
-    "value": 0,
-    "loud": false,
-    "concealable": true,
-    "ammo": {
-     "value": 0,
-     "max": 0
+    {
+      "_id": "eec12274d056fd78",
+      "name": "Conducted-Energy Device",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>Police scenario equipment. On a hit the GM may choose Stunned or Restrained from the condition catalogue.</p>",
+        "stat": "aim",
+        "impact": 2,
+        "range": "Near",
+        "kind": "less-lethal",
+        "value": 500,
+        "ammo": {
+          "value": 2,
+          "max": 2
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "taser"
+        }
+      }
     },
-    "equipped": true,
-    "description": "<p>Police issue.</p>"
-   }
-  },
-  {
-   "name": "Bolt Cutters",
-   "type": "gear",
-   "img": "icons/svg/padlock.svg",
-   "system": {
-    "description": "<p>Cut cable locks and cheap D-locks: bike locks are one band easier.</p>",
-    "value": 35,
-    "tool": "bolt cutters",
-    "stat": "grf"
-   }
-  },
-  {
-   "name": "Angle Grinder",
-   "type": "gear",
-   "img": "icons/svg/sun.svg",
-   "system": {
-    "description": "<p>Through any bike lock in seconds: two bands easier. Shrieks \u2014 anyone near notices.</p>",
-    "value": 120,
-    "tool": "angle grinder",
-    "stat": "grf"
-   }
-  },
-  {
-   "name": "Relay Box",
-   "type": "gear",
-   "img": "icons/svg/radiation.svg",
-   "system": {
-    "description": "<p>Clones keyless-entry fobs from the doorstep: car locks two bands easier, silently.</p>",
-    "value": 400,
-    "tool": "relay box",
-    "stat": "grf"
-   }
-  },
-  {
-   "name": "Slim Jim",
-   "type": "gear",
-   "img": "icons/svg/padlock.svg",
-   "system": {
-    "description": "<p>Old-school door opener: older cars one band easier.</p>",
-    "value": 15,
-    "tool": "slim jim",
-    "stat": "grf"
-   }
-  },
-  {
-   "name": "Screwdriver Set",
-   "type": "gear",
-   "img": "icons/svg/item-bag.svg",
-   "system": {
-    "description": "<p>For the ignition barrel. No easier, but you can try.</p>",
-    "value": 10,
-    "tool": "screwdriver",
-    "stat": "grf"
-   }
-  },
-  {
-   "name": "Burner Phone",
-   "type": "gear",
-   "img": "icons/svg/item-bag.svg",
-   "system": {
-    "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
-    "value": 20,
-    "tool": "",
-    "stat": ""
-   }
-  },
-  {
-   "name": "Balaclava",
-   "type": "gear",
-   "img": "icons/svg/item-bag.svg",
-   "system": {
-    "description": "<p>Hides your face. Witnesses can't describe you: a witnessed crime adds 1 less Heat (minimum 0) while you wear it \u2014 but wearing one in daylight is a look.</p>",
-    "value": 8,
-    "tool": "",
-    "stat": ""
-   }
-  },
-  {
-   "name": "First Aid Kit",
-   "type": "gear",
-   "img": "icons/svg/heal.svg",
-   "system": {
-    "description": "<p>Patch Up (Savvy, Medium) removes Bleeding or Hurt.</p>",
-    "value": 15,
-    "tool": "",
-    "stat": "sav"
-   }
-  },
-  {
-   "name": "Spray Paint",
-   "type": "gear",
-   "img": "icons/svg/item-bag.svg",
-   "system": {
-    "description": "<p>Tag a wall, or cover a stolen bike's frame so it is not recognised.</p>",
-    "value": 5,
-    "tool": "",
-    "stat": ""
-   }
-  },
-  {
-   "name": "Oyster Card",
-   "type": "gear",
-   "img": "icons/svg/item-bag.svg",
-   "system": {
-    "description": "<p>Topped up. Get on a bus without paying cash.</p>",
-    "value": 10,
-    "tool": "",
-    "stat": ""
-   }
-  },
-  {
-   "name": "Puffer Jacket",
-   "type": "armour",
-   "img": "icons/svg/shield.svg",
-   "system": {
-    "guard": 0,
-    "reduction": 1,
-    "value": 90,
-    "equipped": true,
-    "description": "<p>Thick enough to take the edge off a punch.</p>"
-   }
-  },
-  {
-   "name": "Stab Vest",
-   "type": "armour",
-   "img": "icons/svg/shield.svg",
-   "system": {
-    "guard": 1,
-    "reduction": 2,
-    "value": 250,
-    "equipped": true,
-    "description": "<p>Covert vest under a hoodie. Police wear the hi-vis version.</p>"
-   }
-  },
-  {
-   "name": "Police Body Armour",
-   "type": "armour",
-   "img": "icons/svg/shield.svg",
-   "system": {
-    "guard": 2,
-    "reduction": 3,
-    "value": 0,
-    "equipped": true,
-    "description": "<p>Met-pattern body armour.</p>"
-   }
-  },
-  {
-   "name": "Bike Thief",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "grf",
-    "when": "Cutting a lock or hotwiring",
-    "description": "<p>You know every lock on the market. Graft steps up one die when you nick a bicycle or scooter.</p>"
-   }
-  },
-  {
-   "name": "Getaway Driver",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "whl",
-    "when": "Losing a pursuer",
-    "description": "<p>Wheels steps up one die in a chase while you are the one being chased.</p>"
-   }
-  },
-  {
-   "name": "Local Knowledge",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "sav",
-    "when": "Finding a way, a shortcut or a person in Hackney",
-    "description": "<p>Savvy steps up one die anywhere on the Hackney maps.</p>"
-   }
-  },
-  {
-   "name": "Silver Tongue",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "frt",
-    "when": "Talking to the police",
-    "description": "<p>Front steps up one die when talking your way out of a stop or an arrest.</p>"
-   }
-  },
-  {
-   "name": "Parkour",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "mov",
-    "when": "Climbing, vaulting, leg it on foot",
-    "description": "<p>Moves steps up one die when running from someone or going over walls.</p>"
-   }
-  },
-  {
-   "name": "Brawler",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "mus",
-    "when": "Fighting hand to hand",
-    "description": "<p>Muscle steps up one die in a punch-up with no weapons.</p>"
-   }
-  },
-  {
-   "name": "Cabbie",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "whl",
-    "when": "Driving a taxi",
-    "description": "<p>You did The Knowledge. Wheels steps up one die on taxi jobs, and fares tip more.</p>"
-   }
-  },
-  {
-   "name": "Medic",
-   "type": "perk",
-   "img": "icons/svg/upgrade.svg",
-   "system": {
-    "stat": "sav",
-    "when": "First aid and treating patients",
-    "description": "<p>Savvy steps up one die for first aid and paramedic jobs.</p>"
-   }
-  }
- ]
+    {
+      "_id": "76e701db1a71069b",
+      "name": "CS Spray",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>On a successful close-range spray, the GM may apply Gassed instead of a wound condition.</p>",
+        "stat": "aim",
+        "impact": 1,
+        "range": "Near",
+        "kind": "less-lethal",
+        "value": 80,
+        "ammo": {
+          "value": 4,
+          "max": 4
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "spray"
+        }
+      }
+    },
+    {
+      "_id": "3e09be6cfb14b2ba",
+      "name": "Thrown Brick",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "description": "<p>One improvised throw. Remove it from your kit after use.</p>",
+        "stat": "aim",
+        "impact": 2,
+        "range": "Near",
+        "kind": "thrown",
+        "value": 0,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "loud": false,
+        "concealable": true,
+        "crime": "assault",
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "brick"
+        }
+      }
+    },
+    {
+      "_id": "d01ee724393a611d",
+      "name": "Motorbike Leathers",
+      "type": "armour",
+      "img": "systems/the-smoke/assets/ui/armour.svg",
+      "system": {
+        "description": "<p>Road rash protection and a little padding. Wear one armour item at a time.</p>",
+        "guard": 1,
+        "reduction": 1,
+        "value": 160,
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "leathers"
+        }
+      }
+    },
+    {
+      "_id": "cb27e9659b2c9911",
+      "name": "Stab Vest",
+      "type": "armour",
+      "img": "systems/the-smoke/assets/ui/armour.svg",
+      "system": {
+        "description": "<p>Concealable protection. Adds Guard and reduces incoming damage.</p>",
+        "guard": 1,
+        "reduction": 2,
+        "value": 280,
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "stab-vest"
+        }
+      }
+    },
+    {
+      "_id": "e19abebf8cfc2b1b",
+      "name": "Ballistic Vest",
+      "type": "armour",
+      "img": "systems/the-smoke/assets/ui/armour.svg",
+      "system": {
+        "description": "<p>Issued to armed units; conspicuous on the street.</p>",
+        "guard": 2,
+        "reduction": 3,
+        "value": 700,
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "ballistic-vest"
+        }
+      }
+    },
+    {
+      "_id": "335221e8dddcd562",
+      "name": "Heavy Work Jacket",
+      "type": "armour",
+      "img": "systems/the-smoke/assets/ui/armour.svg",
+      "system": {
+        "description": "<p>A thick work coat. Better than a T-shirt when trouble starts.</p>",
+        "guard": 0,
+        "reduction": 1,
+        "value": 45,
+        "equipped": true
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "work-jacket"
+        }
+      }
+    },
+    {
+      "_id": "bbe2893c25dd4c77",
+      "name": "Bolt Cutters",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Cuts a bicycle lock: lock difficulty one band easier. Quiet enough for a careful approach.</p>",
+        "value": 35,
+        "tool": "bolt cutters",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "bolt-cutters"
+        }
+      }
+    },
+    {
+      "_id": "9cd9a2c795a34651",
+      "name": "Cordless Angle Grinder",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Makes a lock two bands easier. Loud: a merely Sorted result can attract witnesses.</p>",
+        "value": 90,
+        "tool": "angle grinder",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "angle-grinder"
+        }
+      }
+    },
+    {
+      "_id": "92b2a2226bed5386",
+      "name": "Relay Box",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>A fictional vehicle-theft gadget: two bands easier on compatible motor locks. The GM can rule incompatible vehicles out.</p>",
+        "value": 450,
+        "tool": "relay box",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "relay-box"
+        }
+      }
+    },
+    {
+      "_id": "7ad4919f65e5f7e4",
+      "name": "Slim Jim",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Makes a motor lock one band easier. The subsequent roll abstracts getting the engine running.</p>",
+        "value": 25,
+        "tool": "slim jim",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "slim-jim"
+        }
+      }
+    },
+    {
+      "_id": "031f5ed0b4da74a3",
+      "name": "Screwdriver",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>An improvised tool. No automatic difficulty reduction.</p>",
+        "value": 5,
+        "tool": "screwdriver",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "screwdriver"
+        }
+      }
+    },
+    {
+      "_id": "540de69d9d2e5090",
+      "name": "First Aid Kit",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Dressings, gloves and basic supplies. Use First aid to treat an adjacent person; restock after a scene of repeated treatment.</p>",
+        "value": 25,
+        "tool": "",
+        "stat": "sav",
+        "uses": "Consumable supplies",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "first-aid"
+        }
+      }
+    },
+    {
+      "_id": "4776bf1ea7be6b86",
+      "name": "Paramedic Bag",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>A proper duty bag, including the kit needed for the patient minigame. No substitute for reaching A&E.</p>",
+        "value": 90,
+        "tool": "",
+        "stat": "sav",
+        "uses": "Duty equipment",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "med-bag"
+        }
+      }
+    },
+    {
+      "_id": "b3b84257adaa79cc",
+      "name": "Firefighter Kit",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Helmet, gloves and protective clothing for the fire minigame. Do not model real emergency procedures from these game rules.</p>",
+        "value": 180,
+        "tool": "",
+        "stat": "",
+        "uses": "Duty equipment",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "fire-kit"
+        }
+      }
+    },
+    {
+      "_id": "bd9e3a6cb63d549e",
+      "name": "Cheap Smartphone",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Your Blower. Messages, maps, shifts and Auntie Pat. No battery bookkeeping.</p>",
+        "value": 30,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "phone"
+        }
+      }
+    },
+    {
+      "_id": "af56dc500e344721",
+      "name": "Service Radio",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>A dispatch radio for service shifts; calls also appear in the Blower.</p>",
+        "value": 80,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "radio"
+        }
+      }
+    },
+    {
+      "_id": "de59b545de4a5304",
+      "name": "D-Lock",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>A bike lock and a plausible reason to be crouching beside a bicycle.</p>",
+        "value": 35,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "lock"
+        }
+      }
+    },
+    {
+      "_id": "8a806170e261c5e1",
+      "name": "Hi-Vis Vest",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Sometimes the most convincing disguise in London. Circumstantial benefits are agreed with the GM.</p>",
+        "value": 8,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "hi-vis"
+        }
+      }
+    },
+    {
+      "_id": "971a7f07b1b3a909",
+      "name": "Cycle Helmet",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Practical protection. Does not stack another mechanical armour bonus.</p>",
+        "value": 25,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "helmet"
+        }
+      }
+    },
+    {
+      "_id": "9fda4638bc491f62",
+      "name": "Courier Backpack",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Big, waterproof, covered in reflective tape.</p>",
+        "value": 35,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "bag"
+        }
+      }
+    },
+    {
+      "_id": "f415921c1eb55d10",
+      "name": "Handcuffs",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Apply Cuffed after a successful arrest or fictional restraint. The condition prevents driving.</p>",
+        "value": 45,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "handcuffs"
+        }
+      }
+    },
+    {
+      "_id": "4aeb1721281f49f5",
+      "name": "Painkillers",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Use one dose and, with GM agreement, remove In Pain. This is an abstract game effect.</p>",
+        "value": 5,
+        "tool": "",
+        "stat": "",
+        "uses": "One dose",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "painkillers"
+        }
+      }
+    },
+    {
+      "_id": "6d913ac0be22411c",
+      "name": "Vehicle Repair Kit",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>A Graft check can repair 2 Body with a safe location, time and parts; the GM adjudicates major wrecks.</p>",
+        "value": 65,
+        "tool": "",
+        "stat": "grf",
+        "uses": "Workshop access",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "repair-kit"
+        }
+      }
+    },
+    {
+      "_id": "7660e552e54f858e",
+      "name": "Spare Clothes",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Change your description at a market. Use the local service in the Blower.</p>",
+        "value": 25,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "spare-clothes"
+        }
+      }
+    },
+    {
+      "_id": "de2860fceb511a86",
+      "name": "Pocket Torch",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>A beam under the arches and into the back of the wrong van.</p>",
+        "value": 10,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "torch"
+        }
+      }
+    },
+    {
+      "_id": "72b3b430104066f8",
+      "name": "Fictional Show Plates",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Story prop. A respray service abstracts the mechanical marker reset; no real evasion procedure is described.</p>",
+        "value": 60,
+        "tool": "",
+        "stat": "",
+        "uses": "",
+        "bonus": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "plate-set"
+        }
+      }
+    },
+    {
+      "_id": "ce62d967997ddb4e",
+      "name": "Bike Messenger",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "whl",
+        "when": "Threading a bicycle through traffic, alleys or towpaths.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "bike-messenger"
+        }
+      }
+    },
+    {
+      "_id": "223e2ef61e110bc3",
+      "name": "Grease Monkey",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "grf",
+        "when": "Repairing, diagnosing or coaxing a battered engine.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "grease-monkey"
+        }
+      }
+    },
+    {
+      "_id": "a0ce4d13a159aecb",
+      "name": "Silver Tongue",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "frt",
+        "when": "Selling a plausible lie to someone who wants to believe it.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "silver-tongue"
+        }
+      }
+    },
+    {
+      "_id": "782ed1501c3c10af",
+      "name": "Hard to Shift",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "grt",
+        "when": "Remaining on your feet against fatigue or physical pressure.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "hard-to-shift"
+        }
+      }
+    },
+    {
+      "_id": "ea66d2421faa92ce",
+      "name": "Estate Runner",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "mov",
+        "when": "Escaping through stairs, fences and familiar estates.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "estate-runner"
+        }
+      }
+    },
+    {
+      "_id": "96f1354208d45bdd",
+      "name": "Locksmith",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "grf",
+        "when": "Opening an ordinary lock with appropriate tools.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "locksmith"
+        }
+      }
+    },
+    {
+      "_id": "2cc9ee810d223fe8",
+      "name": "Street Reader",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "sav",
+        "when": "Reading a street for a tail, a trap or an easy exit.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "street-reader"
+        }
+      }
+    },
+    {
+      "_id": "2c233e345943c4b4",
+      "name": "Steady Hands",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "aim",
+        "when": "Taking a deliberate shot from a stationary position.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "steady-hands"
+        }
+      }
+    },
+    {
+      "_id": "f73d953c797d8c86",
+      "name": "Stare Them Down",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "btl",
+        "when": "Holding your nerve when someone is trying to frighten you.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "stare-down"
+        }
+      }
+    },
+    {
+      "_id": "428979106e4db4f5",
+      "name": "Door Staff",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "mus",
+        "when": "Controlling a grapple or moving someone through a doorway.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "bouncer"
+        }
+      }
+    },
+    {
+      "_id": "27d44994e7910aeb",
+      "name": "First Responder",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "sav",
+        "when": "Assessing or treating an injured person under pressure.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "first-responder"
+        }
+      }
+    },
+    {
+      "_id": "38b16fc73520540d",
+      "name": "The Knowledge",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "sav",
+        "when": "Finding an unfamiliar route through North or East London.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "taxi-knowledge"
+        }
+      }
+    },
+    {
+      "_id": "e9e47f6a1e2c44b7",
+      "name": "Local Face",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "frt",
+        "when": "Talking to people from the ends who recognise you.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "local-face"
+        }
+      }
+    },
+    {
+      "_id": "30c162a1a9fa88c7",
+      "name": "Rally Driver",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "whl",
+        "when": "Keeping control on loose ground or in poor weather.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "rally-driver"
+        }
+      }
+    },
+    {
+      "_id": "9be2d41390a6cdce",
+      "name": "Crowd Work",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "frt",
+        "when": "Turning a watching crowd into an advantage.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "crowd-work"
+        }
+      }
+    },
+    {
+      "_id": "db22b3c0f3cb371a",
+      "name": "Iron Stomach",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "grt",
+        "when": "Holding steady through discomfort, sickness or a long shift.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "iron-stomach"
+        }
+      }
+    },
+    {
+      "_id": "aa9277b647400f81",
+      "name": "Quiet Feet",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "mov",
+        "when": "Crossing an observed space without drawing attention.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "quiet-feet"
+        }
+      }
+    },
+    {
+      "_id": "ce6d36db036a9881",
+      "name": "Dead Calm",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+        "stat": "btl",
+        "when": "Keeping your head when alarms or blue lights start.",
+        "hustleCost": 0
+      },
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "dead-calm"
+        }
+      }
+    },
+    {
+      "name": "Bike Chain",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "stat": "mus",
+        "impact": 2,
+        "range": "Engaged",
+        "kind": "melee",
+        "crime": "assault",
+        "value": 5,
+        "loud": false,
+        "concealable": true,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "equipped": true,
+        "description": "<p>Swung from the hand. Doubles as a lock nobody trusts.</p>"
+      },
+      "_id": "6ab8dbcec1889fac",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-225bc487340b0e23"
+        }
+      }
+    },
+    {
+      "name": "Kitchen Knife",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "stat": "mus",
+        "impact": 3,
+        "range": "Engaged",
+        "kind": "melee",
+        "crime": "assault",
+        "value": 8,
+        "loud": false,
+        "concealable": true,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "equipped": true,
+        "description": "<p>Carrying one is a crime on its own if you are searched.</p>"
+      },
+      "_id": "daba2bc59308be39",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-1c536b47fc6262b0"
+        }
+      }
+    },
+    {
+      "name": "Machete",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "stat": "mus",
+        "impact": 4,
+        "range": "Engaged",
+        "kind": "melee",
+        "crime": "assault",
+        "value": 30,
+        "loud": false,
+        "concealable": false,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "equipped": true,
+        "description": "<p>Big, ugly, illegal. Draws attention the moment it comes out.</p>"
+      },
+      "_id": "5daa228263de2bc0",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-2c181f17d84e8ca1"
+        }
+      }
+    },
+    {
+      "name": "Converted Pistol",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "stat": "aim",
+        "impact": 4,
+        "range": "Near",
+        "kind": "firearm",
+        "crime": "shooting",
+        "value": 900,
+        "loud": true,
+        "concealable": true,
+        "ammo": {
+          "value": 8,
+          "max": 8
+        },
+        "equipped": true,
+        "description": "<p>A blank-firer drilled out in a garage in Leyton. Jams on a Proper Mess.</p>"
+      },
+      "_id": "1b21a701385886c9",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-6b0ca454a3edc232"
+        }
+      }
+    },
+    {
+      "name": "Taser",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "stat": "aim",
+        "impact": 1,
+        "range": "Near",
+        "kind": "firearm",
+        "crime": "assault",
+        "value": 0,
+        "loud": false,
+        "concealable": true,
+        "ammo": {
+          "value": 2,
+          "max": 2
+        },
+        "equipped": true,
+        "description": "<p>Police issue. A hit also inflicts Stunned.</p>"
+      },
+      "_id": "ab2c0bef2be70f21",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-70b458725cb2bb97"
+        }
+      }
+    },
+    {
+      "name": "Extendable Baton",
+      "type": "weapon",
+      "img": "systems/the-smoke/assets/ui/weapon.svg",
+      "system": {
+        "stat": "mus",
+        "impact": 2,
+        "range": "Engaged",
+        "kind": "melee",
+        "crime": "assault",
+        "value": 0,
+        "loud": false,
+        "concealable": true,
+        "ammo": {
+          "value": 0,
+          "max": 0
+        },
+        "equipped": true,
+        "description": "<p>Police issue.</p>"
+      },
+      "_id": "efa8133d60f947f7",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-b45558843f931650"
+        }
+      }
+    },
+    {
+      "name": "Angle Grinder",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Through any bike lock in seconds: two bands easier. Shrieks — anyone near notices.</p>",
+        "value": 120,
+        "tool": "angle grinder",
+        "stat": "grf"
+      },
+      "_id": "0718da0aef9659d7",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-e3659b2ff12604f7"
+        }
+      }
+    },
+    {
+      "name": "Screwdriver Set",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>For the ignition barrel. No easier, but you can try.</p>",
+        "value": 10,
+        "tool": "screwdriver",
+        "stat": "grf"
+      },
+      "_id": "64288102dea92327",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-8c2c8b4f3f67f997"
+        }
+      }
+    },
+    {
+      "name": "Burner Phone",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
+        "value": 20,
+        "tool": "",
+        "stat": ""
+      },
+      "_id": "4c02b6d704bce96b",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-bc3b5c50d15ab525"
+        }
+      }
+    },
+    {
+      "name": "Balaclava",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Hides your face. Witnesses can't describe you: a witnessed crime adds 1 less Heat (minimum 0) while you wear it — but wearing one in daylight is a look.</p>",
+        "value": 8,
+        "tool": "",
+        "stat": ""
+      },
+      "_id": "c8aa3b0ea332af34",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-f1aafa9c29032f09"
+        }
+      }
+    },
+    {
+      "name": "Spray Paint",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Tag a wall, or cover a stolen bike's frame so it is not recognised.</p>",
+        "value": 5,
+        "tool": "",
+        "stat": ""
+      },
+      "_id": "812e324c9d265749",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-9c4106ab1ee3b90c"
+        }
+      }
+    },
+    {
+      "name": "Oyster Card",
+      "type": "gear",
+      "img": "systems/the-smoke/assets/ui/gear.svg",
+      "system": {
+        "description": "<p>Topped up. Get on a bus without paying cash.</p>",
+        "value": 10,
+        "tool": "",
+        "stat": ""
+      },
+      "_id": "2b911d7c3f3019f1",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-5292b29a5e146966"
+        }
+      }
+    },
+    {
+      "name": "Puffer Jacket",
+      "type": "armour",
+      "img": "systems/the-smoke/assets/ui/armour.svg",
+      "system": {
+        "guard": 0,
+        "reduction": 1,
+        "value": 90,
+        "equipped": true,
+        "description": "<p>Thick enough to take the edge off a punch.</p>"
+      },
+      "_id": "c6e5426e3f099c38",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-92de26151f4b5a4a"
+        }
+      }
+    },
+    {
+      "name": "Police Body Armour",
+      "type": "armour",
+      "img": "systems/the-smoke/assets/ui/armour.svg",
+      "system": {
+        "guard": 2,
+        "reduction": 3,
+        "value": 0,
+        "equipped": true,
+        "description": "<p>Met-pattern body armour.</p>"
+      },
+      "_id": "ff03cf77bae012f3",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-62666945d2969c05"
+        }
+      }
+    },
+    {
+      "name": "Bike Thief",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "grf",
+        "when": "Cutting a lock or hotwiring",
+        "description": "<p>You know every lock on the market. Graft steps up one die when you nick a bicycle or scooter.</p>"
+      },
+      "_id": "4df636f1c76bbcd6",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-b2d77a63aab738b0"
+        }
+      }
+    },
+    {
+      "name": "Getaway Driver",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "whl",
+        "when": "Losing a pursuer",
+        "description": "<p>Wheels steps up one die in a chase while you are the one being chased.</p>"
+      },
+      "_id": "45bf5e3b15fdb1e0",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-b38a0be879140a25"
+        }
+      }
+    },
+    {
+      "name": "Local Knowledge",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "sav",
+        "when": "Finding a way, a shortcut or a person in Hackney",
+        "description": "<p>Savvy steps up one die anywhere on the Hackney maps.</p>"
+      },
+      "_id": "ba88fa702c5df9cb",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-6a3fb839454d4bf3"
+        }
+      }
+    },
+    {
+      "name": "Parkour",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "mov",
+        "when": "Climbing, vaulting, leg it on foot",
+        "description": "<p>Moves steps up one die when running from someone or going over walls.</p>"
+      },
+      "_id": "f39b7bc9f443f8c6",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-f4000721d148321a"
+        }
+      }
+    },
+    {
+      "name": "Brawler",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "mus",
+        "when": "Fighting hand to hand",
+        "description": "<p>Muscle steps up one die in a punch-up with no weapons.</p>"
+      },
+      "_id": "9c40fe5a8a07e553",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-b1f1d08e72f180ef"
+        }
+      }
+    },
+    {
+      "name": "Cabbie",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "whl",
+        "when": "Driving a taxi",
+        "description": "<p>You did The Knowledge. Wheels steps up one die on taxi jobs, and fares tip more.</p>"
+      },
+      "_id": "f9f835726f2fc417",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-642e09a8e51dfd99"
+        }
+      }
+    },
+    {
+      "name": "Medic",
+      "type": "perk",
+      "img": "systems/the-smoke/assets/ui/perk.svg",
+      "system": {
+        "stat": "sav",
+        "when": "First aid and treating patients",
+        "description": "<p>Savvy steps up one die for first aid and paramedic jobs.</p>"
+      },
+      "_id": "0f39a1549ef68bed",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "the-smoke": {
+          "contentKey": "v011-6492b3f93822416b"
+        }
+      }
+    }
+  ]
 }

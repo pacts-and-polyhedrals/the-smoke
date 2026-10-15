@@ -91,23 +91,93 @@ export function retarget(data, scene) {
   return data;
 }
 
-export async function findOrImportScene(id) {
-  let scene = game.scenes.find(s => mapOf(s)?.id === id); if (scene) return scene;
+/* ------------------------------------------------------------------ the Scenes sidebar: folders and order */
+// The overview sits at the top of "The Smoke — London Streets"; the 20 street maps follow in four folders, one per
+// row of the overview grid, north to south, each ordered west to east. Interiors go in "The Smoke — Places".
+export const STREET_FOLDER = 'The Smoke — London Streets';
+export const PLACE_FOLDER = 'The Smoke — Places';
+export const ROW_FOLDERS = Object.freeze(['North · Highbury to Leyton', 'Central · Canonbury to Olympic Park', 'Central South · De Beauvoir to Stratford', 'South · Hoxton to Bow']);
+const OURS = new Set([STREET_FOLDER, PLACE_FOLDER, ...ROW_FOLDERS]);
+const flagsOf = doc => doc?.flags?.[NS] || {};
+const mapIdOf = doc => { const f = flagsOf(doc); return f.streetAtlas?.id || f.place?.id || null; };
+
+async function sceneFolder(name, {parent = null, sort = 0} = {}) {
+  const parentId = parent?.id ?? null;
+  let folder = game.folders.find(f => f.type === 'Scene' && f.name === name && (f.folder?.id ?? null) === parentId);
+  if (!folder) folder = await Folder.implementation.create({name, type: 'Scene', color: '#ff8a3d', sorting: 'm', sort, folder: parentId});
+  else if (folder.sorting !== 'm') await folder.update({sorting: 'm'});
+  return folder;
+}
+/** The folder and sort order a London scene belongs at, from its flags. */
+export async function sceneHome(doc) {
+  const f = flagsOf(doc);
+  if (f.place) return {folder: (await sceneFolder(PLACE_FOLDER, {sort: 2000})).id, sort: (parseInt(String(f.place.code || '').replace(/\D/g, ''), 10) || 99) * 1000};
+  const root = await sceneFolder(STREET_FOLDER, {sort: 1000});
+  const a = f.streetAtlas || {}, row = Number(a.row), col = Number(a.col);
+  if (a.id === OVERVIEW_ID || !(row >= 0) || !(col >= 0)) return {folder: root.id, sort: 0};
+  const band = await sceneFolder(ROW_FOLDERS[row] ?? `Row ${row + 1}`, {parent: root, sort: (row + 1) * 1000});
+  return {folder: band.id, sort: (col + 1) * 1000};
+}
+async function createFromPack(docs) {
+  const data = [];
+  for (const doc of docs) {
+    const d = game.scenes.fromCompendium(doc, {clearFolder: false});
+    Object.assign(d, await sceneHome(doc)); foundry.utils.setProperty(d, `flags.${NS}.installSource`, doc.uuid);
+    data.push(d);
+  }
+  if (!data.length) return [];
+  const made = await getDocumentClass('Scene').createDocuments(data);
+  const {repairSceneBackground} = await import('./scene-repair.mjs');
+  for (const scene of made) { try { await repairSceneBackground(scene); } catch (_e) {} }
+  return made;
+}
+
+async function importSceneNow(id) {
+  const scene = game.scenes.find(s => mapOf(s)?.id === id); if (scene) return scene;
   for (const key of PACKS) {
     const pack = game.packs.get(key); if (!pack) continue;
-    const docs = await pack.getDocuments();
-    const doc = docs.find(d => { const f = d.flags?.[NS] || {}; return f.streetAtlas?.id === id || f.place?.id === id; });
-    if (!doc) continue;
-    const data = game.scenes.fromCompendium(doc, {clearFolder: false});
-    const folderName = key.endsWith('london-streets') ? 'The Smoke — London Streets' : 'The Smoke — Places';
-    let folder = game.folders.find(f => f.type === 'Scene' && f.name === folderName);
-    if (!folder) folder = await Folder.implementation.create({name: folderName, type: 'Scene', color: '#ff8a3d'});
-    data.folder = folder.id; foundry.utils.setProperty(data, `flags.${NS}.installSource`, doc.uuid);
-    [scene] = await getDocumentClass('Scene').createDocuments([data]);
-    try { const {repairSceneBackground} = await import('./scene-repair.mjs'); await repairSceneBackground(scene); } catch (_e) {}
-    return scene;
+    const doc = (await pack.getDocuments()).find(d => mapIdOf(d) === id);
+    if (doc) return (await createFromPack([doc]))[0];
   }
   throw new Error(`Map ${id} is not in the London compendiums.`);
+}
+
+/** Bring every London map (overview, 20 street maps, 4 interiors) into the world, and file the ones already there. */
+async function importAllMapsNow({notify = true} = {}) {
+  if (!game.user?.isGM) throw new Error('Only the GM can import maps.');
+  const have = new Map(game.scenes.filter(s => mapOf(s)?.id).map(s => [mapOf(s).id, s]));
+  let created = 0, filed = 0; const missingPacks = [];
+  for (const key of PACKS) {
+    const pack = game.packs.get(key); if (!pack) { missingPacks.push(key); continue; }
+    const docs = (await pack.getDocuments()).filter(d => mapIdOf(d));
+    const fresh = [];
+    for (const doc of docs) {
+      const existing = have.get(mapIdOf(doc));
+      if (!existing) { fresh.push(doc); continue; }
+      // Only re-file scenes still in our own folders (or loose); anything the GM moved elsewhere stays put.
+      if (existing.folder && !OURS.has(existing.folder.name)) continue;
+      const home = await sceneHome(doc);
+      if ((existing.folder?.id ?? null) !== home.folder || existing.sort !== home.sort) { await existing.update(home); filed++; }
+    }
+    created += (await createFromPack(fresh)).length;
+  }
+  if (missingPacks.length) ui.notifications.warn(`The Smoke: compendium missing: ${missingPacks.join(', ')}.`);
+  if (notify) ui.notifications.info(created ? `The Smoke: imported ${created} London map(s). Every map is now in the Scenes tab.` : 'The Smoke: every London map is already in the Scenes tab.');
+  return {created, filed};
+}
+
+const importing = new Map();
+export async function findOrImportScene(id) {
+  if (importing.has(id)) return importing.get(id);
+  const pending = importSceneNow(id); importing.set(id, pending);
+  try { return await pending; } finally { importing.delete(id); }
+}
+let importingAll = null;
+export function importAllMaps(options = {}) {
+ if (importingAll) return importingAll;
+ const pending = importAllMapsNow(options); importingAll = pending;
+ void pending.finally(() => { if (importingAll === pending) importingAll = null; }).catch(() => {});
+ return pending;
 }
 
 /* ------------------------------------------------------------------ GM handler */
@@ -145,11 +215,12 @@ async function walkIn(source, target, people, land, {vehicle = null} = {}) {
   const spots = formation(people.length, land, dims);
   const data = people.map((t, i) => { const d = retarget(t.toObject(), target); const o = occ.find(x => x.tokenId === t.id);
     if (o) { d.width = o.original?.width || 1; d.height = o.original?.height || 1; d.rotation = 0; }
-    foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, null); d.x = spots[i].x; d.y = spots[i].y; return d; });
+    foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, null); foundry.utils.setProperty(d,`flags.${NS}.transitAt`,Date.now()); d.x = spots[i].x; d.y = spots[i].y; return d; });
   const created = await target.createEmbeddedDocuments('Token', data, {acVehicleCarry: true, acTransit: true});
   const idMap = {}; people.forEach((t, i) => { idMap[t.id] = created[i].id; });
   await remapCombat(source, target, idMap);
   await source.deleteEmbeddedDocuments('Token', people.map(t => t.id), {acTransit: true});
+  await (await import('../world/jobs.mjs')).remapJobsForTransit({source,target,idMap});
   Hooks.callAll('smokeTransit', {source, target, idMap});
   return created;
 }
@@ -157,7 +228,7 @@ async function driveTo(source, target, vehicle, land) {
   try { const {reconcileOccupants} = await import('../vehicles/vehicle-boarding.mjs'); await reconcileOccupants(vehicle); } catch (_e) {}
   const list = occupantList(vehicle).filter(o => source.tokens.get(o.tokenId));
   const riders = list.map(o => ({o, t: source.tokens.get(o.tokenId)}));
-  const vData = retarget(vehicle.toObject(), target); vData.x = Math.round(land.x); vData.y = Math.round(land.y);
+  const vData = retarget(vehicle.toObject(), target); foundry.utils.setProperty(vData,`flags.${NS}.transitAt`,Date.now()); vData.x = Math.round(land.x); vData.y = Math.round(land.y);
   const [newToken] = await target.createEmbeddedDocuments('Token', [vData], {acVehicleCarry: true, acTransit: true});
   const idMap = {[vehicle.id]: newToken.id};
   if (riders.length) {
@@ -172,6 +243,7 @@ async function driveTo(source, target, vehicle, land) {
   } else if (occupantList(vehicle).length) await newToken.update({[`flags.${NS}.vehicleOccupants`]: []}, {acVehicleCarry: true});
   await remapCombat(source, target, idMap);
   await source.deleteEmbeddedDocuments('Token', [...riders.map(r => r.t.id), vehicle.id], {acTransit: true});
+  await (await import('../world/jobs.mjs')).remapJobsForTransit({source,target,idMap});
   Hooks.callAll('smokeTransit', {source, target, idMap});
   return {token: newToken, riders: riders.map(r => target.tokens.get(idMap[r.t.id])).filter(Boolean), riderNames: riders.map(r => r.t.name)};
 }
@@ -180,6 +252,8 @@ export async function transfer(source, token, link, opts = {}) {
   return serial ? serial(source.id, () => transferNow(source, token, link, opts)) : transferNow(source, token, link, opts);
 }
 async function transferNow(source, token, link, {user = game.user, companions = [], destination = null, quiet = false} = {}) {
+  const stamp = Number(token.getFlag(NS, 'transitAt') || 0);
+  if (Date.now() - stamp < 1200) return null;
   const target = await findOrImportScene(link.to);
   const dims = {width: target.width, height: target.height, gridSize: target.grid?.size || 100};
   const vehicle = token.actor?.type === 'vehicle' || occupantList(token).length ? token : null;
@@ -226,11 +300,13 @@ async function cross({sceneId, tokenId, userId, destination}) {
       if (!driver || !source.tokens.get(driver.tokenId)?.actor?.testUserPermission?.(user, 'OWNER')) throw new Error(`${user?.name || 'That player'} does not control ${token.name}.`);
     }
     link = linkAt(source, token); if (!link) throw new Error(`${token.name} is not at a map exit.`);
-    // Five stars: roadblocks on every exit (world/heat.mjs). The driver has to run it.
-    if (link.kind === 'edge' && token.actor?.type === 'vehicle') {
-      const pilot = occupantList(token).find(o => o.seatId === 'pilot'); const driver = pilot && source.tokens.get(pilot.tokenId)?.actor;
-      if (driver && game.smoke?.heat?.roadblockCheck) await game.smoke.heat.roadblockCheck(source, token, driver);
-    }
+  }
+  if (link.pedestrianOnly && token.actor?.type === 'vehicle' && !hasAbility(token.actor, 'nimble')) throw new Error('That exit is a footpath. Park and walk, or use a bicycle.');
+  if (link.kind === 'edge' && token.actor?.type === 'vehicle' && !hasAbility(token.actor, 'flying')) {
+    const pilot = occupantList(token).find(o => o.seatId === 'pilot');
+    const driver = pilot && source.tokens.get(pilot.tokenId)?.actor;
+    const {roadblockCheck} = await import('../world/heat.mjs');
+    await roadblockCheck(source, token, driver);
   }
   return transfer(source, token, link, {user, destination});
 }
@@ -279,7 +355,8 @@ export function installMapTransit() {
     const from = linkAt(doc.parent, doc); options.acFromLink = from ? linkId(from) : null;
   });
   Hooks.on('updateToken', (doc, changes, options, userId) => {
-    if (userId !== game.user.id || options?.acTransit || options?.acVehicleCarry || options?.smokeTraffic || !(('x' in changes) || ('y' in changes))) return;
+    if (userId !== game.user.id || options?.acTransit || options?.smokeTraffic || !(('x' in changes) || ('y' in changes))) return;
+    if (Date.now() - Number(doc.getFlag(NS,'transitAt') || 0) < 1200 || seatOf(doc)) return;
     const link = linkAt(doc.parent, doc); if (!link || link.kind === 'district') return;
     if (shouldAutoEnter(doc, link, options.acFromLink ?? null)) { crossToNextMap(doc).catch(error => ui.notifications.warn(error.message)); return; }
     if (options.acFromLink !== linkId(link)) ui.notifications.info(`${doc.name} is at the way to ${link.toName}. Right-click → Go to ${link.toName}.`);

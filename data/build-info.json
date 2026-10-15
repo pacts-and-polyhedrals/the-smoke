@@ -1,0 +1,38 @@
+{
+  "version": "0.1.2",
+  "base": "the-smoke-v0.1.1.zip",
+  "packs": {
+    "london-streets": {
+      "documents": 21,
+      "embedded": 21
+    },
+    "london-places": {
+      "documents": 4,
+      "embedded": 4
+    },
+    "london-vehicles": {
+      "documents": 29,
+      "embedded": 0
+    },
+    "london-people": {
+      "documents": 39,
+      "embedded": 14
+    },
+    "pregens": {
+      "documents": 4,
+      "embedded": 18
+    },
+    "london-items": {
+      "documents": 75,
+      "embedded": 0
+    },
+    "conditions": {
+      "documents": 15,
+      "embedded": 0
+    },
+    "guides": {
+      "documents": 8,
+      "embedded": 45
+    }
+  }
+}

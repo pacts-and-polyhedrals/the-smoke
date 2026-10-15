@@ -1,2345 +1,2860 @@
 {
- "npcs": [
-  {
-   "key": "pat",
-   "name": "Auntie Pat",
-   "img": "systems/the-smoke/assets/tokens/people/npc-pat.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 6
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 10
-     },
-     "sav": {
-      "die": 12
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 10
-     }
-    },
-    "role": "crew",
-    "resources": {
-     "health": {
-      "value": 12,
-      "max": 12
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 2000,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>Patricia Okonedo runs \"Pat's Cycle Repairs\" under the railway arches on Morning Lane: half honest bike shop, half the biggest bike-theft ring in E8. She is everyone's auntie and nobody's fool. She pays cash, on the nail, and never forgets a debt.</p>"
-   },
-   "items": []
-  },
-  {
-   "key": "spanner",
-   "name": "Spanner Rob",
-   "img": "systems/the-smoke/assets/tokens/people/npc-spanner.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 8
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 6
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 10
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "crew",
-    "resources": {
-     "health": {
-      "value": 14,
-      "max": 14
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>Pat's mechanic. Can strip a stolen road bike to unrecognisable parts in eleven minutes. Speaks mostly in derailleur.</p>"
-   },
-   "items": []
-  },
-  {
-   "key": "kez",
-   "name": "Kez",
-   "img": "systems/the-smoke/assets/tokens/people/npc-kez.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 4
-     },
-     "mov": {
-      "die": 10
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 6
-     },
-     "sav": {
-      "die": 10
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "crew",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>Pat's nephew, twenty, permanently on a BMX. Kez scouts the bikes \u2014 which lock, which street, how long until the owner comes back \u2014 and texts you tip-offs.</p>"
-   },
-   "items": []
-  },
-  {
-   "key": "mo",
-   "name": "Mo Rahman",
-   "img": "systems/the-smoke/assets/tokens/people/npc-mo.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 8
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 6
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 8
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 12,
-      "max": 12
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>Owns Chicken Palace on Mare Street and the flat upstairs you rent. Late with rent is fine. Police at the door is not.</p>"
-   },
-   "items": []
-  },
-  {
-   "key": "stretch",
-   "name": "Stretch",
-   "img": "systems/the-smoke/assets/tokens/people/npc-stretch.webp",
-   "disposition": -1,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 8
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 6
-     },
-     "grf": {
-      "die": 8
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "gang",
-    "resources": {
-     "health": {
-      "value": 10,
-      "max": 10
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>Runs the Lea Boys, a rival bike crew working out of Leyton across the Marshes. Wants Pat's patch. Thinks you are it.</p>"
-   },
-   "items": [
+  "npcs": [
     {
-     "name": "Kitchen Knife",
-     "type": "weapon",
-     "img": "icons/svg/sword.svg",
-     "system": {
-      "stat": "mus",
-      "impact": 3,
-      "range": "Engaged",
-      "kind": "melee",
-      "crime": "assault",
-      "value": 8,
-      "loud": false,
-      "concealable": true,
-      "ammo": {
-       "value": 0,
-       "max": 0
+      "key": "jaz",
+      "name": "Jaz Kaur",
+      "img": "systems/the-smoke/assets/tokens/people/npc-jaz.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 8
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "pc",
+        "cash": 40,
+        "resources": {
+          "health": {
+            "value": 10,
+            "max": 10
+          },
+          "hustle": {
+            "value": 3,
+            "max": 3
+          }
+        },
+        "identity": {
+          "age": "26",
+          "pronouns": "she/her",
+          "hustle": "Cycle courier and workshop regular",
+          "ambition": "A garage with her name above the door",
+          "vice": "Refuses to turn down a race",
+          "bond": "Spanner kept her working when the delivery app cut her off.",
+          "look": "Oil-stained jacket, immaculate gloves, battered helmet.",
+          "ends": "Hackney",
+          "crew": "The Chainring",
+          "alias": ""
+        },
+        "biography": "<p>Jaz Kaur knows the city by the weight of a bag on her shoulders: the climb towards Highbury, the headwind off the Lea, the dangerous pause before a driver opens a door. She used to deliver the things other people forgot. Now Pat asks her to collect things their owners have not forgotten at all.</p><p>Her family thinks the workshop job has finally steadied her. It has, in a way. The Chainring pays in cash, fixes her bike without asking, and does not penalise her for taking ten minutes to help someone at the roadside. She is determined to make enough for a legitimate garage before the favours begin to own her.</p><p>Contacts: Spanner Rob gives her parts and honest advice. Kez supplies delivery gossip. Mo Rahman sometimes lets her leave a bag behind his counter. Friction: Stretch says she owes him for a scrambler she insists was already wrecked. DS Vale remembers her face from a witness statement.</p><p>Crew bond: Danny talked her out of an arrest after a late-night collision. Femi once waited with her through an unpaid shift. Sal has become the person she calls when a customer will not give a bicycle back.</p>"
       },
-      "equipped": true,
-      "description": "<p>Carrying one is a crime on its own if you are searched.</p>"
-     }
+      "items": [
+        {
+          "_id": "bbe2893c25dd4c77",
+          "name": "Bolt Cutters",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Cuts a bicycle lock: lock difficulty one band easier. Quiet enough for a careful approach.</p>",
+            "value": 35,
+            "tool": "bolt cutters",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "bolt-cutters"
+            }
+          }
+        },
+        {
+          "_id": "bd9e3a6cb63d549e",
+          "name": "Cheap Smartphone",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Your Blower. Messages, maps, shifts and Auntie Pat. No battery bookkeeping.</p>",
+            "value": 30,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "phone"
+            }
+          }
+        },
+        {
+          "_id": "971a7f07b1b3a909",
+          "name": "Cycle Helmet",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Practical protection. Does not stack another mechanical armour bonus.</p>",
+            "value": 25,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "helmet"
+            }
+          }
+        },
+        {
+          "_id": "ce62d967997ddb4e",
+          "name": "Bike Messenger",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "whl",
+            "when": "Threading a bicycle through traffic, alleys or towpaths.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "bike-messenger"
+            }
+          }
+        },
+        {
+          "_id": "223e2ef61e110bc3",
+          "name": "Grease Monkey",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "grf",
+            "when": "Repairing, diagnosing or coaxing a battered engine.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "grease-monkey"
+            }
+          }
+        }
+      ],
+      "disposition": 1
+    },
+    {
+      "key": "tealeaf",
+      "name": "Danny \"Tealeaf\" Doyle",
+      "img": "systems/the-smoke/assets/tokens/people/npc-tealeaf.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 8
+          },
+          "sav": {
+            "die": 6
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "role": "pc",
+        "cash": 40,
+        "resources": {
+          "health": {
+            "value": 10,
+            "max": 10
+          },
+          "hustle": {
+            "value": 3,
+            "max": 3
+          }
+        },
+        "identity": {
+          "age": "31",
+          "pronouns": "he/him",
+          "hustle": "Market porter and occasional handyman",
+          "ambition": "Pay off the debt and be ordinary for once",
+          "vice": "A neat solution is harder to resist than a sensible one",
+          "bond": "Pat fed him when everyone else wanted paying.",
+          "look": "A grin, a cheap coat and a pocket full of things with no receipt.",
+          "ends": "Hackney",
+          "crew": "The Chainring",
+          "alias": "Tealeaf"
+        },
+        "biography": "<p>Danny Doyle acquired \u201cTealeaf\u201d long before he could afford anything worth stealing. He can mend a stuck shop shutter, find a missing set of keys, and tell a convincing story about why he was near either of them. He has never decided whether this is talent or simply a failure to imagine a different trade.</p><p>Pat gave him work after a short sentence and a very long silence from his old employer. Danny is grateful enough to be dangerous: he would rather lie to his friends than admit a job has gone beyond him. His current debt is a few hundred pounds, a handful of favours and one account he does not discuss.</p><p>Contacts: Auntie Pat protects him but keeps an exact ledger. Mo offers odd jobs. Kez laughs at his scams and remembers every detail. Enemy: Stretch is buying up small debts around the Lea and has Danny\u2019s name on a list.</p><p>Crew bond: He made the phone call that got Jaz out of trouble, which he mentions less often than she expects. Femi can tell when he is frightened. He trusts Sal to ask the question he is avoiding.</p>"
+      },
+      "items": [
+        {
+          "_id": "7ad4919f65e5f7e4",
+          "name": "Slim Jim",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Makes a motor lock one band easier. The subsequent roll abstracts getting the engine running.</p>",
+            "value": 25,
+            "tool": "slim jim",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "slim-jim"
+            }
+          }
+        },
+        {
+          "_id": "031f5ed0b4da74a3",
+          "name": "Screwdriver",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>An improvised tool. No automatic difficulty reduction.</p>",
+            "value": 5,
+            "tool": "screwdriver",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "screwdriver"
+            }
+          }
+        },
+        {
+          "_id": "bd9e3a6cb63d549e",
+          "name": "Cheap Smartphone",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Your Blower. Messages, maps, shifts and Auntie Pat. No battery bookkeeping.</p>",
+            "value": 30,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "phone"
+            }
+          }
+        },
+        {
+          "_id": "96f1354208d45bdd",
+          "name": "Locksmith",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "grf",
+            "when": "Opening an ordinary lock with appropriate tools.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "locksmith"
+            }
+          }
+        },
+        {
+          "_id": "a0ce4d13a159aecb",
+          "name": "Silver Tongue",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "frt",
+            "when": "Selling a plausible lie to someone who wants to believe it.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "silver-tongue"
+            }
+          }
+        }
+      ],
+      "disposition": 1
+    },
+    {
+      "key": "femi",
+      "name": "Femi Adebayo",
+      "img": "systems/the-smoke/assets/tokens/people/npc-femi.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "pc",
+        "cash": 40,
+        "resources": {
+          "health": {
+            "value": 10,
+            "max": 10
+          },
+          "hustle": {
+            "value": 3,
+            "max": 3
+          }
+        },
+        "identity": {
+          "age": "29",
+          "pronouns": "he/him",
+          "hustle": "Care worker and first-aid volunteer",
+          "ambition": "Keep his sister housed without another midnight loan",
+          "vice": "Takes responsibility for everyone",
+          "bond": "Mo helped his family when their rent rose.",
+          "look": "A clean overshirt, tired eyes and a carefully packed bag.",
+          "ends": "Hackney",
+          "crew": "The Chainring",
+          "alias": ""
+        },
+        "biography": "<p>Femi Adebayo can calm a room before anyone notices he has entered it. He has spent years listening to frightened people, recognising when a story is about to turn ugly, and doing the small practical thing that keeps a bad evening from becoming a disaster. The pay for those skills has never kept pace with the rent.</p><p>He told himself the first bike was only a way to catch up. The second had a buyer before he touched it. He still draws lines: no work that endangers children, no abandoning an injured person, and no guns in the flat. Keeping those lines may cost more than crossing them.</p><p>Contacts: Mo Rahman gives him quiet warnings about the neighbourhood. A paramedic friend will answer a question, but cannot make evidence disappear. DS Harriet Vale knows Femi has helped at an incident; she would prefer him on her side of a statement. Rival: the Lea Boys dislike anyone who stops a frightened debtor from paying.</p><p>Crew bond: He treats Jaz\u2019s crashes without a lecture, worries about Danny\u2019s silences, and knows Sal\u2019s bluster hides a practical kindness. He wants this crew to become people who can stop doing this.</p>"
+      },
+      "items": [
+        {
+          "_id": "540de69d9d2e5090",
+          "name": "First Aid Kit",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Dressings, gloves and basic supplies. Use First aid to treat an adjacent person; restock after a scene of repeated treatment.</p>",
+            "value": 25,
+            "tool": "",
+            "stat": "sav",
+            "uses": "Consumable supplies",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "first-aid"
+            }
+          }
+        },
+        {
+          "_id": "bd9e3a6cb63d549e",
+          "name": "Cheap Smartphone",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Your Blower. Messages, maps, shifts and Auntie Pat. No battery bookkeeping.</p>",
+            "value": 30,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "phone"
+            }
+          }
+        },
+        {
+          "_id": "27d44994e7910aeb",
+          "name": "First Responder",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "sav",
+            "when": "Assessing or treating an injured person under pressure.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "first-responder"
+            }
+          }
+        },
+        {
+          "_id": "2cc9ee810d223fe8",
+          "name": "Street Reader",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "sav",
+            "when": "Reading a street for a tail, a trap or an easy exit.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "street-reader"
+            }
+          }
+        }
+      ],
+      "disposition": 1
+    },
+    {
+      "key": "sal",
+      "name": "Big Sal Moretti",
+      "img": "systems/the-smoke/assets/tokens/people/npc-sal.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 8
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 6
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "pc",
+        "cash": 40,
+        "resources": {
+          "health": {
+            "value": 10,
+            "max": 10
+          },
+          "hustle": {
+            "value": 3,
+            "max": 3
+          }
+        },
+        "identity": {
+          "age": "38",
+          "pronouns": "they/them",
+          "hustle": "Door staff and van driver",
+          "ambition": "Buy a quiet caf\u00e9 and close before midnight",
+          "vice": "Cannot let an insult to a friend go",
+          "bond": "Pat gave them work after the venue closed.",
+          "look": "Heavy jacket, broad shoulders and unexpectedly careful hands.",
+          "ends": "Hackney",
+          "crew": "The Chainring",
+          "alias": ""
+        },
+        "biography": "<p>Big Sal Moretti used to finish a shift with a pocketful of crumpled notes and somebody else\u2019s blood on their cuff. Closing the venue did not remove their talent for moving trouble away from a door. Pat needed a driver who could carry a washing machine alone. Sal needed regular money and a place where showing up counted.</p><p>They dislike cruelty, grandstanding and being mistaken for someone who has not thought things through. When Sal says \u201cleave it\u201d, the crew would be wise to listen. They have a little money put aside for a caf\u00e9 and an old address book that makes the idea look less fanciful than it sounds.</p><p>Contacts: Spanner keeps the van alive. Pat knows where the spare key is. A former door supervisor can find a room when Sal needs one. Enemy: Stretch hired Sal for a collection once and was furious when the money went back to the frightened tenant.</p><p>Crew bond: Sal sees Jaz as the driver they might have been, Danny as a problem worth solving, and Femi as the only person likely to get them all through the night without becoming someone else.</p>"
+      },
+      "items": [
+        {
+          "_id": "335221e8dddcd562",
+          "name": "Heavy Work Jacket",
+          "type": "armour",
+          "img": "systems/the-smoke/assets/ui/armour.svg",
+          "system": {
+            "description": "<p>A thick work coat. Better than a T-shirt when trouble starts.</p>",
+            "guard": 0,
+            "reduction": 1,
+            "value": 45,
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "work-jacket"
+            }
+          }
+        },
+        {
+          "_id": "bd9e3a6cb63d549e",
+          "name": "Cheap Smartphone",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Your Blower. Messages, maps, shifts and Auntie Pat. No battery bookkeeping.</p>",
+            "value": 30,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "phone"
+            }
+          }
+        },
+        {
+          "_id": "428979106e4db4f5",
+          "name": "Door Staff",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "mus",
+            "when": "Controlling a grapple or moving someone through a doorway.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "bouncer"
+            }
+          }
+        },
+        {
+          "_id": "782ed1501c3c10af",
+          "name": "Hard to Shift",
+          "type": "perk",
+          "img": "systems/the-smoke/assets/ui/perk.svg",
+          "system": {
+            "description": "<p>When the situation matches this perk, select it in the roll dialog to step the stat die up once. Perks do not stack.</p>",
+            "stat": "grt",
+            "when": "Remaining on your feet against fatigue or physical pressure.",
+            "hustleCost": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "hard-to-shift"
+            }
+          }
+        }
+      ],
+      "disposition": 1
+    },
+    {
+      "key": "pat",
+      "name": "Auntie Pat",
+      "img": "systems/the-smoke/assets/tokens/people/npc-pat.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 8
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "crew",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>She knows every bicycle in the borough, including the ones she has not seen yet. Tea before business. Cash after inspection.</p><p>Pat wants a crew that earns quietly. She can source tools, buy stolen bicycles and set orders through the Blower. She expects loyalty, not cruelty.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "spanner",
+      "name": "Spanner Rob",
+      "img": "systems/the-smoke/assets/tokens/people/npc-spanner.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "crew",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>Workshop mechanic, dry wit, permanent mug of tea.</p><p>Spanner repairs the crew\u2019s kit and notices mismatched stories as readily as mismatched wheels. He knows Jaz is better than the work she is doing.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "kez",
+      "name": "Kez",
+      "img": "systems/the-smoke/assets/tokens/people/npc-kez.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 8
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "crew",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>A sharp-eyed runner whose phone is always vibrating.</p><p>Kez trades information: where the bikes are, which road is closed, who is suddenly spending money. Treat them as a person with ambitions, not an infallible quest marker.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "mo",
+      "name": "Mo Rahman",
+      "img": "systems/the-smoke/assets/tokens/people/npc-mo.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 8
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "civilian",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>Chicken Palace\u2019s owner. Friendly, observant, impossible to rush.</p><p>Mo lets the crew use the flat upstairs. He needs the downstairs business kept out of whatever is happening above it. He will help Femi, but will not lie about an injury.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "stretch",
+      "name": "Stretch",
+      "img": "systems/the-smoke/assets/tokens/people/npc-stretch.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 8
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "gang",
+        "resources": {
+          "health": {
+            "value": 12,
+            "max": 12
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>The Lea Boys\u2019 lanky organiser. Never raises his voice when someone else is watching.</p><p>Stretch buys debts, recruits frightened people and calls it opportunity. He wants Pat\u2019s routes and believes Danny is the cheapest way in.</p>"
+      },
+      "items": [
+        {
+          "_id": "2d39a7b6d7489f01",
+          "name": "Lock Knife",
+          "type": "weapon",
+          "img": "systems/the-smoke/assets/ui/weapon.svg",
+          "system": {
+            "description": "<p>Easy to hide. Drawing it changes what kind of night this is.</p>",
+            "stat": "mus",
+            "impact": 3,
+            "range": "Engaged",
+            "kind": "melee",
+            "value": 25,
+            "ammo": {
+              "value": 0,
+              "max": 0
+            },
+            "loud": false,
+            "concealable": true,
+            "crime": "assault",
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "knife"
+            }
+          }
+        },
+        {
+          "_id": "335221e8dddcd562",
+          "name": "Heavy Work Jacket",
+          "type": "armour",
+          "img": "systems/the-smoke/assets/ui/armour.svg",
+          "system": {
+            "description": "<p>A thick work coat. Better than a T-shirt when trouble starts.</p>",
+            "guard": 0,
+            "reduction": 1,
+            "value": 45,
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "work-jacket"
+            }
+          }
+        }
+      ],
+      "disposition": -1
+    },
+    {
+      "key": "lea-boy",
+      "name": "Lea Boy",
+      "img": "systems/the-smoke/assets/tokens/people/npc-lea-boy.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 8
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "gang",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>A local runner in Stretch\u2019s orbit.</p><p>Not a disposable enemy: give them a name, a reason to be here and a way out of the encounter. Grit and numbers, rather than military discipline.</p>"
+      },
+      "items": [],
+      "disposition": -1
+    },
+    {
+      "key": "vale",
+      "name": "DS Harriet Vale",
+      "img": "systems/the-smoke/assets/tokens/people/npc-vale.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "police",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>DS Harriet Vale, sharp suit under a tired coat. Patient, methodical, difficult to charm twice.</p><p>Vale follows patterns: the same bicycles, the same van, the same frightened witnesses. She can become an antagonist or an uneasy ally. She offers choices and records the consequences.</p>"
+      },
+      "items": [
+        {
+          "_id": "6dc90a97b1fd3e8e",
+          "name": "Police Baton",
+          "type": "weapon",
+          "img": "systems/the-smoke/assets/ui/weapon.svg",
+          "system": {
+            "description": "<p>Issued equipment for police NPCs and duty scenarios.</p>",
+            "stat": "mus",
+            "impact": 3,
+            "range": "Engaged",
+            "kind": "melee",
+            "value": 60,
+            "ammo": {
+              "value": 0,
+              "max": 0
+            },
+            "loud": false,
+            "concealable": true,
+            "crime": "assault",
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "baton"
+            }
+          }
+        },
+        {
+          "_id": "cb27e9659b2c9911",
+          "name": "Stab Vest",
+          "type": "armour",
+          "img": "systems/the-smoke/assets/ui/armour.svg",
+          "system": {
+            "description": "<p>Concealable protection. Adds Guard and reduces incoming damage.</p>",
+            "guard": 1,
+            "reduction": 2,
+            "value": 280,
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "stab-vest"
+            }
+          }
+        },
+        {
+          "_id": "f415921c1eb55d10",
+          "name": "Handcuffs",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Apply Cuffed after a successful arrest or fictional restraint. The condition prevents driving.</p>",
+            "value": 45,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "handcuffs"
+            }
+          }
+        },
+        {
+          "_id": "af56dc500e344721",
+          "name": "Service Radio",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>A dispatch radio for service shifts; calls also appear in the Blower.</p>",
+            "value": 80,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "radio"
+            }
+          }
+        }
+      ],
+      "disposition": 0
+    },
+    {
+      "key": "pc",
+      "name": "Metro Police Officer",
+      "img": "systems/the-smoke/assets/tokens/people/npc-pc.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "police",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>A uniformed patrol officer working a long shift.</p><p>Use Front before force when a conversation makes sense. The Heat engine controls response vehicles; this actor is for on-foot scenes.</p>"
+      },
+      "items": [
+        {
+          "_id": "6dc90a97b1fd3e8e",
+          "name": "Police Baton",
+          "type": "weapon",
+          "img": "systems/the-smoke/assets/ui/weapon.svg",
+          "system": {
+            "description": "<p>Issued equipment for police NPCs and duty scenarios.</p>",
+            "stat": "mus",
+            "impact": 3,
+            "range": "Engaged",
+            "kind": "melee",
+            "value": 60,
+            "ammo": {
+              "value": 0,
+              "max": 0
+            },
+            "loud": false,
+            "concealable": true,
+            "crime": "assault",
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "baton"
+            }
+          }
+        },
+        {
+          "_id": "cb27e9659b2c9911",
+          "name": "Stab Vest",
+          "type": "armour",
+          "img": "systems/the-smoke/assets/ui/armour.svg",
+          "system": {
+            "description": "<p>Concealable protection. Adds Guard and reduces incoming damage.</p>",
+            "guard": 1,
+            "reduction": 2,
+            "value": 280,
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "stab-vest"
+            }
+          }
+        },
+        {
+          "_id": "f415921c1eb55d10",
+          "name": "Handcuffs",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>Apply Cuffed after a successful arrest or fictional restraint. The condition prevents driving.</p>",
+            "value": 45,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "handcuffs"
+            }
+          }
+        },
+        {
+          "_id": "af56dc500e344721",
+          "name": "Service Radio",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>A dispatch radio for service shifts; calls also appear in the Blower.</p>",
+            "value": 80,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "radio"
+            }
+          }
+        }
+      ],
+      "disposition": 0
+    },
+    {
+      "key": "arv",
+      "name": "Armed Response Officer",
+      "img": "systems/the-smoke/assets/tokens/people/npc-arv.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 8
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "police",
+        "resources": {
+          "health": {
+            "value": 12,
+            "max": 12
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>A trained armed-response officer, rarely seen without support.</p><p>Four-star Heat changes the stakes. Use cover, warnings and the environment; do not turn every encounter into an unavoidable execution.</p>"
+      },
+      "items": [
+        {
+          "_id": "4fb4a61fdf1315c2",
+          "name": "ARV Carbine",
+          "type": "weapon",
+          "img": "systems/the-smoke/assets/ui/weapon.svg",
+          "system": {
+            "description": "<p>Armed response equipment. The GM controls its availability.</p>",
+            "stat": "aim",
+            "impact": 5,
+            "range": "Distant",
+            "kind": "firearm",
+            "value": 2200,
+            "ammo": {
+              "value": 30,
+              "max": 30
+            },
+            "loud": true,
+            "concealable": false,
+            "crime": "shooting",
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "carbine"
+            }
+          }
+        },
+        {
+          "_id": "e19abebf8cfc2b1b",
+          "name": "Ballistic Vest",
+          "type": "armour",
+          "img": "systems/the-smoke/assets/ui/armour.svg",
+          "system": {
+            "description": "<p>Issued to armed units; conspicuous on the street.</p>",
+            "guard": 2,
+            "reduction": 3,
+            "value": 700,
+            "equipped": true
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "ballistic-vest"
+            }
+          }
+        },
+        {
+          "_id": "af56dc500e344721",
+          "name": "Service Radio",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>A dispatch radio for service shifts; calls also appear in the Blower.</p>",
+            "value": 80,
+            "tool": "",
+            "stat": "",
+            "uses": "",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "radio"
+            }
+          }
+        }
+      ],
+      "disposition": 0
+    },
+    {
+      "key": "paramedic",
+      "name": "Paramedic",
+      "img": "systems/the-smoke/assets/tokens/people/npc-paramedic.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "paramedic",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>Calm voice, exhausted eyes, very practical priorities.</p><p>Stabilise the patient, load them, get to A&E. Use the ambulance minigame for timed callouts.</p>"
+      },
+      "items": [
+        {
+          "_id": "4776bf1ea7be6b86",
+          "name": "Paramedic Bag",
+          "type": "gear",
+          "img": "systems/the-smoke/assets/ui/gear.svg",
+          "system": {
+            "description": "<p>A proper duty bag, including the kit needed for the patient minigame. No substitute for reaching A&E.</p>",
+            "value": 90,
+            "tool": "",
+            "stat": "sav",
+            "uses": "Duty equipment",
+            "bonus": 0
+          },
+          "ownership": {
+            "default": 0
+          },
+          "flags": {
+            "the-smoke": {
+              "contentKey": "med-bag"
+            }
+          }
+        }
+      ],
+      "disposition": 0
+    },
+    {
+      "key": "firefighter",
+      "name": "Firefighter",
+      "img": "systems/the-smoke/assets/tokens/people/npc-firefighter.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "fire",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>Focused, practical, watching the building as much as the people.</p><p>A fire minigame uses progress and consequences; there is always an evacuation route in the fiction.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "cabbie",
+      "name": "Cabbie",
+      "img": "systems/the-smoke/assets/tokens/people/npc-cabbie.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 8
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "civilian",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>Knows a way round it and has an opinion about the other way.</p><p>A source of street information or a taxi fare. They would prefer to get home with the cab intact.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "courier",
+      "name": "Courier",
+      "img": "systems/the-smoke/assets/tokens/people/npc-courier.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "civilian",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>A rider with a shift to finish and a phone in a waterproof sleeve.</p><p>Can point the crew towards a blocked street or a conspicuous new lock.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "patient",
+      "name": "Patient",
+      "img": "systems/the-smoke/assets/tokens/people/npc-patient.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 6
+          },
+          "sav": {
+            "die": 8
+          },
+          "frt": {
+            "die": 6
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "civilian",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>Someone having the worst evening of their life.</p><p>The ambulance callout tracks Stable, Fading, Faltering, Passing and Lost. This token is a person to rescue.</p>"
+      },
+      "items": [],
+      "disposition": 0
+    },
+    {
+      "key": "suspect",
+      "name": "Suspect",
+      "img": "systems/the-smoke/assets/tokens/people/npc-suspect.webp",
+      "system": {
+        "stats": {
+          "mus": {
+            "die": 8
+          },
+          "grt": {
+            "die": 6
+          },
+          "mov": {
+            "die": 6
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 6
+          }
+        },
+        "role": "suspect",
+        "resources": {
+          "health": {
+            "value": 8,
+            "max": 8
+          },
+          "hustle": {
+            "value": 2,
+            "max": 2
+          }
+        },
+        "biography": "<p>A nervous driver or a person at a disturbance.</p><p>The police shift determines whether they stop, flee or resist. An arrest needs a successful cuffing roll and a custody drop-off.</p>"
+      },
+      "items": [],
+      "disposition": 0
     }
-   ]
-  },
-  {
-   "key": "lea-boy",
-   "name": "Lea Boy",
-   "img": "systems/the-smoke/assets/tokens/people/npc-lea-boy.webp",
-   "disposition": -1,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 6
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 6
-     },
-     "sav": {
-      "die": 4
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "gang",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>One of Stretch's lads.</p>"
-   },
-   "items": [
+  ],
+  "peds": [
     {
-     "name": "Bike Chain",
-     "type": "weapon",
-     "img": "icons/svg/sword.svg",
-     "system": {
-      "stat": "mus",
-      "impact": 2,
-      "range": "Engaged",
-      "kind": "melee",
-      "crime": "assault",
-      "value": 5,
-      "loud": false,
-      "concealable": true,
-      "ammo": {
-       "value": 0,
-       "max": 0
-      },
-      "equipped": true,
-      "description": "<p>Swung from the hand. Doubles as a lock nobody trusts.</p>"
-     }
+      "key": "ped-01",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-01.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-02",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-02.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-03",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-03.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-04",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-04.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-05",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-05.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-06",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-06.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-07",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-07.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-08",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-08.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-09",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-09.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-10",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-10.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-11",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-11.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-12",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-12.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-13",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-13.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-14",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-14.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-15",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-15.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-16",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-16.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-17",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-17.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-18",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-18.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-19",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-19.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-20",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-20.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-21",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-21.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-22",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-22.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-23",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-23.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
+    },
+    {
+      "key": "ped-24",
+      "name": "Londoner",
+      "img": "systems/the-smoke/assets/tokens/people/ped-24.webp",
+      "system": {
+        "role": "civilian",
+        "stats": {
+          "mus": {
+            "die": 4
+          },
+          "grt": {
+            "die": 4
+          },
+          "mov": {
+            "die": 4
+          },
+          "whl": {
+            "die": 4
+          },
+          "aim": {
+            "die": 4
+          },
+          "grf": {
+            "die": 4
+          },
+          "sav": {
+            "die": 4
+          },
+          "frt": {
+            "die": 4
+          },
+          "btl": {
+            "die": 4
+          }
+        },
+        "resources": {
+          "health": {
+            "value": 6,
+            "max": 6
+          },
+          "hustle": {
+            "value": 1,
+            "max": 1
+          }
+        }
+      }
     }
-   ]
-  },
-  {
-   "key": "vale",
-   "name": "DS Harriet Vale",
-   "img": "systems/the-smoke/assets/tokens/people/npc-vale.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 6
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 12
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 10
-     }
-    },
-    "role": "police",
-    "resources": {
-     "health": {
-      "value": 12,
-      "max": 12
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>A Detective Sergeant from the Hackney CID property-crime team. She has noticed how many bikes vanish within half a mile of Morning Lane.</p>"
-   },
-   "items": []
-  },
-  {
-   "key": "pc",
-   "name": "Metro Police Officer",
-   "img": "systems/the-smoke/assets/tokens/people/npc-pc.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 6
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "police",
-    "resources": {
-     "health": {
-      "value": 12,
-      "max": 12
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 5,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>A response officer. Will stop you, search you, and nick you if you give them a reason.</p>"
-   },
-   "items": [
-    {
-     "name": "Extendable Baton",
-     "type": "weapon",
-     "img": "icons/svg/sword.svg",
-     "system": {
-      "stat": "mus",
-      "impact": 2,
-      "range": "Engaged",
-      "kind": "melee",
-      "crime": "assault",
-      "value": 0,
-      "loud": false,
-      "concealable": true,
-      "ammo": {
-       "value": 0,
-       "max": 0
-      },
-      "equipped": true,
-      "description": "<p>Police issue.</p>"
-     }
-    },
-    {
-     "name": "CS Spray",
-     "type": "weapon",
-     "img": "icons/svg/poison.svg",
-     "system": {
-      "stat": "aim",
-      "impact": 0,
-      "range": "Engaged",
-      "kind": "spray",
-      "crime": "assault",
-      "value": 0,
-      "loud": false,
-      "concealable": true,
-      "ammo": {
-       "value": 3,
-       "max": 3
-      },
-      "equipped": true,
-      "description": "<p>Police issue. A hit inflicts Gassed.</p>"
-     }
-    },
-    {
-     "name": "Police Body Armour",
-     "type": "armour",
-     "img": "icons/svg/shield.svg",
-     "system": {
-      "guard": 2,
-      "reduction": 3,
-      "value": 0,
-      "equipped": true,
-      "description": "<p>Met-pattern body armour.</p>"
-     }
-    }
-   ]
-  },
-  {
-   "key": "arv",
-   "name": "Armed Response Officer",
-   "img": "systems/the-smoke/assets/tokens/people/npc-arv.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 8
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 10
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 8
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 10
-     }
-    },
-    "role": "police",
-    "resources": {
-     "health": {
-      "value": 14,
-      "max": 14
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 6,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": "<p>A Trojan unit officer. At four stars, they are here for you.</p>"
-   },
-   "items": [
-    {
-     "name": "Police Carbine",
-     "type": "weapon",
-     "img": "icons/svg/target.svg",
-     "system": {
-      "stat": "aim",
-      "impact": 5,
-      "range": "Near",
-      "kind": "firearm",
-      "crime": "shooting",
-      "value": 0,
-      "loud": true,
-      "concealable": true,
-      "ammo": {
-       "value": 8,
-       "max": 8
-      },
-      "equipped": true,
-      "description": "<p>Met ARV carbine.</p>"
-     }
-    },
-    {
-     "name": "Police Body Armour",
-     "type": "armour",
-     "img": "icons/svg/shield.svg",
-     "system": {
-      "guard": 2,
-      "reduction": 3,
-      "value": 0,
-      "equipped": true,
-      "description": "<p>Met-pattern body armour.</p>"
-     }
-    }
-   ]
-  },
-  {
-   "key": "paramedic",
-   "name": "Paramedic",
-   "img": "systems/the-smoke/assets/tokens/people/npc-paramedic.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 6
-     },
-     "sav": {
-      "die": 10
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "paramedic",
-    "resources": {
-     "health": {
-      "value": 10,
-      "max": 10
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "firefighter",
-   "name": "Firefighter",
-   "img": "systems/the-smoke/assets/tokens/people/npc-firefighter.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 10
-     },
-     "grt": {
-      "die": 10
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 6
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 6
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 10
-     }
-    },
-    "role": "fire",
-    "resources": {
-     "health": {
-      "value": 14,
-      "max": 14
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "cabbie",
-   "name": "Cabbie",
-   "img": "systems/the-smoke/assets/tokens/people/npc-cabbie.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 10
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 10
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 10,
-      "max": 10
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "courier",
-   "name": "Courier",
-   "img": "systems/the-smoke/assets/tokens/people/npc-courier.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 8
-     },
-     "mov": {
-      "die": 8
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 10,
-      "max": 10
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "patient",
-   "name": "Patient",
-   "img": "systems/the-smoke/assets/tokens/people/npc-patient.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 4
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 4
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 6,
-      "max": 6
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "suspect",
-   "name": "Suspect",
-   "img": "systems/the-smoke/assets/tokens/people/npc-suspect.webp",
-   "disposition": -1,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 8
-     },
-     "whl": {
-      "die": 8
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 6
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "suspect",
-    "resources": {
-     "health": {
-      "value": 10,
-      "max": 10
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 20,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": [
-    {
-     "name": "Kitchen Knife",
-     "type": "weapon",
-     "img": "icons/svg/sword.svg",
-     "system": {
-      "stat": "mus",
-      "impact": 3,
-      "range": "Engaged",
-      "kind": "melee",
-      "crime": "assault",
-      "value": 8,
-      "loud": false,
-      "concealable": true,
-      "ammo": {
-       "value": 0,
-       "max": 0
-      },
-      "equipped": true,
-      "description": "<p>Carrying one is a crime on its own if you are searched.</p>"
-     }
-    }
-   ]
-  }
- ],
- "peds": [
-  {
-   "key": "ped-01",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-01.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 13,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-02",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-02.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 16,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-03",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-03.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 19,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-04",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-04.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 22,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-05",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-05.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 25,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-06",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-06.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 28,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-07",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-07.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 31,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-08",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-08.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 34,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-09",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-09.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 37,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-10",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-10.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 40,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-11",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-11.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 43,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-12",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-12.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 46,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-13",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-13.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 49,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-14",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-14.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 52,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-15",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-15.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 55,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-16",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-16.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 58,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-17",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-17.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 61,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-18",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-18.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 64,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-19",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-19.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 67,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-20",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-20.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 70,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-21",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-21.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 6
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 73,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-22",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-22.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 6
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 8
-     },
-     "btl": {
-      "die": 6
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 76,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-23",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-23.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 8
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 6
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 10
-     },
-     "btl": {
-      "die": 8
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 79,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  },
-  {
-   "key": "ped-24",
-   "name": "Londoner",
-   "img": "systems/the-smoke/assets/tokens/people/ped-24.webp",
-   "disposition": 0,
-   "system": {
-    "stats": {
-     "mus": {
-      "die": 4
-     },
-     "grt": {
-      "die": 6
-     },
-     "mov": {
-      "die": 4
-     },
-     "whl": {
-      "die": 4
-     },
-     "aim": {
-      "die": 4
-     },
-     "grf": {
-      "die": 4
-     },
-     "sav": {
-      "die": 6
-     },
-     "frt": {
-      "die": 4
-     },
-     "btl": {
-      "die": 4
-     }
-    },
-    "role": "civilian",
-    "resources": {
-     "health": {
-      "value": 8,
-      "max": 8
-     },
-     "hustle": {
-      "value": 0,
-      "max": 0
-     }
-    },
-    "cash": 82,
-    "guard": {
-     "base": 4,
-     "armour": 0,
-     "value": 9
-    },
-    "biography": ""
-   },
-   "items": []
-  }
- ]
+  ]
 }

@@ -2,12 +2,12 @@
 // Traffic drives on the left, follows the road zones, turns at junctions, stops behind whatever is in front and
 // pulls over for blue lights. Parked cars and chained bikes are locked: nick them. Moving traffic can be carjacked.
 import {NS} from '../config.mjs';
+import {advanceRoad} from '../rules/roads.mjs';
+import {networkOf} from './roads.mjs';
 import {rng, pick, pointIn, drivable, zoneAtPoint, kerbside} from '../rules/jobs-core.mjs';
 import {isLeader, registerHandler, request, notify} from './net.mjs';
 import {loadCatalogs, ensureVehicleActor, ensurePersonActor, placeToken, zonesOf, isStreetScene, lanePoint, tokenCentre, distanceSquares} from './spawn.mjs';
 import {lightsOn} from '../vehicles/vehicle-abilities.mjs';
-import {roadsFor, drivableIndexes} from './roads.mjs';
-import {lanePosition, trafficStep, roadLength, pointAt} from '../rules/roads-core.mjs';
 
 const TRAFFIC_POOL = ['LV14', 'LV14', 'LV16', 'LV16', 'LV13', 'LV13', 'LV12', 'LV12', 'LV15', 'LV17', 'LV21', 'LV21', 'LV07', 'LV09', 'LV06', 'LV20', 'LV22', 'LV18', 'LV28'];
 const PARKED_POOL = ['LV14', 'LV16', 'LV15', 'LV17', 'LV21', 'LV18', 'LV20', 'LV19', 'LV09', 'LV07', 'LV08', 'LV10'];
@@ -34,28 +34,15 @@ export function registerTrafficSettings() {
 /* ------------------------------------------------------------------ spawning */
 async function vehicleAt(scene, catalogId, zone, r, flags) {
   const actor = await ensureVehicleActor(catalogId);
-  const net = await roadsFor(scene);
-  if (net) {   // on the traced road lines, keeping left
-    const ri = pick(drivableIndexes(net.roads), r), road = net.roads[ri], L = roadLength(road);
-    const s = 100 + r() * Math.max(1, L - 200), dir = r() < .5 ? 1 : -1, p = lanePosition(road, s, dir);
-    if (p.x < 40 || p.y < 40 || p.x > scene.width - 40 || p.y > scene.height - 40) return null;
-    return placeToken(scene, actor, p.x, p.y, {rotation: p.rotation, flags: {...flags, ...(flags.traffic ? {traffic: {...flags.traffic, ri, s, dir, speed: 1 + Math.floor(r() * 2)}} : {})}});
-  }
-  const p = lanePoint(zone, r);
-  return placeToken(scene, actor, p.x, p.y, {rotation: p.rotation, flags: {...flags, ...(flags.traffic ? {traffic: {...flags.traffic, dir: p.dir, speed: 1 + Math.floor(r() * 2)}} : {})}});
+  const p = lanePoint(zone, r, null, scene);
+  return placeToken(scene, actor, p.x, p.y, {rotation: p.rotation, flags: {...flags, ...(flags.traffic ? {traffic: {...flags.traffic, dir: p.dir, speed: 1 + Math.floor(r() * 2), edgeId:p.edgeId, distance:p.distance, travelDir:p.travelDir}} : {})}});
 }
-/** A lane spot on the traced roads for a vehicle that should drive about this map: {x, y, rotation, road:{ri,s,dir}} or null. */
-export async function roadSpawn(scene, r = Math.random, {awayFrom = null, minDist = 0} = {}) {
-  const net = await roadsFor(scene); if (!net) return null;
-  for (let tries = 0; tries < 16; tries++) {
-    const ri = pick(drivableIndexes(net.roads), r), road = net.roads[ri], sAt = 100 + r() * Math.max(1, roadLength(road) - 200), dir = r() < .5 ? 1 : -1, p = lanePosition(road, sAt, dir);
-    if (p.x < 80 || p.y < 80 || p.x > scene.width - 80 || p.y > scene.height - 80) continue;
-    if (awayFrom && Math.hypot(p.x - awayFrom[0], p.y - awayFrom[1]) < minDist && tries < 12) continue;
-    return {...p, road: {ri, s: sAt, dir}};
-  }
-  return null;
-}
+const populations=new Set();
 export async function populate(scene, {force = false} = {}) {
+  if(!scene || populations.has(scene.id))return 0; populations.add(scene.id);
+  try{return await populateNow(scene,{force});}finally{populations.delete(scene.id);}
+}
+async function populateNow(scene, {force = false} = {}) {
   if (!isLeader() || !isStreetScene(scene)) return 0;
   if (!force && !setting('streetLife', true)) return 0;
   const r = rng(Date.now() ^ scene.id.length * 977);
@@ -67,18 +54,9 @@ export async function populate(scene, {force = false} = {}) {
   const want = {moving: setting('trafficCars', 6), parked: setting('parkedCars', 5), bike: setting('lockedBikes', 4), ped: setting('pedestrians', 6)};
   for (let i = count('moving'); i < want.moving; i++) { await vehicleAt(scene, pick(TRAFFIC_POOL, r), pick(roads, r), r, {traffic: {kind: 'moving'}, keeper: pick(KEEPERS, r)}); made++; }
   for (let i = count('parked'); i < want.parked; i++) {
-    const net = await roadsFor(scene);
-    if (net) {
-      const ri = pick(drivableIndexes(net.roads), r), road = net.roads[ri], L = roadLength(road), sAt = 100 + r() * Math.max(1, L - 200), dir = r() < .5 ? 1 : -1;
-      const kerb = lanePosition({...road, width: (Number(road.width) || 250) * 1.7}, sAt, dir);
-      if (kerb.x > 60 && kerb.y > 60 && kerb.x < scene.width - 60 && kerb.y < scene.height - 60) {
-        await placeToken(scene, await ensureVehicleActor(pick(PARKED_POOL, r)), kerb.x, kerb.y, {rotation: kerb.rotation, flags: {locked: true, parked: true, traffic: {kind: 'parked'}, keeper: pick(KEEPERS, r)}}); made++;
-      }
-      continue;
-    }
-    const z = pick(roads, r), p = lanePoint(z, r);
+    const z = pick(roads, r), p = lanePoint(z, r, null, scene, true);
     // parked at the kerb: pushed to the outside edge of the lane
-    const [x, y, w, h] = z.rect; const kx = p.dir === 'N' ? x + w * .12 : p.dir === 'S' ? x + w * .88 : p.x, ky = p.dir === 'E' ? y + h * .12 : p.dir === 'W' ? y + h * .88 : p.y;
+    const kx=p.x,ky=p.y;
     const id = pick(PARKED_POOL, r); const actor = await ensureVehicleActor(id);
     await placeToken(scene, actor, kx, ky, {rotation: p.rotation, flags: {locked: true, parked: true, traffic: {kind: 'parked'}, keeper: pick(KEEPERS, r)}}); made++;
   }
@@ -95,7 +73,7 @@ export async function populate(scene, {force = false} = {}) {
 }
 const KEEPERS = ['A. Okafor, Clapton', 'J. Smith, Dalston', 'Hackney Car Club', 'M. Begum, Bethnal Green', 'Lease Co. (fleet)', 'R. O\'Neill, Homerton', 'S. Patel, Stoke Newington', 'Shoreditch Media Ltd', 'P. Nowak, Leyton', 'T. Adeyemi, Bow'];
 export async function clearStreetLife(scene) {
-  const ids = trafficTokens(scene).filter(t => !(t.getFlag(NS, 'vehicleOccupants') || []).length && !t.getFlag(NS, 'stolen')).map(t => t.id);
+  const ids = trafficTokens(scene).filter(t => !(t.getFlag(NS, 'vehicleOccupants') || []).length && !t.getFlag(NS, 'stolen') && !t.getFlag(NS,'jobTarget') && !t.getFlag(NS,'orderFor') && !t.getFlag(NS,'fare') && !t.getFlag(NS,'patient')).map(t => t.id);
   if (ids.length) await scene.deleteEmbeddedDocuments('Token', ids, {smokeDespawn: true});
   return ids.length;
 }
@@ -112,7 +90,10 @@ function blocked(scene, mover, nx, ny, g) {
 }
 /** One step for one moving car: along its lane; at a junction maybe turn; off the road → despawn. */
 export function planStep(t, zones, g, r) {
-  const f = t.getFlag(NS, 'traffic') || {}; let dir = f.dir || 'E';
+  const f = t.getFlag(NS, 'traffic') || {};
+  const net=networkOf(t.parent);
+  if(net.edges.length)return advanceRoad(net,tokenCentre(t),f,Math.max(60,(f.speed||1)*g),r);
+  let dir = f.dir || 'E';
   const [cx, cy] = tokenCentre(t);
   const here = zoneAtPoint(zones, cx, cy);
   if (here?.kind === 'junction' && f.lastJunction !== here.id && r() < .35) {
@@ -131,32 +112,23 @@ export function planStep(t, zones, g, r) {
 }
 let ticking = false;
 export async function tick() {
-  if (ticking || !isLeader() || !setting('streetLife', true)) return; ticking = true;
+  if (game.paused || ticking || !isLeader() || !setting('streetLife', true)) return; ticking = true;
   try {
     const sceneIds = new Set(game.users.filter(u => u.active).map(u => u.viewedScene).filter(Boolean));
     for (const id of sceneIds) {
       const scene = game.scenes.get(id); if (!isStreetScene(scene)) continue;
       const zones = zonesOf(scene), g = scene.grid.size, r = rng(Date.now() ^ id.length);
-      const net = await roadsFor(scene);
       const blues = scene.tokens.filter(t => lightsOn(t));
       const updates = [], gone = [];
       for (const t of trafficTokens(scene)) {
         const f = t.getFlag(NS, 'traffic'); if (!f || f.kind !== 'moving' || !isCar(t)) continue;
         if ((t.getFlag(NS, 'vehicleOccupants') || []).length) continue;               // someone got in
         if (blues.some(b => b.id !== t.id && distanceSquares(b, t) < 8)) continue;    // pull over for the blues
-        if (net && Number.isInteger(f.ri)) {
-          const st = trafficStep(net.roads, net.cross, {ri: f.ri, s: f.s, dir: f.dir}, ((f.speed || 1) * 1.5 + 1) * g, {width: scene.width, height: scene.height, r, keep: Boolean(f.keep)});
-          if (st.despawn) { gone.push(t.id); continue; }
-          const p = lanePosition(net.roads[st.ri], st.s, st.dir);
-          if (blocked(scene, t, p.x, p.y, g)) continue;
-          updates.push({_id: t.id, x: Math.round(p.x - t.width * g / 2), y: Math.round(p.y - t.height * g / 2), rotation: p.rotation, [`flags.${NS}.traffic`]: {...f, ri: st.ri, s: st.s, dir: st.dir}});
-          continue;
-        }
         const step = planStep(t, zones, g, r);
-        if (step.despawn) { gone.push(t.id); continue; }
+        if (!step || step.despawn) { if(!f.keep)gone.push(t.id); continue; }
         if (blocked(scene, t, step.x, step.y, g)) continue;                            // queue behind it
-        updates.push({_id: t.id, x: Math.round(step.x - t.width * g / 2), y: Math.round(step.y - t.height * g / 2), rotation: ROT[step.dir],
-                      [`flags.${NS}.traffic`]: {...f, dir: step.dir, lastJunction: step.lastJunction}});
+        updates.push({_id: t.id, x: Math.round(step.x - t.width * g / 2), y: Math.round(step.y - t.height * g / 2), rotation: step.rotation ?? ROT[step.dir],
+                      [`flags.${NS}.traffic`]: {...f, dir: step.dir, lastJunction: step.lastJunction,edgeId:step.edgeId,distance:step.distance,travelDir:step.travelDir}});
       }
       for (const t of trafficTokens(scene).filter(t => t.getFlag(NS, 'traffic')?.kind === 'ped')) {
         const f = t.getFlag(NS, 'traffic');
@@ -169,7 +141,7 @@ export async function tick() {
         const nx = cx + Math.sign(px - cx) * Math.min(Math.abs(px - cx), g), ny = cy + Math.sign(py - cy) * Math.min(Math.abs(py - cy), g);
         if (!blocked(scene, t, nx, ny, g)) updates.push({_id: t.id, x: Math.round(nx - g / 2), y: Math.round(ny - g / 2)});
       }
-      if (updates.length) await scene.updateEmbeddedDocuments('Token', updates, {smokeTraffic: true, animate: true});
+      if (updates.length) await scene.updateEmbeddedDocuments('Token', updates, {smokeTraffic: true, acVehicleCarry:true, animate: true});
       if (gone.length) await scene.deleteEmbeddedDocuments('Token', gone, {smokeDespawn: true});
       if (gone.length) await populate(scene);
     }

@@ -1,11 +1,10 @@
 {
   "id": "the-smoke",
-  "title": "The Smoke \u2014 London Crime Sandbox",
-  "description": "A GTA-inspired open-world crime game set in London, starting in Hackney. Built on the Covenant Dice System (Effort die + Stat die, exploding, difficulty solved from your own dice) with nine street stats, Hustle and five-star Heat. Altered Carbon-style vehicles, seats and map-to-map transit across 20 linked street maps traced from the real road layout of Hackney and around. Street Life traffic, nicking and carjacking, police response with ANPR and the NPAS helicopter, Wasted and Busted, and job shifts: taxi, police (ANPR stolen-vehicle sweeps, pursuits), paramedic, fire, courier, bus \u2014 plus Auntie Pat's bike-theft crew, The Chainring.",
-  "version": "0.1.0",
+  "title": "The Smoke",
+  "description": "A complete London crime sandbox: Covenant-style exploding dice, nine street stats, Heat, vehicle boarding and chases, a linked North and East London atlas, Street Life, emergency-service shifts and The Chainring opening campaign.",
+  "version": "0.1.2",
   "compatibility": {
-    "minimum": "14",
-    "verified": "14"
+    "minimum": "14"
   },
   "authors": [
     {
@@ -13,9 +12,6 @@
       "url": "https://www.patreon.com/pactsandpolyhedrals"
     }
   ],
-  "url": "https://github.com/pacts-and-polyhedrals/the-smoke",
-  "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
-  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.1.0/the-smoke-v0.1.0.zip",
   "esmodules": [
     "the-smoke.mjs"
   ],
@@ -78,6 +74,17 @@
       }
     }
   },
+  "socket": true,
+  "initiative": "1d6 + @statMods.mov",
+  "grid": {
+    "distance": 1,
+    "units": "sq"
+  },
+  "primaryTokenAttribute": "resources.health",
+  "secondaryTokenAttribute": "resources.hustle",
+  "url": "https://github.com/pacts-and-polyhedrals/the-smoke",
+  "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
+  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.1.2/the-smoke-v0.1.2.zip",
   "packs": [
     {
       "name": "london-streets",
@@ -132,7 +139,12 @@
       "name": "guides",
       "label": "The Smoke \u2014 Guides",
       "type": "JournalEntry",
-      "path": "packs/guides"
+      "path": "packs/guides",
+      "ownership": {
+        "PLAYER": "NONE",
+        "TRUSTED": "NONE",
+        "ASSISTANT": "OWNER"
+      }
     }
   ],
   "packFolders": [
@@ -166,20 +178,7 @@
       ]
     }
   ],
-  "socket": true,
-  "grid": {
-    "distance": 1,
-    "units": "sq"
-  },
-  "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.hustle",
-  "background": "systems/the-smoke/assets/maps/streets/ls00-london-overview.webp",
-  "media": [
-    {
-      "type": "setup",
-      "url": "systems/the-smoke/assets/maps/streets/ls00-london-overview.webp"
-    }
-  ],
-  "license": "LICENSE",
-  "readme": "README.md"
+  "relationships": {
+    "requires": []
+  }
 }

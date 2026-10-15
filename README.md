@@ -1,43 +1,33 @@
-# THE SMOKE — London Crime Sandbox (Foundry VTT v14)
+# The Smoke · v0.1.2
 
-A GTA-inspired open-world crime game for Foundry VTT, set in London and starting in **Hackney**. You begin as crew for **The Chainring**, Auntie Pat's bike-theft ring under the railway arches on Morning Lane.
+A London crime sandbox for Foundry VTT 14, by Pacts & Polyhedrals.
 
-**Install:** Foundry → Game Systems → Install System → paste the manifest URL:
-`https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json`
+This release consolidates the uploaded v0.1.1 game with the earlier tested fixes. It preserves the uploaded pregens and all 25 map images. It adds the missing service, recovery, progression and upgrade workflows.
 
-**Start:** create a world, then click **Set up the Hackney starter** — on the welcome card, or under Street Control in the scene controls.
+## Start
 
-## What's in it
-- **Covenant Dice System**
-  - Effort die + Stat die + modifier, exploding.
-  - Easy / Medium / Hard / Long Shot targets, solved exactly from the dice each character has.
-  - Outcomes from *Proper Mess* to *Legendary*; exploding dice score *Nice One → Front Page*.
-- **Nine street stats:** Muscle, Grit, Moves, Wheels, Aim, Graft, Savvy, Front, Bottle. Plus Hustle, Perks and Conditions.
-- **Driving:** the vehicle's **Performance die replaces your Effort die** (BMX d4 … supercar d12), and Handling is added to the roll.
-- **Heat ★–★★★★★:**
-  - Police units come and hunt along the real roads.
-  - The NPAS helicopter at ★★★, armed response at ★★★★, roadblocks at ★★★★★.
-  - Lose stars by staying out of sight. A respray or a change of clothes also helps.
-  - **Wasted** → Homerton A&E. **Busted** → Stoke Newington custody.
-- **Altered Carbon vehicle engine:** seats, boarding, convoy movement, map-to-map driving, blue lights, the **ANPR plate scanner** and UK number plates.
-- **20 linked street maps** traced from the real road layout, Highbury → Stratford and Lea Bridge → Bow. Plus a London overview and four interiors: The Arches, Your Flat, Homerton A&E and the Custody Suite.
-- **Street Life:** moving traffic (drives on the left and turns at real junctions), parked cars, chained bikes and pedestrians.
-  - Nick anything — tools make locks easier, loud tools get you seen.
-  - Carjack the drivers.
-  - Sell bikes to Pat, and motors to Bow Breakers Yard.
-- **Job shifts:** get in a job vehicle as the driver → right-click → *Start shift*. Callouts come to your phone.
-  - **Taxi:** fares and tips.
-  - **Police:** ANPR stolen-vehicle sweeps, pursuits, arrests, disturbances.
-  - **Paramedic, Fire, Courier, Bus.**
-  - **Crew:** Pat's bike orders.
-- **29 vehicles, 43 people, pregens, kit, guides** and three opening missions (*On Your Bike*).
+Install the release ZIP as the system `the-smoke`. In a new world, open **Street Control → Set up the world**. Assign the pregens to players. Setup imports all 25 scenes, 72 authored actors, 90 equipment/perk/condition items, and eight journals containing 45 pages. New worlds begin in **Your Flat**; Pat, Spanner and Kez are at The Arches. Starter job vehicles are on Hackney Central.
 
-## For the GM
-- One GM must be connected: all world changes run on the GM's client.
-- **Street Control** (scene controls → tower icon) handles Street Life, police response, job clocks and Heat.
-- The full rules and GM guide are in the compendium **The Smoke — Guides**.
+In an existing v0.1.0/v0.1.1 world, the active GM runs the upgrade automatically on login. Existing character stats, resources, notes, equipment, ownership and scene positions are preserved. Missing reference content is added. Back up the world before upgrading.
 
-## Credits
-Pacts & Polyhedrals. The dice engine is from the Covenant Dice System. The vehicle, boarding and transit engine is adapted from the unofficial Altered Carbon RPG system.
+## Play
 
-All people, gangs, brands and businesses are fictional, and public services carry parody names. Street names and places are real geography; the maps are drawn schematically.
+Click a stat to roll. Temporary Hustle and perks improve a target fixed before those benefits. Wheels uses the driven vehicle’s Performance and Handling. Target a foe, use a weapon, and let the target or GM take the hit or Dodge. Each attack and treatment resolves once.
+
+Right-click a vehicle to board and choose an exact seat. The vehicle and its riders move together and cross maps together. The driver controls that physical vehicle; shared catalogue templates retain their original permissions.
+
+Open **The Blower** from the scene controls or Alt+B for shifts and calls. Taxi, police/ANPR, ambulance, fire, courier, bus and Pat’s bike orders all have complete workflows. Pausing shifts offer expiry, patient deterioration and every job deadline together.
+
+Use **Local services** on a character sheet or token controls. A respray clears Heat and changes plates for £100, clothes remove one star for £25, and garage repairs cost £10 per missing Body. Prices are configurable. Location, police sight, the quoted price and pocket cash are checked before a purchase. Stash is protected.
+
+First aid restores 2 Health and removes Bleeding/Hurt once per injury. A safehouse rest restores Health/Hustle and clears short-term conditions. Broken still needs A&E and a week of fictional recovery, after which the GM removes it. Combat automatically handles Bleeding, reactions, Stunned and the three-round Down countdown. A Proper Mess staying conscious, or three rounds without aid, causes Wasted.
+
+The GM awards advances in Street Control. Spend them from Identity, within the Rep stage’s die cap.
+
+## Installation and validation
+
+See [INSTALL.md](INSTALL.md) and [VALIDATION.md](VALIDATION.md). The release ZIP has `system.json` at its root. No reference system or optional module is required.
+
+85 automated rules and workflow tests, eight compendium audits, asset/link checks and six Chromium interface previews are included in the source validation. These use Foundry stand-ins; a licensed live Foundry 14 / Forge acceptance run remains outstanding. No `verified` compatibility claim is made.
+
+The manifest targets [pacts-and-polyhedrals/the-smoke](https://github.com/pacts-and-polyhedrals/the-smoke), tag `v0.1.2`. The files must be uploaded to that release before its manifest URL installs this version. This build did not publish the release.

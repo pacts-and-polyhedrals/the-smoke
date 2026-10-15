@@ -1,0 +1,7 @@
+COVENANT: New Testament and the Covenant Dice System
+Copyright (c) 2026 Dracouroboros Ltd., Benjamin Vale, and Paige Kibodeaux.
+All rights reserved.
+
+This release candidate is provided for private development, testing, and authorized review. No permission is granted to redistribute, sell, sublicense, or create commercial derivative products without written permission from the rights holders.
+
+Foundry Virtual Tabletop is copyright Foundry Gaming LLC. This package is an independent game system and includes no Foundry proprietary source code.

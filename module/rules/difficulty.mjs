@@ -46,26 +46,18 @@ export function difficultyBand(key) {
 const pmfCache = new Map();
 
 /** Exact probability mass function of one exploding die, as a Map of total → probability. */
-export function explodingDie(faces) {
-  const f = Number(faces);
-  if (!DIE_LADDER.includes(f)) throw new Error(`Unsupported die: d${faces}`);
-  if (pmfCache.has(f)) return pmfCache.get(f);
-  const pmf = new Map();
-  const walk = (total, prob, depth) => {
-    if (depth > EXPLOSION_DEPTH) {
-      // Fold the vanishing tail onto its current total so probabilities still sum to 1.
-      pmf.set(total, (pmf.get(total) ?? 0) + prob);
-      return;
-    }
-    const step = prob / f;
-    for (let face = 1; face <= f; face++) {
-      if (face === f) walk(total + f, step, depth + 1);
-      else pmf.set(total + face, (pmf.get(total + face) ?? 0) + step);
-    }
-  };
-  walk(0, 1, 0);
-  pmfCache.set(f, pmf);
-  return pmf;
+export function explodingDie(faces, topTwo=false) {
+  const f=Number(faces);if(!DIE_LADDER.includes(f))throw new Error(`Unsupported die: d${faces}`);
+  const key=`${f}:${topTwo}`;if(pmfCache.has(key))return pmfCache.get(key);
+  const pmf=new Map();let active=new Map([[0,1]]);
+  for(let depth=0;depth<=EXPLOSION_DEPTH;depth++){
+    const next=new Map();
+    for(const [total,prob] of active)for(let face=1;face<=f;face++){
+      const sum=total+face,part=prob/f;
+      const store=face>=(topTwo?f-1:f)&&depth<EXPLOSION_DEPTH?next:pmf;
+      store.set(sum,(store.get(sum)||0)+part);
+    }active=next;
+  }pmfCache.set(key,pmf);return pmf;
 }
 
 /** Non-exploding die, for Cursed rolls. */
@@ -81,11 +73,12 @@ function flatDie(faces) {
  * should not set difficulty on the assumption that a character will be Blessed.
  */
 export function rollDistribution({
-  attributeDie = 4, effortDie = 6, modifier = 0, state = "normal"
+  attributeDie = 4, effortDie = 6, modifier = 0, state = "normal", noEffortExplosion=false
 } = {}) {
   const attr = Number(attributeDie), eff = Number(effortDie);
-  const a = state === "cursed" ? flatDie(attr) : explodingDie(attr);
-  const e = state === "cursed" ? flatDie(eff) : explodingDie(eff);
+  const noExplode=["cursed","offGame"].includes(state),boost=["blessed","onARoll"].includes(state);
+  const a = noExplode ? flatDie(attr) : explodingDie(attr,boost);
+  const e = noExplode||noEffortExplosion ? flatDie(eff) : explodingDie(eff,boost);
   const flat = (ATTRIBUTE_MODIFIERS[attr] ?? 0) + Number(modifier || 0);
   const out = new Map();
   for (const [k1, p1] of e) {
@@ -114,9 +107,10 @@ export function expectedTotal(options) {
 
 /** Smallest TN whose success chance is closest to `target`, searched over a generous range. */
 function solveTN(options, target) {
+  const dist=rollDistribution(options);
   let bestTN = 2, bestDelta = Infinity;
   for (let tn = 2; tn <= 80; tn++) {
-    const delta = Math.abs(successChance(options, tn) - target);
+    const delta = Math.abs(chanceFrom(dist, tn) - target);
     if (delta < bestDelta - 1e-12) { bestDelta = delta; bestTN = tn; }
   }
   return bestTN;
@@ -142,7 +136,7 @@ export function difficultyLadder(options = {}) {
 
 /** The Attribute die an Actor brings to `attribute`, defaulting sanely for odd data. */
 export function actorAttributeDie(actor, attribute) {
-  const die = Number(actor?.system?.attributes?.[String(attribute).toLowerCase()]?.die);
+  const die = Number(actor?.system?.stats?.[String(attribute).toLowerCase()]?.die);
   return DIE_LADDER.includes(die) ? die : 4;
 }
 

@@ -1,4 +1,0 @@
-rules + data: 11 groups passed
-The Smoke | Initialising
-The Smoke | Ready
-import + init + ready: ok; 23 hooks registered
