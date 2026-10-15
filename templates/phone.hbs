@@ -1,0 +1,49 @@
+<div class="phone-shell">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="phone-status"><span>THE BLOWER</span><span>4G ▮▮▮</span></div>
+    {{#if actors.length}}
+    <select name="actor">{{#each actors}}<option value="{{id}}" {{#if (eq id ../actor.id)}}selected{{/if}}>{{name}}</option>{{/each}}</select>
+    {{/if}}
+    {{#if actor}}
+    <div class="phone-card me">
+      <img src="{{actor.img}}" alt="" data-sheet>
+      <div><b>{{actor.name}}</b><div class="cash">£{{actor.system.cash}}</div></div>
+      <div class="phone-heat h{{heat}}" title="{{heatInfo.response}}">{{#each stars}}<i class="fa-{{#if this}}solid{{else}}regular{{/if}} fa-star"></i>{{/each}}<small>{{heatInfo.name}}</small></div>
+    </div>
+
+    {{#if shift}}
+    <div class="phone-card shift"><i class="{{shift.icon}}"></i> <b>{{shift.label}} shift</b> · £{{shift.earned}} · {{shift.done}} done
+      <button type="button" data-end="{{shift.id}}">End shift</button></div>
+    {{else}}
+    <p class="phone-hint">Get in a taxi, police car, ambulance, fire pump, courier bike or bus as the driver, then right-click it → <b>Start shift</b>.</p>
+    {{/if}}
+
+    {{#each offers}}
+    <div class="phone-card offer">
+      <div class="kicker">CALLOUT · {{left}}</div><b>{{title}}</b><p>{{{text}}}</p>
+      <div class="row"><button type="button" data-accept="{{id}}"><i class="fa-solid fa-check"></i> Accept</button><button type="button" data-decline="{{id}}"><i class="fa-solid fa-xmark"></i> Pass</button></div>
+    </div>
+    {{/each}}
+
+    {{#each active}}
+    <div class="phone-card active {{#if urgent}}urgent{{/if}}">
+      <div class="kicker">{{label}} · {{stage}}</div><b>{{title}}</b>
+      <p>{{instruction}}</p>
+      {{#if extra}}<p class="extra">{{extra}}</p>{{/if}}
+      {{#if left}}<div class="clock"><div class="fill" style="width: {{pct}}%"></div><span>{{left}}</span></div>{{/if}}
+      <button type="button" data-ping="{{id}}"><i class="fa-solid fa-location-crosshairs"></i> Where?</button>
+    </div>
+    {{/each}}
+
+    <div class="phone-card pat">
+      <div class="kicker">AUNTIE PAT</div>
+      <p>"Need a bit of work, darling?"</p>
+      <button type="button" data-pat><i class="fa-solid fa-link"></i> Ask Pat for an order</button>
+    </div>
+    {{#if paused}}<p class="phone-hint">⏸ The GM has paused the job clocks.</p>{{/if}}
+    {{else}}
+    <p class="phone-hint">No character. Ask the GM to assign you one (User Configuration → Character).</p>
+    {{/if}}
+  </div>
+</div>

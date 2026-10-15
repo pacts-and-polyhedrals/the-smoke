@@ -1,0 +1,1488 @@
+{
+ "source": "The Smoke \u2014 London vehicles",
+ "count": 29,
+ "vehicles": [
+  {
+   "id": "LV01",
+   "name": "Grit Kid BMX",
+   "kind": "bike",
+   "slug": "grit-kid-bmx",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/grit-kid-bmx.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/grit-kid-bmx.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "nimble"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 0,
+     "perfDie": 4,
+     "handling": 2,
+     "speed": 6,
+     "body": {
+      "value": 3,
+      "max": 3
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 0,
+      "max": 0
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 120,
+     "lock": "easy",
+     "jobs": [],
+     "plateless": true,
+     "systems": ""
+    },
+    "biography": "<p>Chrome pegs, a gyro and a sticker-bombed frame. Every estate in Hackney has three. The Chainring pays \u00a340\u201360 for a clean one.</p>"
+   }
+  },
+  {
+   "id": "LV02",
+   "name": "Trailblazer Mountain Bike",
+   "kind": "bike",
+   "slug": "trailblazer-mountain-bike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/trailblazer-mountain-bike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/trailblazer-mountain-bike.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "nimble"
+    },
+    {
+     "key": "offroad"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 0,
+     "perfDie": 6,
+     "handling": 1,
+     "speed": 7,
+     "body": {
+      "value": 4,
+      "max": 4
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 0,
+      "max": 0
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 450,
+     "lock": "medium",
+     "jobs": [],
+     "plateless": true,
+     "systems": ""
+    },
+    "biography": "<p>Front suspension, knobbly tyres, a D-lock that is usually better than the bike. Goes over the Marshes, down the towpath and through Victoria Park.</p>"
+   }
+  },
+  {
+   "id": "LV03",
+   "name": "Carbon Whippet Road Bike",
+   "kind": "bike",
+   "slug": "carbon-whippet-road-bike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/carbon-whippet-road-bike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/carbon-whippet-road-bike.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "nimble"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 0,
+     "perfDie": 8,
+     "handling": 1,
+     "speed": 9,
+     "body": {
+      "value": 3,
+      "max": 3
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 0,
+      "max": 0
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 1800,
+     "lock": "hard",
+     "jobs": [],
+     "plateless": true,
+     "systems": ""
+    },
+    "biography": "<p>A featherweight carbon racer worth more than most of the cars on Mare Street. Its owner locks it to a lamppost with two locks and a prayer.</p>"
+   }
+  },
+  {
+   "id": "LV04",
+   "name": "Borough Hire Bike",
+   "kind": "bike",
+   "slug": "borough-hire-bike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/borough-hire-bike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/borough-hire-bike.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "nimble"
+    },
+    {
+     "key": "exposed"
+    },
+    {
+     "key": "docked"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 0,
+     "perfDie": 4,
+     "handling": 0,
+     "speed": 5,
+     "body": {
+      "value": 5,
+      "max": 5
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 0,
+      "max": 0
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "easy",
+     "jobs": [],
+     "plateless": true,
+     "systems": ""
+    },
+    "biography": "<p>Twenty kilos of red steel from a docking station. Anyone can ride one; nobody will buy one. Untraceable, so the cops do not care.</p>"
+   }
+  },
+  {
+   "id": "LV05",
+   "name": "Zap E-Scooter",
+   "kind": "bike",
+   "slug": "zap-e-scooter",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/zap-e-scooter.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/zap-e-scooter.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "nimble"
+    },
+    {
+     "key": "silent"
+    },
+    {
+     "key": "foldable"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 0,
+     "perfDie": 4,
+     "handling": 2,
+     "speed": 6,
+     "body": {
+      "value": 2,
+      "max": 2
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 4,
+      "max": 4
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 300,
+     "lock": "easy",
+     "jobs": [],
+     "plateless": true,
+     "systems": ""
+    },
+    "biography": "<p>A rental scooter with the speed limiter ripped out. Silent, foldable, illegal on the road and everywhere else.</p>"
+   }
+  },
+  {
+   "id": "LV06",
+   "name": "Deliverer E-Bike",
+   "kind": "bike",
+   "slug": "deliverer-e-bike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [
+    "courier"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/deliverer-e-bike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/deliverer-e-bike.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "nimble"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 0,
+     "perfDie": 6,
+     "handling": 1,
+     "speed": 8,
+     "body": {
+      "value": 4,
+      "max": 4
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 6,
+      "max": 6
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 900,
+     "lock": "medium",
+     "jobs": [
+      "courier"
+     ],
+     "plateless": true,
+     "systems": ""
+    },
+    "biography": "<p>Pedal-assist bike with an insulated box on the back. Start a <b>Courier shift</b> from the driver seat to take delivery jobs.</p>"
+   }
+  },
+  {
+   "id": "LV07",
+   "name": "Hornet 125 Moped",
+   "kind": "bike",
+   "slug": "hornet-125-moped",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [
+    "courier"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/hornet-125-moped.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/hornet-125-moped.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 1,
+     "perfDie": 6,
+     "handling": 0,
+     "speed": 9,
+     "body": {
+      "value": 6,
+      "max": 6
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 1,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 1200,
+     "lock": "medium",
+     "jobs": [
+      "courier"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>The noise of every high street at 11pm. Top box, pillion seat, L-plates optional. Doubles as a courier bike.</p>"
+   }
+  },
+  {
+   "id": "LV08",
+   "name": "Dirt Devil Scrambler",
+   "kind": "bike",
+   "slug": "dirt-devil-scrambler",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/dirt-devil-scrambler.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/dirt-devil-scrambler.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "offroad"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 1,
+     "perfDie": 8,
+     "handling": 1,
+     "speed": 10,
+     "body": {
+      "value": 7,
+      "max": 7
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 2500,
+     "lock": "medium",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>An unregistered off-road bike that wheelies the length of the Marshes. No plate, no insurance, no brakes worth mentioning.</p>"
+   }
+  },
+  {
+   "id": "LV09",
+   "name": "Kestrel Street Bike",
+   "kind": "bike",
+   "slug": "kestrel-street-bike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/kestrel-street-bike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/kestrel-street-bike.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 1,
+     "perfDie": 8,
+     "handling": 1,
+     "speed": 11,
+     "body": {
+      "value": 8,
+      "max": 8
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 1,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 4000,
+     "lock": "medium",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A naked 650 commuter bike. Light, quick, forgiving, parked outside every pub in Shoreditch.</p>"
+   }
+  },
+  {
+   "id": "LV10",
+   "name": "Fang 1000 Superbike",
+   "kind": "bike",
+   "slug": "fang-1000-superbike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/fang-1000-superbike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/fang-1000-superbike.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 1,
+     "perfDie": 12,
+     "handling": 1,
+     "speed": 14,
+     "body": {
+      "value": 7,
+      "max": 7
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 1,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 14000,
+     "lock": "hard",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A litre superbike with a howl you hear three postcodes away. Nothing on the road catches it in a straight line; the corners are your problem.</p>"
+   }
+  },
+  {
+   "id": "LV11",
+   "name": "Metro Police Bike",
+   "kind": "bike",
+   "slug": "metro-police-bike",
+   "token": {
+    "width": 1,
+    "height": 2
+   },
+   "jobs": [
+    "police"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/metro-police-bike.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/metro-police-bike.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/metro-police-bike-lights.webp",
+   "abilities": [
+    {
+     "key": "policeKit"
+    },
+    {
+     "key": "exposed"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "bike",
+     "size": 1,
+     "perfDie": 10,
+     "handling": 1,
+     "speed": 13,
+     "body": {
+      "value": 10,
+      "max": 10
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 0,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [
+      "police"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Metro Police traffic motorcycle: lights, siren and an ANPR plate scanner. Start a <b>Police shift</b> from the driver seat.</p>"
+   }
+  },
+  {
+   "id": "LV12",
+   "name": "Hackney Carriage",
+   "kind": "car",
+   "slug": "hackney-carriage",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [
+    "taxi"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/hackney-carriage.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/hackney-carriage.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "tightTurn"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 6,
+     "handling": 1,
+     "speed": 9,
+     "body": {
+      "value": 12,
+      "max": 12
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 5,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 18000,
+     "lock": "hard",
+     "jobs": [
+      "taxi"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>The London black cab: six passengers, a turning circle of 25 feet and a driver who has done The Knowledge. Start a <b>Taxi shift</b> to pick up fares.</p>"
+   }
+  },
+  {
+   "id": "LV13",
+   "name": "Pious Hybrid Minicab",
+   "kind": "car",
+   "slug": "pious-hybrid-minicab",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [
+    "taxi"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/pious-hybrid-minicab.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/pious-hybrid-minicab.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "silent"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 6,
+     "handling": 0,
+     "speed": 9,
+     "body": {
+      "value": 11,
+      "max": 11
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 9000,
+     "lock": "medium",
+     "jobs": [
+      "taxi"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A silver hybrid saloon with a phone cradle on every surface. Silent under 20 mph. Works taxi shifts like the cab, tips are worse.</p>"
+   }
+  },
+  {
+   "id": "LV14",
+   "name": "Vexa Hatch",
+   "kind": "car",
+   "slug": "vexa-hatch",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/vexa-hatch.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/vexa-hatch.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 6,
+     "handling": 0,
+     "speed": 9,
+     "body": {
+      "value": 10,
+      "max": 10
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 6000,
+     "lock": "easy",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Britain's favourite small car, therefore Britain's most stolen small car. A screwdriver and some nerve.</p>"
+   }
+  },
+  {
+   "id": "LV15",
+   "name": "Fiester ST Hot Hatch",
+   "kind": "car",
+   "slug": "fiester-st-hot-hatch",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/fiester-st-hot-hatch.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/fiester-st-hot-hatch.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 8,
+     "handling": 1,
+     "speed": 11,
+     "body": {
+      "value": 11,
+      "max": 11
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 16000,
+     "lock": "medium",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A small hatch with a big turbo and a bigger exhaust. Popular with lads who say \"bruv\" at speed.</p>"
+   }
+  },
+  {
+   "id": "LV16",
+   "name": "Volvagen Estate",
+   "kind": "car",
+   "slug": "volvagen-estate",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/volvagen-estate.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/volvagen-estate.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 6,
+     "handling": -1,
+     "speed": 9,
+     "body": {
+      "value": 14,
+      "max": 14
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 8000,
+     "lock": "easy",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A dad's estate car with a roof box and a dog guard. Nobody looks twice at it, which is the whole point.</p>"
+   }
+  },
+  {
+   "id": "LV17",
+   "name": "Range Ruler SUV",
+   "kind": "car",
+   "slug": "range-ruler-suv",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/range-ruler-suv.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/range-ruler-suv.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "offroad"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 8,
+     "handling": -1,
+     "speed": 10,
+     "body": {
+      "value": 16,
+      "max": 16
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 70000,
+     "lock": "hard",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Keyless entry, tinted glass, never once off-road. A relay box and twenty seconds, if you know what you are doing.</p>"
+   }
+  },
+  {
+   "id": "LV18",
+   "name": "Ashdown GT Coupe",
+   "kind": "car",
+   "slug": "ashdown-gt-coupe",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/ashdown-gt-coupe.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/ashdown-gt-coupe.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 10,
+     "handling": 1,
+     "speed": 13,
+     "body": {
+      "value": 12,
+      "max": 12
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 1,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 90000,
+     "lock": "hard",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A hand-built British grand tourer. Mayfair money parked on a Hoxton street.</p>"
+   }
+  },
+  {
+   "id": "LV19",
+   "name": "Toro Furioso Supercar",
+   "kind": "car",
+   "slug": "toro-furioso-supercar",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/toro-furioso-supercar.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/toro-furioso-supercar.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 12,
+     "handling": 1,
+     "speed": 15,
+     "body": {
+      "value": 9,
+      "max": 9
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 1,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 250000,
+     "lock": "miracle",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A V12 wedge on a sheikh's plates. Seen in Knightsbridge, very occasionally in Shoreditch, never twice.</p>"
+   }
+  },
+  {
+   "id": "LV20",
+   "name": "Brixton Bruiser",
+   "kind": "car",
+   "slug": "brixton-bruiser",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/brixton-bruiser.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/brixton-bruiser.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 10,
+     "handling": -1,
+     "speed": 13,
+     "body": {
+      "value": 14,
+      "max": 14
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 3,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 30000,
+     "lock": "medium",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>An imported American muscle car with a blower through the bonnet. Loud enough to set off car alarms in Dalston.</p>"
+   }
+  },
+  {
+   "id": "LV21",
+   "name": "Tranzit White Van",
+   "kind": "car",
+   "slug": "tranzit-white-van",
+   "token": {
+    "width": 2,
+    "height": 4
+   },
+   "jobs": [
+    "courier"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/tranzit-white-van.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/tranzit-white-van.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "windowless",
+     "seats": [
+      "passenger-2",
+      "passenger-3",
+      "passenger-4"
+     ]
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 3,
+     "perfDie": 6,
+     "handling": -1,
+     "speed": 9,
+     "body": {
+      "value": 18,
+      "max": 18
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 10000,
+     "lock": "easy",
+     "jobs": [
+      "courier"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A dented white Transit-style van with \"NO TOOLS LEFT IN THIS VEHICLE\" on the back doors (there are tools). Courier jobs; also the classic getaway.</p>"
+   }
+  },
+  {
+   "id": "LV22",
+   "name": "Mister Ripple Ice Cream Van",
+   "kind": "car",
+   "slug": "mister-ripple-ice-cream-van",
+   "token": {
+    "width": 2,
+    "height": 4
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/mister-ripple-ice-cream-van.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/mister-ripple-ice-cream-van.webp",
+   "lightsImg": null,
+   "abilities": [
+    {
+     "key": "windowless",
+     "seats": [
+      "passenger-2"
+     ]
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 3,
+     "perfDie": 4,
+     "handling": -2,
+     "speed": 7,
+     "body": {
+      "value": 16,
+      "max": 16
+     },
+     "armour": 0,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 2,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 7000,
+     "lock": "easy",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Plays \"Greensleeves\" at 90 decibels. Sells cones, and, everyone on the estate knows, rather more than cones.</p>"
+   }
+  },
+  {
+   "id": "LV23",
+   "name": "Metro Police Area Car",
+   "kind": "car",
+   "slug": "metro-police-area-car",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [
+    "police"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/metro-police-area-car.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/metro-police-area-car.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/metro-police-area-car-lights.webp",
+   "abilities": [
+    {
+     "key": "policeKit"
+    },
+    {
+     "key": "cage",
+     "seats": [
+      "passenger-2",
+      "passenger-3"
+     ]
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 10,
+     "handling": 1,
+     "speed": 13,
+     "body": {
+      "value": 16,
+      "max": 16
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 3,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [
+      "police"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Battenburg-livery response car: lights, siren, ANPR plate scanner, cage in the back. Start a <b>Police shift</b> from the driver seat.</p>"
+   }
+  },
+  {
+   "id": "LV24",
+   "name": "Metro Police Carrier",
+   "kind": "car",
+   "slug": "metro-police-carrier",
+   "token": {
+    "width": 2,
+    "height": 4
+   },
+   "jobs": [
+    "police"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/metro-police-carrier.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/metro-police-carrier.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/metro-police-carrier-lights.webp",
+   "abilities": [
+    {
+     "key": "policeKit"
+    },
+    {
+     "key": "cage",
+     "seats": [
+      "passenger-3",
+      "passenger-4",
+      "passenger-5",
+      "passenger-6"
+     ]
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 3,
+     "perfDie": 6,
+     "handling": -1,
+     "speed": 10,
+     "body": {
+      "value": 22,
+      "max": 22
+     },
+     "armour": 2,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 6,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [
+      "police"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>The riot van. Six seats, four of them behind a cage.</p>"
+   }
+  },
+  {
+   "id": "LV25",
+   "name": "Metro ARV \"Trojan\"",
+   "kind": "car",
+   "slug": "metro-arv-trojan",
+   "token": {
+    "width": 2,
+    "height": 3
+   },
+   "jobs": [
+    "police"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/metro-arv-trojan.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/metro-arv-trojan.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/metro-arv-trojan-lights.webp",
+   "abilities": [
+    {
+     "key": "policeKit"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 2,
+     "perfDie": 10,
+     "handling": 0,
+     "speed": 13,
+     "body": {
+      "value": 20,
+      "max": 20
+     },
+     "armour": 2,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 3,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [
+      "police"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Armed Response Vehicle. When one of these turns up you are on four stars.</p>"
+   }
+  },
+  {
+   "id": "LV26",
+   "name": "Capital Ambulance",
+   "kind": "car",
+   "slug": "capital-ambulance",
+   "token": {
+    "width": 2,
+    "height": 4
+   },
+   "jobs": [
+    "ambulance"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/capital-ambulance.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/capital-ambulance.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/capital-ambulance-lights.webp",
+   "abilities": [
+    {
+     "key": "lights"
+    },
+    {
+     "key": "stretcher",
+     "seats": [
+      "passenger-1",
+      "passenger-2"
+     ]
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 3,
+     "perfDie": 8,
+     "handling": 0,
+     "speed": 11,
+     "body": {
+      "value": 20,
+      "max": 20
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 2,
+     "passengers": 2,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [
+      "ambulance"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Front-line ambulance: lights, siren, a stretcher bay. Start a <b>Paramedic shift</b> and get patients to Homerton or the Royal London.</p>"
+   }
+  },
+  {
+   "id": "LV27",
+   "name": "City Fire Pump",
+   "kind": "car",
+   "slug": "city-fire-pump",
+   "token": {
+    "width": 2,
+    "height": 5
+   },
+   "jobs": [
+    "fire"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/city-fire-pump.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/city-fire-pump.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/city-fire-pump-lights.webp",
+   "abilities": [
+    {
+     "key": "lights"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 3,
+     "perfDie": 6,
+     "handling": -2,
+     "speed": 9,
+     "body": {
+      "value": 30,
+      "max": 30
+     },
+     "armour": 2,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 2,
+     "passengers": 4,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [
+      "fire"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A fire engine with a 13.5 m ladder and 1,800 litres of water. Start a <b>Firefighter shift</b> to answer fire calls.</p>"
+   }
+  },
+  {
+   "id": "LV28",
+   "name": "Clippermaster Bus",
+   "kind": "car",
+   "slug": "clippermaster-bus",
+   "token": {
+    "width": 2,
+    "height": 6
+   },
+   "jobs": [
+    "bus"
+   ],
+   "img": "systems/the-smoke/assets/emblems/vehicles/clippermaster-bus.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/clippermaster-bus.webp",
+   "lightsImg": null,
+   "abilities": [],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 4,
+     "perfDie": 4,
+     "handling": -2,
+     "speed": 8,
+     "body": {
+      "value": 35,
+      "max": 35
+     },
+     "armour": 2,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 1,
+     "passengers": 12,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "hard",
+     "jobs": [
+      "bus"
+     ],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>A red double-decker on the 38 to Victoria (it never gets past Dalston). Start a <b>Bus shift</b> to run the route stop to stop.</p>"
+   }
+  },
+  {
+   "id": "LV29",
+   "name": "NPAS Helicopter \"India 99\"",
+   "kind": "car",
+   "slug": "npas-helicopter-india-99",
+   "token": {
+    "width": 3,
+    "height": 3
+   },
+   "jobs": [],
+   "img": "systems/the-smoke/assets/emblems/vehicles/npas-helicopter-india-99.svg",
+   "tokenImg": "systems/the-smoke/assets/tokens/vehicles/npas-helicopter-india-99.webp",
+   "lightsImg": "systems/the-smoke/assets/tokens/vehicles/npas-helicopter-india-99-lights.webp",
+   "abilities": [
+    {
+     "key": "policeKit"
+    },
+    {
+     "key": "flying"
+    }
+   ],
+   "system": {
+    "vehicle": {
+     "klass": "car",
+     "size": 3,
+     "perfDie": 12,
+     "handling": 2,
+     "speed": 18,
+     "body": {
+      "value": 20,
+      "max": 20
+     },
+     "armour": 1,
+     "fuel": {
+      "value": 10,
+      "max": 10
+     },
+     "crewFull": 2,
+     "passengers": 2,
+     "fireControl": 0,
+     "control": "driver",
+     "aiPilot": "",
+     "value": 0,
+     "lock": "miracle",
+     "jobs": [],
+     "plateless": false,
+     "systems": ""
+    },
+    "biography": "<p>Police air support. It flies over the street grid, sees everything and tells every car on the radio. Appears at three stars.</p>"
+   }
+  }
+ ]
+}

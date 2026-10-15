@@ -1,0 +1,552 @@
+{
+ "maps": [
+  {
+   "id": "LDP-ARCHES",
+   "code": "LP01",
+   "name": "The Arches \u00b7 Pat's Cycles",
+   "district": "MORNING LN E8",
+   "street": "LDN-HACKNEY",
+   "service": "gang",
+   "accent": "#ff7fb0",
+   "file": "places/lp01-the-arches-pat-s-cycles.webp",
+   "width": 2800,
+   "height": 1800,
+   "gridSize": 100,
+   "zones": [
+    {
+     "id": "shopfront",
+     "name": "Pat's Cycle Repairs",
+     "kind": "room",
+     "rect": [
+      100,
+      100,
+      900,
+      700
+     ],
+     "adjacent": [
+      "workshop",
+      "yard"
+     ]
+    },
+    {
+     "id": "workshop",
+     "name": "Workshop Arch",
+     "kind": "room",
+     "rect": [
+      1000,
+      100,
+      900,
+      700
+     ],
+     "adjacent": [
+      "chop-bay",
+      "shopfront",
+      "yard"
+     ]
+    },
+    {
+     "id": "chop-bay",
+     "name": "Chop Bay",
+     "kind": "room",
+     "rect": [
+      1900,
+      100,
+      800,
+      700
+     ],
+     "adjacent": [
+      "back-arch",
+      "workshop"
+     ]
+    },
+    {
+     "id": "back-arch",
+     "name": "Pat's Office",
+     "kind": "room",
+     "rect": [
+      1900,
+      800,
+      800,
+      900
+     ],
+     "adjacent": [
+      "chop-bay",
+      "yard"
+     ]
+    },
+    {
+     "id": "yard",
+     "name": "Loading Yard",
+     "kind": "room",
+     "rect": [
+      100,
+      800,
+      1800,
+      900
+     ],
+     "adjacent": [
+      "back-arch",
+      "shopfront",
+      "workshop"
+     ],
+     "service": "drop"
+    }
+   ],
+   "links": [
+    {
+     "edge": null,
+     "kind": "exit",
+     "key": "STREET",
+     "rect": [
+      0,
+      350.0,
+      200,
+      200
+     ],
+     "to": "LDN-HACKNEY",
+     "toName": "Hackney Central & Homerton",
+     "land": [
+      1700.0,
+      1700.0
+     ]
+    }
+   ]
+  },
+  {
+   "id": "LDP-FLAT",
+   "code": "LP02",
+   "name": "Your Flat",
+   "district": "MARE ST E8",
+   "street": "LDN-HACKNEY",
+   "service": "safehouse",
+   "accent": "#8be6b0",
+   "file": "places/lp02-your-flat.webp",
+   "width": 2800,
+   "height": 1800,
+   "gridSize": 100,
+   "zones": [
+    {
+     "id": "chicken-shop",
+     "name": "Chicken Palace",
+     "kind": "room",
+     "rect": [
+      100,
+      1000,
+      1300,
+      700
+     ],
+     "adjacent": [
+      "back-alley",
+      "living-room",
+      "stairwell"
+     ]
+    },
+    {
+     "id": "back-alley",
+     "name": "Back Alley",
+     "kind": "room",
+     "rect": [
+      1400,
+      1000,
+      1300,
+      700
+     ],
+     "adjacent": [
+      "bathroom",
+      "bedroom",
+      "chicken-shop",
+      "living-room"
+     ]
+    },
+    {
+     "id": "stairwell",
+     "name": "Stairwell",
+     "kind": "room",
+     "rect": [
+      100,
+      100,
+      500,
+      900
+     ],
+     "adjacent": [
+      "chicken-shop",
+      "living-room"
+     ]
+    },
+    {
+     "id": "living-room",
+     "name": "Living Room",
+     "kind": "room",
+     "rect": [
+      600,
+      100,
+      1000,
+      900
+     ],
+     "adjacent": [
+      "back-alley",
+      "bathroom",
+      "chicken-shop",
+      "kitchen",
+      "stairwell"
+     ],
+     "service": "safehouse"
+    },
+    {
+     "id": "kitchen",
+     "name": "Kitchen",
+     "kind": "room",
+     "rect": [
+      1600,
+      100,
+      600,
+      500
+     ],
+     "adjacent": [
+      "bathroom",
+      "bedroom",
+      "living-room"
+     ]
+    },
+    {
+     "id": "bathroom",
+     "name": "Bathroom",
+     "kind": "room",
+     "rect": [
+      1600,
+      600,
+      600,
+      400
+     ],
+     "adjacent": [
+      "back-alley",
+      "bedroom",
+      "kitchen",
+      "living-room"
+     ]
+    },
+    {
+     "id": "bedroom",
+     "name": "Bedroom",
+     "kind": "room",
+     "rect": [
+      2200,
+      100,
+      500,
+      900
+     ],
+     "adjacent": [
+      "back-alley",
+      "bathroom",
+      "kitchen"
+     ],
+     "service": "rest"
+    }
+   ],
+   "links": [
+    {
+     "edge": null,
+     "kind": "exit",
+     "key": "STREET",
+     "rect": [
+      0,
+      1250.0,
+      200,
+      200
+     ],
+     "to": "LDN-HACKNEY",
+     "toName": "Hackney Central & Homerton",
+     "land": [
+      1800.0,
+      2300.0
+     ]
+    }
+   ]
+  },
+  {
+   "id": "LDP-HOSPITAL",
+   "code": "LP03",
+   "name": "Homerton A&E",
+   "district": "HOMERTON E9",
+   "street": "LDN-HACKNEY",
+   "service": "hospital",
+   "accent": "#ff5a6e",
+   "file": "places/lp03-homerton-a-e.webp",
+   "width": 2800,
+   "height": 1800,
+   "gridSize": 100,
+   "zones": [
+    {
+     "id": "ambulance-bay",
+     "name": "Ambulance Bay",
+     "kind": "room",
+     "rect": [
+      100,
+      100,
+      1000,
+      700
+     ],
+     "adjacent": [
+      "resus",
+      "waiting-room"
+     ],
+     "service": "ambulanceBay"
+    },
+    {
+     "id": "resus",
+     "name": "Resus",
+     "kind": "room",
+     "rect": [
+      1100,
+      100,
+      800,
+      700
+     ],
+     "adjacent": [
+      "ambulance-bay",
+      "majors",
+      "triage"
+     ]
+    },
+    {
+     "id": "majors",
+     "name": "Majors",
+     "kind": "room",
+     "rect": [
+      1900,
+      100,
+      800,
+      700
+     ],
+     "adjacent": [
+      "pharmacy",
+      "resus"
+     ]
+    },
+    {
+     "id": "waiting-room",
+     "name": "Waiting Room",
+     "kind": "room",
+     "rect": [
+      100,
+      800,
+      1000,
+      900
+     ],
+     "adjacent": [
+      "ambulance-bay",
+      "discharge",
+      "triage"
+     ]
+    },
+    {
+     "id": "triage",
+     "name": "Triage",
+     "kind": "room",
+     "rect": [
+      1100,
+      800,
+      800,
+      500
+     ],
+     "adjacent": [
+      "discharge",
+      "pharmacy",
+      "resus",
+      "waiting-room"
+     ]
+    },
+    {
+     "id": "discharge",
+     "name": "Discharge Lounge",
+     "kind": "room",
+     "rect": [
+      1100,
+      1300,
+      800,
+      400
+     ],
+     "adjacent": [
+      "pharmacy",
+      "triage",
+      "waiting-room"
+     ],
+     "service": "respawn"
+    },
+    {
+     "id": "pharmacy",
+     "name": "Pharmacy",
+     "kind": "room",
+     "rect": [
+      1900,
+      800,
+      800,
+      900
+     ],
+     "adjacent": [
+      "discharge",
+      "majors",
+      "triage"
+     ]
+    }
+   ],
+   "links": [
+    {
+     "edge": null,
+     "kind": "exit",
+     "key": "STREET",
+     "rect": [
+      0,
+      1150.0,
+      200,
+      200
+     ],
+     "to": "LDN-HACKNEY",
+     "toName": "Hackney Central & Homerton",
+     "land": [
+      2550.0,
+      500.0
+     ]
+    }
+   ]
+  },
+  {
+   "id": "LDP-CUSTODY",
+   "code": "LP04",
+   "name": "Custody Suite",
+   "district": "STOKEY N16",
+   "street": "LDN-STOKEY",
+   "service": "police",
+   "accent": "#7fb2ff",
+   "file": "places/lp04-custody-suite.webp",
+   "width": 2800,
+   "height": 1800,
+   "gridSize": 100,
+   "zones": [
+    {
+     "id": "front-desk",
+     "name": "Front Desk",
+     "kind": "room",
+     "rect": [
+      100,
+      100,
+      900,
+      700
+     ],
+     "adjacent": [
+      "custody-desk",
+      "property",
+      "van-dock"
+     ]
+    },
+    {
+     "id": "custody-desk",
+     "name": "Custody Desk",
+     "kind": "room",
+     "rect": [
+      1000,
+      100,
+      900,
+      700
+     ],
+     "adjacent": [
+      "cells",
+      "front-desk",
+      "interview",
+      "van-dock"
+     ],
+     "service": "booking"
+    },
+    {
+     "id": "cells",
+     "name": "Cells",
+     "kind": "room",
+     "rect": [
+      1900,
+      100,
+      800,
+      1600
+     ],
+     "adjacent": [
+      "custody-desk",
+      "interview",
+      "property"
+     ],
+     "service": "cells"
+    },
+    {
+     "id": "interview",
+     "name": "Interview Room",
+     "kind": "room",
+     "rect": [
+      1000,
+      800,
+      900,
+      500
+     ],
+     "adjacent": [
+      "cells",
+      "custody-desk",
+      "property",
+      "van-dock"
+     ]
+    },
+    {
+     "id": "property",
+     "name": "Property Store",
+     "kind": "room",
+     "rect": [
+      1000,
+      1300,
+      900,
+      400
+     ],
+     "adjacent": [
+      "cells",
+      "front-desk",
+      "interview",
+      "van-dock"
+     ],
+     "service": "release"
+    },
+    {
+     "id": "van-dock",
+     "name": "Van Dock",
+     "kind": "room",
+     "rect": [
+      100,
+      800,
+      900,
+      900
+     ],
+     "adjacent": [
+      "custody-desk",
+      "front-desk",
+      "interview",
+      "property"
+     ],
+     "service": "vanDock"
+    }
+   ],
+   "links": [
+    {
+     "edge": null,
+     "kind": "exit",
+     "key": "STREET",
+     "rect": [
+      0,
+      350.0,
+      200,
+      200
+     ],
+     "to": "LDN-STOKEY",
+     "toName": "Stoke Newington & Shacklewell",
+     "land": [
+      1800.0,
+      500.0
+     ]
+    }
+   ]
+  }
+ ]
+}

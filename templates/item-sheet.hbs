@@ -1,0 +1,39 @@
+<div class="smoke-sheet-inner">
+  <header class="smoke-head">
+    <img class="smoke-portrait small" src="{{item.img}}" data-action="editImage" data-edit="img" alt="">
+    <div class="smoke-id"><input class="smoke-name" type="text" name="name" value="{{item.name}}"><span class="smoke-kicker">{{type}}</span></div>
+  </header>
+  <div class="smoke-body">
+    <div class="smoke-vgrid">
+      {{#if (eq type "weapon")}}
+        <label>Stat <select name="system.stat">{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label>Impact <input type="number" name="system.impact" value="{{system.impact}}"></label>
+        <label>Range <input type="text" name="system.range" value="{{system.range}}"></label>
+        <label>Ammo <input type="number" name="system.ammo.value" value="{{system.ammo.value}}"> / <input type="number" name="system.ammo.max" value="{{system.ammo.max}}"></label>
+        <label>Crime <input type="text" name="system.crime" value="{{system.crime}}"></label>
+        <label><input type="checkbox" name="system.loud" {{#if system.loud}}checked{{/if}}> Loud</label>
+        <label><input type="checkbox" name="system.concealable" {{#if system.concealable}}checked{{/if}}> Concealable</label>
+      {{/if}}
+      {{#if (eq type "armour")}}
+        <label>Guard bonus <input type="number" name="system.guard" value="{{system.guard}}"></label>
+        <label>Reduction <input type="number" name="system.reduction" value="{{system.reduction}}"></label>
+        <label><input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}}> Worn</label>
+      {{/if}}
+      {{#if (eq type "gear")}}
+        <label>Tool (for nicking) <input type="text" name="system.tool" value="{{system.tool}}" placeholder="bolt cutters, angle grinder, relay box…"></label>
+        <label>Stat <select name="system.stat"><option value="">—</option>{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+      {{/if}}
+      {{#if (eq type "perk")}}
+        <label>Stat <select name="system.stat">{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label>When <input type="text" name="system.when" value="{{system.when}}"></label>
+      {{/if}}
+      {{#if (eq type "condition")}}
+        <label>Category <input type="text" name="system.category" value="{{system.category}}"></label>
+        <label>Removed by <input type="text" name="system.removal" value="{{system.removal}}"></label>
+      {{/if}}
+      {{#unless (eq type "condition")}}{{#unless (eq type "perk")}}<label>Value £ <input type="number" name="system.value" value="{{system.value}}"></label>{{/unless}}{{/unless}}
+    </div>
+    <div class="smoke-bio">{{{enriched}}}</div>
+    <textarea name="system.description" rows="6">{{system.description}}</textarea>
+  </div>
+</div>

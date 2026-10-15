@@ -1,0 +1,171 @@
+/* THE SMOKE — noir London. Ink grounds, bone type, Overground orange, blue lights. */
+:root {
+  --smoke-ink: #0a0d10; --smoke-ink2: #121a1f; --smoke-ink3: #1b242a; --smoke-bone: #ece4cf; --smoke-bone2: #b9ae95;
+  --smoke-orange: #ff8a3d; --smoke-red: #ff5a6e; --smoke-blue: #7fb2ff; --smoke-green: #8be6b0; --smoke-amber: #ffc467; --smoke-pink: #ff7fb0; --smoke-cy: #78ecf3;
+  --smoke-sign: #f1ede2; --smoke-postcode: #d4202c;
+  --smoke-display: Oswald, "Bebas Neue", Impact, "Arial Narrow", sans-serif; --smoke-mono: "Courier New", Courier, monospace;
+}
+
+/* ---------------------------------------------------------------- chat cards */
+.smoke-card, .smoke-chat-card { background: linear-gradient(160deg, var(--smoke-ink3), var(--smoke-ink)); color: var(--smoke-bone); border: 2px solid var(--smoke-bone2); border-left: 6px solid var(--smoke-orange); border-radius: 6px; padding: 8px 10px; font-family: var(--smoke-mono); font-size: 13px; }
+.smoke-card header, .smoke-chat-card-header { display: flex; flex-direction: column; margin-bottom: 4px; }
+.smoke-card .kicker, .smoke-chat-kicker { font-size: 10px; letter-spacing: 3px; color: var(--smoke-orange); }
+.smoke-card header strong, .smoke-chat-card-header strong { font-family: var(--smoke-display); font-size: 18px; letter-spacing: 1px; color: var(--smoke-bone); text-transform: uppercase; }
+.smoke-card p { margin: 4px 0; color: var(--smoke-bone); }
+.smoke-card button { background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid var(--smoke-orange); border-radius: 4px; font-family: var(--smoke-mono); font-size: 12px; margin: 2px; padding: 3px 6px; line-height: 1.4; width: auto; }
+.smoke-card button:hover { background: var(--smoke-orange); color: var(--smoke-ink); }
+.smoke-card.win { border-left-color: var(--smoke-green); }
+.smoke-card.lose, .smoke-card.cost { border-left-color: var(--smoke-red); }
+.smoke-card.cash { border-left-color: var(--smoke-green); }
+.smoke-card.cash header strong { color: var(--smoke-green); }
+.smoke-card.job { border-left-color: var(--smoke-amber); }
+.smoke-card.offer { border-left-color: var(--smoke-cy); box-shadow: 0 0 10px rgba(120, 236, 243, .25); }
+.smoke-card.crew { border-left-color: var(--smoke-pink); }
+.smoke-card.anpr .kicker { color: var(--smoke-blue); }
+.smoke-card.anpr.hit { border-left-color: var(--smoke-red); animation: smoke-flash 1s 3; }
+.smoke-anpr { font-size: 14px; }
+.smoke-anpr.hit b { color: var(--smoke-red); }
+.smoke-card.heat { border-left-color: var(--smoke-blue); }
+.smoke-card.heat.h4, .smoke-card.heat.h5 { border-left-color: var(--smoke-red); }
+.smoke-card.wasted { border: 3px solid var(--smoke-red); text-align: center; }
+.smoke-card.wasted header strong::before { content: "WASTED — "; color: var(--smoke-red); }
+.smoke-card.busted { border: 3px solid var(--smoke-blue); text-align: center; }
+.smoke-card.busted header strong::before { content: "BUSTED — "; color: var(--smoke-blue); }
+.smoke-card.down { border-left-color: var(--smoke-red); }
+.smoke-dim { color: var(--smoke-bone2) !important; font-size: 11px; }
+.smoke-bad { color: var(--smoke-red) !important; font-weight: 700; }
+.smoke-buttons { display: flex; flex-wrap: wrap; gap: 4px; }
+@keyframes smoke-flash { 50% { box-shadow: 0 0 18px var(--smoke-red); } }
+
+/* roll card */
+.smoke-card.roll .smoke-total { display: flex; align-items: baseline; gap: 10px; }
+.smoke-card.roll .num { font-family: var(--smoke-display); font-size: 40px; color: var(--smoke-bone); line-height: 1; }
+.smoke-tn { color: var(--smoke-bone2); }
+.smoke-dice { margin: 4px 0; display: flex; flex-wrap: wrap; align-items: center; gap: 3px; }
+.smoke-dice i { color: var(--smoke-bone2); font-style: normal; }
+.smoke-die { display: inline-block; min-width: 26px; text-align: center; padding: 2px 5px; border: 1px solid var(--smoke-bone2); border-radius: 4px; background: var(--smoke-ink); }
+.smoke-die.boom { border-color: var(--smoke-amber); color: var(--smoke-amber); box-shadow: 0 0 8px rgba(255, 196, 103, .5); }
+.smoke-outcome { font-family: var(--smoke-display); font-size: 22px; text-transform: uppercase; letter-spacing: 1px; display: flex; flex-direction: column; }
+.smoke-outcome small { font-family: var(--smoke-mono); font-size: 11px; color: var(--smoke-bone2); text-transform: none; letter-spacing: 0; }
+.smoke-outcome.exceptionalSuccess, .smoke-outcome.strongSuccess { color: var(--smoke-green); }
+.smoke-outcome.fullSuccess { color: var(--smoke-cy); }
+.smoke-outcome.narrowSuccess { color: var(--smoke-amber); }
+.smoke-outcome.costlyFailure { color: var(--smoke-orange); }
+.smoke-outcome.severeFailure { color: var(--smoke-red); }
+.smoke-blinder { font-family: var(--smoke-display); color: var(--smoke-amber); font-size: 18px; text-shadow: 0 0 8px rgba(255, 196, 103, .6); }
+.smoke-blinder.r3, .smoke-blinder.r4 { font-size: 24px; color: var(--smoke-pink); }
+.smoke-state { color: var(--smoke-pink); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+.smoke-notes { margin: 4px 0 0; padding-left: 16px; color: var(--smoke-bone2); font-size: 11px; }
+
+/* ---------------------------------------------------------------- sheets */
+.smoke.smoke-sheet .window-content, .smoke.smoke-phone .window-content, .smoke.smoke-control .window-content { background: radial-gradient(ellipse at 30% 10%, var(--smoke-ink3), var(--smoke-ink) 70%); color: var(--smoke-bone); padding: 0; }
+.smoke-sheet-inner { display: flex; flex-direction: column; height: 100%; font-family: var(--smoke-mono); }
+.smoke-sheet input, .smoke-sheet select, .smoke-sheet textarea, .smoke-control select, .smoke-phone select { background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid #3a4148; border-radius: 3px; font-family: var(--smoke-mono); }
+.smoke-sheet textarea { width: 100%; min-height: 70px; }
+.smoke-head { display: flex; gap: 12px; align-items: center; padding: 12px; border-bottom: 3px solid var(--smoke-bone); background: linear-gradient(90deg, rgba(255, 138, 61, .12), transparent); }
+.smoke-portrait { width: 96px; height: 96px; object-fit: cover; border: 3px solid var(--smoke-bone); border-radius: 50%; background: var(--smoke-ink); cursor: pointer; }
+.smoke-portrait.small { width: 64px; height: 64px; border-radius: 8px; }
+.smoke-id { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.smoke-name { font-family: var(--smoke-display) !important; font-size: 28px !important; height: auto !important; letter-spacing: 1px; text-transform: uppercase; background: transparent !important; border: none !important; border-bottom: 2px solid var(--smoke-orange) !important; }
+.smoke-kicker { color: var(--smoke-orange); letter-spacing: 3px; text-transform: uppercase; font-size: 11px; }
+.smoke-sub { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 11px; color: var(--smoke-bone2); }
+.smoke-sub label { display: flex; flex-direction: column; gap: 2px; }
+.smoke-sub input { width: 110px; }
+.smoke-sub.wide label { width: 100%; } .smoke-sub.wide input { width: 100%; }
+.smoke-heat { text-align: center; padding: 6px 10px; border: 2px solid var(--smoke-bone2); border-radius: 6px; background: var(--smoke-ink); min-width: 120px; }
+.smoke-heat .stars { font-size: 18px; color: var(--smoke-blue); letter-spacing: 2px; cursor: pointer; }
+.smoke-heat.h4 .stars, .smoke-heat.h5 .stars { color: var(--smoke-red); }
+.smoke-heat .heat-name { font-family: var(--smoke-display); letter-spacing: 2px; text-transform: uppercase; font-size: 14px; }
+.smoke-bars { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid #2a3238; align-items: center; }
+.smoke-bars .bar { display: flex; align-items: center; gap: 4px; background: var(--smoke-ink); border: 1px solid #2a3238; border-left: 4px solid var(--smoke-orange); padding: 3px 6px; border-radius: 4px; }
+.smoke-bars .bar span { font-size: 10px; letter-spacing: 2px; color: var(--smoke-bone2); }
+.smoke-bars .bar input { width: 48px; text-align: center; }
+.smoke-bars .bar.health { border-left-color: var(--smoke-red); } .smoke-bars .bar.hustle { border-left-color: var(--smoke-amber); } .smoke-bars .bar.cash { border-left-color: var(--smoke-green); } .smoke-bars .bar.guard { border-left-color: var(--smoke-blue); }
+.smoke-bars .bar button { width: 22px; height: 22px; padding: 0; line-height: 1; background: transparent; color: var(--smoke-bone2); border: 1px solid #3a4148; }
+.smoke-bars .bar b { font-family: var(--smoke-display); font-size: 18px; } .smoke-bars .bar small { color: var(--smoke-bone2); }
+.smoke-phone-btn { width: auto; margin-left: auto; background: var(--smoke-orange); color: var(--smoke-ink); border: none; font-weight: 700; }
+.smoke-tabs { display: flex; gap: 2px; padding: 0 12px; border-bottom: 2px solid var(--smoke-bone); }
+.smoke-tabs a { padding: 6px 12px; font-family: var(--smoke-display); letter-spacing: 2px; text-transform: uppercase; color: var(--smoke-bone2); cursor: pointer; }
+.smoke-tabs a.active { color: var(--smoke-ink); background: var(--smoke-bone); border-radius: 4px 4px 0 0; }
+.smoke-body { flex: 1; overflow-y: auto; padding: 12px; }
+.smoke-tab { display: none; } .smoke-tab.active { display: block; }
+.smoke-sheet.vehicle .smoke-body, .smoke-sheet.item .smoke-body { display: block; }
+.smoke-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.smoke-stat { display: grid; grid-template-columns: 1fr auto auto auto; align-items: center; gap: 4px; background: var(--smoke-ink); border: 1px solid #2a3238; border-radius: 6px; padding: 6px; }
+.smoke-stat .stat-roll { display: flex; flex-direction: column; align-items: flex-start; background: transparent; border: none; color: var(--smoke-bone); text-align: left; padding: 0 2px; line-height: 1.1; }
+.smoke-stat .stat-roll b { font-family: var(--smoke-display); font-size: 20px; color: var(--smoke-orange); letter-spacing: 2px; }
+.smoke-stat .stat-roll span { font-size: 11px; }
+.smoke-stat .stat-roll:hover b { color: var(--smoke-amber); text-shadow: 0 0 6px var(--smoke-amber); }
+.smoke-stat select { width: 58px; } .smoke-stat .mod { color: var(--smoke-bone2); font-size: 12px; }
+.smoke-stat .quick { width: 26px; height: 26px; padding: 0; background: transparent; border: 1px solid #3a4148; color: var(--smoke-bone2); }
+.smoke-hint { color: var(--smoke-bone2); font-size: 11px; line-height: 1.4; margin: 8px 0; }
+.smoke-body h3 { font-family: var(--smoke-display); letter-spacing: 2px; text-transform: uppercase; color: var(--smoke-bone); border-bottom: 1px solid var(--smoke-orange); margin: 14px 0 6px; font-size: 16px; }
+.smoke-list { list-style: none; margin: 0; padding: 0; }
+.smoke-list li { display: flex; align-items: center; gap: 8px; padding: 5px 6px; border-bottom: 1px dashed #2a3238; }
+.smoke-list li small { color: var(--smoke-bone2); flex: 1; }
+.smoke-list li a { color: var(--smoke-bone2); cursor: pointer; } .smoke-list li a.use { color: var(--smoke-bone); font-weight: 700; }
+.smoke-list li a:hover { color: var(--smoke-orange); }
+.smoke-list li.empty { color: #6a7078; font-style: italic; }
+.smoke-sheet button { background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid #3a4148; border-radius: 4px; font-family: var(--smoke-mono); }
+.smoke-sheet button:hover { border-color: var(--smoke-orange); color: var(--smoke-orange); }
+.smoke-conditions { display: flex; flex-wrap: wrap; gap: 5px; }
+.smoke-conditions .cond { width: auto; font-size: 12px; padding: 3px 8px; opacity: .55; }
+.smoke-conditions .cond.on { opacity: 1; background: var(--smoke-red); color: var(--smoke-ink); border-color: var(--smoke-red); font-weight: 700; }
+.smoke-states { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; font-size: 12px; }
+.smoke-bio { background: rgba(0, 0, 0, .25); border: 1px solid #2a3238; padding: 6px 10px; border-radius: 4px; margin-bottom: 6px; font-family: Georgia, serif; font-size: 13px; line-height: 1.5; color: var(--smoke-bone); }
+.smoke-inline { display: flex; gap: 6px; align-items: center; }
+.smoke-vgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.smoke-vgrid label { display: flex; flex-direction: column; gap: 2px; font-size: 11px; color: var(--smoke-bone2); }
+.smoke-vgrid input[type=number] { width: 60px; }
+.smoke-body-meter { position: relative; width: 140px; height: 28px; background: var(--smoke-ink); border: 2px solid var(--smoke-bone2); border-radius: 4px; overflow: hidden; }
+.smoke-body-meter .fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, var(--smoke-red), var(--smoke-amber), var(--smoke-green)); opacity: .55; }
+.smoke-body-meter span { position: relative; display: block; text-align: center; line-height: 24px; font-family: var(--smoke-display); letter-spacing: 2px; }
+
+/* ---------------------------------------------------------------- the phone */
+.smoke-phone .window-content { background: #050607 !important; }
+.phone-shell { height: 100%; border: 6px solid #22282d; border-radius: 26px; background: #000; position: relative; padding: 18px 8px 10px; box-sizing: border-box; }
+.phone-notch { position: absolute; top: 6px; left: 50%; width: 80px; height: 8px; margin-left: -40px; background: #22282d; border-radius: 4px; }
+.phone-screen { height: 100%; overflow-y: auto; background: linear-gradient(180deg, #11181c, #070a0c); border-radius: 16px; padding: 8px; font-family: var(--smoke-mono); color: var(--smoke-bone); }
+.phone-status { display: flex; justify-content: space-between; font-size: 10px; letter-spacing: 2px; color: var(--smoke-bone2); margin-bottom: 6px; }
+.phone-screen select { width: 100%; margin-bottom: 6px; }
+.phone-card { background: rgba(255, 255, 255, .04); border: 1px solid #2a3238; border-left: 4px solid var(--smoke-orange); border-radius: 8px; padding: 8px; margin-bottom: 8px; font-size: 12px; }
+.phone-card .kicker { font-size: 9px; letter-spacing: 3px; color: var(--smoke-orange); }
+.phone-card b { font-family: var(--smoke-display); font-size: 15px; letter-spacing: 1px; }
+.phone-card p { margin: 4px 0; } .phone-card .extra { color: var(--smoke-amber); }
+.phone-card button { width: auto; font-size: 11px; margin: 2px 2px 0 0; background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid var(--smoke-orange); border-radius: 12px; padding: 2px 10px; }
+.phone-card .row { display: flex; gap: 4px; }
+.phone-card.me { display: grid; grid-template-columns: 44px 1fr auto; gap: 8px; align-items: center; border-left-color: var(--smoke-green); }
+.phone-card.me img { width: 44px; height: 44px; border-radius: 50%; border: 2px solid var(--smoke-bone); cursor: pointer; }
+.phone-card.me .cash { color: var(--smoke-green); font-family: var(--smoke-display); font-size: 18px; }
+.phone-heat { text-align: right; color: var(--smoke-blue); font-size: 12px; } .phone-heat small { display: block; font-size: 9px; letter-spacing: 2px; color: var(--smoke-bone2); }
+.phone-heat.h4, .phone-heat.h5 { color: var(--smoke-red); }
+.phone-card.offer { border-left-color: var(--smoke-cy); }
+.phone-card.active { border-left-color: var(--smoke-amber); }
+.phone-card.active.urgent { border-left-color: var(--smoke-red); animation: smoke-flash 1s infinite; }
+.phone-card.pat { border-left-color: var(--smoke-pink); }
+.phone-card.shift { border-left-color: var(--smoke-blue); }
+.phone-card .clock { position: relative; height: 18px; background: #000; border: 1px solid #3a4148; border-radius: 9px; overflow: hidden; margin: 6px 0; }
+.phone-card .clock .fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg, var(--smoke-red), var(--smoke-amber)); opacity: .6; }
+.phone-card .clock span { position: relative; display: block; text-align: center; font-size: 11px; line-height: 16px; }
+.phone-hint { font-size: 11px; color: var(--smoke-bone2); line-height: 1.4; }
+
+/* ---------------------------------------------------------------- GM street control */
+.smoke-control-inner { padding: 10px; font-family: var(--smoke-mono); color: var(--smoke-bone); }
+.smoke-control-inner h3 { font-family: var(--smoke-display); letter-spacing: 2px; border-bottom: 1px solid var(--smoke-orange); text-transform: uppercase; }
+.smoke-control-inner .row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 6px; }
+.smoke-control-inner button { width: auto; flex: 1; background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid #3a4148; font-size: 12px; }
+.smoke-control-inner button.on { border-color: var(--smoke-green); color: var(--smoke-green); }
+.smoke-table { width: 100%; font-size: 12px; } .smoke-table td { padding: 2px 4px; } .smoke-table button { flex: none; width: 34px; }
+
+/* ---------------------------------------------------------------- vehicles: seat picker, HUD, popover */
+.smoke-seat-picker { display: flex; flex-direction: column; gap: 4px; }
+.smoke-seat-picker-scroll { max-height: 300px; overflow-y: auto; }
+.smoke-seat-option { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; padding: 4px 6px; border: 1px solid #3a4148; border-radius: 4px; }
+.smoke-seat-option.taken { opacity: .5; } .smoke-seat-option em { color: #8a8f96; font-size: 11px; }
+.smoke-seat-list { list-style: none; padding: 0; }
+.smoke-vehicle-boarding-popover { position: fixed; z-index: 1000; display: flex; flex-direction: column; gap: 4px; background: var(--smoke-ink); border: 2px solid var(--smoke-orange); border-radius: 8px; padding: 6px; box-shadow: 0 6px 20px rgba(0, 0, 0, .7); }
+.smoke-vehicle-boarding-popover .control-icon, .smoke-vehicle-boarding-action { display: flex !important; align-items: center; gap: 8px; width: auto !important; height: auto !important; padding: 6px 10px !important; background: var(--smoke-ink2); color: var(--smoke-bone); border: 1px solid #3a4148; border-radius: 6px; font-family: var(--smoke-mono); font-size: 12px; cursor: pointer; }
+.smoke-vehicle-boarding-popover .control-icon:hover { border-color: var(--smoke-orange); color: var(--smoke-orange); }
+.control-icon.smoke-vehicle-hud, .control-icon.smoke-ability-hud, .control-icon.smoke-transit-hud, .control-icon.smoke-gm-hud { color: var(--smoke-orange); }
+.smoke-roll-dialog { display: flex; flex-direction: column; gap: 6px; }
+.smoke-roll-dialog label { display: flex; justify-content: space-between; align-items: center; gap: 8px; }

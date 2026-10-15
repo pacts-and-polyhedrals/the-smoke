@@ -1,0 +1,125 @@
+{
+ "named": {
+  "jaz": {
+   "name": "Jaz Kaur",
+   "role": "pc",
+   "file": "npc-jaz.svg"
+  },
+  "tealeaf": {
+   "name": "Danny \"Tealeaf\" Doyle",
+   "role": "pc",
+   "file": "npc-tealeaf.svg"
+  },
+  "femi": {
+   "name": "Femi Adebayo",
+   "role": "pc",
+   "file": "npc-femi.svg"
+  },
+  "sal": {
+   "name": "Big Sal Moretti",
+   "role": "pc",
+   "file": "npc-sal.svg"
+  },
+  "pat": {
+   "name": "Auntie Pat",
+   "role": "crew",
+   "file": "npc-pat.svg"
+  },
+  "spanner": {
+   "name": "Spanner Rob",
+   "role": "crew",
+   "file": "npc-spanner.svg"
+  },
+  "kez": {
+   "name": "Kez",
+   "role": "crew",
+   "file": "npc-kez.svg"
+  },
+  "mo": {
+   "name": "Mo Rahman",
+   "role": "civilian",
+   "file": "npc-mo.svg"
+  },
+  "stretch": {
+   "name": "Stretch",
+   "role": "gang",
+   "file": "npc-stretch.svg"
+  },
+  "lea-boy": {
+   "name": "Lea Boy",
+   "role": "gang",
+   "file": "npc-lea-boy.svg"
+  },
+  "vale": {
+   "name": "DS Harriet Vale",
+   "role": "police",
+   "file": "npc-vale.svg"
+  },
+  "pc": {
+   "name": "Metro Police Officer",
+   "role": "police",
+   "file": "npc-pc.svg"
+  },
+  "arv": {
+   "name": "Armed Response Officer",
+   "role": "police",
+   "file": "npc-arv.svg"
+  },
+  "paramedic": {
+   "name": "Paramedic",
+   "role": "paramedic",
+   "file": "npc-paramedic.svg"
+  },
+  "firefighter": {
+   "name": "Firefighter",
+   "role": "fire",
+   "file": "npc-firefighter.svg"
+  },
+  "cabbie": {
+   "name": "Cabbie",
+   "role": "civilian",
+   "file": "npc-cabbie.svg"
+  },
+  "courier": {
+   "name": "Courier",
+   "role": "civilian",
+   "file": "npc-courier.svg"
+  },
+  "patient": {
+   "name": "Patient",
+   "role": "civilian",
+   "file": "npc-patient.svg"
+  },
+  "suspect": {
+   "name": "Suspect",
+   "role": "suspect",
+   "file": "npc-suspect.svg"
+  }
+ },
+ "peds": [
+  "ped-01.svg",
+  "ped-02.svg",
+  "ped-03.svg",
+  "ped-04.svg",
+  "ped-05.svg",
+  "ped-06.svg",
+  "ped-07.svg",
+  "ped-08.svg",
+  "ped-09.svg",
+  "ped-10.svg",
+  "ped-11.svg",
+  "ped-12.svg",
+  "ped-13.svg",
+  "ped-14.svg",
+  "ped-15.svg",
+  "ped-16.svg",
+  "ped-17.svg",
+  "ped-18.svg",
+  "ped-19.svg",
+  "ped-20.svg",
+  "ped-21.svg",
+  "ped-22.svg",
+  "ped-23.svg",
+  "ped-24.svg"
+ ]
+}

@@ -1,0 +1,582 @@
+{
+ "atlas": "The Smoke \u2014 London Overview",
+ "maps": [
+  {
+   "id": "LDN-OVERVIEW",
+   "code": "LS00",
+   "name": "London Overview \u00b7 All Districts",
+   "district": "NORTH & EAST LONDON",
+   "col": -1,
+   "row": -1,
+   "accent": "#78ecf3",
+   "file": "streets/ls00-london-overview.webp",
+   "width": 8400,
+   "height": 3456,
+   "gridSize": 100,
+   "zones": [
+    {
+     "id": "ldn-highbury",
+     "name": "Highbury & Albion Rd",
+     "kind": "district",
+     "rect": [
+      0,
+      0,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-stokey",
+     "name": "Stoke Newington & Shacklewell",
+     "kind": "district",
+     "rect": [
+      1344,
+      0,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-clapton",
+     "name": "Clapton",
+     "kind": "district",
+     "rect": [
+      2688,
+      0,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-marshes",
+     "name": "Hackney Marshes",
+     "kind": "district",
+     "rect": [
+      4032,
+      0,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-leyton",
+     "name": "Leyton & Ruckholt",
+     "kind": "district",
+     "rect": [
+      5376,
+      0,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-canonbury",
+     "name": "Canonbury & Newington Green",
+     "kind": "district",
+     "rect": [
+      0,
+      864,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-dalston",
+     "name": "Dalston",
+     "kind": "district",
+     "rect": [
+      1344,
+      864,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-hackney",
+     "name": "Hackney Central & Homerton",
+     "kind": "district",
+     "rect": [
+      2688,
+      864,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-wick-woodland",
+     "name": "Homerton East & Wick Woodland",
+     "kind": "district",
+     "rect": [
+      4032,
+      864,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-olympic-north",
+     "name": "Olympic Park North",
+     "kind": "district",
+     "rect": [
+      5376,
+      864,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-de-beauvoir",
+     "name": "De Beauvoir",
+     "kind": "district",
+     "rect": [
+      0,
+      1728,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-haggerston",
+     "name": "Haggerston & London Fields",
+     "kind": "district",
+     "rect": [
+      1344,
+      1728,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-south-hackney",
+     "name": "South Hackney & Well Street",
+     "kind": "district",
+     "rect": [
+      2688,
+      1728,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-victoria-park",
+     "name": "Victoria Park & Hackney Wick",
+     "kind": "district",
+     "rect": [
+      4032,
+      1728,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-stratford",
+     "name": "Stratford & the Stadium",
+     "kind": "district",
+     "rect": [
+      5376,
+      1728,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-hoxton-west",
+     "name": "Hoxton West & the Canal",
+     "kind": "district",
+     "rect": [
+      0,
+      2592,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-hackney-road",
+     "name": "Haggerston Park & Hackney Rd",
+     "kind": "district",
+     "rect": [
+      1344,
+      2592,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-bethnal-green",
+     "name": "Bethnal Green",
+     "kind": "district",
+     "rect": [
+      2688,
+      2592,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-old-ford",
+     "name": "Old Ford & Bow",
+     "kind": "district",
+     "rect": [
+      4032,
+      2592,
+      1344,
+      864
+     ],
+     "adjacent": []
+    },
+    {
+     "id": "ldn-bow-flyover",
+     "name": "Bow Flyover & Mill Meads",
+     "kind": "district",
+     "rect": [
+      5376,
+      2592,
+      1344,
+      864
+     ],
+     "adjacent": []
+    }
+   ],
+   "links": [
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      0,
+      0,
+      1344,
+      864
+     ],
+     "to": "LDN-HIGHBURY",
+     "toName": "Highbury & Albion Rd",
+     "land": [
+      2250.0,
+      150.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      1344,
+      0,
+      1344,
+      864
+     ],
+     "to": "LDN-STOKEY",
+     "toName": "Stoke Newington & Shacklewell",
+     "land": [
+      2250.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      2688,
+      0,
+      1344,
+      864
+     ],
+     "to": "LDN-CLAPTON",
+     "toName": "Clapton",
+     "land": [
+      2250.0,
+      1650.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      4032,
+      0,
+      1344,
+      864
+     ],
+     "to": "LDN-MARSHES",
+     "toName": "Hackney Marshes",
+     "land": [
+      2850.0,
+      2550.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      5376,
+      0,
+      1344,
+      864
+     ],
+     "to": "LDN-LEYTON",
+     "toName": "Leyton & Ruckholt",
+     "land": [
+      2850.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      0,
+      864,
+      1344,
+      864
+     ],
+     "to": "LDN-CANONBURY",
+     "toName": "Canonbury & Newington Green",
+     "land": [
+      2850.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      1344,
+      864,
+      1344,
+      864
+     ],
+     "to": "LDN-DALSTON",
+     "toName": "Dalston",
+     "land": [
+      2250.0,
+      1950.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      2688,
+      864,
+      1344,
+      864
+     ],
+     "to": "LDN-HACKNEY",
+     "toName": "Hackney Central & Homerton",
+     "land": [
+      1950.0,
+      1650.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      4032,
+      864,
+      1344,
+      864
+     ],
+     "to": "LDN-WICK-WOODLAND",
+     "toName": "Homerton East & Wick Woodland",
+     "land": [
+      1950.0,
+      2250.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      5376,
+      864,
+      1344,
+      864
+     ],
+     "to": "LDN-OLYMPIC-NORTH",
+     "toName": "Olympic Park North",
+     "land": [
+      3150.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      0,
+      1728,
+      1344,
+      864
+     ],
+     "to": "LDN-DE-BEAUVOIR",
+     "toName": "De Beauvoir",
+     "land": [
+      2250.0,
+      750.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      1344,
+      1728,
+      1344,
+      864
+     ],
+     "to": "LDN-HAGGERSTON",
+     "toName": "Haggerston & London Fields",
+     "land": [
+      1950.0,
+      1650.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      2688,
+      1728,
+      1344,
+      864
+     ],
+     "to": "LDN-SOUTH-HACKNEY",
+     "toName": "South Hackney & Well Street",
+     "land": [
+      2550.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      4032,
+      1728,
+      1344,
+      864
+     ],
+     "to": "LDN-VICTORIA-PARK",
+     "toName": "Victoria Park & Hackney Wick",
+     "land": [
+      2550.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      5376,
+      1728,
+      1344,
+      864
+     ],
+     "to": "LDN-STRATFORD",
+     "toName": "Stratford & the Stadium",
+     "land": [
+      4050.0,
+      1950.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      0,
+      2592,
+      1344,
+      864
+     ],
+     "to": "LDN-HOXTON-WEST",
+     "toName": "Hoxton West & the Canal",
+     "land": [
+      1950.0,
+      1050.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      1344,
+      2592,
+      1344,
+      864
+     ],
+     "to": "LDN-HACKNEY-ROAD",
+     "toName": "Haggerston Park & Hackney Rd",
+     "land": [
+      2250.0,
+      1950.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      2688,
+      2592,
+      1344,
+      864
+     ],
+     "to": "LDN-BETHNAL-GREEN",
+     "toName": "Bethnal Green",
+     "land": [
+      1950.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      4032,
+      2592,
+      1344,
+      864
+     ],
+     "to": "LDN-OLD-FORD",
+     "toName": "Old Ford & Bow",
+     "land": [
+      2550.0,
+      1350.0
+     ]
+    },
+    {
+     "edge": null,
+     "kind": "district",
+     "rect": [
+      5376,
+      2592,
+      1344,
+      864
+     ],
+     "to": "LDN-BOW-FLYOVER",
+     "toName": "Bow Flyover & Mill Meads",
+     "land": [
+      2250.0,
+      1350.0
+     ]
+    }
+   ]
+  }
+ ]
+}

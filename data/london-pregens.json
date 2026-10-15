@@ -1,0 +1,521 @@
+{
+ "pregens": [
+  {
+   "key": "jaz",
+   "name": "Jaz Kaur",
+   "img": "systems/the-smoke/assets/tokens/people/npc-jaz.webp",
+   "disposition": 0,
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 8
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 4
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "pc",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 3,
+      "max": 3
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 9
+    },
+    "biography": "<p>Grew up doing tricks on the Haggerston Park ramps. She can take a stolen BMX down the canal steps at full tilt. Pat calls her \"the courier\".</p>",
+    "identity": {
+     "alias": "Jaz",
+     "ends": "Dalston",
+     "crew": "The Chainring",
+     "look": "Oversized hoodie, scuffed Air Max, BMX pegs in her bag",
+     "hustle": "Can ride anything with wheels",
+     "vice": "Adrenaline",
+     "bond": "Kez taught her to bunny-hop",
+     "ambition": "Her own bike shop, legit",
+     "age": "21"
+    }
+   },
+   "items": [
+    {
+     "name": "Fists",
+     "type": "weapon",
+     "img": "icons/svg/fist.svg",
+     "system": {
+      "stat": "mus",
+      "impact": 0,
+      "range": "Engaged",
+      "kind": "melee",
+      "crime": "assault",
+      "value": 0,
+      "loud": false,
+      "concealable": true,
+      "ammo": {
+       "value": 0,
+       "max": 0
+      },
+      "equipped": true,
+      "description": "<p>Your own two hands.</p>"
+     }
+    },
+    {
+     "name": "Bolt Cutters",
+     "type": "gear",
+     "img": "icons/svg/padlock.svg",
+     "system": {
+      "description": "<p>Cut cable locks and cheap D-locks: bike locks are one band easier.</p>",
+      "value": 35,
+      "tool": "bolt cutters",
+      "stat": "grf"
+     }
+    },
+    {
+     "name": "Burner Phone",
+     "type": "gear",
+     "img": "icons/svg/item-bag.svg",
+     "system": {
+      "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
+      "value": 20,
+      "tool": "",
+      "stat": ""
+     }
+    },
+    {
+     "name": "Getaway Driver",
+     "type": "perk",
+     "img": "icons/svg/upgrade.svg",
+     "system": {
+      "stat": "whl",
+      "when": "Losing a pursuer",
+      "description": "<p>Wheels steps up one die in a chase while you are the one being chased.</p>"
+     }
+    }
+   ]
+  },
+  {
+   "key": "tealeaf",
+   "name": "Danny \"Tealeaf\" Doyle",
+   "img": "systems/the-smoke/assets/tokens/people/npc-tealeaf.webp",
+   "disposition": 0,
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 8
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "pc",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 3,
+      "max": 3
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 9
+    },
+    "biography": "<p>Third-generation Homerton. His granddad nicked cars, his dad nicked vans, Danny nicks bikes \u2014 and anything else that is not bolted down.</p>",
+    "identity": {
+     "alias": "Tealeaf",
+     "ends": "Homerton",
+     "crew": "The Chainring",
+     "look": "Flat cap, puffer jacket, a toolbag that clinks",
+     "hustle": "No lock he can't open",
+     "vice": "Fruit machines",
+     "bond": "Owes Pat for his mum's funeral",
+     "ambition": "One big score and out",
+     "age": "24"
+    }
+   },
+   "items": [
+    {
+     "name": "Fists",
+     "type": "weapon",
+     "img": "icons/svg/fist.svg",
+     "system": {
+      "stat": "mus",
+      "impact": 0,
+      "range": "Engaged",
+      "kind": "melee",
+      "crime": "assault",
+      "value": 0,
+      "loud": false,
+      "concealable": true,
+      "ammo": {
+       "value": 0,
+       "max": 0
+      },
+      "equipped": true,
+      "description": "<p>Your own two hands.</p>"
+     }
+    },
+    {
+     "name": "Angle Grinder",
+     "type": "gear",
+     "img": "icons/svg/sun.svg",
+     "system": {
+      "description": "<p>Through any bike lock in seconds: two bands easier. Shrieks \u2014 anyone near notices.</p>",
+      "value": 120,
+      "tool": "angle grinder",
+      "stat": "grf"
+     }
+    },
+    {
+     "name": "Slim Jim",
+     "type": "gear",
+     "img": "icons/svg/padlock.svg",
+     "system": {
+      "description": "<p>Old-school door opener: older cars one band easier.</p>",
+      "value": 15,
+      "tool": "slim jim",
+      "stat": "grf"
+     }
+    },
+    {
+     "name": "Burner Phone",
+     "type": "gear",
+     "img": "icons/svg/item-bag.svg",
+     "system": {
+      "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
+      "value": 20,
+      "tool": "",
+      "stat": ""
+     }
+    },
+    {
+     "name": "Bike Thief",
+     "type": "perk",
+     "img": "icons/svg/upgrade.svg",
+     "system": {
+      "stat": "grf",
+      "when": "Cutting a lock or hotwiring",
+      "description": "<p>You know every lock on the market. Graft steps up one die when you nick a bicycle or scooter.</p>"
+     }
+    }
+   ]
+  },
+  {
+   "key": "femi",
+   "name": "Femi Adebayo",
+   "img": "systems/the-smoke/assets/tokens/people/npc-femi.webp",
+   "disposition": 0,
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 6
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "pc",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 3,
+      "max": 3
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 9
+    },
+    "biography": "<p>Ran county cross-country for his school until he didn't. Now he runs the getaway on foot when the bike goes wrong.</p>",
+    "identity": {
+     "alias": "Femi",
+     "ends": "Clapton",
+     "crew": "The Chainring",
+     "look": "Running jacket, earbuds, never stands still",
+     "hustle": "Nobody catches him on foot",
+     "vice": "Showing off",
+     "bond": "Grew up with Kez",
+     "ambition": "A deal with a trainer brand",
+     "age": "19"
+    }
+   },
+   "items": [
+    {
+     "name": "Fists",
+     "type": "weapon",
+     "img": "icons/svg/fist.svg",
+     "system": {
+      "stat": "mus",
+      "impact": 0,
+      "range": "Engaged",
+      "kind": "melee",
+      "crime": "assault",
+      "value": 0,
+      "loud": false,
+      "concealable": true,
+      "ammo": {
+       "value": 0,
+       "max": 0
+      },
+      "equipped": true,
+      "description": "<p>Your own two hands.</p>"
+     }
+    },
+    {
+     "name": "Bolt Cutters",
+     "type": "gear",
+     "img": "icons/svg/padlock.svg",
+     "system": {
+      "description": "<p>Cut cable locks and cheap D-locks: bike locks are one band easier.</p>",
+      "value": 35,
+      "tool": "bolt cutters",
+      "stat": "grf"
+     }
+    },
+    {
+     "name": "Burner Phone",
+     "type": "gear",
+     "img": "icons/svg/item-bag.svg",
+     "system": {
+      "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
+      "value": 20,
+      "tool": "",
+      "stat": ""
+     }
+    },
+    {
+     "name": "Parkour",
+     "type": "perk",
+     "img": "icons/svg/upgrade.svg",
+     "system": {
+      "stat": "mov",
+      "when": "Climbing, vaulting, leg it on foot",
+      "description": "<p>Moves steps up one die when running from someone or going over walls.</p>"
+     }
+    }
+   ]
+  },
+  {
+   "key": "sal",
+   "name": "Big Sal Moretti",
+   "img": "systems/the-smoke/assets/tokens/people/npc-sal.webp",
+   "disposition": 0,
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 8
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 4
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "pc",
+    "resources": {
+     "health": {
+      "value": 14,
+      "max": 14
+     },
+     "hustle": {
+      "value": 3,
+      "max": 3
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 9
+    },
+    "biography": "<p>Does the lifting, the standing about looking big, and \u2014 when the Lea Boys turn up \u2014 the talking. Mostly with his hands.</p>",
+    "identity": {
+     "alias": "Big Sal",
+     "ends": "Bethnal Green",
+     "crew": "The Chainring",
+     "look": "Sovereign rings, gym vest in January",
+     "hustle": "Makes problems go away",
+     "vice": "Pride",
+     "bond": "Pat's \"nephew\" (not really)",
+     "ambition": "Run the crew one day",
+     "age": "26"
+    }
+   },
+   "items": [
+    {
+     "name": "Fists",
+     "type": "weapon",
+     "img": "icons/svg/fist.svg",
+     "system": {
+      "stat": "mus",
+      "impact": 0,
+      "range": "Engaged",
+      "kind": "melee",
+      "crime": "assault",
+      "value": 0,
+      "loud": false,
+      "concealable": true,
+      "ammo": {
+       "value": 0,
+       "max": 0
+      },
+      "equipped": true,
+      "description": "<p>Your own two hands.</p>"
+     }
+    },
+    {
+     "name": "Cricket Bat",
+     "type": "weapon",
+     "img": "icons/svg/sword.svg",
+     "system": {
+      "stat": "mus",
+      "impact": 3,
+      "range": "Engaged",
+      "kind": "melee",
+      "crime": "assault",
+      "value": 25,
+      "loud": false,
+      "concealable": true,
+      "ammo": {
+       "value": 0,
+       "max": 0
+      },
+      "equipped": true,
+      "description": "<p>Willow. Kept in the car \"for the nets\".</p>"
+     }
+    },
+    {
+     "name": "Puffer Jacket",
+     "type": "armour",
+     "img": "icons/svg/shield.svg",
+     "system": {
+      "guard": 0,
+      "reduction": 1,
+      "value": 90,
+      "equipped": true,
+      "description": "<p>Thick enough to take the edge off a punch.</p>"
+     }
+    },
+    {
+     "name": "Burner Phone",
+     "type": "gear",
+     "img": "icons/svg/item-bag.svg",
+     "system": {
+      "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
+      "value": 20,
+      "tool": "",
+      "stat": ""
+     }
+    },
+    {
+     "name": "Brawler",
+     "type": "perk",
+     "img": "icons/svg/upgrade.svg",
+     "system": {
+      "stat": "mus",
+      "when": "Fighting hand to hand",
+      "description": "<p>Muscle steps up one die in a punch-up with no weapons.</p>"
+     }
+    }
+   ]
+  }
+ ]
+}

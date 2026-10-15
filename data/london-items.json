@@ -1,0 +1,440 @@
+{
+ "items": [
+  {
+   "name": "Fists",
+   "type": "weapon",
+   "img": "icons/svg/fist.svg",
+   "system": {
+    "stat": "mus",
+    "impact": 0,
+    "range": "Engaged",
+    "kind": "melee",
+    "crime": "assault",
+    "value": 0,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 0,
+     "max": 0
+    },
+    "equipped": true,
+    "description": "<p>Your own two hands.</p>"
+   }
+  },
+  {
+   "name": "Bike Chain",
+   "type": "weapon",
+   "img": "icons/svg/sword.svg",
+   "system": {
+    "stat": "mus",
+    "impact": 2,
+    "range": "Engaged",
+    "kind": "melee",
+    "crime": "assault",
+    "value": 5,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 0,
+     "max": 0
+    },
+    "equipped": true,
+    "description": "<p>Swung from the hand. Doubles as a lock nobody trusts.</p>"
+   }
+  },
+  {
+   "name": "Cricket Bat",
+   "type": "weapon",
+   "img": "icons/svg/sword.svg",
+   "system": {
+    "stat": "mus",
+    "impact": 3,
+    "range": "Engaged",
+    "kind": "melee",
+    "crime": "assault",
+    "value": 25,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 0,
+     "max": 0
+    },
+    "equipped": true,
+    "description": "<p>Willow. Kept in the car \"for the nets\".</p>"
+   }
+  },
+  {
+   "name": "Kitchen Knife",
+   "type": "weapon",
+   "img": "icons/svg/sword.svg",
+   "system": {
+    "stat": "mus",
+    "impact": 3,
+    "range": "Engaged",
+    "kind": "melee",
+    "crime": "assault",
+    "value": 8,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 0,
+     "max": 0
+    },
+    "equipped": true,
+    "description": "<p>Carrying one is a crime on its own if you are searched.</p>"
+   }
+  },
+  {
+   "name": "Machete",
+   "type": "weapon",
+   "img": "icons/svg/sword.svg",
+   "system": {
+    "stat": "mus",
+    "impact": 4,
+    "range": "Engaged",
+    "kind": "melee",
+    "crime": "assault",
+    "value": 30,
+    "loud": false,
+    "concealable": false,
+    "ammo": {
+     "value": 0,
+     "max": 0
+    },
+    "equipped": true,
+    "description": "<p>Big, ugly, illegal. Draws attention the moment it comes out.</p>"
+   }
+  },
+  {
+   "name": "Converted Pistol",
+   "type": "weapon",
+   "img": "icons/svg/target.svg",
+   "system": {
+    "stat": "aim",
+    "impact": 4,
+    "range": "Near",
+    "kind": "firearm",
+    "crime": "shooting",
+    "value": 900,
+    "loud": true,
+    "concealable": true,
+    "ammo": {
+     "value": 8,
+     "max": 8
+    },
+    "equipped": true,
+    "description": "<p>A blank-firer drilled out in a garage in Leyton. Jams on a Proper Mess.</p>"
+   }
+  },
+  {
+   "name": "Sawn-off Shotgun",
+   "type": "weapon",
+   "img": "icons/svg/target.svg",
+   "system": {
+    "stat": "aim",
+    "impact": 6,
+    "range": "Engaged",
+    "kind": "firearm",
+    "crime": "shooting",
+    "value": 1500,
+    "loud": true,
+    "concealable": false,
+    "ammo": {
+     "value": 2,
+     "max": 2
+    },
+    "equipped": true,
+    "description": "<p>Two barrels, short range, very loud.</p>"
+   }
+  },
+  {
+   "name": "Taser",
+   "type": "weapon",
+   "img": "icons/svg/lightning.svg",
+   "system": {
+    "stat": "aim",
+    "impact": 1,
+    "range": "Near",
+    "kind": "firearm",
+    "crime": "assault",
+    "value": 0,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 2,
+     "max": 2
+    },
+    "equipped": true,
+    "description": "<p>Police issue. A hit also inflicts Stunned.</p>"
+   }
+  },
+  {
+   "name": "CS Spray",
+   "type": "weapon",
+   "img": "icons/svg/poison.svg",
+   "system": {
+    "stat": "aim",
+    "impact": 0,
+    "range": "Engaged",
+    "kind": "spray",
+    "crime": "assault",
+    "value": 0,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 3,
+     "max": 3
+    },
+    "equipped": true,
+    "description": "<p>Police issue. A hit inflicts Gassed.</p>"
+   }
+  },
+  {
+   "name": "Extendable Baton",
+   "type": "weapon",
+   "img": "icons/svg/sword.svg",
+   "system": {
+    "stat": "mus",
+    "impact": 2,
+    "range": "Engaged",
+    "kind": "melee",
+    "crime": "assault",
+    "value": 0,
+    "loud": false,
+    "concealable": true,
+    "ammo": {
+     "value": 0,
+     "max": 0
+    },
+    "equipped": true,
+    "description": "<p>Police issue.</p>"
+   }
+  },
+  {
+   "name": "Bolt Cutters",
+   "type": "gear",
+   "img": "icons/svg/padlock.svg",
+   "system": {
+    "description": "<p>Cut cable locks and cheap D-locks: bike locks are one band easier.</p>",
+    "value": 35,
+    "tool": "bolt cutters",
+    "stat": "grf"
+   }
+  },
+  {
+   "name": "Angle Grinder",
+   "type": "gear",
+   "img": "icons/svg/sun.svg",
+   "system": {
+    "description": "<p>Through any bike lock in seconds: two bands easier. Shrieks \u2014 anyone near notices.</p>",
+    "value": 120,
+    "tool": "angle grinder",
+    "stat": "grf"
+   }
+  },
+  {
+   "name": "Relay Box",
+   "type": "gear",
+   "img": "icons/svg/radiation.svg",
+   "system": {
+    "description": "<p>Clones keyless-entry fobs from the doorstep: car locks two bands easier, silently.</p>",
+    "value": 400,
+    "tool": "relay box",
+    "stat": "grf"
+   }
+  },
+  {
+   "name": "Slim Jim",
+   "type": "gear",
+   "img": "icons/svg/padlock.svg",
+   "system": {
+    "description": "<p>Old-school door opener: older cars one band easier.</p>",
+    "value": 15,
+    "tool": "slim jim",
+    "stat": "grf"
+   }
+  },
+  {
+   "name": "Screwdriver Set",
+   "type": "gear",
+   "img": "icons/svg/item-bag.svg",
+   "system": {
+    "description": "<p>For the ignition barrel. No easier, but you can try.</p>",
+    "value": 10,
+    "tool": "screwdriver",
+    "stat": "grf"
+   }
+  },
+  {
+   "name": "Burner Phone",
+   "type": "gear",
+   "img": "icons/svg/item-bag.svg",
+   "system": {
+    "description": "<p>Pay-as-you-go, no contract. Pat only texts this number.</p>",
+    "value": 20,
+    "tool": "",
+    "stat": ""
+   }
+  },
+  {
+   "name": "Balaclava",
+   "type": "gear",
+   "img": "icons/svg/item-bag.svg",
+   "system": {
+    "description": "<p>Hides your face. Witnesses can't describe you: a witnessed crime adds 1 less Heat (minimum 0) while you wear it \u2014 but wearing one in daylight is a look.</p>",
+    "value": 8,
+    "tool": "",
+    "stat": ""
+   }
+  },
+  {
+   "name": "First Aid Kit",
+   "type": "gear",
+   "img": "icons/svg/heal.svg",
+   "system": {
+    "description": "<p>Patch Up (Savvy, Medium) removes Bleeding or Hurt.</p>",
+    "value": 15,
+    "tool": "",
+    "stat": "sav"
+   }
+  },
+  {
+   "name": "Spray Paint",
+   "type": "gear",
+   "img": "icons/svg/item-bag.svg",
+   "system": {
+    "description": "<p>Tag a wall, or cover a stolen bike's frame so it is not recognised.</p>",
+    "value": 5,
+    "tool": "",
+    "stat": ""
+   }
+  },
+  {
+   "name": "Oyster Card",
+   "type": "gear",
+   "img": "icons/svg/item-bag.svg",
+   "system": {
+    "description": "<p>Topped up. Get on a bus without paying cash.</p>",
+    "value": 10,
+    "tool": "",
+    "stat": ""
+   }
+  },
+  {
+   "name": "Puffer Jacket",
+   "type": "armour",
+   "img": "icons/svg/shield.svg",
+   "system": {
+    "guard": 0,
+    "reduction": 1,
+    "value": 90,
+    "equipped": true,
+    "description": "<p>Thick enough to take the edge off a punch.</p>"
+   }
+  },
+  {
+   "name": "Stab Vest",
+   "type": "armour",
+   "img": "icons/svg/shield.svg",
+   "system": {
+    "guard": 1,
+    "reduction": 2,
+    "value": 250,
+    "equipped": true,
+    "description": "<p>Covert vest under a hoodie. Police wear the hi-vis version.</p>"
+   }
+  },
+  {
+   "name": "Police Body Armour",
+   "type": "armour",
+   "img": "icons/svg/shield.svg",
+   "system": {
+    "guard": 2,
+    "reduction": 3,
+    "value": 0,
+    "equipped": true,
+    "description": "<p>Met-pattern body armour.</p>"
+   }
+  },
+  {
+   "name": "Bike Thief",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "grf",
+    "when": "Cutting a lock or hotwiring",
+    "description": "<p>You know every lock on the market. Graft steps up one die when you nick a bicycle or scooter.</p>"
+   }
+  },
+  {
+   "name": "Getaway Driver",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "whl",
+    "when": "Losing a pursuer",
+    "description": "<p>Wheels steps up one die in a chase while you are the one being chased.</p>"
+   }
+  },
+  {
+   "name": "Local Knowledge",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "sav",
+    "when": "Finding a way, a shortcut or a person in Hackney",
+    "description": "<p>Savvy steps up one die anywhere on the Hackney maps.</p>"
+   }
+  },
+  {
+   "name": "Silver Tongue",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "frt",
+    "when": "Talking to the police",
+    "description": "<p>Front steps up one die when talking your way out of a stop or an arrest.</p>"
+   }
+  },
+  {
+   "name": "Parkour",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "mov",
+    "when": "Climbing, vaulting, leg it on foot",
+    "description": "<p>Moves steps up one die when running from someone or going over walls.</p>"
+   }
+  },
+  {
+   "name": "Brawler",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "mus",
+    "when": "Fighting hand to hand",
+    "description": "<p>Muscle steps up one die in a punch-up with no weapons.</p>"
+   }
+  },
+  {
+   "name": "Cabbie",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "whl",
+    "when": "Driving a taxi",
+    "description": "<p>You did The Knowledge. Wheels steps up one die on taxi jobs, and fares tip more.</p>"
+   }
+  },
+  {
+   "name": "Medic",
+   "type": "perk",
+   "img": "icons/svg/upgrade.svg",
+   "system": {
+    "stat": "sav",
+    "when": "First aid and treating patients",
+    "description": "<p>Savvy steps up one die for first aid and paramedic jobs.</p>"
+   }
+  }
+ ]
+}
