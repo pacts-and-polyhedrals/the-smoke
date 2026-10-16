@@ -1,8 +1,93 @@
-<div class="smoke-phone-frame"><div class="smoke-phone-topline"><span>THE BLOWER</span><i class="fa-solid fa-signal"></i><span>100% <i class="fa-solid fa-battery-full"></i></span></div>
-<header class="smoke-phone-header"><span class="smoke-kicker">GOOD EVENING, HACKNEY.</span><h1>Keep in touch.<br>Keep moving.</h1>{{#if actor}}<select data-character aria-label="Character">{{#each characters}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select><div class="smoke-phone-money"><strong>£{{actor.system.cash}}</strong><span>{{heatStars}}</span></div><p>{{location}}</p>{{/if}}</header>
-<div class="smoke-phone-content">{{#unless actor}}<p>Assign a character in User Configuration, or ask the GM for ownership of a pregen.</p>{{/unless}}
-{{#if paused}}<div class="smoke-phone-notice">Ⅱ Job clocks paused</div>{{/if}}
-{{#if shift}}<section class="smoke-phone-shift"><div><span class="smoke-kicker">ON THE CLOCK</span><h2>{{shift.label}}</h2><p>{{shift.done}} done · £{{shift.earned}} earned</p></div><button type="button" data-action="end" data-shift="{{shift.id}}">End shift</button></section>{{/if}}
-{{#each calls}}<article class="smoke-call {{#if offered}}offered{{/if}}"><div class="smoke-call-meta"><span>{{jobLabel}}</span><time data-deadline="{{#if offered}}{{expires}}{{else}}{{deadline}}{{/if}}">—</time></div><h3>{{title}}</h3>{{#if offered}}<div class="smoke-call-text">{{{text}}}</div><div class="smoke-phone-buttons"><button type="button" class="primary" data-action="accept" data-call="{{id}}">Accept</button><button type="button" data-action="decline" data-call="{{id}}">Pass</button></div>{{else}}<p>{{instruction}}</p>{{#if patient}}<p class="smoke-phone-track">Patient: <b>{{patient}}</b></p>{{/if}}{{#if hasGap}}<p class="smoke-phone-track">Gap <b>{{gap}} / 5</b></p>{{/if}}{{#if hasProgress}}<p class="smoke-phone-track">Progress {{fire.progress}} / 4 · Fire {{fire.consequences}} / 3</p>{{/if}}{{#if delivered}}<p>Delivered {{delivered}}</p>{{/if}}<div class="smoke-phone-buttons">{{#if action}}<button type="button" class="primary" data-action="roll" data-call="{{id}}"><i class="fa-solid fa-dice"></i> {{action.label}}</button>{{/if}}<button type="button" data-action="route" data-call="{{id}}"><i class="fa-solid fa-route"></i> Directions</button></div>{{/if}}</article>{{else}}<div class="smoke-phone-empty"><i class="fa-solid fa-comments"></i><h3>Quiet for now.</h3><p>{{#if shift}}Dispatch will call shortly.{{else}}Take a shift, or see what Pat needs.{{/if}}</p></div>{{/each}}
-{{#if startable}}<h3>Available shifts</h3>{{#each startable}}<button type="button" class="smoke-phone-wide" data-action="start" data-type="{{type}}">Start {{label}}</button>{{/each}}{{/if}}
-<div class="smoke-phone-apps"><button type="button" data-action="pat"><i class="fa-solid fa-link"></i><span>Ask Pat</span></button><button type="button" data-action="sheet"><i class="fa-solid fa-id-card"></i><span>My sheet</span></button><button type="button" data-action="travel"><i class="fa-solid fa-map-location-dot"></i><span>Travel</span></button><button type="button" data-action="guide"><i class="fa-solid fa-book-open"></i><span>How to play</span></button></div></div><footer class="smoke-phone-footer">THE ENDS ARE CALLING.</footer></div>
+<div class="phone-shell">
+  <div class="phone-notch"></div>
+  <div class="phone-screen">
+    <div class="phone-status"><span>THE BLOWER</span><span>4G ▮▮▮</span></div>
+    {{#if actors.length}}
+    <select name="actor" aria-label="Character">{{#each actors}}<option value="{{id}}" {{#if (eq id ../actor.id)}}selected{{/if}}>{{name}}</option>{{/each}}</select>
+    {{/if}}
+    {{#if actor}}
+    <div class="phone-card me">
+      <img src="{{actor.img}}" alt="" data-sheet>
+      <div><b>{{actor.name}}</b><div class="cash">£{{actor.system.cash}}</div><small class="phone-where"><i class="fa-solid fa-location-dot"></i> {{location}}</small></div>
+      <div class="phone-heat h{{heat}}" title="{{heatInfo.response}}">{{#each stars}}<i class="fa-{{#if this}}solid{{else}}regular{{/if}} fa-star"></i>{{/each}}<small>{{heatInfo.name}}</small></div>
+    </div>
+    {{#if paused}}<p class="phone-hint paused">Ⅱ The GM has paused the job clocks.</p>{{/if}}
+
+    <div class="the-smoke phone-radio-wrap"><details class="smoke-phone-radio phone-radio" {{#if radioOpen}}open{{/if}}><summary><i class="fa-solid fa-radio" aria-hidden="true"></i><span>Live radio<small>{{radioLabel}}</small></span><b>TUNE IN</b></summary>{{{radio}}}</details></div>
+
+    {{#if satnav}}
+    <div class="phone-card satnav">
+      <div class="kicker">SAT NAV · <span data-satnav-remaining>{{satnav.remaining}}</span></div>
+      <b data-satnav-label>{{satnav.label}}</b>
+      <div class="row"><button type="button" data-satnav-show><i class="fa-solid fa-diamond-turn-right"></i> Show / hide</button><button type="button" data-satnav><i class="fa-solid fa-location-dot"></i> Somewhere else</button><button type="button" data-satnav-end><i class="fa-solid fa-xmark"></i> End route</button></div>
+    </div>
+    {{/if}}
+
+    {{#if shift}}
+    <div class="phone-card shift"><i class="{{shift.icon}}"></i> <b>{{shift.label}} shift</b> · £{{shift.earned}} · {{shift.done}} done
+      <button type="button" data-end="{{shift.id}}">End shift</button></div>
+    {{else}}
+    {{#if startable.length}}
+    <div class="phone-card shift"><div class="kicker">AVAILABLE SHIFTS</div>{{#each startable}}<button type="button" data-start="{{type}}"><i class="fa-solid fa-play"></i> Start {{label}}</button>{{/each}}</div>
+    {{else}}
+    <p class="phone-hint">Get in a taxi, police car, ambulance, fire pump, courier bike or bus as the driver, then start a shift here or right-click it → <b>Start shift</b>.</p>
+    {{/if}}
+    {{/if}}
+
+    {{#if riding}}
+    <div class="phone-card ride">
+      <div class="kicker">NICKED · {{riding.name}}</div>
+      {{#if riding.why}}<p>{{riding.why}}</p>{{else}}
+      <p>{{riding.who}} pays about <b>£{{riding.price}}</b>{{#if riding.hot}} (still hot){{/if}}.{{#unless riding.here}} Take it to {{riding.where}}.{{/unless}}</p>
+      {{#if riding.order}}<p class="extra">{{riding.order}}</p>{{/if}}
+      {{#if riding.here}}<button type="button" data-sell="{{riding.uuid}}"><i class="fa-solid fa-sterling-sign"></i> Sell for £{{riding.price}}</button>{{/if}}
+      {{/if}}
+    </div>
+    {{/if}}
+
+    {{#each offers}}
+    <div class="phone-card offer">
+      <div class="kicker">CALLOUT · <time data-deadline="{{expires}}">{{left}}</time></div><b>{{title}}</b><p>{{{text}}}</p>
+      <div class="row"><button type="button" data-accept="{{id}}"><i class="fa-solid fa-check"></i> Accept</button><button type="button" data-decline="{{id}}"><i class="fa-solid fa-xmark"></i> Pass</button></div>
+    </div>
+    {{/each}}
+
+    {{#each active}}
+    <div class="phone-card active {{#if urgent}}urgent{{/if}}">
+      <div class="kicker">{{label}} · {{stage}}</div><b>{{title}}</b>
+      <p>{{instruction}}</p>
+      {{#if extra}}<p class="extra">{{extra}}</p>{{/if}}
+      {{#if deadline}}<div class="clock"><div class="fill" style="width: {{pct}}%"></div><span data-deadline="{{deadline}}" data-total="{{total}}">{{left}}</span></div>{{/if}}
+      <div class="row">
+        {{#if action}}<button type="button" class="hot" data-call-roll="{{id}}"><i class="fa-solid fa-dice"></i> {{action.label}}</button>{{/if}}
+        <button type="button" data-ping="{{id}}"><i class="fa-solid fa-location-crosshairs"></i> Where?</button>
+        <button type="button" data-route="{{id}}"><i class="fa-solid fa-route"></i> Directions</button>
+      </div>
+    </div>
+    {{/each}}
+
+    {{#each missions}}
+    <div class="phone-card mission">
+      <div class="kicker">{{n}} · {{giver}}</div><b>{{title}}</b>
+      <ul class="phone-objectives">{{#each objectives}}<li class="{{#if done}}done{{/if}}"><i class="fa-{{#if done}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i> {{text}}{{#if count}} <b>{{count}}</b>{{/if}}</li>{{/each}}</ul>
+      {{#if route}}<div class="row"><button type="button" data-mission-route="{{id}}"><i class="fa-solid fa-route"></i> Directions</button></div>{{/if}}
+    </div>
+    {{/each}}
+
+    <div class="phone-card pat">
+      <div class="kicker">AUNTIE PAT</div>
+      <p>"Need a bit of work, darling?"</p>
+      <button type="button" data-pat><i class="fa-solid fa-link"></i> Ask Pat for an order</button>
+    </div>
+    <div class="phone-apps">
+      <button type="button" data-missions><i class="fa-solid fa-flag-checkered"></i><span>Missions</span></button>
+      <button type="button" data-sheet><i class="fa-solid fa-id-card"></i><span>My sheet</span></button>
+      <button type="button" data-satnav><i class="fa-solid fa-diamond-turn-right"></i><span>Sat nav</span></button>
+      <button type="button" data-travel><i class="fa-solid fa-map-location-dot"></i><span>Travel</span></button>
+      <button type="button" data-guide><i class="fa-solid fa-book-open"></i><span>How to play</span></button>
+    </div>
+    {{else}}
+    <p class="phone-hint">No character. Ask the GM to assign you one (User Configuration → Character), or for ownership of a pregen.</p>
+    {{/if}}
+  </div>
+</div>

@@ -5,7 +5,10 @@
 // scene. The connecting scene is imported from the compendium automatically if the world lacks it.
 import {hasAbility} from '../vehicles/vehicle-abilities.mjs';
 import {NS, SOCKET} from '../config.mjs';
-const PACKS = [`${NS}.london-streets`, `${NS}.london-places`];
+const PACKS = [`${NS}.london-streets`, `${NS}.london-places`, `${NS}.london-venues`];
+// "Import all maps" brings in the streets and the four core interiors; the 211 campaign venue maps (160 interiors and
+// 51 approaches) come in when someone walks through their door, or a mission's maps are prepared from the Mission Board.
+const CORE_PACKS = PACKS.slice(0, 2);
 const esc = v => foundry.utils.escapeHTML(String(v ?? ''));
 const leaderGM = () => game.users.activeGM ?? game.users.filter(u => u.active && u.isGM).sort((a, b) => a.id.localeCompare(b.id))[0] ?? null;
 const isLeader = () => leaderGM()?.id === game.user.id;
@@ -41,7 +44,7 @@ export function landingPosition(link, token, {width, height, gridSize}) {
 
 /* ------------------------------------------------------------------ destinations (travel picker) */
 const centre = r => [Math.round(r[0] + r[2] / 2), Math.round(r[1] + r[3] / 2)];
-export function buildDestinations(atlas, places) {
+export function buildDestinations(atlas, places, venues = null) {
   const out = [];
   for (const m of atlas?.maps || []) {
     const cx = m.width / 2, cy = m.height / 2;
@@ -57,19 +60,31 @@ export function buildDestinations(atlas, places) {
     const inbound = (atlas?.maps || []).flatMap(o => (o.links || []).filter(l => l.to === m.id && Array.isArray(l.land)))[0];
     if (inbound) out.push({key: `${m.id}:inside`, mapId: m.id, group: 'Inside', short: m.name, label: `${m.name} · inside`, land: inbound.land});
   }
+  // the campaign venues, by district: you arrive just inside the public entrance
+  const vmaps = venues?.maps || [];
+  for (const m of vmaps.filter(v => v.kind === 'venue').sort((a, b) => a.code.localeCompare(b.code, 'en', {numeric: true}))) {
+    const inbound = [...(atlas?.maps || []), ...vmaps].flatMap(o => (o.links || []).filter(l => l.to === m.id && Array.isArray(l.land) && l.key !== 'SERVICE'))[0];
+    if (inbound) out.push({key: `${m.id}:inside`, mapId: m.id, group: `Venues · ${m.districtCode} ${m.district}`, short: `${m.code} ${m.title}`, label: `${m.title} · inside`, land: inbound.land});
+  }
   return out;
 }
-let destinationCache = null, atlasData = null, placesData = null;
+let destinationCache = null, atlasData = null, placesData = null, venuesData = null;
 export async function loadAtlas() {
-  if (atlasData) return {atlas: atlasData, places: placesData};
+  if (atlasData) return {atlas: atlasData, places: placesData, venues: venuesData};
   const load = async f => { try { const r = await fetch(`systems/${NS}/data/${f}`); return r.ok ? await r.json() : {maps: []}; } catch (_e) { return {maps: []}; } };
-  [atlasData, placesData] = await Promise.all([load('london-street-atlas.json'), load('london-places.json')]);
-  return {atlas: atlasData, places: placesData};
+  [atlasData, placesData, venuesData] = await Promise.all([load('london-street-atlas.json'), load('london-places.json'), load('london-venues.json')]);
+  return {atlas: atlasData, places: placesData, venues: venuesData};
 }
 export async function transitDestinations() {
   if (destinationCache) return destinationCache;
-  const {atlas, places} = await loadAtlas();
-  destinationCache = buildDestinations(atlas, places); return destinationCache;
+  const {atlas, places, venues} = await loadAtlas();
+  destinationCache = buildDestinations(atlas, places, venues); return destinationCache;
+}
+/** The street-map door that leads (directly, or through its approach) to a place: {mapId, link} or null. */
+export function streetDoorOf(atlas, venues, id) {
+  for (const m of atlas?.maps || []) { const l = (m.links || []).find(x => x.kind === 'door' && x.to === id); if (l) return {mapId: m.id, link: l}; }
+  const v = (venues?.maps || []).find(x => x.id === id);
+  return v?.approach && v.approach !== id ? streetDoorOf(atlas, venues, v.approach) : null;
 }
 const vehicleOf = t => { const seat = seatOf(t); return seat ? t.parent?.tokens?.get(seat.vehicleTokenId) || null : (t?.actor?.type === 'vehicle' ? t : null); };
 const isAIVehicle = vt => ['ai', 'both'].includes(String(vt?.actor?.system?.vehicle?.control || 'driver')) || hasAbility(vt?.actor, 'autopilot');
@@ -96,11 +111,15 @@ export function retarget(data, scene) {
 // row of the overview grid, north to south, each ordered west to east. Interiors go in "The Smoke — Places".
 export const STREET_FOLDER = 'The Smoke — London Streets';
 export const PLACE_FOLDER = 'The Smoke — Places';
+export const VENUE_FOLDER = 'The Smoke — Venues';
 export const ROW_FOLDERS = Object.freeze(['North · Highbury to Leyton', 'Central · Canonbury to Olympic Park', 'Central South · De Beauvoir to Stratford', 'South · Hoxton to Bow']);
-const OURS = new Set([STREET_FOLDER, PLACE_FOLDER, ...ROW_FOLDERS]);
+const OURS = new Set([STREET_FOLDER, PLACE_FOLDER, VENUE_FOLDER, ...ROW_FOLDERS]);
+const ours = folder => OURS.has(folder?.name) || /^[A-Z]{2} · /.test(folder?.name || '');
 const flagsOf = doc => doc?.flags?.[NS] || {};
 const mapIdOf = doc => { const f = flagsOf(doc); return f.streetAtlas?.id || f.place?.id || null; };
 
+// districts in the order of the Sandbox Campaign plan (north-west to south-east)
+export const DISTRICT_ORDER = Object.freeze(['HB', 'SN', 'CL', 'HM', 'LY', 'CG', 'DA', 'HC', 'WW', 'ON', 'DB', 'LF', 'WS', 'VW', 'ST', 'HX', 'HR', 'BG', 'OF', 'BF']);
 async function sceneFolder(name, {parent = null, sort = 0} = {}) {
   const parentId = parent?.id ?? null;
   let folder = game.folders.find(f => f.type === 'Scene' && f.name === name && (f.folder?.id ?? null) === parentId);
@@ -111,6 +130,13 @@ async function sceneFolder(name, {parent = null, sort = 0} = {}) {
 /** The folder and sort order a London scene belongs at, from its flags. */
 export async function sceneHome(doc) {
   const f = flagsOf(doc);
+  if (f.place && ['venue', 'approach'].includes(f.place.kind)) {
+    // The Smoke — Venues / "HB · Highbury & Albion Rd": each interior, then its approach (HB1, APP-HB1, HB2 …)
+    const root = await sceneFolder(VENUE_FOLDER, {sort: 3000}), dc = String(f.place.districtCode || '??');
+    const sub = await sceneFolder(`${dc} · ${f.place.district || dc}`, {parent: root, sort: (DISTRICT_ORDER.indexOf(dc) + 1 || 99) * 1000});
+    const n = parseInt(String(f.place.code || '').replace(/^APP-/, '').replace(/\D/g, ''), 10) || 99;
+    return {folder: sub.id, sort: n * 1000 + (f.place.kind === 'approach' ? 500 : 0)};
+  }
   if (f.place) return {folder: (await sceneFolder(PLACE_FOLDER, {sort: 2000})).id, sort: (parseInt(String(f.place.code || '').replace(/\D/g, ''), 10) || 99) * 1000};
   const root = await sceneFolder(STREET_FOLDER, {sort: 1000});
   const a = f.streetAtlas || {}, row = Number(a.row), col = Number(a.col);
@@ -126,28 +152,41 @@ async function createFromPack(docs) {
     data.push(d);
   }
   if (!data.length) return [];
-  const made = await getDocumentClass('Scene').createDocuments(data);
+  const made = await (CONFIG.Scene?.documentClass ?? getDocumentClass('Scene')).createDocuments(data);
   const {repairSceneBackground} = await import('./scene-repair.mjs');
   for (const scene of made) { try { await repairSceneBackground(scene); } catch (_e) {} }
   return made;
 }
 
+/** One map's document from a pack: through the pack index when Foundry offers it (the venues pack holds 211 scenes). */
+async function findInPack(pack, id) {
+  if (pack.getIndex && pack.getDocument) {
+    try {
+      const index = await pack.getIndex({fields: [`flags.${NS}.place.id`, `flags.${NS}.streetAtlas.id`]});
+      const hit = [...index].find(e => (e.flags?.[NS]?.place?.id ?? e.flags?.[NS]?.streetAtlas?.id) === id);
+      if (hit) return await pack.getDocument(hit._id);
+    } catch (_e) { /* fall back to loading the pack */ }
+  }
+  return (await pack.getDocuments()).find(d => mapIdOf(d) === id) ?? null;
+}
 async function importSceneNow(id) {
   const scene = game.scenes.find(s => mapOf(s)?.id === id); if (scene) return scene;
-  for (const key of PACKS) {
+  const order = String(id).startsWith('LDV-') || String(id).startsWith('LDA-') ? [...PACKS].reverse() : PACKS;
+  for (const key of order) {
     const pack = game.packs.get(key); if (!pack) continue;
-    const doc = (await pack.getDocuments()).find(d => mapIdOf(d) === id);
+    const doc = await findInPack(pack, id);
     if (doc) return (await createFromPack([doc]))[0];
   }
   throw new Error(`Map ${id} is not in the London compendiums.`);
 }
 
-/** Bring every London map (overview, 20 street maps, 4 interiors) into the world, and file the ones already there. */
-async function importAllMapsNow({notify = true} = {}) {
+/** Bring every London map (overview, 20 street maps, 4 interiors) into the world, and file the ones already there.
+ * The campaign venues stay in their compendium until needed (importVenueMaps, or walking through their door). */
+async function importAllMapsNow({notify = true, venues = false} = {}) {
   if (!game.user?.isGM) throw new Error('Only the GM can import maps.');
   const have = new Map(game.scenes.filter(s => mapOf(s)?.id).map(s => [mapOf(s).id, s]));
   let created = 0, filed = 0; const missingPacks = [];
-  for (const key of PACKS) {
+  for (const key of venues ? PACKS : CORE_PACKS) {
     const pack = game.packs.get(key); if (!pack) { missingPacks.push(key); continue; }
     const docs = (await pack.getDocuments()).filter(d => mapIdOf(d));
     const fresh = [];
@@ -155,7 +194,7 @@ async function importAllMapsNow({notify = true} = {}) {
       const existing = have.get(mapIdOf(doc));
       if (!existing) { fresh.push(doc); continue; }
       // Only re-file scenes still in our own folders (or loose); anything the GM moved elsewhere stays put.
-      if (existing.folder && !OURS.has(existing.folder.name)) continue;
+      if (existing.folder && !ours(existing.folder)) continue;
       const home = await sceneHome(doc);
       if ((existing.folder?.id ?? null) !== home.folder || existing.sort !== home.sort) { await existing.update(home); filed++; }
     }
@@ -171,6 +210,17 @@ export async function findOrImportScene(id) {
   if (importing.has(id)) return importing.get(id);
   const pending = importSceneNow(id); importing.set(id, pending);
   try { return await pending; } finally { importing.delete(id); }
+}
+/** Import the given campaign venue maps (and the approach each one sits behind). Returns the scenes, in order. */
+export async function importVenueMaps(ids, {notify = true} = {}) {
+  if (!game.user?.isGM) throw new Error('Only the GM can import maps.');
+  const {venues} = await loadAtlas(), want = new Set();
+  for (const id of ids) { const v = (venues?.maps || []).find(x => x.id === id); if (!v) continue; want.add(v.id); if (v.approach) want.add(v.approach); }
+  const before = game.scenes.size, scenes = [];
+  for (const id of want) scenes.push(await findOrImportScene(id));
+  const made = game.scenes.size - before;
+  if (notify) ui.notifications.info(made ? `The Smoke: imported ${made} venue map(s) into "${VENUE_FOLDER}".` : 'The Smoke: those venue maps are already in the Scenes tab.');
+  return scenes;
 }
 let importingAll = null;
 export function importAllMaps(options = {}) {
@@ -190,9 +240,9 @@ export function formation(n, centrePt, {width, height, gridSize = 100, size = 1}
   return out;
 }
 export async function parkingFor(interiorId) {
-  const {atlas} = await loadAtlas();
-  for (const m of atlas?.maps || []) for (const l of m.links || []) if (l.kind === 'door' && l.to === interiorId) return {mapId: m.id, land: centre(l.rect)};
-  return null;
+  const {atlas, venues} = await loadAtlas();
+  const door = streetDoorOf(atlas, venues, interiorId);
+  return door ? {mapId: door.mapId, land: centre(door.link.rect)} : null;
 }
 async function remapCombat(source, target, idMap) {
   for (const combat of game.combats) {
@@ -300,6 +350,11 @@ async function cross({sceneId, tokenId, userId, destination}) {
       if (!driver || !source.tokens.get(driver.tokenId)?.actor?.testUserPermission?.(user, 'OWNER')) throw new Error(`${user?.name || 'That player'} does not control ${token.name}.`);
     }
     link = linkAt(source, token); if (!link) throw new Error(`${token.name} is not at a map exit.`);
+    // Five stars: roadblocks on every exit (world/heat.mjs). The driver has to run it.
+    if (link.kind === 'edge' && token.actor?.type === 'vehicle') {
+      const pilot = occupantList(token).find(o => o.seatId === 'pilot'); const driver = pilot && source.tokens.get(pilot.tokenId)?.actor;
+      if (driver && game.smoke?.heat?.roadblockCheck) await game.smoke.heat.roadblockCheck(source, token, driver);
+    }
   }
   if (link.pedestrianOnly && token.actor?.type === 'vehicle' && !hasAbility(token.actor, 'nimble')) throw new Error('That exit is a footpath. Park and walk, or use a bicycle.');
   if (link.kind === 'edge' && token.actor?.type === 'vehicle' && !hasAbility(token.actor, 'flying')) {

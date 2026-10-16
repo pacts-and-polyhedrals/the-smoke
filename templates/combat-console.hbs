@@ -1,0 +1,54 @@
+<div class="smoke-cc">
+  {{#if combat}}
+  <header class="cc-head">
+    <div><span class="kicker">ROUND {{round}}</span><h2>{{phaseLabel}}</h2></div>
+    {{#if isGM}}<div class="cc-gm">
+      {{#if (eq phase "idle")}}<button type="button" class="hot" data-begin><i class="fa-solid fa-play"></i> Begin round</button>{{/if}}
+      {{#if (eq phase "intent")}}<button type="button" data-npc-roll><i class="fa-solid fa-dice"></i> Roll for NPCs</button><button type="button" class="hot" data-reveal><i class="fa-solid fa-eye"></i> Reveal</button><button type="button" data-reveal="force" title="Reveal without waiting"><i class="fa-solid fa-forward"></i></button>{{/if}}
+      <button type="button" data-end-fight title="End the fight"><i class="fa-solid fa-flag"></i></button>
+    </div>{{/if}}
+  </header>
+  {{#if (eq phase "intent")}}<p class="cc-tip">{{#if waiting}}Waiting on: <b>{{waiting}}</b>. {{/if}}Your dice stay private until the GM reveals them. Each die is one action; highest goes first.</p>{{/if}}
+  <div class="cc-body">
+    <ul class="cc-roster">{{#each rows}}
+      <li class="{{#if current}}current{{/if}} {{#if pc}}pc{{else}}npc{{/if}}"><img src="{{img}}" alt="" data-ping="{{id}}">
+        <div class="cc-who"><b>{{name}}</b><small>{{#if hpMax}}{{hp}}/{{hpMax}} HP{{/if}}{{#if heat}} · {{heat}}★{{/if}}{{#if cover}} · {{cover}}{{/if}}{{#if aiming}} · aiming{{/if}}{{#if dodging}} · dodging{{/if}}</small>{{#if conditions}}<small class="cc-cond">{{conditions}}</small>{{/if}}</div>
+        <div class="cc-dice">{{#if out}}<span class="cc-out">OUT</span>{{else}}{{#if canRoll}}<button type="button" class="hot" data-roll-speed="{{id}}"><i class="fa-solid fa-dice"></i> Roll {{count}}d6</button>{{else}}{{#if hidden}}<span class="cc-secret">◈ LOCKED</span>{{else}}{{#each dice}}<span class="smoke-die {{#if spent}}spent{{/if}}">{{v}}</span>{{else}}<span class="cc-wait">{{count}}d6</span>{{/each}}{{/if}}{{/if}}{{/if}}</div>
+      </li>{{/each}}</ul>
+
+    {{#if queue.length}}<h3>The order</h3>
+    <ol class="cc-queue">{{#each queue}}<li class="{{#if now}}now{{/if}} {{#if done}}done{{/if}}"><b>{{value}}</b> {{name}}</li>{{/each}}</ol>{{/if}}
+
+    {{#if current}}
+    <section class="cc-turn {{#if current.mine}}mine{{/if}}">
+      <header><span class="kicker">UP NOW · DIE {{current.value}}</span><h2>{{current.name}}</h2></header>
+      {{#if current.mine}}
+      <div class="cc-actions">
+        <button type="button" class="hot" data-act="attack"><i class="fa-solid fa-crosshairs"></i> Attack</button>
+        <button type="button" data-act="grab"><i class="fa-solid fa-hand"></i> Grab</button>
+        <button type="button" data-act="cuff"><i class="fa-solid fa-handcuffs"></i> Cuff</button>
+        {{#if current.grabbed}}<button type="button" data-act="free"><i class="fa-solid fa-person-running"></i> Break free</button>{{/if}}
+        <button type="button" data-act="aim"><i class="fa-solid fa-bullseye"></i> Aim</button>
+        <button type="button" data-act="dodge"><i class="fa-solid fa-person-falling"></i> Dodge (+2 Guard)</button>
+        {{#if current.driving}}<button type="button" data-act="ram"><i class="fa-solid fa-car-burst"></i> Ram</button>{{/if}}
+        <button type="button" data-act="sheet"><i class="fa-solid fa-suitcase"></i> Use kit</button>
+        <button type="button" data-act="surrender"><i class="fa-solid fa-hands"></i> Surrender</button>
+        {{#if current.police}}{{#if isGM}}<button type="button" class="ai" data-act="police"><i class="fa-solid fa-robot"></i> Police AI</button>{{/if}}{{/if}}
+      </div>
+      <div class="cc-row"><span>Cover:</span>{{#each current.cover}}<button type="button" data-cover="{{key}}">{{label}}</button>{{/each}}</div>
+      {{#if current.weapons.length}}<div class="cc-row"><span>Reload:</span>{{#each current.weapons}}<button type="button" data-reload="{{id}}"><i class="fa-solid fa-rotate"></i> {{name}}</button>{{/each}}</div>{{/if}}
+      <p class="cc-tip">Moving is free with any action: drag your token up to 6 squares (more if you leg it with this die). When you are done:</p>
+      <button type="button" class="cc-done" data-next><i class="fa-solid fa-check"></i> Done — next</button>
+      {{else}}<p class="cc-tip">Not your go. Watch your back.</p>{{/if}}
+    </section>
+    {{/if}}
+    {{#if (eq phase "idle")}}<p class="cc-tip">{{#if isGM}}Begin the next round when everyone has moved their tokens.{{else}}Waiting for the GM to begin the round.{{/if}}</p>{{/if}}
+  </div>
+  {{else}}
+  <div class="cc-empty"><i class="fa-solid fa-crosshairs"></i>
+    {{#if isGM}}<p>No fight on this map. Select the tokens in it (and/or target them), then:</p><button type="button" class="hot" data-start><i class="fa-solid fa-hand-fist"></i> Start a fight ({{selected}} selected)</button>
+    <p class="cc-tip">From a police stop, use "They fight" on the stop card: officers get out and the fight starts.</p>
+    {{else}}<p>No fight on. Long may it last.</p>{{/if}}
+  </div>
+  {{/if}}
+</div>

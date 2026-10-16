@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b242a"/><stop offset="1" stop-color="#0a0d10"/></linearGradient>
+<radialGradient id="h" cx="0.5" cy="0.42" r="0.6"><stop offset="0" stop-color="#b9ae95" stop-opacity="0.28"/><stop offset="1" stop-color="#b9ae95" stop-opacity="0"/></radialGradient></defs>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="url(#g)"/>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="url(#h)"/>
+<path d="M8 196 L248 196 L248 218 Q248 248 218 248 L38 248 Q8 248 8 218 Z" fill="#b9ae95" opacity="0.18"/>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="none" stroke="#b9ae95" stroke-width="7"/>
+<g transform="translate(44 36) scale(0.328125)" fill="#ece4cf"><path d="M94.09 57L33 209.7V327h174V217h-87c-23.75 0-41-23-41-49s17.25-49 41-49h50.7l-24.8-62zm272.01 0L305 209.7V489h174V209.7L417.9 57zm25.9 62c23.8 0 41 23 41 49s-17.2 49-41 49-41-23-41-49 17.2-49 41-49zm-272 18c-11.6 0-23 12.8-23 31s11.4 31 23 31h169.9l24.8-62zm272 0c-11.6 0-23 12.8-23 31s11.4 31 23 31 23-12.8 23-31-11.4-31-23-31zM33 345v144h254V345z"></path></g>
+</svg>

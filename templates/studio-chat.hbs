@@ -1,0 +1,6 @@
+<div class="smoke-studio-chat">
+ <header class="smoke-studio-head"><span class="smoke-kicker"><i class="fa-solid fa-tower-broadcast" aria-hidden="true"></i> STUDIO CHAT · LIVE</span><strong>{{station}}</strong><small>{{host}}</small></header>
+ <div class="smoke-studio-draft" data-studio-draft {{#unless draft}}hidden{{/unless}}><span>Your message is copied. Paste it into the chat and post it.</span><q>{{draft}}</q><button type="button" data-studio-copy><i class="fa-solid fa-copy" aria-hidden="true"></i> Copy again</button></div>
+ <div class="smoke-studio-frame"><iframe src="{{src}}" title="{{station}} studio chat" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox" allow="clipboard-write" referrerpolicy="no-referrer"></iframe></div>
+ <footer class="smoke-studio-foot"><p>This is {{station}}'s own chat. What you post goes to the real studio and everyone listening, under the name you give it there. If this stays blank, the station doesn't let its page show inside other sites: open it on their site instead.</p><div class="smoke-studio-actions"><button type="button" data-studio-reload><i class="fa-solid fa-rotate-right" aria-hidden="true"></i> Reload</button><button type="button" data-studio-open><i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i> Open on their site</button></div></footer>
+</div>

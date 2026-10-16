@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b242a"/><stop offset="1" stop-color="#0a0d10"/></linearGradient>
+<radialGradient id="h" cx="0.5" cy="0.42" r="0.6"><stop offset="0" stop-color="#ff8a3d" stop-opacity="0.28"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient></defs>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="url(#g)"/>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="url(#h)"/>
+<path d="M8 196 L248 196 L248 218 Q248 248 218 248 L38 248 Q8 248 8 218 Z" fill="#ff8a3d" opacity="0.18"/>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="none" stroke="#ff8a3d" stroke-width="7"/>
+<g transform="translate(44 36) scale(0.328125)" fill="#ece4cf"><path d="M429.725 54.54c-3.023.094-5.838 1.16-8.16 3.48l-.055.056-.057.055s-115.29 111.285-169.37 169.364c-28.277 30.37-56.8 65.693-88.448 102.922l17.726 17.73c37.02-31.78 72.285-60.387 103.388-88.236 58.86-52.703 169.174-169.187 169.174-169.187l.084-.09.088-.088c11.49-11.49-7.83-35.118-23.063-35.988-.438-.025-.874-.032-1.305-.018zM151.89 344.13c-17.598 20.413-36.214 41.272-56.33 62.114l10.327 10.248c20.79-20.14 41.52-38.848 61.828-56.54l-15.824-15.823zm-80.21 63.776l-9.9 9.9 32.652 32.4 9.9-9.9-32.652-32.4z"></path></g>
+</svg>

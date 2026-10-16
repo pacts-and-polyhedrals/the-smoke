@@ -1,4 +1,19 @@
-rules + data: 11 groups passed
-The Smoke | Initialising
-The Smoke | Ready
-import + init + ready: ok; 23 hooks registered
+✓ advancement.test.mjs: advancement: 10 backgrounds, the creation steps (18+), Rep levels, caps, unlocks, level-up checks, growth — ok
+✓ combat-flow.test.mjs: combat flow: begin, private rolls, reveal order, hits with armour/effects/area, Heat, cover, grab, surrender, round end, Take hit/Dodge cards — ok
+✓ combat-rules.test.mjs: combat rules: speed dice, queue, ranges, cover, ammo, bursts, drive-bys, effects, ramming, police AI — ok
+✓ fence.test.mjs: fence: scrambler sells at The Arches (corner, Morning Lane), offers on arrival, Pat's order counted, cars to Bow Breakers — ok
+✓ items.test.mjs: items: 171 in the library; drugs, food, first aid, outfits, ammo and street prices — ok
+✓ maps-import.test.mjs: maps import: 25 maps, 4 row folders, re-run safe — ok
+✓ merged-0-1-3.test.mjs: 0.1.3 inside 0.2.1: request channel, services, rest, first aid, advances, Take hit/Dodge, turn clock, reloads, radio, merged content — ok
+✓ migration.test.mjs: migration: old weapons get ammo types, categories, effects and icons; made characters marked — ok
+✓ missions.test.mjs: missions: 12 opening missions, 12 faction careers and 20 local cases wired to pages, maps and places; gates, Renown, Influence, fees, auto ticks, MISSION PASSED, fail and reset — ok
+✓ requests.test.mjs: requests: hazards apply harm after armour, cash and Heat; teamwork averages; one answer each — ok
+✓ rules.test.mjs: rules + data: 11 groups passed
+✓ satnav.test.mjs: sat nav: one road network, routes and steps, destinations, job targets, live re-routing, map drawing (PIXI 7 and 8) — ok
+✓ shops.test.mjs: shops: stock, Rep locks, discounts, stacking, Uncle buys, kip/stash/A&E, bodyshop prices, locations — ok
+✓ smoke-import.test.mjs: import + init + ready: ok; 39 hooks registered
+✓ venues.test.mjs: venues: 160 interiors and 51 approaches, 152 street pins, transit, folders, mission stops and a cast of 115 — ok
+all tests passed
+templates: 14 compiled, 67 renders, tags balanced — ok
+node --check: every .mjs passes
+assets: 2,873 referenced paths resolve

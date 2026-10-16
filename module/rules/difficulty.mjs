@@ -136,7 +136,8 @@ export function difficultyLadder(options = {}) {
 
 /** The Attribute die an Actor brings to `attribute`, defaulting sanely for odd data. */
 export function actorAttributeDie(actor, attribute) {
-  const die = Number(actor?.system?.stats?.[String(attribute).toLowerCase()]?.die);
+  const key = String(attribute).toLowerCase();
+  const die = Number(actor?.system?.stats?.[key]?.die ?? actor?.system?.attributes?.[key]?.die);
   return DIE_LADDER.includes(die) ? die : 4;
 }
 

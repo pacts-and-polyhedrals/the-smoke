@@ -1,6 +1,6 @@
 <div class="smoke-sheet-inner">
   <header class="smoke-head">
-    <img class="smoke-portrait" src="{{actor.img}}" data-action="editImage" data-edit="img" alt="">
+    <img class="smoke-portrait" src="{{actor.img}}" data-edit="img" alt="" title="Change the image">
     <div class="smoke-id">
       <input class="smoke-name" type="text" name="name" value="{{actor.name}}">
       <div class="smoke-sub">
@@ -12,25 +12,44 @@
     <div class="smoke-body-meter"><div class="fill" style="width: {{bodyPct}}%"></div><span>BODY {{v.body.value}}/{{v.body.max}}</span></div>
   </header>
   <div class="smoke-body">
+    <div class="smoke-vehicle-banner">
+      <img src="{{actor.prototypeToken.texture.src}}" alt="Vehicle token">
+      <div>
+        <span class="kicker">{{v.klass}} · Lock: {{v.lock}}{{#if v.flats}} · {{v.flats}} flat{{/if}}</span>
+        <h2>{{status}}</h2>
+        <div class="row">
+          <button type="button" data-board {{#unless tokenOnMap}}disabled title="Place it on the map first"{{/unless}}><i class="fa-solid fa-chair"></i> Board / choose seat</button>
+          <button type="button" data-vehicle-control {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-users-gear"></i> Occupants & control</button>
+          <button type="button" data-radio {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-radio"></i> Car radio</button>
+        </div>
+      </div>
+    </div>
     <div class="smoke-vgrid">
       <label>Performance die <select name="system.vehicle.perfDie">{{#each dice}}<option value="{{this}}" {{#if (eq this ../v.perfDie)}}selected{{/if}}>d{{this}}</option>{{/each}}</select></label>
-      <label>Handling <input type="number" name="system.vehicle.handling" value="{{v.handling}}"></label>
+      <label>Handling <input type="number" name="system.vehicle.handling" value="{{v.handling}}" min="-4" max="4"></label>
       <label>Speed (squares) <input type="number" name="system.vehicle.speed" value="{{v.speed}}"></label>
       <label>Body <input type="number" name="system.vehicle.body.value" value="{{v.body.value}}"> / <input type="number" name="system.vehicle.body.max" value="{{v.body.max}}"></label>
       <label>Armour <input type="number" name="system.vehicle.armour" value="{{v.armour}}"></label>
       <label>Size <input type="number" name="system.vehicle.size" value="{{v.size}}"></label>
       <label>Crew <input type="number" name="system.vehicle.crewFull" value="{{v.crewFull}}"></label>
       <label>Passengers <input type="number" name="system.vehicle.passengers" value="{{v.passengers}}"></label>
-      <label>Fuel <input type="number" name="system.vehicle.fuel.value" value="{{v.fuel.value}}"> / {{v.fuel.max}}</label>
+      <label>Fuel <input type="number" name="system.vehicle.fuel.value" value="{{v.fuel.value}}"> / <input type="number" name="system.vehicle.fuel.max" value="{{v.fuel.max}}"></label>
+      <label>Flat tyres <input type="number" name="system.vehicle.flats" value="{{v.flats}}" min="0" max="4"></label>
+      <label><input type="checkbox" name="system.vehicle.plateless" {{#if v.plateless}}checked{{/if}}> No plate</label>
+      {{#if isGM}}<label><input type="checkbox" name="system.vehicle.destroyed" {{#if v.destroyed}}checked{{/if}}> Written off</label>{{/if}}
     </div>
-    <p class="smoke-hint">Behind the wheel the <b>Performance die replaces the driver's Effort die</b> on Wheels rolls, and Handling is added. A wrecked vehicle (Body 0) rolls one die step lower.</p>
-    {{#if jobs.length}}<h3>Jobs</h3><ul class="smoke-list">{{#each jobs}}<li><i class="{{icon}}"></i> <b>{{label}}</b> — {{hint}}</li>{{/each}}</ul><p class="smoke-hint">Get in the driver seat, right-click the vehicle → <b>Start shift</b>.</p>{{/if}}
+    <p class="smoke-hint">Behind the wheel the <b>Performance die replaces the driver's Effort die</b> on Wheels rolls, and Handling is added. A wrecked vehicle (Body 0) rolls one die step lower; another hit writes it off, and a written-off vehicle cannot be driven.</p>
+    <h3>Shift work</h3>
+    <div class="smoke-job-chips">{{#each jobChoices}}<label><input type="checkbox" data-vehicle-job="{{key}}" {{#if on}}checked{{/if}}> {{label}}</label>{{/each}}</div>
+    {{#if jobs.length}}<ul class="smoke-list">{{#each jobs}}<li><i class="{{icon}}"></i> <b>{{label}}</b> — {{hint}}</li>{{/each}}</ul>{{/if}}
+    <p class="smoke-hint">Take the driver seat, then start a shift from the Blower or right-click the vehicle → <b>Start shift</b>. Callouts come to your Blower.</p>
     <h3>Abilities</h3>
     <ul class="smoke-list">{{#each abilities}}<li><i class="{{icon}}"></i> <b>{{label}}</b>{{#if seats}} <small>({{seats}})</small>{{/if}} — {{text}}</li>{{else}}<li class="empty">None.</li>{{/each}}</ul>
     <h3>Seats</h3>
-    <ul class="smoke-list seats">{{#each seats}}<li>{{label}}</li>{{/each}}</ul>
-    <h3>Notes</h3>
-    <div class="smoke-bio">{{{actor.system.biography}}}</div>
-    {{#if isGM}}<textarea name="system.biography" rows="4">{{actor.system.biography}}</textarea>{{/if}}
+    <ul class="smoke-list seats">{{#each seats}}<li><b>{{label}}</b>{{#if occupant}} — {{occupant}}{{else}} <small>empty</small>{{/if}}</li>{{/each}}</ul>
+    <h3>Extra vehicle systems</h3>
+    <prose-mirror name="system.vehicle.systems" value="{{v.systems}}" toggled>{{{systemsHTML}}}</prose-mirror>
+    <h3>The motor</h3>
+    <prose-mirror name="system.biography" value="{{actor.system.biography}}" toggled>{{{biographyHTML}}}</prose-mirror>
   </div>
 </div>

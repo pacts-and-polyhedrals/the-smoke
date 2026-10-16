@@ -1,19 +1,20 @@
 <div class="smoke-sheet-inner">
   <header class="smoke-head">
-    <img class="smoke-portrait" src="{{actor.img}}" data-action="editImage" data-edit="img" alt="">
+    <img class="smoke-portrait" src="{{actor.img}}" data-edit="img" alt="" title="Change the portrait">
     <div class="smoke-id">
       <input class="smoke-name" type="text" name="name" value="{{actor.name}}" placeholder="Name">
       <div class="smoke-sub">
         <label>Alias <input type="text" name="system.identity.alias" value="{{system.identity.alias}}"></label>
         <label>Ends <input type="text" name="system.identity.ends" value="{{system.identity.ends}}"></label>
         <label>Crew <input type="text" name="system.identity.crew" value="{{system.identity.crew}}"></label>
-        <label>Rep <input type="number" name="system.stage" value="{{system.stage}}" min="1" max="5"></label>
+        <label>Rep {{#if isGM}}<input type="number" name="system.stage" value="{{system.stage}}" min="1" max="5">{{else}}<b class="smoke-rep-badge">{{rep.level}} · {{rep.title}}</b>{{/if}}</label>
       </div>
     </div>
     <div class="smoke-heat h{{heat}}" title="{{heatInfo.response}}">
       <div class="stars">{{#each stars}}<i class="fa-{{#if on}}solid{{else}}regular{{/if}} fa-star" data-heat="{{n}}"></i>{{/each}}</div>
       <div class="heat-name">{{heatInfo.name}}</div>
     </div>
+    <div class="smoke-head-actions"><button type="button" data-phone title="The Blower"><i class="fa-solid fa-mobile-screen"></i></button><button type="button" data-radio title="Live pirate radio"><i class="fa-solid fa-radio"></i></button><button type="button" data-guide title="Player guide"><i class="fa-solid fa-book-open"></i></button></div>
   </header>
 
   <section class="smoke-bars">
@@ -24,9 +25,16 @@
     <div class="bar guard"><span>GUARD</span><b>{{system.guard.value}}</b><small>armour {{system.armour}}</small></div>
     <button type="button" class="smoke-phone-btn" data-phone><i class="fa-solid fa-mobile-screen"></i> Phone</button>
   </section>
+  <section class="smoke-quick-actions">
+    <button type="button" data-unarmed title="Target someone (T) first"><i class="fa-solid fa-hand-fist"></i> Unarmed</button>
+    <button type="button" data-first-aid title="Savvy roll; target the patient (T), or treat yourself"><i class="fa-solid fa-kit-medical"></i> First aid</button>
+    <button type="button" data-rest title="At the flat or a safehouse"><i class="fa-solid fa-bed"></i> Rest</button>
+    <button type="button" data-services title="Respray, change of clothes, garage repair"><i class="fa-solid fa-screwdriver-wrench"></i> Local services</button>
+    <button type="button" data-shop><i class="fa-solid fa-store"></i> Shop here</button>
+  </section>
 
   <nav class="smoke-tabs">
-    <a data-tab-target="street">Street</a><a data-tab-target="kit">Kit</a><a data-tab-target="state">Conditions</a><a data-tab-target="story">Story</a>
+    <a data-tab-target="street">Street</a><a data-tab-target="kit">Kit</a><a data-tab-target="state">Rep &amp; Conditions</a><a data-tab-target="story">Story</a>
   </nav>
 
   <div class="smoke-body">
@@ -41,40 +49,66 @@
         </div>
         {{/each}}
       </div>
-      <p class="smoke-hint">Click a stat to roll with a difficulty, Hustle and Perks. <b>Wheels</b> behind the wheel uses the vehicle's Performance die instead of your Effort die. Hover a stat to see its Easy / Medium / Hard / Long Shot numbers.</p>
+      <p class="smoke-hint">Click a stat to roll with a difficulty, Hustle and Perks; the target is set before Hustle and perks, so their bonuses improve your chances. <b>Wheels</b> behind the wheel uses the vehicle's Performance die instead of your Effort die. Hover a stat to see its Easy / Medium / Hard / Long Shot numbers.</p>
+      {{#if spread}}{{#unless spread.valid}}{{#unless system.creation.done}}<p class="smoke-hint">{{spread.message}} <a data-quick-build>Quick build</a> · <a data-creator>Character creator</a></p>{{/unless}}{{/unless}}{{/if}}
       <h3>Perks</h3>
       <ul class="smoke-list">{{#each perks}}<li><b>{{name}}</b> <small>{{system.when}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">No perks yet.</li>{{/each}}</ul>
       <button type="button" data-create="perk"><i class="fa-solid fa-plus"></i> Perk</button>
     </section>
 
     <section class="smoke-tab" data-tab="kit">
+      <div class="smoke-kit-bar">
+        <button type="button" data-shop><i class="fa-solid fa-store"></i> Shop here</button>
+        <span class="smoke-hint">Target someone (T) and click a weapon to attack. In a fight, the Combat Console runs ranges, cover and ammo for you.</span>
+      </div>
       <h3>Weapons</h3>
-      <ul class="smoke-list">{{#each weapons}}<li><a data-item-use="{{id}}" class="use"><i class="fa-solid fa-crosshairs"></i> {{name}}</a><small>{{system.stat}} · impact {{system.impact}} · {{system.range}}{{#if system.ammo.max}} · ammo {{system.ammo.value}}/{{system.ammo.max}}{{/if}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">Nothing tooled up.</li>{{/each}}</ul>
-      <p class="smoke-hint">Target someone (T) and click a weapon to attack: your roll against their Guard; damage is margin + impact − armour.</p>
+      <ul class="smoke-list kit">{{#each weapons}}<li><img src="{{img}}" alt=""><a data-item-use="{{id}}" class="use">{{name}}</a>
+        <small>{{statAbbr}} · impact {{system.impact}} · {{system.range}}{{#if system.burst}} · burst{{/if}}{{#if system.thrown}} · ×{{system.quantity}}{{/if}}{{#if system.ammo.max}} · <b class="{{#unless system.ammo.value}}smoke-bad{{/unless}}">{{system.ammo.value}}/{{system.ammo.max}}</b> + {{spare}} spare{{/if}}</small>
+        {{#if system.ammo.max}}<a data-reload="{{id}}" title="Reload"><i class="fa-solid fa-rotate"></i></a>{{/if}}<a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">Nothing tooled up.</li>{{/each}}</ul>
+      {{#if ammo.length}}<h3>Ammo</h3>
+      <ul class="smoke-list kit">{{#each ammo}}<li><img src="{{img}}" alt=""><a data-item-use="{{id}}" class="use">{{name}}</a><small>× {{system.quantity}} · {{system.ammoType}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{/each}}</ul>{{/if}}
       <h3>Armour</h3>
-      <ul class="smoke-list">{{#each armour}}<li><a data-item-toggle="{{id}}"><i class="fa-{{#if system.equipped}}solid{{else}}regular{{/if}} fa-square-check"></i></a> {{name}} <small>guard +{{system.guard}} · reduces {{system.reduction}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">No armour.</li>{{/each}}</ul>
-      <h3>Gear</h3>
-      <ul class="smoke-list">{{#each gear}}<li><a data-item-use="{{id}}" class="use">{{name}}</a>{{#if system.tool}}<small>tool: {{system.tool}}</small>{{/if}}<a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">Empty pockets.</li>{{/each}}</ul>
+      <ul class="smoke-list kit">{{#each armour}}<li><img src="{{img}}" alt=""><a data-item-toggle="{{id}}"><i class="fa-{{#if system.equipped}}solid{{else}}regular{{/if}} fa-square-check"></i></a> {{name}} <small>guard +{{system.guard}} · reduces {{system.reduction}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">No armour.</li>{{/each}}</ul>
+      <h3>Clobber</h3>
+      <ul class="smoke-list kit">{{#each outfits}}<li class="{{#if system.worn}}worn{{/if}}"><img src="{{img}}" alt=""><a data-item-use="{{id}}" class="use">{{#if system.worn}}<i class="fa-solid fa-shirt"></i> {{/if}}{{name}}</a><small>{{#if system.worn}}wearing{{else}}change into it{{/if}}{{#if system.disguise}} · {{system.disguise}}{{/if}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">Just what you are stood in.</li>{{/each}}</ul>
+      {{#if drugs.length}}<h3>Gear you shouldn't have</h3>
+      <ul class="smoke-list kit">{{#each drugs}}<li><img src="{{img}}" alt=""><a data-item-use="{{id}}" class="use">{{name}}</a><small>× {{system.quantity}} {{system.unit}} · {{system.high}}{{#if system.comedown}} → {{system.comedown}}{{/if}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{/each}}</ul>{{/if}}
+      <h3>Food & medicine</h3>
+      <ul class="smoke-list kit">{{#each consumables}}<li><img src="{{img}}" alt=""><a data-item-use="{{id}}" class="use">{{name}}</a><small>× {{system.quantity}}{{#if system.heal}} · heals {{system.heal}}{{/if}}{{#if system.removes}} · clears {{system.removes}}{{/if}}{{#if system.grants}} · {{system.grants}}{{/if}}</small><a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">Nothing to eat.</li>{{/each}}</ul>
+      <h3>Tools & gear</h3>
+      <ul class="smoke-list kit">{{#each gear}}<li><img src="{{img}}" alt=""><a data-item-use="{{id}}" class="use">{{name}}</a>{{#if system.tool}}<small>tool: {{system.tool}}</small>{{/if}}<a data-item-edit="{{id}}"><i class="fa-solid fa-pen"></i></a><a data-item-delete="{{id}}"><i class="fa-solid fa-trash"></i></a></li>{{else}}<li class="empty">Empty pockets.</li>{{/each}}</ul>
+      <p class="smoke-hint">Drag kit from The Smoke compendiums or another sheet onto this one.</p>
       {{#if folded.length}}<p class="smoke-hint">Carrying folded: {{#each folded}}{{name}} {{/each}}</p>{{/if}}
-      <div class="smoke-buttons"><button type="button" data-create="weapon"><i class="fa-solid fa-plus"></i> Weapon</button><button type="button" data-create="armour"><i class="fa-solid fa-plus"></i> Armour</button><button type="button" data-create="gear"><i class="fa-solid fa-plus"></i> Gear</button></div>
+      {{#if owner}}<div class="smoke-buttons"><button type="button" data-create="weapon"><i class="fa-solid fa-plus"></i> Weapon</button><button type="button" data-create="armour"><i class="fa-solid fa-plus"></i> Armour</button><button type="button" data-create="gear"><i class="fa-solid fa-plus"></i> Gear</button><button type="button" data-create="consumable"><i class="fa-solid fa-plus"></i> Food</button><button type="button" data-create="outfit"><i class="fa-solid fa-plus"></i> Outfit</button><button type="button" data-create="drug"><i class="fa-solid fa-plus"></i> Drug</button><button type="button" data-create="ammo"><i class="fa-solid fa-plus"></i> Ammo</button></div>{{/if}}
       <h3>Stash at the flat</h3>
       <label class="smoke-inline">£ <input type="number" name="system.stash" value="{{system.stash}}"></label>
     </section>
 
     <section class="smoke-tab" data-tab="state">
       <div class="smoke-conditions">
-        {{#each conditionLibrary}}<button type="button" class="cond {{#if active}}on{{/if}}" data-condition="{{name}}" title="{{description}}&#10;Removed by: {{removal}}">{{name}}</button>{{/each}}
+        {{#each conditionLibrary}}<button type="button" class="cond {{#if active}}on{{/if}}" data-condition="{{name}}" title="{{description}}&#10;Removed by: {{removal}}">{{name}}{{#if stacks}} ×{{stacks}}{{/if}}</button>{{/each}}
       </div>
       <div class="smoke-states">
         <label><input type="checkbox" name="system.states.onARoll" {{#if system.states.onARoll}}checked{{/if}}> On a Roll (next roll explodes on its top two faces)</label>
         <label><input type="checkbox" name="system.states.offGame" {{#if system.states.offGame}}checked{{/if}}> Off Your Game (next roll does not explode)</label>
       </div>
       <h3>Rep</h3>
+      <div class="smoke-rep">
+        <div class="rep-level"><b>Rep {{rep.level}}</b> · {{rep.title}}<div class="rep-bar"><div class="fill" style="width: {{rep.pct}}%"></div><span>{{rep.xp}}{{#if rep.next}} / {{rep.next}} XP{{else}} XP · top of the tree{{/if}}</span></div></div>
+        {{#if rep.canLevel}}<button type="button" data-level-up class="hot"><i class="fa-solid fa-arrow-trend-up"></i> Level up to Rep {{rep.nextLevel}}</button>{{/if}}
+        {{#unless system.creation.done}}{{#unless isNPC}}<button type="button" data-creator><i class="fa-solid fa-user-plus"></i> Character creator</button><button type="button" data-quick-build><i class="fa-solid fa-dice"></i> Quick build</button>{{/unless}}{{/unless}}
+      </div>
+      {{#unless isNPC}}<div class="smoke-advances">
+        <div><b>Advances</b> {{#if isGM}}<input type="number" name="system.advancement.available" value="{{system.advancement.available}}" min="0">{{else}}<b class="smoke-rep-badge">{{advances}}</b>{{/if}} <small>awarded by the GM after missions · {{system.advancement.spent}} spent · Rep {{system.stage}} cap d{{cap}}</small></div>
+        <button type="button" data-advance {{#unless advances}}disabled{{/unless}}><i class="fa-solid fa-circle-up"></i> Spend an advance</button>
+      </div>{{/unless}}
       <div class="smoke-sub">
         <label>The Chainring <input type="number" name="system.rep.crew" value="{{system.rep.crew}}"></label>
         <label>Street <input type="number" name="system.rep.street" value="{{system.rep.street}}"></label>
         <label>Known to police <input type="number" name="system.rep.police" value="{{system.rep.police}}"></label>
+        {{#if isGM}}<label>XP <input type="number" name="system.rep.xp" value="{{system.rep.xp}}"></label>{{/if}}
       </div>
+      {{#if rep.unlocks.length}}<ul class="smoke-unlocks">{{#each rep.unlocks}}<li class="{{#if on}}on{{/if}}"><i class="fa-solid fa-{{#if on}}lock-open{{else}}lock{{/if}}"></i> {{label}}</li>{{/each}}</ul>{{/if}}
     </section>
 
     <section class="smoke-tab" data-tab="story">
@@ -89,10 +123,9 @@
         {{#if isNPC}}<label>Role <input type="text" name="system.role" value="{{system.role}}"></label>{{/if}}
       </div>
       <h3>Biography</h3>
-      <div class="smoke-bio">{{{system.biography}}}</div>
-      <textarea name="system.biography" rows="6">{{system.biography}}</textarea>
+      <prose-mirror name="system.biography" value="{{system.biography}}" toggled>{{{biographyHTML}}}</prose-mirror>
       <h3>Notes</h3>
-      <textarea name="system.notes" rows="5">{{system.notes}}</textarea>
+      <prose-mirror name="system.notes" value="{{system.notes}}" toggled>{{{notesHTML}}}</prose-mirror>
     </section>
   </div>
 </div>

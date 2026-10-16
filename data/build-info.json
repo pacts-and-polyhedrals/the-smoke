@@ -1,6 +1,9 @@
 {
-  "version": "0.1.2",
-  "base": "the-smoke-v0.1.1.zip",
+  "version": "0.4.0",
+  "sources": [
+    "the-smoke v0.2.0",
+    "the-smoke v0.1.3 (base the-smoke-v0.1.1.zip)"
+  ],
   "packs": {
     "london-streets": {
       "documents": 21,
@@ -10,29 +13,37 @@
       "documents": 4,
       "embedded": 4
     },
+    "london-venues": {
+      "documents": 211,
+      "embedded": 211
+    },
     "london-vehicles": {
       "documents": 29,
       "embedded": 0
     },
     "london-people": {
       "documents": 39,
-      "embedded": 14
+      "embedded": 19
+    },
+    "campaign-cast": {
+      "documents": 108,
+      "embedded": 0
     },
     "pregens": {
       "documents": 4,
-      "embedded": 18
+      "embedded": 26
     },
     "london-items": {
-      "documents": 75,
+      "documents": 171,
       "embedded": 0
     },
     "conditions": {
-      "documents": 15,
+      "documents": 31,
       "embedded": 0
     },
     "guides": {
-      "documents": 8,
-      "embedded": 45
+      "documents": 27,
+      "embedded": 265
     }
   }
 }

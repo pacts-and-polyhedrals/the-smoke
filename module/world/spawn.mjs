@@ -95,7 +95,7 @@ export function spawnKerbZones(scene) { return kerbside(zonesOf(scene)); }
 /** Move a token to another map (and out of any vehicle), landing in the zone offering `service` there. */
 export async function relocate(token, mapId, {service = null, zoneId = null} = {}) {
   const target = await findOrImportScene(mapId);
-  const zones = zonesOf(target).length ? zonesOf(target) : ((await loadAtlas()).places.maps.concat((await loadAtlas()).atlas.maps).find(m => m.id === mapId)?.zones || []);
+  const all = await loadAtlas(), zones = zonesOf(target).length ? zonesOf(target) : ([...all.places.maps, ...all.atlas.maps, ...(all.venues?.maps || [])].find(m => m.id === mapId)?.zones || []);
   let zone = zoneId ? zones.find(z => z.id === zoneId) : service ? zones.find(z => z.service === service) : null;
   if (zone && ['land', 'park'].includes(zone.kind)) {   // stand on the pavement outside, not inside the block
     const road = zones.find(z => (z.kind === 'road' || z.kind === 'junction') && (zone.adjacent || []).includes(z.id)); if (road) zone = road;

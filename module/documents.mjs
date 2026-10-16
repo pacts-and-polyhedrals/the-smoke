@@ -2,6 +2,7 @@ import {NS, CRIMES, HEAT} from './config.mjs';
 import {clampHeat, heatAfterCrime} from './rules/core.mjs';
 import {CONDITION_LIBRARY} from './rules/conditions.mjs';
 import {rollStat, rollDialog, rollAttack} from './dice/roll.mjs';
+import {useItem} from './world/items.mjs';
 
 const esc = v => foundry.utils.escapeHTML(String(v ?? ''));
 const card = (kicker, title, body, cls = '') => `<section class="smoke-card ${cls}"><header><span class="kicker">${esc(kicker)}</span><strong>${esc(title)}</strong></header>${body}</section>`;
@@ -100,10 +101,13 @@ export class SmokeItem extends Item {
   async use() {
     const actor = this.parent; if (!actor) return;
     if (this.type === 'weapon') {
+      // On the map: the full attack (range, cover, ammo, burst, aim). Off the map: a plain roll against a target's Guard.
+      const token = canvas?.scene?.tokens?.find(t => t.actorId === actor.id) ?? actor.getActiveTokens?.()[0]?.document;
+      if (token) { const {attack} = await import('./combat/combat.mjs'); return attack(token, {weapon: this}); }
       const target = [...(game.user?.targets ?? [])][0]?.document ?? null;
       return actor.rollAttack(this, target);
     }
-    if (this.type === 'gear' && this.system.stat) return actor.rollDialog(this.system.stat, {label: this.name,modifier:Number(this.system.bonus||0)});
+    if (['ammo', 'drug', 'consumable', 'outfit', 'gear', 'perk'].includes(this.type)) return useItem(this);
     return ChatMessage.implementation.create({speaker: ChatMessage.getSpeaker({actor}), content: card(this.type.toUpperCase(), this.name, this.system.description || '')});
   }
 }

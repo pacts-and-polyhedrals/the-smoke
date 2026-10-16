@@ -1,0 +1,133 @@
+<div class="smoke-gm">
+  <header class="gm-hero">
+    <div><span class="kicker">THE SMOKE · GM SCREEN</span><h1>Run London</h1><p>Tick who it's for, then throw something at them. Results land back on the card in chat.</p></div>
+    <div class="gm-hero-stats"><span><b>{{sceneName}}</b>this map</span><span><b>{{characters.length}}</b>characters</span><span><b>{{wanted}}</b>wanted</span></div>
+  </header>
+  <div class="gm-layout">
+    <aside class="gm-rail">
+      <h3>Who rolls</h3>
+      <div class="gm-row"><button type="button" data-select="scene">On this map</button><button type="button" data-select="all">All</button><button type="button" data-select="none">None</button></div>
+      <ul class="gm-recipients">
+        {{#each characters}}<li class="{{#if checked}}on{{/if}}"><label><input type="checkbox" data-recipient="{{id}}" {{#if checked}}checked{{/if}}><img src="{{img}}" alt=""><span><b>{{name}}</b><small>Rep {{rep}} · {{#if heat}}{{heat}}★ · {{/if}}£{{cash}} · {{health}} HP{{#if onScene}} · here{{/if}}</small></span></label></li>{{else}}<li class="empty">No characters yet. Tools → Character Creator.</li>{{/each}}
+      </ul>
+      <label class="gm-field">Difficulty <select data-band><option value="">As written</option>{{#each bands}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+      <label class="gm-check"><input type="checkbox" data-whisper {{#if whisper}}checked{{/if}}> Whisper to them only</label>
+      <label class="gm-check"><input type="checkbox" data-autoapply {{#if autoApply}}checked{{/if}}> Apply hazard harm automatically</label>
+      <p class="gm-tip">Difficulty is solved for each character's own die, so "Medium" means the same odds for everyone.</p>
+    </aside>
+    <main class="gm-main">
+      <nav class="gm-tabs">{{#each tabs}}<a data-gm-tab="{{key}}" class="{{#if active}}active{{/if}}"><i class="{{icon}}"></i> {{label}}</a>{{/each}}</nav>
+
+      {{#if (eq tab "checks")}}
+      {{#each quickGroups}}
+      <h2>{{name}}</h2>
+      <div class="gm-grid">{{#each checks}}
+        <article class="gm-card"><header><b>{{name}}</b><span class="gm-band {{band}}">{{bandLabel}}</span></header><p>{{text}}</p><p class="gm-guide">{{guide}}</p>
+          <footer><span class="gm-stats">{{stats}}</span><button type="button" data-post-check="{{id}}"><i class="fa-solid fa-paper-plane"></i> Post</button></footer></article>
+      {{/each}}</div>
+      {{/each}}
+      <h2>Teamwork</h2>
+      <div class="gm-grid">{{#each teamwork}}
+        <article class="gm-card team"><header><b>{{name}}</b><span class="gm-band {{band}}">{{bandLabel}}</span></header><p>{{text}}</p><p class="gm-guide">{{guide}}</p>
+          <footer><span class="gm-stats">{{stats}}</span><button type="button" data-post-team="{{id}}"><i class="fa-solid fa-people-group"></i> Post</button></footer></article>
+      {{/each}}</div>
+      <div class="gm-two">
+        <section class="gm-form gm-custom"><h2>Any check</h2>
+          <label>Title <input type="text" name="ctitle" placeholder="Climb the drainpipe"></label>
+          <label>Says <input type="text" name="ctext" placeholder="What the players read"></label>
+          <div class="gm-statpick">{{#each statOptions}}<label><input type="checkbox" name="cstat" value="{{key}}"> {{label}}</label>{{/each}}</div>
+          <div class="gm-row"><label>Band <select name="cband"><option value="">—</option><option value="easy">Easy</option><option value="medium">Medium</option><option value="hard">Hard</option><option value="miracle">Long Shot</option></select></label>
+          <label>or TN <input type="number" name="ctn" min="2" max="60"></label>
+          <button type="button" data-post-custom><i class="fa-solid fa-paper-plane"></i> Post</button></div>
+        </section>
+        <section class="gm-form gm-opposed"><h2>Opposed</h2>
+          <p class="gm-tip">The NPC rolls first (whispered to you); their total becomes the players' TN.</p>
+          <label>NPC <select name="onpc">{{#each npcTokens}}<option value="{{id}}">{{name}}</option>{{else}}<option value="">No NPCs on this map</option>{{/each}}</select></label>
+          <div class="gm-row"><label>NPC rolls <select name="ostat">{{#each statOptions}}<option value="{{key}}">{{label}}</option>{{/each}}</select></label>
+          <label>Players roll <select name="pstat">{{#each statOptions}}<option value="{{key}}">{{label}}</option>{{/each}}</select></label></div>
+          <div class="gm-row"><label>Title <input type="text" name="otitle" placeholder="Arm wrestle"></label><button type="button" data-post-opposed><i class="fa-solid fa-scale-balanced"></i> Roll & post</button></div>
+        </section>
+      </div>
+      {{/if}}
+
+      {{#if (eq tab "hazards")}}
+      <p class="gm-tip">Each character rolls to avoid it. What happens on each result is applied to them when the roll comes in{{#unless autoApply}} — <b>switched off</b> on the left{{/unless}}.</p>
+      {{#each hazardGroups}}
+      <h2>{{name}}</h2>
+      <div class="gm-grid">{{#each hazards}}
+        <article class="gm-card hazard"><header><b>{{name}}</b><span class="gm-band {{band}}">{{bandLabel}}</span></header><p>{{text}}</p>
+          <ul class="gm-lines">{{#each lines}}<li><b>{{label}}:</b> {{text}}</li>{{/each}}</ul>
+          <footer><span class="gm-stats">{{stats}}</span><button type="button" data-post-hazard="{{id}}"><i class="fa-solid fa-triangle-exclamation"></i> Throw it</button></footer></article>
+      {{/each}}</div>
+      {{/each}}
+      {{/if}}
+
+      {{#if (eq tab "street")}}
+      <div class="gm-event">
+        <button type="button" class="gm-big" data-roll-event><i class="fa-solid fa-dice-d20"></i> Roll a street event</button>
+        {{#if lastEvent}}<article class="gm-card event"><header><b>{{lastEvent.roll}}. {{lastEvent.name}}</b></header><p>{{lastEvent.text}}</p>
+          <footer><button type="button" data-event-tell><i class="fa-solid fa-bullhorn"></i> Tell the table</button>{{#if lastEvent.auto}}<button type="button" class="hot" data-event-do><i class="fa-solid fa-bolt"></i> Do it</button>{{/if}}</footer></article>{{/if}}
+      </div>
+      <h2>Quick automations</h2>
+      <div class="gm-row wrap"><button type="button" data-auto="rivals"><i class="fa-solid fa-users"></i> Lea Boys turn up</button><button type="button" data-auto="patrol"><i class="fa-solid fa-car-on"></i> Patrol car</button>
+        <button type="button" data-auto="bike"><i class="fa-solid fa-bicycle"></i> Kez's tip-off bike</button><button type="button" data-auto="pickpocket"><i class="fa-solid fa-wallet"></i> Pickpocket</button><button type="button" data-auto="recognised"><i class="fa-solid fa-eye"></i> Recognised</button></div>
+      <h2>The street table (d20)</h2>
+      <ol class="gm-table">{{#each streetEvents}}<li><a data-pick-event="{{roll}}"><b>{{roll}}</b> {{name}}</a>{{#if auto}} <i class="fa-solid fa-bolt" title="Has an automation"></i>{{/if}}</li>{{/each}}</ol>
+      <h2>Police</h2>
+      <div class="gm-grid">{{#each policeEvents}}
+        <article class="gm-card police"><header><b>{{name}}</b><span class="gm-band {{band}}">{{bandLabel}}</span></header><p>{{text}}</p><p class="gm-guide">{{guide}}</p>
+          <footer><span class="gm-stats">{{stats}}</span><button type="button" data-post-police="{{id}}"><i class="fa-solid fa-shield-halved"></i> Post</button></footer></article>
+      {{/each}}</div>
+      {{/if}}
+
+      {{#if (eq tab "heat")}}
+      <h2>Heat</h2>
+      <table class="gm-heat">{{#each heatRows}}<tr><td><b>{{name}}</b></td><td>{{#each stars}}<button type="button" class="star {{#if on}}on{{/if}} {{#if now}}now{{/if}}" data-set-heat="{{n}}" data-actor="{{../id}}">{{#if n}}{{n}}★{{else}}0{{/if}}</button>{{/each}}</td></tr>{{else}}<tr><td>Tick a character on the left.</td></tr>{{/each}}</table>
+      <div class="gm-row"><label>Crime <select name="crime">{{#each crimes}}<option value="{{key}}">{{label}}</option>{{/each}}</select></label><button type="button" data-report-crime><i class="fa-solid fa-star"></i> Witnessed — add Heat</button></div>
+      <div class="gm-row wrap"><button type="button" data-dispatch><i class="fa-solid fa-tower-broadcast"></i> Dispatch units</button><button type="button" data-standdown><i class="fa-solid fa-flag"></i> Stand down</button>
+        <button type="button" data-busted><i class="fa-solid fa-handcuffs"></i> Busted</button><button type="button" data-wasted><i class="fa-solid fa-skull"></i> Wasted</button></div>
+      <h2>What each star brings</h2>
+      <ol class="gm-stars" start="0">{{#each heatNames}}<li>{{this}}</li>{{/each}}</ol>
+      {{/if}}
+
+      {{#if (eq tab "rewards")}}
+      <div class="gm-two">
+        <section class="gm-form"><h2>Money</h2><div class="gm-row"><label>£ <input type="number" name="cash" value="50" min="0"></label><button type="button" data-give-cash="give"><i class="fa-solid fa-plus"></i> Give</button><button type="button" data-give-cash="take"><i class="fa-solid fa-minus"></i> Take</button></div></section>
+        <section class="gm-form"><h2>XP</h2><div class="gm-row"><label>XP <input type="number" name="xp" value="3"></label><button type="button" data-give-xp><i class="fa-solid fa-arrow-trend-up"></i> Award</button></div>
+          <p class="gm-tip">Rep 2 at 10 XP, Rep 3 at 25, Rep 4 at 45, Rep 5 at 70. A job is 1, Pat's order 2, a mission 3–5.</p></section>
+      </div>
+      <h2>Patch-ups and Rep</h2>
+      <div class="gm-row wrap"><button type="button" data-reward="hustle"><i class="fa-solid fa-bolt"></i> Refill Hustle</button><button type="button" data-reward="heal"><i class="fa-solid fa-kit-medical"></i> Full heal &amp; clear Conditions</button>
+        <button type="button" data-reward="clearHeat"><i class="fa-regular fa-star"></i> Clear Heat</button><button type="button" data-reward="advance"><i class="fa-solid fa-circle-up"></i> +1 Advance</button><button type="button" data-reward-rep="crew"><i class="fa-solid fa-link"></i> +1 Chainring</button>
+        <button type="button" data-reward-rep="street"><i class="fa-solid fa-road"></i> +1 Street</button><button type="button" data-reward-rep="police"><i class="fa-solid fa-shield-halved"></i> +1 Known to police</button></div>
+      <h2>Give kit</h2>
+      <div class="gm-row"><select name="giveItem">{{#each itemGroups}}<optgroup label="{{label}}">{{#each items}}<option>{{this}}</option>{{/each}}</optgroup>{{/each}}</select>
+        <label>× <input type="number" name="giveQty" value="1" min="1"></label><button type="button" data-give-item><i class="fa-solid fa-gift"></i> Give</button></div>
+      {{/if}}
+
+      {{#if (eq tab "npcs")}}
+      <div class="gm-two">
+        <section class="gm-form"><h2>Make someone up</h2>
+          <div class="gm-row"><select data-npc-role><option value="">Anyone</option>{{#each npcRoles}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select><button type="button" data-npc-make><i class="fa-solid fa-dice"></i> Make one</button></div>
+          {{#if npc}}<article class="gm-card npc"><header><b>{{npc.name}}</b><span class="gm-band">{{npc.role}}</span></header><p>{{npc.line}}</p>
+            <footer><button type="button" data-npc-post><i class="fa-solid fa-comment"></i> Note it (to me)</button><button type="button" data-npc-place><i class="fa-solid fa-location-dot"></i> Put them on the map</button></footer></article>{{/if}}
+        </section>
+        <section class="gm-form"><h2>Spawn</h2>
+          <div class="gm-row wrap"><button type="button" data-spawn="rivals"><i class="fa-solid fa-users"></i> Lea Boys ×2</button><button type="button" data-spawn="patrol"><i class="fa-solid fa-car-on"></i> Patrol car</button>
+            <button type="button" data-spawn="bike"><i class="fa-solid fa-bicycle"></i> Tip-off bike</button><button type="button" data-spawn="fill"><i class="fa-solid fa-plus"></i> Fill the streets</button><button type="button" data-spawn="clear"><i class="fa-solid fa-broom"></i> Clear the streets</button></div>
+        </section>
+      </div>
+      {{/if}}
+
+      {{#if (eq tab "odds")}}
+      <p class="gm-tip">Target Numbers and real odds for {{oddsFor}} (Effort d6 + stat die, both exploding). Tick characters on the left to solve for just them.</p>
+      <table class="gm-odds"><thead><tr><th>Stat</th><th>Easy</th><th>Medium</th><th>Hard</th><th>Long Shot</th></tr></thead>
+        <tbody>{{#each odds}}<tr><th>{{abbr}} <small>{{label}}</small></th>{{#each cells}}<td><b>{{tn}}</b> <small>{{pct}}%</small></td>{{/each}}</tr>{{/each}}</tbody></table>
+      {{/if}}
+
+      {{#if (eq tab "tools")}}
+      <div class="gm-tools">{{#each tools}}<button type="button" data-tool="{{key}}"><i class="{{icon}}"></i><b>{{label}}</b><small>{{hint}}</small></button>{{/each}}</div>
+      {{/if}}
+    </main>
+  </div>
+</div>

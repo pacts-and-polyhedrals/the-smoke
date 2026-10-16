@@ -37,6 +37,17 @@ async function vehicleAt(scene, catalogId, zone, r, flags) {
   const p = lanePoint(zone, r, null, scene);
   return placeToken(scene, actor, p.x, p.y, {rotation: p.rotation, flags: {...flags, ...(flags.traffic ? {traffic: {...flags.traffic, dir: p.dir, speed: 1 + Math.floor(r() * 2), edgeId:p.edgeId, distance:p.distance, travelDir:p.travelDir}} : {})}});
 }
+/** A spot in a lane on this street map, optionally well away from a point. Shape matches lanePoint, plus `road`
+ *  (the lane state traffic flags carry), so callers can drop a moving car straight in. */
+export async function roadSpawn(scene, r = Math.random, {awayFrom = null, minDist = 0} = {}) {
+  const roads = drivable(zonesOf(scene)).filter(z => z.kind === 'road'); if (!roads.length) return null;
+  let p = null;
+  for (let i = 0; i < 12; i++) {
+    p = lanePoint(pick(roads, r), r, null, scene);
+    if (!awayFrom || Math.hypot(p.x - awayFrom[0], p.y - awayFrom[1]) >= minDist) break;
+  }
+  return p && {...p, road: {dir: p.dir, edgeId: p.edgeId, distance: p.distance, travelDir: p.travelDir}};
+}
 const populations=new Set();
 export async function populate(scene, {force = false} = {}) {
   if(!scene || populations.has(scene.id))return 0; populations.add(scene.id);
@@ -119,10 +130,12 @@ export async function tick() {
       const scene = game.scenes.get(id); if (!isStreetScene(scene)) continue;
       const zones = zonesOf(scene), g = scene.grid.size, r = rng(Date.now() ^ id.length);
       const blues = scene.tokens.filter(t => lightsOn(t));
+      const wanted = scene.tokens.some(t => t.actor?.type === 'character' && Number(t.actor.system.heat?.value) > 0);
       const updates = [], gone = [];
       for (const t of trafficTokens(scene)) {
         const f = t.getFlag(NS, 'traffic'); if (!f || f.kind !== 'moving' || !isCar(t)) continue;
         if ((t.getFlag(NS, 'vehicleOccupants') || []).length) continue;               // someone got in
+        if (t.getFlag(NS, 'police') && wanted) continue;                              // a patrol joins the hunt instead
         if (blues.some(b => b.id !== t.id && distanceSquares(b, t) < 8)) continue;    // pull over for the blues
         const step = planStep(t, zones, g, r);
         if (!step || step.despawn) { if(!f.keep)gone.push(t.id); continue; }

@@ -1,0 +1,75 @@
+<div class="smoke-creator-inner">
+  <nav class="cr-steps">{{#each steps}}<a data-goto="{{key}}" class="{{#if active}}active{{/if}} {{#if done}}done{{/if}} {{#if bad}}bad{{/if}}"><b>{{n}}</b> {{label}}</a>{{/each}}</nav>
+  <main class="cr-main">
+    {{#if (eq step "who")}}
+    <h2>Who are you?</h2>
+    <p class="cr-lead">Everyone in The Smoke is somebody from somewhere. Name, a street name if you have one, and your ends.</p>
+    <div class="cr-form">
+      <label>Name <input type="text" data-field="name" value="{{draft.name}}" placeholder="Jaz Kaur"></label>
+      <label>Street name <input type="text" data-field="alias" value="{{draft.alias}}" placeholder="Tealeaf"></label>
+      <label>Pronouns <input type="text" data-field="pronouns" value="{{draft.pronouns}}" placeholder="she/her"></label>
+      <label>Age (18+) <input type="text" data-field="age" value="{{draft.age}}" placeholder="21"></label>
+      <label>Ends <select data-field="ends">{{#each ends}}<option {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>
+      <label class="wide">Look <input type="text" data-field="look" value="{{draft.look}}" placeholder="Oversized hoodie, scuffed Air Max, BMX pegs in her bag"></label>
+    </div>
+    {{/if}}
+
+    {{#if (eq step "background")}}
+    <h2>What did you do before Pat?</h2>
+    <p class="cr-lead">Your background suggests your stats, offers three perks and decides what is in your pockets.</p>
+    <div class="cr-grid">{{#each backgrounds}}
+      <article class="cr-card {{#if selected}}selected{{/if}}" data-background="{{key}}"><header><b>{{name}}</b><span>£{{cash}}</span></header><p>{{blurb}}</p>
+        <small><b>Stats</b> {{statLine}}</small><small><b>Perks</b> {{perkLine}}</small><small><b>Kit</b> {{kitLine}}</small></article>
+    {{/each}}</div>
+    {{/if}}
+
+    {{#if (eq step "stats")}}
+    <h2>Stats</h2>
+    <p class="cr-lead">One <b>d8</b>, three <b>d6</b>, five <b>d4</b>. Your Effort die (d6) plus a stat die plus its modifier is every roll you make.</p>
+    <div class="cr-spread {{#if spreadOk}}ok{{/if}}"><span>d8 <b>{{counts.[8]}}</b>/1</span><span>d6 <b>{{counts.[6]}}</b>/3</span><span>d4 <b>{{counts.[4]}}</b>/5</span>{{#if bg}}<button type="button" data-suggest><i class="fa-solid fa-wand-magic-sparkles"></i> Use the {{bg.name}} spread</button>{{/if}}</div>
+    <div class="cr-stats">{{#each stats}}
+      <label class="cr-stat"><b>{{abbr}}</b><span>{{label}}</span><select data-stat="{{key}}">{{#each options}}<option value="{{v}}" {{#if selected}}selected{{/if}}>d{{v}}</option>{{/each}}</select><small>+{{mod}} · {{hint}}</small></label>
+    {{/each}}</div>
+    <p class="cr-lead">Health starts at 8 + your Grit modifier: <b>{{health}}</b>.</p>
+    {{/if}}
+
+    {{#if (eq step "perk")}}
+    <h2>A perk</h2>
+    <p class="cr-lead">When a perk applies, its stat die steps up one size for the roll. You get more as your Rep grows.</p>
+    <div class="cr-grid">{{#each perks}}
+      <article class="cr-card {{#if selected}}selected{{/if}}" data-perk="{{name}}"><header><b>{{name}}</b></header><p><i>{{when}}</i></p><p>{{text}}</p></article>
+    {{else}}<p>Pick a background first.</p>{{/each}}</div>
+    {{/if}}
+
+    {{#if (eq step "kit")}}
+    <h2>In your pockets</h2>
+    <p class="cr-lead">Your background's kit, <b>£{{cash}}</b>, and one extra thing.</p>
+    <ul class="cr-kit">{{#each kit}}<li><img src="{{img}}" alt=""><b>{{name}}</b><small>{{text}}</small></li>{{/each}}</ul>
+    <h3>One extra</h3>
+    <div class="cr-extras">{{#each extras}}<button type="button" data-extra="{{name}}" class="{{#if selected}}selected{{/if}}"><img src="{{img}}" alt="">{{name}}</button>{{/each}}</div>
+    {{/if}}
+
+    {{#if (eq step "story")}}
+    <h2>Your story</h2>
+    <p class="cr-lead">The GM will use these. Pick one or write your own.</p>
+    <div class="cr-form">
+      <label class="wide">Your hustle (what you're known for) <input type="text" data-field="hustle" value="{{draft.hustle}}"></label>
+      <label class="wide">Vice <input type="text" data-field="vice" value="{{draft.vice}}"><select data-idea="vice"><option value="">— ideas —</option>{{#each ideas.vice}}<option {{#if selected}}selected{{/if}}>{{v}}</option>{{/each}}</select></label>
+      <label class="wide">Bond <input type="text" data-field="bond" value="{{draft.bond}}"><select data-idea="bond"><option value="">— ideas —</option>{{#each ideas.bond}}<option {{#if selected}}selected{{/if}}>{{v}}</option>{{/each}}</select></label>
+      <label class="wide">Ambition <input type="text" data-field="ambition" value="{{draft.ambition}}"><select data-idea="ambition"><option value="">— ideas —</option>{{#each ideas.ambition}}<option {{#if selected}}selected{{/if}}>{{v}}</option>{{/each}}</select></label>
+    </div>
+    {{/if}}
+
+    {{#if (eq step "review")}}
+    <h2>{{#if draft.name}}{{draft.name}}{{else}}Nearly there{{/if}}</h2>
+    {{#if review}}<p class="cr-summary">{{review}}</p>
+    <p class="cr-lead">{{#if isNew}}This makes a new character in <b>The Smoke — Player Characters</b>. Give it to a player in User Configuration.{{else}}This sets their stats, kit and cash. Anything they were carrying is replaced.{{/if}}</p>
+    <button type="button" class="cr-finish" data-finish><i class="fa-solid fa-check"></i> Make {{draft.name}}</button>
+    {{else}}<ul class="cr-problems">{{#each problems}}<li><a data-goto="{{step}}">{{label}}</a>: {{problem}}</li>{{/each}}</ul>{{/if}}
+    {{/if}}
+  </main>
+  <footer class="cr-foot">
+    {{#if problem}}<span class="cr-problem"><i class="fa-solid fa-triangle-exclamation"></i> {{problem}}</span>{{else}}<span></span>{{/if}}
+    <div>{{#unless first}}<button type="button" data-back><i class="fa-solid fa-arrow-left"></i> Back</button>{{/unless}}{{#unless last}}<button type="button" class="hot" data-next>Next <i class="fa-solid fa-arrow-right"></i></button>{{/unless}}</div>
+  </footer>
+</div>

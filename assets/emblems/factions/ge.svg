@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs><radialGradient id="bg" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#1a1f2b"/><stop offset=".55" stop-color="#0b0d13"/><stop offset="1" stop-color="#030305"/></radialGradient>
+<filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<style>.g{fill:#0d1018;stroke:#e9cc8c;stroke-width:9;stroke-linejoin:round;stroke-linecap:round}.s{fill:none;stroke:#e9cc8c;stroke-width:9;stroke-linejoin:round;stroke-linecap:round}.thin{fill:none;stroke:#e9cc8c;stroke-width:4;stroke-linecap:round;opacity:.75}.dot{fill:#e9cc8c}.hole{fill:#05070b;stroke:#e9cc8c;stroke-width:4}.heart{fill:#e9cc8c;opacity:.9}.flame{fill:#ffd166;stroke:#e9cc8c;stroke-width:3}.thread{fill:none;stroke:#ff3a52;stroke-width:5;stroke-linecap:round}</style></defs>
+<polygon points="453.7,337.9 337.9,453.7 174.1,453.7 58.3,337.9 58.3,174.1 174.1,58.3 337.9,58.3 453.7,174.1" fill="url(#bg)" stroke="#e9cc8c" stroke-width="10" stroke-linejoin="round"/>
+<polygon points="437.1,331.0 331.0,437.1 181.0,437.1 74.9,331.0 74.9,181.0 181.0,74.9 331.0,74.9 437.1,181.0" fill="none" stroke="#e9cc8c" stroke-width="2" opacity=".35"/>
+<g filter="url(#glow)"><polygon class="g" points="186.0,186.0 226.0,152.0 286.0,152.0 326.0,186.0 256.0,318.0"/><path class="s" d="M186 186 L326 186 M226 152 L242 186 L256 318 L270 186 L286 152 M242 186 L256 152 L270 186"/><path class="thin" d="M150 140 l14 0 M157 133 l0 14 M352 118 l14 0 M359 111 l0 14 M354 262 l10 0 M359 257 l0 10"/></g>
+<text x="256" y="408" text-anchor="middle" font-family="Oswald, Impact, 'Arial Narrow', sans-serif" font-size="58" letter-spacing="10" fill="#e9cc8c">GE</text>
+</svg>

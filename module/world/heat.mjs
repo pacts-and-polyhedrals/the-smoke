@@ -94,7 +94,8 @@ export function huntStep(unit, zones, g, [tx, ty], speedSquares = 3) {
 async function huntTick(scene) {
   const zones = zonesOf(scene), g = scene.grid.size, updates = [];
   for (const u of policeUnits(scene)) {
-    const f = u.getFlag(NS, 'police'); if ((u.getFlag(NS, 'vehicleOccupants') || []).some(o => scene.tokens.get(o.tokenId)?.actor?.type === 'character')) continue;
+    const f = u.getFlag(NS, 'police'); if (f?.unit === 'officer') continue;   // officers on foot fight in the Combat Console
+    if ((u.getFlag(NS, 'vehicleOccupants') || []).some(o => scene.tokens.get(o.tokenId)?.actor?.type === 'character')) continue;
     const target = scene.tokens.find(t => t.actorId === f.hunting) ?? wantedTokens(scene)[0]; if (!target) continue;
     const goal = tokenCentre(target.getFlag(NS, 'vehicleSeat') ? scene.tokens.get(target.getFlag(NS, 'vehicleSeat').vehicleTokenId) ?? target : target);
     if (f.unit === 'heli') {   // the helicopter just follows, hovering behind
@@ -117,7 +118,7 @@ async function sightTick(scene) {
     const seen = units.some(u => distanceSquares(u, t) <= SIGHT) || (heli && stars >= 3 && !t.getFlag(NS, 'indoors'));
     // a police unit clocking you in a car with a stolen marker
     const seat = t.getFlag(NS, 'vehicleSeat'); const vt = seat && scene.tokens.get(seat.vehicleTokenId);
-    if (vt && vt.getFlag(NS, 'stolen') && !vt.getFlag(NS,'resprayed') && seat.seatId === 'pilot' && units.some(u => distanceSquares(u, vt) <= 8) && stars < 1) {
+    if (vt && vt.getFlag(NS, 'stolen') && !vt.getFlag(NS, 'resprayed') && seat.seatId === 'pilot' && units.some(u => distanceSquares(u, vt) <= 8) && stars < 1) {
       await a.setHeat(1, `A passing unit's ANPR pings the ${vt.name}: reported stolen.`); continue;
     }
     if (!stars) { lastSeen.delete(a.id); continue; }
@@ -129,7 +130,8 @@ async function sightTick(scene) {
   // close enough to nick someone on foot?
   for (const t of wantedTokens(scene)) {
     if (t.getFlag(NS, 'vehicleSeat')) continue;
-    const near = units.find(u => u.getFlag(NS, 'police')?.unit !== 'heli' && distanceSquares(u, t) <= 2.5);
+    if (game.combats.some(c => c.scene?.id === scene.id && c.combatants.some(x => x.tokenId === t.id))) continue;   // already in a fight
+    const near = units.find(u => !['heli', 'officer'].includes(u.getFlag(NS, 'police')?.unit) && distanceSquares(u, t) <= 2.5);
     if (near && !t.getFlag(NS, 'stopped')) { await t.setFlag(NS, 'stopped', Date.now()); await stopCard(t, near); }
     if (!near && t.getFlag(NS, 'stopped') && Date.now() - t.getFlag(NS, 'stopped') > 30000) await t.unsetFlag(NS, 'stopped');
   }
@@ -141,6 +143,7 @@ async function stopCard(t, unit) {
       <button type="button" data-smoke-roll="${esc(a.uuid)}" data-stat="mov" data-band="${stars >= 3 ? 'hard' : 'medium'}" data-label="Leg it" data-after="legIt"><i class="fa-solid fa-person-running"></i> Leg it (Moves)</button>
       <button type="button" data-smoke-roll="${esc(a.uuid)}" data-stat="frt" data-band="${stars >= 2 ? 'miracle' : 'hard'}" data-label="Talk your way out" data-after="talkOut"><i class="fa-solid fa-comments"></i> Talk your way out (Front)</button>
       <button type="button" data-smoke-busted="${esc(a.uuid)}"><i class="fa-solid fa-handcuffs"></i> Come quietly (Busted)</button>
+      <button type="button" class="gm" data-smoke-police-fight="${esc(t.uuid)}"><i class="fa-solid fa-hand-fist"></i> They fight (start combat)</button>
     </div><p class="smoke-dim">GM: a failed Leg It or Talk means Busted unless they fight.</p>`, `heat h${stars}`);
 }
 
@@ -162,7 +165,8 @@ export async function wasted(actor) {
 export async function busted(actor) {
   const t = tokenFor(actor);
   const cost = bustedCost(actor.system.cash);
-  const weapons = actor.items.filter(i => i.type === 'weapon' && i.system.kind !== 'melee-fist' && !['fists','unarmed'].includes(i.name.toLowerCase()));
+  // Evidence: weapons (not your fists), ammo, drugs, and any uniform you had no business wearing.
+  const weapons = actor.items.filter(i => (i.type === 'weapon' && i.system.kind !== 'melee-fist' && !['fists', 'unarmed'].includes(i.name.toLowerCase())) || i.type === 'ammo' || i.type === 'drug' || (i.type === 'outfit' && ['police', 'paramedic'].includes(i.system.disguise)));
   if (t) await relocate(t, 'LDP-CUSTODY', {service: 'release'});
   await actor.deleteEmbeddedDocuments('Item', [...weapons.map(i => i.id), ...actor.items.filter(i => i.type === 'condition'&&i.name!=='Broken').map(i => i.id)]);
   await actor.update({'system.heat.value': 0, 'system.states.down': false,'system.states.downRounds':0,'system.states.reactionUsed':false, 'system.resources.health.value': Math.max(1, actor.system.resources.health.value), 'system.cash': Math.max(0, actor.system.cash - cost), 'system.rep.police': Number(actor.system.rep?.police || 0) + 1});

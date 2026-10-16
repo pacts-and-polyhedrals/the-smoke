@@ -8,8 +8,9 @@ import {arrivedAt} from './rules/jobs-core.mjs';
 import {distanceSquares} from './world/spawn.mjs';
 import {wasted} from './world/heat.mjs';
 const {DialogV2}=foundry.applications.api;
-export class SmokeCombatant extends Combatant{
-  _getInitiativeFormula(){return this.actor?.type==='vehicle'?'1d6 + @vehicle.handling':'1d6 + @statMods.mov';}
+// Plain initiative (the core tracker without the Combat Console): exploding d6 plus Moves, or Handling for a vehicle.
+export class SmokeCombatant extends (globalThis.Combatant ?? class {}){
+  _getInitiativeFormula(){return this.actor?.type==='vehicle'?'1d6x + @vehicle.handling':'1d6x + @statMods.mov';}
 }
 const owns=(a,u=game.user)=>u?.isGM||a?.testUserPermission(u,'OWNER');
 export async function firstAid(healer){
@@ -42,25 +43,45 @@ registerHandler('aid.apply',async({messageId,userId})=>{
   if(Number(a.getFlag(NS,'woundRevision')||0)!==aid.revision)throw new Error('The patient has been hurt again. Make a fresh treatment roll.');
   await msg.setFlag(NS,'resolved',true);await a.setFlag(NS,'aidRevision',aid.revision);await a.heal(2);await a.removeCondition('Bleeding');await a.removeCondition('Hurt');
 });
+/** Somewhere safe to sleep: inside a safehouse zone, or anywhere in Your Flat. */
+function safeHere(token){
+  if(!token)return null;
+  if(token.parent?.getFlag?.(NS,'place')?.id==='LDP-FLAT')return {name:'Your Flat'};
+  const zones=zonesOf(token.parent);return zones.find(z=>z.service==='safehouse'&&arrivedAt(zones,z.id,tokenRect(token)))??null;
+}
+const policeInSight=token=>Boolean(token?.parent?.tokens.some(u=>u.getFlag(NS,'police')&&distanceSquares(u,token)<=14));
+// Short-term trouble a night in clears. Broken needs A&E and a week; cuffs and holds need someone else.
+const REST_KEEPS=['Broken','Cuffed','Restrained','Grabbed'];
+export const REST_RULES='A safe night restores Health and Hustle and clears short-term conditions (Bruised, Hurt, Knackered, Shaken, Mullered, Gassed, Prone, Stunned, In Pain, highs and comedowns). Heat of two stars or less dies down overnight. You cannot rest while Bleeding, with three or more stars, or with police in sight. Broken needs A&E and a week of recovery.';
+/** Why this person cannot rest here, or null. */
+export function restProblem(actor,token,{isGM=false}={}){
+  if(!isGM&&!safeHere(token))return 'Get to the flat or a safehouse before resting.';
+  if(Number(actor.system.heat?.value)>=3)return 'Lose the Heat before resting: with three stars they will come to the door.';
+  if(policeInSight(token))return 'Not with the police outside.';
+  if(actor.items.some(i=>i.type==='condition'&&i.name==='Bleeding'))return 'Stop the Bleeding with first aid before resting.';
+  return null;
+}
 export async function rest(actor){
   if(!owns(actor))throw new Error('Not your character.');
   const t=actor.token??canvas?.scene?.tokens.find(x=>x.actorId===actor.id);
-  const service=zonesOf(t?.parent).find(z=>z.service==='safehouse');
-  if(!game.user.isGM&&(!t||!service||!arrivedAt(zonesOf(t.parent),service.id,tokenRect(t))))throw new Error('Get to the flat or a safehouse before resting.');
-  if(Number(actor.system.heat.value)>0)throw new Error('Lose the Heat before resting.');
-  if(actor.items.some(i=>i.type==='condition'&&i.name==='Bleeding'))throw new Error('Stop the Bleeding with first aid before resting.');
-  if(!await DialogV2.confirm({window:{title:`A night off · ${actor.name}`},content:'<p>A safe night restores Health and Hustle and removes Bruised, Hurt, Knackered, Shaken, Mullered, Gassed, Prone, Stunned and In Pain. Broken needs A&E and time.</p>'}))return;
+  const why=restProblem(actor,t,{isGM:game.user.isGM});if(why)throw new Error(why);
+  if(!await DialogV2.confirm({window:{title:`A night off · ${actor.name}`},content:`<p>${REST_RULES}</p>`}))return;
   return request('recovery.rest',{actorUuid:actor.uuid,sceneId:t?.parent.id,tokenId:t?.id});
+}
+/** The night itself. Runs on the leader. */
+export async function restNow(actor){
+  const heat=Number(actor.system.heat?.value||0);
+  await actor.update({'system.resources.health.value':actor.system.resources.health.max,'system.resources.hustle.value':actor.system.resources.hustle.max,'system.states.down':false,'system.states.downRounds':0,'system.states.reactionUsed':false,'system.states.offGame':false,'system.states.onARoll':false});
+  await actor.deleteEmbeddedDocuments('Item',actor.items.filter(i=>i.type==='condition'&&!REST_KEEPS.includes(i.name)).map(i=>i.id));
+  if(heat)await actor.setHeat(0,'A night indoors: the heat dies down.');
+  await card('OFF THE CLOCK',actor.name,`<p>A shower, a proper meal, a few hours with the phone on silent. Health and Hustle restored${heat?'; Heat cleared':''}.</p>`,'win');return {rested:true};
 }
 registerHandler('recovery.rest',async({actorUuid,sceneId,tokenId,userId})=>{
   const actor=await fromUuid(actorUuid),user=game.users.get(userId);if(!actor?.isPerson||!owns(actor,user))throw new Error('Not your character.');
- const token=game.scenes.get(sceneId)?.tokens.get(tokenId),zones=zonesOf(token?.parent),safe=token&&zones.find(z=>z.service==='safehouse'&&arrivedAt(zones,z.id,tokenRect(token)));
-  if(!user.isGM&&(!token||token.actorId!==actor.id||!safe))throw new Error('Get to a safehouse before resting.');
-  if(actor.system.heat.value>0||actor.items.some(i=>i.type==='condition'&&i.name==='Bleeding'))throw new Error('Lose the Heat and stop Bleeding before resting.');
-  await actor.update({'system.resources.health.value':actor.system.resources.health.max,'system.resources.hustle.value':actor.system.resources.hustle.max,'system.states.down':false,'system.states.downRounds':0,'system.states.reactionUsed':false,'system.states.offGame':false,'system.states.onARoll':false});
-  const remove=['Bruised','Hurt','Knackered','Shaken','Mullered','Gassed','Prone','Stunned','In Pain','Down'];
-  await actor.deleteEmbeddedDocuments('Item',actor.items.filter(i=>i.type==='condition'&&remove.includes(i.name)).map(i=>i.id));
-  await card('OFF THE CLOCK',actor.name,'<p>A shower, a proper meal, a few hours with the phone on silent. Health and Hustle restored.</p>','win');return {rested:true};
+  const token=game.scenes.get(sceneId)?.tokens.get(tokenId);
+  if(!user.isGM&&(!token||token.actorId!==actor.id))throw new Error('Get to a safehouse before resting.');
+  const why=restProblem(actor,token,{isGM:user.isGM});if(why)throw new Error(why);
+  return restNow(actor);
 });
 export async function advance(actor){
   if(!owns(actor))throw new Error('Not your character.');
@@ -94,6 +115,7 @@ registerHandler('combat.resolve',async({messageId,dodge=false,userId})=>{
     if(out?.result.success){await msg.update({[`flags.${NS}.resolved`]:true,[`flags.${NS}.resolution`]:'dodged'});await card('DODGED',target.name,'<p>The attack misses. Reaction spent until your next turn.</p>','win');return;}
   }
   await msg.update({[`flags.${NS}.resolved`]:true,[`flags.${NS}.resolution`]:'hit'});await target.applyDamage(attack.damage);
+  if(target.isPerson)for(const c of attack.effects??[])await target.addCondition(c);
   return card('HIT',target.name,`<p>${attack.damage} damage applied${dodge?' after a failed Dodge':''}. ${attack.severity?esc(attack.severity):''}</p>`,'cost');
 });
 registerHandler('combat.condition',async({messageId,condition,userId})=>{
@@ -112,6 +134,8 @@ async function finishWasted(actor){
 const later=(a,b)=>a.round>b.round||(a.round===b.round&&a.turn>b.turn);
 export async function processCombatTurn(combat,changes){
  if(!isLeader()||!('turn'in changes||'round'in changes)||Number(combat.round)<1)return;
+ // Speed-dice fights (Combat Console) handle Bleeding, Stunned, reactions and the Down clock at the end of each round.
+ if(combat.getFlag?.(NS,'state'))return;
  const current={round:Number(combat.round),turn:Number(combat.turn??0)},previous=combat.previous;
  if(previous?.round>0&&later(current,previous)){
   const ended=combat.combatants.find(c=>c.id===previous.combatantId||c.tokenId===previous.tokenId)?.actor??combat.turns?.[previous.turn]?.actor;

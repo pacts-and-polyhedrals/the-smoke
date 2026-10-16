@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs><radialGradient id="bg" cx="50%" cy="38%" r="70%"><stop offset="0" stop-color="#1a1f2b"/><stop offset=".55" stop-color="#0b0d13"/><stop offset="1" stop-color="#030305"/></radialGradient>
+<filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<style>.g{fill:#0d1018;stroke:#8be6b0;stroke-width:9;stroke-linejoin:round;stroke-linecap:round}.s{fill:none;stroke:#8be6b0;stroke-width:9;stroke-linejoin:round;stroke-linecap:round}.thin{fill:none;stroke:#8be6b0;stroke-width:4;stroke-linecap:round;opacity:.75}.dot{fill:#8be6b0}.hole{fill:#05070b;stroke:#8be6b0;stroke-width:4}.heart{fill:#8be6b0;opacity:.9}.flame{fill:#ffd166;stroke:#8be6b0;stroke-width:3}.thread{fill:none;stroke:#ff3a52;stroke-width:5;stroke-linecap:round}</style></defs>
+<polygon points="453.7,337.9 337.9,453.7 174.1,453.7 58.3,337.9 58.3,174.1 174.1,58.3 337.9,58.3 453.7,174.1" fill="url(#bg)" stroke="#8be6b0" stroke-width="10" stroke-linejoin="round"/>
+<polygon points="437.1,331.0 331.0,437.1 181.0,437.1 74.9,331.0 74.9,181.0 181.0,74.9 331.0,74.9 437.1,181.0" fill="none" stroke="#8be6b0" stroke-width="2" opacity=".35"/>
+<g filter="url(#glow)"><path class="g" d="M156 222 L256 140 L356 222 L332 222 L332 330 L180 330 L180 222 Z"/><path class="heart" d="M256 312 C210 280 206 250 226 240 C240 233 252 242 256 252 C260 242 272 233 286 240 C306 250 302 280 256 312 Z"/></g>
+<text x="256" y="408" text-anchor="middle" font-family="Oswald, Impact, 'Arial Narrow', sans-serif" font-size="58" letter-spacing="10" fill="#8be6b0">BM</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b242a"/><stop offset="1" stop-color="#0a0d10"/></linearGradient>
+<radialGradient id="h" cx="0.5" cy="0.42" r="0.6"><stop offset="0" stop-color="#ff8a3d" stop-opacity="0.28"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient></defs>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="url(#g)"/>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="url(#h)"/>
+<path d="M8 196 L248 196 L248 218 Q248 248 218 248 L38 248 Q8 248 8 218 Z" fill="#ff8a3d" opacity="0.18"/>
+<rect x="8" y="8" width="240" height="240" rx="30" fill="none" stroke="#ff8a3d" stroke-width="7"/>
+<g transform="translate(44 36) scale(0.328125)" fill="#ece4cf"><path d="M329.8 235.69l62.83-82.71 42.86 32.56-62.83 82.75zm-12.86-9.53l66.81-88-45-34.15-66.81 88zm-27.48-97.78l-19.3 39.57 57-75-42.51-32.3-36.24 47.71zm-20.74-73.24l-46.64-35.43-42 55.31 53.67 26.17zm107 235.52l-139-102.71-9.92.91 4.56 2 62.16 138.43-16.52 2.25-57.68-128.5-40-17.7-4-30.84 39.41 19.42 36.36-3.33 17-34.83-110.9-54.09-80.68 112.51L177.6 346.67l-22.7 145.62H341V372.62l35.29-48.93L387 275.77z"></path></g>
+</svg>

@@ -2,13 +2,13 @@
 // London scenes carry their image and links in flags; this puts the image where the running Foundry expects
 // it and keeps each scene's links in step with the bundled map data.
 import {NS} from '../config.mjs';
-const DATA_FILES = ['london-street-atlas.json', 'london-overview.json', 'london-places.json'];
+const DATA_FILES = ['london-street-atlas.json', 'london-overview.json', 'london-places.json', 'london-venues.json'];
 let index = null;
 async function mapIndex() {
   if (index) return index; index = new Map();
   for (const file of DATA_FILES) {
     try { const r = await fetch(`systems/${NS}/data/${file}`); if (!r.ok) continue; const d = await r.json();
-      for (const m of d.maps || []) index.set(m.id, {src: `systems/${NS}/assets/maps/${m.file}`, links: m.links || [], zones: m.zones || [], roads:m.roads||[], kind: file.includes('places') ? 'place' : 'streetAtlas'}); } catch (error) { console.warn('The Smoke | map index', file, error); }
+      for (const m of d.maps || []) index.set(m.id, {src: `systems/${NS}/assets/maps/${m.file}`, links: m.links || [], zones: m.zones || [], roads:m.roads||[], kind: file.includes('places') || file.includes('venues') ? 'place' : 'streetAtlas'}); } catch (error) { console.warn('The Smoke | map index', file, error); }
   }
   return index;
 }
@@ -39,7 +39,7 @@ export async function syncSceneLinks(scene) {
   const entry = (await mapIndex()).get(id); if (!entry) return false;
   const current = f[entry.kind]?.links || [];
   if (JSON.stringify(current) === JSON.stringify(entry.links) && JSON.stringify(f[entry.kind]?.roads||[])===JSON.stringify(entry.roads) && f.zoneGraph?.zones?.[0]?.kind) return false;
-  await scene.update({[`flags.${NS}.${entry.kind}.links`]: entry.links, [`flags.${NS}.${entry.kind}.roads`]:entry.roads, [`flags.${NS}.zoneGraph`]: {zones: entry.zones.map(z => ({id: z.id, name: z.name, kind: z.kind, service: z.service || null, adjacent: z.adjacent, rect: z.rect, roads:z.roads||[], landmark:z.landmark||false}))}});
+  await scene.update({[`flags.${NS}.${entry.kind}.links`]: entry.links, [`flags.${NS}.${entry.kind}.roads`]:entry.roads, [`flags.${NS}.zoneGraph`]: {zones: entry.zones.map(z => ({...z, service: z.service || null, roads: z.roads || [], landmark: z.landmark || false}))}});
   return true;
 }
 export async function repairAllSceneBackgrounds({notify = true} = {}) {

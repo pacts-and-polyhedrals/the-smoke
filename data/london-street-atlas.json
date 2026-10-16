@@ -940,6 +940,174 @@
      "toName": "Stoke Newington & Shacklewell",
      "toEdge": "W",
      "road": "Stoke Newington Church St"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Albion & Stoke Newington Church",
+     "rect": [
+      3465,
+      190,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB2",
+     "toName": "The Old Church",
+     "land": [
+      1300,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE OLD CHURCH",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Church St 2",
+     "rect": [
+      3484,
+      459,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB3",
+     "toName": "St Mary's New Church",
+     "land": [
+      2000,
+      320
+     ],
+     "label": "ENTER \u00b7 ST MARY'S NEW CHURCH",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Highbury Park Block 3",
+     "rect": [
+      1666,
+      674,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB4",
+     "toName": "The Highbury Barn Tavern",
+     "land": [
+      700,
+      320
+     ],
+     "label": "ENTER \u00b7 THE HIGHBURY BARN TAVERN",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Church St 3",
+     "rect": [
+      3459,
+      741,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB5",
+     "toName": "Stoke Newington Town Hall",
+     "land": [
+      1600,
+      320
+     ],
+     "label": "ENTER \u00b7 STOKE NEWINGTON TOWN HALL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Albion Rd 1",
+     "rect": [
+      3434,
+      1023,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB6",
+     "toName": "The Rose and Crown",
+     "land": [
+      500,
+      320
+     ],
+     "label": "ENTER \u00b7 THE ROSE AND CROWN",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Greens Block",
+     "rect": [
+      2348,
+      383,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB7",
+     "toName": "Oddments Lockup",
+     "land": [
+      1400,
+      2045
+     ],
+     "label": "ENTER \u00b7 ODDMENTS LOCKUP",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Highbury Park Block 3",
+     "rect": [
+      1451,
+      867,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HB8",
+     "toName": "Orchard Lease Office",
+     "land": [
+      700,
+      2045
+     ],
+     "label": "ENTER \u00b7 ORCHARD LEASE OFFICE",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Church St 1",
+     "rect": [
+      2368,
+      666,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HB1",
+     "toName": "Clissold Park",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 CLISSOLD HOUSE",
+     "below": false
     }
    ],
    "roads": [
@@ -2257,6 +2425,174 @@
       320.0,
       450.0
      ]
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Church St",
+     "rect": [
+      417,
+      138,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-SN3",
+     "toName": "The Auld Shillelagh",
+     "land": [
+      2550,
+      320
+     ],
+     "label": "ENTER \u00b7 THE AULD SHILLELAGH",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Church Block",
+     "rect": [
+      656,
+      126,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-SN4",
+     "toName": "The Red Lion",
+     "land": [
+      550,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE RED LION",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Shacklewell Ln",
+     "rect": [
+      2312,
+      2249,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-SN5",
+     "toName": "The Shacklewell Arms",
+     "land": [
+      500,
+      320
+     ],
+     "label": "ENTER \u00b7 THE SHACKLEWELL ARMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Rd 4",
+     "rect": [
+      1053,
+      1224,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-SN6",
+     "toName": "St Paul's West Hackney",
+     "land": [
+      1950,
+      320
+     ],
+     "label": "ENTER \u00b7 ST PAUL'S WEST HACKNEY",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Northwold Block",
+     "rect": [
+      3697,
+      397,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-SN7",
+     "toName": "Saint Martha House",
+     "land": [
+      700,
+      320
+     ],
+     "label": "ENTER \u00b7 SAINT MARTHA HOUSE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Evering Block",
+     "rect": [
+      2708,
+      1379,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-SN8",
+     "toName": "Evering Safe Flat",
+     "land": [
+      1250,
+      320
+     ],
+     "label": "ENTER \u00b7 EVERING SAFE FLAT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Abney Park",
+     "rect": [
+      1070,
+      661,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-SN1",
+     "toName": "Abney Park",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 ABNEY PARK CHAPEL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Rd 4",
+     "rect": [
+      1385,
+      1090,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-SN2",
+     "toName": "Stoke Newington High St",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 ABNEY BOOKS",
+     "below": false
     }
    ],
    "roads": [
@@ -3941,6 +4277,174 @@
      "toName": "Stoke Newington & Shacklewell",
      "toEdge": "E",
      "road": "Downs Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Northwold Rd",
+     "rect": [
+      545,
+      397,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL1",
+     "toName": "Clapton Library",
+     "land": [
+      1600,
+      2045
+     ],
+     "label": "ENTER \u00b7 CLAPTON LIBRARY",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Lea Bridge Block 2",
+     "rect": [
+      2485,
+      138,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL2",
+     "toName": "The Princess of Wales",
+     "land": [
+      2650,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE PRINCESS OF WALES",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Upper Clapton Block",
+     "rect": [
+      1915,
+      456,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL3",
+     "toName": "The Crooked Billet",
+     "land": [
+      450,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE CROOKED BILLET",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Clapton Pond",
+     "rect": [
+      719,
+      1019,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL4",
+     "toName": "The Clapton Hart",
+     "land": [
+      450,
+      320
+     ],
+     "label": "ENTER \u00b7 THE CLAPTON HART",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Upper Clapton Block 2",
+     "rect": [
+      1552,
+      639,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL5",
+     "toName": "Clapton Country Club",
+     "land": [
+      750,
+      320
+     ],
+     "label": "ENTER \u00b7 CLAPTON COUNTRY CLUB",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Lea Bridge Block",
+     "rect": [
+      2526,
+      978,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL7",
+     "toName": "Lea Bridge Social Rooms",
+     "land": [
+      1650,
+      320
+     ],
+     "label": "ENTER \u00b7 LEA BRIDGE SOCIAL ROOMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Upper Clapton Block",
+     "rect": [
+      2242,
+      291,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CL8",
+     "toName": "Clapton Union Rooms",
+     "land": [
+      850,
+      320
+     ],
+     "label": "ENTER \u00b7 CLAPTON UNION ROOMS",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Chatsworth Block",
+     "rect": [
+      3719,
+      1709,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-CL6",
+     "toName": "Elderfield Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE ELDERFIELD",
+     "below": false
     }
    ],
    "roads": [
@@ -4849,6 +5353,153 @@
      "toName": "Clapton",
      "toEdge": "E",
      "road": "Millfields Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Orient Way Block 3",
+     "rect": [
+      3475,
+      298,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HM4",
+     "toName": "Orient Way railway depot",
+     "land": [
+      1950,
+      320
+     ],
+     "label": "ENTER \u00b7 ORIENT WAY DEPOT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Orient Way Block 2",
+     "rect": [
+      3655,
+      519,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HM7",
+     "toName": "Orient Night Shed",
+     "land": [
+      2600,
+      2045
+     ],
+     "label": "ENTER \u00b7 ORIENT NIGHT SHED",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Millfields Block 2",
+     "rect": [
+      350,
+      650,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HM8",
+     "toName": "Silt Listening Bunker",
+     "land": [
+      1650,
+      320
+     ],
+     "label": "ENTER \u00b7 SILT LISTENING BUNKER",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hackney Marshes",
+     "rect": [
+      1323,
+      465,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HM1",
+     "toName": "North Marsh",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 NORTH MARSH PAVILION",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "New Spitalfields Market",
+     "rect": [
+      3727,
+      1965,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HM2",
+     "toName": "Sherrin Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 SHERRIN ROAD",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Orient Way Block 5",
+     "rect": [
+      3650,
+      1250,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HM5",
+     "toName": "Temple Mills",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 TEMPLE MILLS DEPOT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Orient Way Block 4",
+     "rect": [
+      3879,
+      279,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HM6",
+     "toName": "Leyton Jubilee Park",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 JUBILEE PARK PAVILION",
+     "below": false
     }
    ],
    "roads": [
@@ -5904,6 +6555,153 @@
      "toName": "Hackney Marshes",
      "toEdge": "E",
      "road": "Orient Way"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "High Leyton Block 3",
+     "rect": [
+      1729,
+      1757,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LY3",
+     "toName": "The Leyton Engineer",
+     "land": [
+      2500,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE LEYTON ENGINEER",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "High Leyton Block 4",
+     "rect": [
+      2795,
+      2286,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LY6",
+     "toName": "The Coach and Horses",
+     "land": [
+      500,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE COACH AND HORSES",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "High Leyton Block",
+     "rect": [
+      3758,
+      466,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LY7",
+     "toName": "Third Half Bookroom",
+     "land": [
+      550,
+      320
+     ],
+     "label": "ENTER \u00b7 THIRD HALF BOOKROOM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Orient Way Block",
+     "rect": [
+      365,
+      1139,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LY8",
+     "toName": "Larch Cold Store",
+     "land": [
+      1900,
+      2045
+     ],
+     "label": "ENTER \u00b7 LARCH COLD STORE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Leyton Orient FC",
+     "rect": [
+      2552,
+      256,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-LY1",
+     "toName": "Brisbane Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 BRISBANE ROAD",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "High Leyton Block 2",
+     "rect": [
+      3474,
+      750,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-LY4",
+     "toName": "Adelaide Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 LEYTON GREAT HALL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "High Leyton Block",
+     "rect": [
+      2580,
+      537,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-LY5",
+     "toName": "Coronation Square",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 SCORE LEISURE CENTRE",
+     "below": false
     }
    ],
    "roads": [
@@ -7136,6 +7934,174 @@
      "toName": "Dalston",
      "toEdge": "W",
      "road": "Balls Pond Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Newington Green",
+     "rect": [
+      3330,
+      1544,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CG1",
+     "toName": "Newington Green Meeting House",
+     "land": [
+      750,
+      320
+     ],
+     "label": "ENTER \u00b7 NEWINGTON GREEN MEETING HSE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "St Paul's Block",
+     "rect": [
+      1804,
+      2121,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CG5",
+     "toName": "The Alwyne Castle",
+     "land": [
+      2600,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE ALWYNE CASTLE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Highbury Grove Block",
+     "rect": [
+      402,
+      355,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CG7",
+     "toName": "Glasshouse Saleroom",
+     "land": [
+      2700,
+      2045
+     ],
+     "label": "ENTER \u00b7 GLASSHOUSE SALEROOM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Southgate Block",
+     "rect": [
+      3316,
+      1179,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-CG8",
+     "toName": "Quayline Records Suite",
+     "land": [
+      950,
+      320
+     ],
+     "label": "ENTER \u00b7 QUAYLINE RECORDS SUITE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Canonbury Rd",
+     "rect": [
+      714,
+      2272,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-CG2",
+     "toName": "Canonbury Square",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 ESTORICK COLLECTION",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Canonbury Block",
+     "rect": [
+      135,
+      1897,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-CG3",
+     "toName": "Canonbury Place",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE CANONBURY TAVERN",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Highbury Grove & St Paul's",
+     "rect": [
+      376,
+      1929,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-CG4",
+     "toName": "Compton Terrace",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 UNION CHAPEL",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Highbury Fields",
+     "rect": [
+      393,
+      637,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-CG6",
+     "toName": "Highbury Crescent",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 HIGHBURY LEISURE CENTRE",
+     "below": false
     }
    ],
    "roads": [
@@ -8571,6 +9537,174 @@
      "toName": "Canonbury & Newington Green",
      "toEdge": "E",
      "road": "Balls Pond Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Kingsland High Block",
+     "rect": [
+      932,
+      2133,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DA1",
+     "toName": "Rio Cinema",
+     "land": [
+      1650,
+      320
+     ],
+     "label": "ENTER \u00b7 RIO CINEMA",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Kingsland High St",
+     "rect": [
+      937,
+      1843,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DA3",
+     "toName": "Dalston Superstore",
+     "land": [
+      1400,
+      320
+     ],
+     "label": "ENTER \u00b7 DALSTON SUPERSTORE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Stoke Newington Rd 2",
+     "rect": [
+      958,
+      1263,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DA5",
+     "toName": "EartH",
+     "land": [
+      2550,
+      320
+     ],
+     "label": "ENTER \u00b7 EARTH",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Shacklewell Block",
+     "rect": [
+      2922,
+      301,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DA7",
+     "toName": "Backspin Studio",
+     "land": [
+      700,
+      320
+     ],
+     "label": "ENTER \u00b7 BACKSPIN STUDIO",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Shacklewell Block 2",
+     "rect": [
+      1737,
+      358,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DA8",
+     "toName": "Blue Hour Basement",
+     "land": [
+      550,
+      2045
+     ],
+     "label": "ENTER \u00b7 BLUE HOUR BASEMENT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Dalston Block 3",
+     "rect": [
+      3554,
+      2108,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-DA2",
+     "toName": "Ashwin Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 CAFE OTO",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Dalston Block",
+     "rect": [
+      2772,
+      1830,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-DA4",
+     "toName": "Gillett Square",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 VORTEX JAZZ CLUB",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Dalston Block 4",
+     "rect": [
+      2528,
+      1838,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-DA6",
+     "toName": "Dalston Square",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 DALSTON CLR JAMES LIBRARY",
+     "below": true
     }
    ],
    "roads": [
@@ -10594,6 +11728,174 @@
       320.0,
       1350.0
      ]
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hackney Empire",
+     "rect": [
+      1046,
+      1503,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HC1",
+     "toName": "Hackney Empire",
+     "land": [
+      1300,
+      2045
+     ],
+     "label": "ENTER \u00b7 HACKNEY EMPIRE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Sutton House",
+     "rect": [
+      1573,
+      972,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HC3",
+     "toName": "Sutton House",
+     "land": [
+      2350,
+      2045
+     ],
+     "label": "ENTER \u00b7 SUTTON HOUSE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hackney Central Stn",
+     "rect": [
+      288,
+      1523,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HC4",
+     "toName": "Oslo Hackney",
+     "land": [
+      1300,
+      2045
+     ],
+     "label": "ENTER \u00b7 OSLO HACKNEY",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Brooksby's Walk",
+     "rect": [
+      3438,
+      682,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HC6",
+     "toName": "The Castle Cinema",
+     "land": [
+      2050,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE CASTLE CINEMA",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Morning Block",
+     "rect": [
+      2524,
+      2272,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HC7",
+     "toName": "Chainring Storehouse",
+     "land": [
+      1650,
+      320
+     ],
+     "label": "ENTER \u00b7 CHAINRING STOREHOUSE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Clifden Block",
+     "rect": [
+      3777,
+      390,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HC8",
+     "toName": "Clifden Crew Garage",
+     "land": [
+      1350,
+      2045
+     ],
+     "label": "ENTER \u00b7 CLIFDEN CREW GARAGE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Round Chapel",
+     "rect": [
+      571,
+      351,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HC2",
+     "toName": "Glenarm Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 ROUND CHAPEL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Mare St",
+     "rect": [
+      757,
+      2174,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HC5",
+     "toName": "Valette Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 MOTH CLUB",
+     "below": false
     }
    ],
    "roads": [
@@ -12134,6 +13436,174 @@
      "toName": "Hackney Central & Homerton",
      "toEdge": "E",
      "road": "Kenworthy Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hackney Marshes Centre",
+     "rect": [
+      3325,
+      1020,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WW1",
+     "toName": "Hackney Marshes Centre",
+     "land": [
+      3300,
+      2445
+     ],
+     "label": "ENTER \u00b7 HACKNEY MARSHES CENTRE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Homerton High St 1",
+     "rect": [
+      570,
+      1360,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WW3",
+     "toName": "The Adam and Eve",
+     "land": [
+      2500,
+      320
+     ],
+     "label": "ENTER \u00b7 THE ADAM AND EVE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Homerton High St 2",
+     "rect": [
+      856,
+      1349,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WW4",
+     "toName": "The Spread Eagle",
+     "land": [
+      2500,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE SPREAD EAGLE",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Homerton Block 2",
+     "rect": [
+      422,
+      667,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WW7",
+     "toName": "Willow Cabin",
+     "land": [
+      1550,
+      320
+     ],
+     "label": "ENTER \u00b7 WILLOW CABIN",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "East Cross Route Block",
+     "rect": [
+      3091,
+      1086,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WW8",
+     "toName": "East Cross Security Compound",
+     "land": [
+      1450,
+      2045
+     ],
+     "label": "ENTER \u00b7 EAST CROSS COMPOUND",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Homerton Block",
+     "rect": [
+      761,
+      441,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-WW2",
+     "toName": "Barnabas Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 HBC COMMUNITY CENTRE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Homerton Block 2",
+     "rect": [
+      1096,
+      292,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-WW5",
+     "toName": "Kenton Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE KENTON",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Waterden Rd",
+     "rect": [
+      2757,
+      1244,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-WW6",
+     "toName": "Rothbury Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 HUB67",
+     "below": false
     }
    ],
    "roads": [
@@ -13272,6 +14742,174 @@
      "toName": "Homerton East & Wick Woodland",
      "toEdge": "E",
      "road": "East Cross Route (A12)"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "High Leyton Block",
+     "rect": [
+      3633,
+      518,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ON6",
+     "toName": "The Leyton Star",
+     "land": [
+      1600,
+      320
+     ],
+     "label": "ENTER \u00b7 THE LEYTON STAR",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "East Cross Route Block",
+     "rect": [
+      682,
+      561,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ON7",
+     "toName": "North Echo Rehearsal Rooms",
+     "land": [
+      1400,
+      2045
+     ],
+     "label": "ENTER \u00b7 NORTH ECHO REHEARSAL ROOMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queen Elizabeth Olympic Park",
+     "rect": [
+      372,
+      661,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ON8",
+     "toName": "North Park Hospitality Lodge",
+     "land": [
+      1600,
+      2045
+     ],
+     "label": "ENTER \u00b7 NORTH PARK LODGE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Lee Valley Velopark",
+     "rect": [
+      1068,
+      437,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-ON1",
+     "toName": "Abercrombie Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 LEE VALLEY VELOPARK",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queen Elizabeth Olympic Park",
+     "rect": [
+      2993,
+      1803,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-ON2",
+     "toName": "Eton Manor",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 HOCKEY & TENNIS CENTRE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queen Elizabeth Olympic Park",
+     "rect": [
+      1403,
+      299,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-ON3",
+     "toName": "Honour Lea Avenue",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 TIMBER LODGE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Westfield Ave 1",
+     "rect": [
+      2963,
+      1523,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-ON4",
+     "toName": "International Way",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE STRATFORD HOTEL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queen Elizabeth Olympic Park",
+     "rect": [
+      2933,
+      1242,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-ON5",
+     "toName": "Endeavour Square",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 SIGNORELLI",
+     "below": false
     }
    ],
    "roads": [
@@ -14873,6 +16511,174 @@
      "toName": "Haggerston & London Fields",
      "toEdge": "W",
      "road": "De Beauvoir Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "De Beauvoir Square",
+     "rect": [
+      3623,
+      1244,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DB1",
+     "toName": "St Peter de Beauvoir",
+     "land": [
+      1800,
+      2045
+     ],
+     "label": "ENTER \u00b7 ST PETER DE BEAUVOIR",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Southgate Block",
+     "rect": [
+      3271,
+      269,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DB2",
+     "toName": "De Beauvoir Deli",
+     "land": [
+      600,
+      2045
+     ],
+     "label": "ENTER \u00b7 DE BEAUVOIR DELI",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "De Beauvoir Rd 2",
+     "rect": [
+      3864,
+      1255,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DB3",
+     "toName": "De Beauvoir Block",
+     "land": [
+      400,
+      320
+     ],
+     "label": "ENTER \u00b7 DE BEAUVOIR BLOCK",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Northchurch & Southgate",
+     "rect": [
+      3050,
+      1213,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DB4",
+     "toName": "The De Beauvoir Arms",
+     "land": [
+      2750,
+      320
+     ],
+     "label": "ENTER \u00b7 THE DE BEAUVOIR ARMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "De Beauvoir Square",
+     "rect": [
+      3506,
+      725,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DB7",
+     "toName": "Split Second Archive",
+     "land": [
+      450,
+      2045
+     ],
+     "label": "ENTER \u00b7 SPLIT SECOND ARCHIVE",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Essex Block",
+     "rect": [
+      2242,
+      291,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-DB8",
+     "toName": "Essex Dry Goods",
+     "land": [
+      700,
+      2045
+     ],
+     "label": "ENTER \u00b7 ESSEX DRY GOODS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "De Beauvoir & Englefield",
+     "rect": [
+      3236,
+      555,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-DB5",
+     "toName": "Culford Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE SCOLT HEAD",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Northchurch Block",
+     "rect": [
+      2827,
+      1831,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-DB6",
+     "toName": "Mortimer Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE TALBOT",
+     "below": false
     }
    ],
    "roads": [
@@ -16606,6 +18412,174 @@
      "toName": "De Beauvoir",
      "toEdge": "E",
      "road": "Downham Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "London Fields Lido",
+     "rect": [
+      3369,
+      468,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LF1",
+     "toName": "London Fields Lido",
+     "land": [
+      3300,
+      320
+     ],
+     "label": "ENTER \u00b7 LONDON FIELDS LIDO",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queensbridge Rd 1",
+     "rect": [
+      1934,
+      343,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LF3",
+     "toName": "The Duke of Richmond",
+     "land": [
+      700,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE DUKE OF RICHMOND",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Graham & Greenwood",
+     "rect": [
+      3122,
+      489,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LF4",
+     "toName": "The Spurstowe Arms",
+     "land": [
+      450,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE SPURSTOWE ARMS",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Haggerston Rd 1",
+     "rect": [
+      1005,
+      1813,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LF5",
+     "toName": "The Duke of Wellington",
+     "land": [
+      2650,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE DUKE OF WELLINGTON",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Kingsland Block",
+     "rect": [
+      1130,
+      1497,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LF7",
+     "toName": "Kingsland Courier Arch",
+     "land": [
+      2750,
+      2045
+     ],
+     "label": "ENTER \u00b7 KINGSLAND COURIER ARCH",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Englefield Block",
+     "rect": [
+      218,
+      1247,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-LF8",
+     "toName": "Englefield Listening Flat",
+     "land": [
+      1550,
+      2045
+     ],
+     "label": "ENTER \u00b7 ENGLEFIELD LISTENING FLAT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Richmond Block",
+     "rect": [
+      1545,
+      1506,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-LF2",
+     "toName": "Forest Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE PRINCE ARTHUR",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Graham & Wilton Way",
+     "rect": [
+      2480,
+      536,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-LF6",
+     "toName": "Wilton Way",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 WILTON WAY DELI AND WINES",
+     "below": false
     }
    ],
    "roads": [
@@ -18379,6 +20353,174 @@
      "toName": "Haggerston & London Fields",
      "toEdge": "E",
      "road": "Richmond Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hackney Town Hall",
+     "rect": [
+      798,
+      428,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS1",
+     "toName": "Hackney Town Hall",
+     "land": [
+      950,
+      2045
+     ],
+     "label": "ENTER \u00b7 HACKNEY TOWN HALL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Mare St 2",
+     "rect": [
+      495,
+      328,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS2",
+     "toName": "Hackney Picturehouse",
+     "land": [
+      2450,
+      2045
+     ],
+     "label": "ENTER \u00b7 HACKNEY PICTUREHOUSE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Well Block",
+     "rect": [
+      3006,
+      911,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS3",
+     "toName": "The Gun",
+     "land": [
+      2700,
+      320
+     ],
+     "label": "ENTER \u00b7 THE GUN",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Lauriston & Victoria Park",
+     "rect": [
+      3024,
+      2245,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS4",
+     "toName": "The Lauriston",
+     "land": [
+      450,
+      320
+     ],
+     "label": "ENTER \u00b7 THE LAURISTON",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Lauriston Block",
+     "rect": [
+      2877,
+      1952,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS5",
+     "toName": "St John of Jerusalem",
+     "land": [
+      2750,
+      320
+     ],
+     "label": "ENTER \u00b7 ST JOHN OF JERUSALEM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Lauriston Rd 1",
+     "rect": [
+      2724,
+      1666,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS6",
+     "toName": "The Empress",
+     "land": [
+      2500,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE EMPRESS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Wick Block",
+     "rect": [
+      3397,
+      121,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS7",
+     "toName": "Wickside Print Shop",
+     "land": [
+      2300,
+      2045
+     ],
+     "label": "ENTER \u00b7 WICKSIDE PRINT SHOP",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Well Block",
+     "rect": [
+      2999,
+      370,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-WS8",
+     "toName": "Well Street Loan Office",
+     "land": [
+      900,
+      320
+     ],
+     "label": "ENTER \u00b7 WELL STREET LOAN OFFICE",
+     "below": false
     }
    ],
    "roads": [
@@ -19974,6 +22116,132 @@
      "toName": "South Hackney & Well Street",
      "toEdge": "E",
      "road": "Victoria Park Path"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Victoria Park Rd 4",
+     "rect": [
+      296,
+      1487,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-VW6",
+     "toName": "People's Park Tavern",
+     "land": [
+      650,
+      2045
+     ],
+     "label": "ENTER \u00b7 PEOPLE'S PARK TAVERN",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Wallis Block",
+     "rect": [
+      2160,
+      453,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-VW7",
+     "toName": "Wallis Tape Rooms",
+     "land": [
+      1300,
+      2045
+     ],
+     "label": "ENTER \u00b7 WALLIS TAPE ROOMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "White Post Block",
+     "rect": [
+      3262,
+      1785,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-VW8",
+     "toName": "White Post Workers Rooms",
+     "land": [
+      700,
+      2045
+     ],
+     "label": "ENTER \u00b7 WHITE POST WORKERS ROOMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "White Post Lane 1",
+     "rect": [
+      2223,
+      1381,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-VW1",
+     "toName": "Sweetwater Mooring",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 BARGE EAST",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "White Post & Wallis",
+     "rect": [
+      2720,
+      1630,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-VW2",
+     "toName": "Queens Yard",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 QUEENS YARD",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Wallis Block",
+     "rect": [
+      2282,
+      752,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-VW4",
+     "toName": "Main Yard",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 MAIN YARD",
+     "below": false
     }
    ],
    "roads": [
@@ -21288,6 +23556,174 @@
      "toName": "Victoria Park & Hackney Wick",
      "toEdge": "E",
      "road": "White Post Lane"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Westfield Stratford",
+     "rect": [
+      3080,
+      1195,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST1",
+     "toName": "Westfield Stratford City",
+     "land": [
+      900,
+      320
+     ],
+     "label": "ENTER \u00b7 WESTFIELD EVENT UNIT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "London Stadium",
+     "rect": [
+      2069,
+      336,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST2",
+     "toName": "London Stadium",
+     "land": [
+      1800,
+      2845
+     ],
+     "label": "ENTER \u00b7 LONDON STADIUM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queen Elizabeth Olympic Park",
+     "rect": [
+      2301,
+      569,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST3",
+     "toName": "London Aquatics Centre",
+     "land": [
+      800,
+      320
+     ],
+     "label": "ENTER \u00b7 LONDON AQUATICS CENTRE",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Carpenters Rd 1",
+     "rect": [
+      522,
+      2034,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST5",
+     "toName": "Sadler's Wells East",
+     "land": [
+      2000,
+      2045
+     ],
+     "label": "ENTER \u00b7 SADLER'S WELLS EAST",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Carpenters Rd 2",
+     "rect": [
+      2699,
+      867,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST6",
+     "toName": "V&A East Museum",
+     "land": [
+      2400,
+      2045
+     ],
+     "label": "ENTER \u00b7 V&A EAST MUSEUM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Westfield Ave Block",
+     "rect": [
+      3298,
+      1394,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST7",
+     "toName": "Meridian Sales Pavilion",
+     "land": [
+      950,
+      2045
+     ],
+     "label": "ENTER \u00b7 MERIDIAN SALES PAVILION",
+     "below": true
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Carpenters Block",
+     "rect": [
+      3438,
+      2285,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-ST8",
+     "toName": "Bridge Nine Broadcast Garage",
+     "land": [
+      2600,
+      2045
+     ],
+     "label": "ENTER \u00b7 BRIDGE NINE GARAGE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "The Broadway 1",
+     "rect": [
+      3700,
+      1866,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-ST4",
+     "toName": "Gerry Raffles Square",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THEATRE ROYAL STRATFORD EAST",
+     "below": false
     }
    ],
    "roads": [
@@ -22246,6 +24682,174 @@
      "toName": "Haggerston Park & Hackney Rd",
      "toEdge": "W",
      "road": "Whitmore Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Shepherdess Walk",
+     "rect": [
+      1654,
+      2012,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HX2",
+     "toName": "The Eagle",
+     "land": [
+      450,
+      320
+     ],
+     "label": "ENTER \u00b7 THE EAGLE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Eagle Wharf Block",
+     "rect": [
+      2600,
+      606,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HX7",
+     "toName": "Tern Wharf Dispatch",
+     "land": [
+      600,
+      2045
+     ],
+     "label": "ENTER \u00b7 TERN WHARF DISPATCH",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Shepherdess Walk Block",
+     "rect": [
+      1670,
+      2335,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HX8",
+     "toName": "Shepherdess Coin Rooms",
+     "land": [
+      600,
+      2045
+     ],
+     "label": "ENTER \u00b7 SHEPHERDESS COIN ROOMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Shepherdess Walk Block",
+     "rect": [
+      2505,
+      2217,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HX1",
+     "toName": "Wenlock Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE WENLOCK ARMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Eagle Wharf Rd 1",
+     "rect": [
+      2090,
+      861,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HX3",
+     "toName": "Shepperton Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 ROSEMARY BRANCH THEATRE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "City Block",
+     "rect": [
+      1144,
+      1749,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HX4",
+     "toName": "Wharf Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 VICTORIA MIRO",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "New North Block",
+     "rect": [
+      2035,
+      291,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HX5",
+     "toName": "St Peters Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE NARROWBOAT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "De Beauvoir Block",
+     "rect": [
+      3432,
+      721,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HX6",
+     "toName": "Baring Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE BARING",
+     "below": false
     }
    ],
    "roads": [
@@ -23377,6 +25981,174 @@
      "toName": "Hoxton West & the Canal",
      "toEdge": "E",
      "road": "Whitmore Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Museum Of The Home",
+     "rect": [
+      1503,
+      2205,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HR1",
+     "toName": "Museum of the Home",
+     "land": [
+      2050,
+      2045
+     ],
+     "label": "ENTER \u00b7 MUSEUM OF THE HOME",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hoxton St 1",
+     "rect": [
+      190,
+      1682,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HR2",
+     "toName": "Hoxton Hall",
+     "land": [
+      1750,
+      2045
+     ],
+     "label": "ENTER \u00b7 HOXTON HALL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Goldsmiths Row",
+     "rect": [
+      3389,
+      1820,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HR5",
+     "toName": "Hackney City Farm",
+     "land": [
+      850,
+      320
+     ],
+     "label": "ENTER \u00b7 HACKNEY CITY FARM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queensbridge Block",
+     "rect": [
+      1924,
+      291,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HR7",
+     "toName": "Queensbridge Sound Store",
+     "land": [
+      900,
+      320
+     ],
+     "label": "ENTER \u00b7 QUEENSBRIDGE SOUND STORE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Haggerston Park",
+     "rect": [
+      1955,
+      1251,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-HR8",
+     "toName": "Goldsmiths Riding Workshop",
+     "land": [
+      1850,
+      2045
+     ],
+     "label": "ENTER \u00b7 GOLDSMITHS RIDING WORKSHOP",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Haggerston Rd",
+     "rect": [
+      1933,
+      571,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HR3",
+     "toName": "Acton Mews",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 SIGNATURE BREW HAGGERSTON",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Queensbridge Block",
+     "rect": [
+      1942,
+      851,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HR4",
+     "toName": "Lovelace Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 HAGGERSTON COMMUNITY CENTRE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Hackney Block",
+     "rect": [
+      3651,
+      1209,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-HR6",
+     "toName": "Coate Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 SEBRIGHT ARMS",
+     "below": false
     }
    ],
    "roads": [
@@ -25132,6 +27904,153 @@
      "toName": "Haggerston Park & Hackney Rd",
      "toEdge": "E",
      "road": "Hackney Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Young V&A",
+     "rect": [
+      437,
+      2288,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BG1",
+     "toName": "Young V&A",
+     "land": [
+      1950,
+      2045
+     ],
+     "label": "ENTER \u00b7 YOUNG V&A",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Approach Rd 1",
+     "rect": [
+      1322,
+      1820,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BG2",
+     "toName": "The Approach Tavern and Gallery",
+     "land": [
+      1600,
+      2045
+     ],
+     "label": "ENTER \u00b7 THE APPROACH TAVERN AND GALLERY",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Old Ford Rd 1",
+     "rect": [
+      2167,
+      1376,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BG3",
+     "toName": "York Hall",
+     "land": [
+      700,
+      320
+     ],
+     "label": "ENTER \u00b7 YORK HALL",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Mare St 2",
+     "rect": [
+      458,
+      796,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BG6",
+     "toName": "Viktor Wynd Museum",
+     "land": [
+      2450,
+      2045
+     ],
+     "label": "ENTER \u00b7 VIKTOR WYND MUSEUM",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Approach Block",
+     "rect": [
+      1848,
+      1339,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BG7",
+     "toName": "Lantern Case Flat",
+     "land": [
+      350,
+      320
+     ],
+     "label": "ENTER \u00b7 LANTERN CASE FLAT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Sewardstone Block",
+     "rect": [
+      1532,
+      1276,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BG8",
+     "toName": "Approach Recovery Rooms",
+     "land": [
+      2250,
+      2045
+     ],
+     "label": "ENTER \u00b7 APPROACH RECOVERY ROOMS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Cambridge Heath Rd 1",
+     "rect": [
+      437,
+      1997,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-BG4",
+     "toName": "Bethnal Green Gardens",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 BETHNAL GREEN GARDENS",
+     "below": false
     }
    ],
    "roads": [
@@ -26517,6 +29436,132 @@
      "toName": "Bethnal Green",
      "toEdge": "E",
      "road": "Roman Rd"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Old Ford Rd 1",
+     "rect": [
+      343,
+      898,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-OF3",
+     "toName": "The Lord Morpeth",
+     "land": [
+      500,
+      320
+     ],
+     "label": "ENTER \u00b7 THE LORD MORPETH",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Roman Block",
+     "rect": [
+      1968,
+      1380,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-OF7",
+     "toName": "Roman Exchange",
+     "land": [
+      800,
+      2045
+     ],
+     "label": "ENTER \u00b7 ROMAN EXCHANGE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Roman Block 2",
+     "rect": [
+      1186,
+      1583,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-OF8",
+     "toName": "Roman Rooms Printworks",
+     "land": [
+      800,
+      320
+     ],
+     "label": "ENTER \u00b7 ROMAN ROOMS PRINTWORKS",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Bow Church",
+     "rect": [
+      3037,
+      1711,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-OF1",
+     "toName": "Bow Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 BOW ROAD",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Old Ford Rd 2",
+     "rect": [
+      1378,
+      605,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-OF4",
+     "toName": "St Stephens Road",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 ST PAUL OLD FORD",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Fish Island",
+     "rect": [
+      3029,
+      470,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-OF5",
+     "toName": "Fish Island",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 FISH ISLAND",
+     "below": false
     }
    ],
    "roads": [
@@ -27932,6 +30977,153 @@
      "toName": "Old Ford & Bow",
      "toEdge": "E",
      "road": "East Cross Route (A12)"
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Pudding Mill Lane",
+     "rect": [
+      964,
+      1670,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BF1",
+     "toName": "ABBA Arena",
+     "land": [
+      1450,
+      320
+     ],
+     "label": "ENTER \u00b7 ABBA ARENA",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Pudding Mill Lane",
+     "rect": [
+      1164,
+      2021,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BF6",
+     "toName": "Pudding Mill Lane DLR station",
+     "land": [
+      2200,
+      2045
+     ],
+     "label": "ENTER \u00b7 PUDDING MILL LANE DLR",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Marshgate Block",
+     "rect": [
+      556,
+      705,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BF7",
+     "toName": "Marshgate Delivery Depot",
+     "land": [
+      1750,
+      320
+     ],
+     "label": "ENTER \u00b7 MARSHGATE DELIVERY DEPOT",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Carpenters Block",
+     "rect": [
+      2721,
+      443,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDV-BF8",
+     "toName": "Carpenters Breakfast Club",
+     "land": [
+      1300,
+      2045
+     ],
+     "label": "ENTER \u00b7 CARPENTERS BREAKFAST CLUB",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Marshgate Block",
+     "rect": [
+      621,
+      984,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-BF2",
+     "toName": "The Greenway",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THE VIEW TUBE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "East Cross Route Block",
+     "rect": [
+      404,
+      1937,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-BF3",
+     "toName": "Three Mill Lane",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 THREE MILL LANE",
+     "below": false
+    },
+    {
+     "edge": null,
+     "kind": "door",
+     "venue": true,
+     "at": "Marshgate & Pudding Mill",
+     "rect": [
+      685,
+      1264,
+      200,
+      200
+     ],
+     "block": null,
+     "to": "LDA-BF5",
+     "toName": "Sidings Street",
+     "land": [
+      1600,
+      2030
+     ],
+     "label": "ENTER \u00b7 UCL EAST MARSHGATE",
+     "below": false
     }
    ],
    "roads": [

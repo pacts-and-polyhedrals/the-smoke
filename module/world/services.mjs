@@ -3,11 +3,14 @@ import {arrivedAt,ukPlate} from '../rules/jobs-core.mjs';
 import {zonesOf,tokenRect,distanceSquares} from './spawn.mjs';
 import {registerHandler,request,card,esc} from './net.mjs';
 import {VEHICLE_ACTIONS} from '../vehicles/vehicle-boarding.mjs';
+import {distToRect} from './theft.mjs';
+// Local services: respray & new plates, a change of clothes, and garage repairs. The same rules and prices run
+// behind the "Local services" button (sheet, token HUD, vehicle menu) and the Services list in the Shop window.
 
 const DEFINITIONS={
  respray:{label:'Respray & new plates',services:['respray'],setting:'resprayCost',price:100,hint:'Clear Heat and replace the plate when police cannot see you.'},
  clothes:{label:'Change clothes',services:['clothes'],setting:'clothesCost',price:25,hint:'Lose one Heat star when police cannot see you.'},
- repair:{label:'Garage repair',services:['respray','chop','gang'],setting:'repairCost',price:10,hint:'Restore missing Body; the price is per Body point.'}
+ repair:{label:'Garage repair',services:['respray','chop','gang'],setting:'repairCost',price:10,hint:'Restore missing Body and change flat tyres; the price is per Body point (a tyre counts as six).'}
 };
 export function registerServiceSettings(){
  for(const d of Object.values(DEFINITIONS))game.settings.register(NS,d.setting,{name:`Services: ${d.label} (£)`,hint:d.hint,scope:'world',config:true,type:Number,default:d.price,range:{min:0,max:1000,step:5}});
@@ -30,22 +33,36 @@ function context(actor,options={}){
  const seat=token.getFlag(NS,'vehicleSeat'),vehicle=seat&&token.parent.tokens.get(seat.vehicleTokenId);
  return {token,seat,vehicle};
 }
-function priceFor(kind,vehicle){
- const d=DEFINITIONS[kind],cost=Math.max(0,Math.round(Number(game.settings.get(NS,d.setting))||0));
- return kind==='repair'?cost*Math.max(0,Number(vehicle?.actor.system.vehicle.body.max)-Number(vehicle?.actor.system.vehicle.body.value)):cost;
+export const SERVICE_KINDS=Object.freeze(Object.keys(DEFINITIONS));
+const REACH=4;   // squares from a service's block that count as "pulled up outside" (as for shops)
+const setting=(k,d)=>{try{return game.settings.get(NS,k)??d;}catch(_e){return d;}};
+/** Price of a service; repairs are per missing Body point, a flat tyre counting as six. */
+export function servicePrice(kind,vehicleActor=null){
+ const d=DEFINITIONS[kind];if(!d)return 0;const cost=Math.max(0,Math.round(Number(setting(d.setting,d.price))||0));
+ if(kind!=='repair')return cost;
+ const v=vehicleActor?.system?.vehicle;if(!v)return 0;
+ return cost*(Math.max(0,Number(v.body.max)-Number(v.body.value))+6*Math.max(0,Number(v.flats||0)));
 }
-function offerFor(actor,kind,options={}){
+const priceFor=(kind,vehicle)=>servicePrice(kind,vehicle?.actor);
+/** The service block this token is at (inside it, or pulled up within reach), or The Arches from inside. */
+function serviceZone(subject,kinds){
+ const scene=subject.parent;
+ if(kinds.includes('gang')&&scene?.getFlag?.(NS,'place')?.id==='LDP-ARCHES')return {id:'arches',name:'The Arches',service:'gang'};
+ const zones=zonesOf(scene),rect=tokenRect(subject),g=scene?.grid?.size||100,cx=rect[0]+rect[2]/2,cy=rect[1]+rect[3]/2;
+ return zones.find(z=>kinds.includes(z.service)&&(arrivedAt(zones,z.id,rect)||distToRect(z.rect,cx,cy)<=REACH*g))??null;
+}
+export function offerFor(actor,kind,options={}){
  const def=DEFINITIONS[kind];if(!def)throw new Error('Unknown service.');
  const c=context(actor,options),subject=kind==='clothes'?c.token:c.vehicle;
  if(!subject)throw new Error('Take the driver seat in the vehicle you want serviced.');
  if(kind!=='clothes'&&c.seat?.seatId!=='pilot')throw new Error('Only the seated driver can bring a vehicle in.');
- const zone=zonesOf(subject.parent).find(z=>def.services.includes(z.service)&&arrivedAt(zonesOf(subject.parent),z.id,tokenRect(subject)));
+ const zone=serviceZone(subject,def.services);
  if(!zone)throw new Error(kind==='clothes'?'Go to a clothes marker first.':'Pull up at a suitable garage or The Arches first.');
  if(kind!=='repair'&&observedByPolice(subject,actor))throw new Error('The police can see you. Lose them before using this service.');
  if(kind==='clothes'&&Number(actor.system.heat.value)<=0)throw new Error('Your Heat is already clear.');
  if(kind==='respray'&&subject.actor.system.vehicle.plateless)throw new Error('This vehicle has no plate to replace.');
  if(kind==='repair'&&subject.actor.system.vehicle.destroyed)throw new Error('This vehicle is written off. Ask the GM about recovery or replacement.');
- if(kind==='repair'&&Number(subject.actor.system.vehicle.body.value)>=Number(subject.actor.system.vehicle.body.max))throw new Error('The vehicle is already fully repaired.');
+ if(kind==='repair'&&Number(subject.actor.system.vehicle.body.value)>=Number(subject.actor.system.vehicle.body.max)&&!Number(subject.actor.system.vehicle.flats||0))throw new Error('The vehicle is already fully repaired.');
  return {...c,zone,kind,label:def.label,price:priceFor(kind,c.vehicle),hint:def.hint};
 }
 export async function openServices(actor){
@@ -59,11 +76,8 @@ export async function openServices(actor){
  const chosen=choices.find(c=>c.kind===form.kind);if(!chosen)throw new Error('Choose a listed service.');
  return request('service.use',{actorUuid:actor.uuid,kind:chosen.kind,quote:chosen.price,...options});
 }
-registerHandler('service.use',async({actorUuid,kind,quote,sceneId,tokenId,userId})=>{
- const doc=await fromUuid(actorUuid),actor=doc?.actor??doc,user=game.users.get(userId);
- if(!actor?.isPerson||!user||(!user.isGM&&!actor.testUserPermission(user,'OWNER')))throw new Error('Not your character.');
- const c=offerFor(actor,kind,{sceneId,tokenId});
- if(Number(quote)!==c.price)throw new Error('The price changed. Open services again to review it.');
+/** Pay for and carry out a service (leader only). `c` comes from offerFor. */
+export async function performService(actor,kind,c){
  if(Number(actor.system.cash)<c.price)throw new Error(`You need £${c.price} in your pockets. Your stash is protected.`);
  const patch={'system.cash':Number(actor.system.cash)-c.price};
  if(kind==='clothes'){
@@ -73,10 +87,18 @@ registerHandler('service.use',async({actorUuid,kind,quote,sceneId,tokenId,userId
   const old=c.vehicle.getFlag(NS,'plate');let plate;do{plate=ukPlate();}while(plate===old);
   await c.vehicle.update({[`flags.${NS}.plate`]:plate,[`flags.${NS}.previousPlate`]:old??null,[`flags.${NS}.marker`]:null,[`flags.${NS}.resprayed`]:true,[`flags.${NS}.hotUntil`]:0},{acVehicleCarry:true});
   patch['system.heat.value']=0;patch['system.heat.coolSince']=0;
- }else await c.vehicle.actor.update({'system.vehicle.body.value':c.vehicle.actor.system.vehicle.body.max});
+ }else await c.vehicle.actor.update({'system.vehicle.body.value':c.vehicle.actor.system.vehicle.body.max,'system.vehicle.flats':0});
  await actor.update(patch);
- await card('LOCAL SERVICE',c.label,`<p>${esc(actor.name)} pays £${c.price} at ${esc(c.zone.name)}. ${kind==='repair'?'Body restored.':kind==='respray'?'Heat cleared; new plates fitted.':'One Heat star removed.'}</p>`,'cash');
+ await card('LOCAL SERVICE',c.label,`<p>${esc(actor.name)} pays £${c.price} at ${esc(c.zone.name)}. ${kind==='repair'?'Body restored, tyres changed.':kind==='respray'?`Heat cleared; new plates fitted: <b class="smoke-plate">${esc(c.vehicle.getFlag(NS,'plate')??'')}</b>.`:'One Heat star removed.'}</p>`,'cash');
+ Hooks.callAll('smokeService',{actor,service:kind,shop:c.zone.service,vehicle:c.vehicle??null});
  return {kind,price:c.price,heat:actor.system.heat.value};
+}
+registerHandler('service.use',async({actorUuid,kind,quote,sceneId,tokenId,userId})=>{
+ const doc=await fromUuid(actorUuid),actor=doc?.actor??doc,user=game.users.get(userId);
+ if(!actor?.isPerson||!user||(!user.isGM&&!actor.testUserPermission(user,'OWNER')))throw new Error('Not your character.');
+ const c=offerFor(actor,kind,{sceneId,tokenId});
+ if(Number(quote)!==c.price)throw new Error('The price changed. Open services again to review it.');
+ return performService(actor,kind,c);
 });
 export function installServices(){
  VEHICLE_ACTIONS.push(vt=>{

@@ -13,6 +13,13 @@ import {boardVehicle, exitVehicle, VEHICLE_ACTIONS, seatLayout} from '../vehicle
 import {lightsOn, hasAbility, isCagedSeat} from '../vehicles/vehicle-abilities.mjs';
 
 const KEY = 'jobState';
+import {XP_AWARDS, levelInfo, repInfo} from '../rules/advancement.mjs';
+/** Add XP and say so when the next Rep level is within reach. */
+export async function awardXP(actor, xp, why = '') {
+  const before = repInfo(actor.system); await actor.update({'system.rep.xp': Number(actor.system.rep?.xp || 0) + Number(xp)});
+  const after = repInfo(actor.system);
+  if (!before.canLevel && after.canLevel) await card(`REP ${after.nextLevel}`, `${actor.name} can level up`, `<p>${esc(why)}: +${xp} XP (${after.xp}). Rep ${after.nextLevel} — ${esc(levelInfo(after.nextLevel).title)} — is there for the taking: <b>Level up</b> on the sheet's Rep &amp; Conditions tab.</p>`, 'crew', {whisper: [...ownersOf(actor), ...game.users.filter(u => u.isGM).map(u => u.id)]});
+}
 const now = () => Date.now();
 const uid = () => foundry.utils.randomID(10);
 export function registerJobSettings() {
@@ -123,6 +130,8 @@ async function completeCall(id, pay, text, {repKey = null} = {}) {
   if (actor && pay) await actor.changeCash(pay, text);
   else if (text) await card('JOB DONE', JOB_TYPES[call.type]?.label || 'Job', `<p>${esc(text)}</p>`, 'win');
   if (actor && repKey) await actor.update({[`system.rep.${repKey}`]: Number(actor.system.rep?.[repKey] || 0) + 1});
+  if (actor?.type === 'character') await awardXP(actor, call.type === 'crew' ? XP_AWARDS.crewOrder : XP_AWARDS.job, call.type === 'crew' ? 'Pat\'s order done' : 'Job done');
+  Hooks.callAll('smokeJobDone', {actor, type: call.type, pay});
   if (actor && call.type === 'police' && Number(actor.system.heat?.value) > 0) await actor.changeHeat(-1, 'Doing the job looks good on you: the heat eases.');
 }
 async function failCall(id, why) {

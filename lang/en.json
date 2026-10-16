@@ -1,1 +1,30 @@
-{"TYPES":{"Actor":{"character":"Character","npc":"Londoner / NPC","vehicle":"Vehicle"},"Item":{"weapon":"Weapon","armour":"Armour","gear":"Gear","condition":"Condition","perk":"Perk"}},"THE_SMOKE":{"Title":"The Smoke","Phone":"The Blower","Control":"Street Control"}}
+{
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "Londoner / NPC",
+      "vehicle": "Vehicle"
+    },
+    "Item": {
+      "weapon": "Weapon",
+      "armour": "Armour",
+      "gear": "Gear",
+      "condition": "Condition",
+      "perk": "Perk",
+      "ammo": "Ammo",
+      "drug": "Drug",
+      "consumable": "Food & Medicine",
+      "outfit": "Outfit"
+    }
+  },
+  "SMOKE": {
+    "Title": "The Smoke"
+  },
+  "THE_SMOKE": {
+    "Title": "The Smoke",
+    "Phone": "The Blower",
+    "Control": "Street Control",
+    "Radio": "Pirate Radio",
+    "GMScreen": "GM Screen"
+  }
+}

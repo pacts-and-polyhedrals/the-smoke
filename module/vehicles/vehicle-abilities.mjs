@@ -77,7 +77,11 @@ export function driverContext(actor, {sceneId = null, tokenId = null} = {}) {
     const info = tokensOfActor(actor, sceneId, tokenId).map(seatInfo).find(i => i?.seatId === 'pilot');
     if (!info?.vehicle) return null;
     const v = info.vehicle.system.vehicle, p = pilotModifiers({vehicle: info.vehicle, zoneKind: zoneKindAt(info.vt), lightsOn: lightsOn(info.vt)});
-    return {vehicleName: info.vehicle.name, vehicleToken: info.vt, perfDie: Number(v.perfDie || 6), handling: Number(v.handling || 0), modifier: p.modifier, notes: p.notes, destroyed:Boolean(v.destroyed),wrecked: Number(v.body.value) <= 0};
+    // Flat tyres: each one knocks the Performance die down a step and costs 2 Handling.
+    const flats = Math.max(0, Number(v.flats || 0)), ladder = [4, 6, 8, 10, 12, 20];
+    const perf = ladder[Math.max(0, ladder.indexOf(Number(v.perfDie || 6)) - flats)] ?? 4;
+    const notes = [...p.notes, ...(flats ? [`${flats} flat tyre${flats > 1 ? 's' : ''}: Performance d${perf}, Handling −${2 * flats}`] : [])];
+    return {vehicleName: info.vehicle.name, vehicleToken: info.vt, perfDie: perf, handling: Number(v.handling || 0) - 2 * flats, modifier: p.modifier, notes, destroyed: Boolean(v.destroyed), wrecked: Number(v.body.value) <= 0};
   } catch (error) { console.warn('The Smoke | driver context', error); return null; }
 }
 

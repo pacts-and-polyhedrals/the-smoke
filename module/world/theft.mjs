@@ -52,11 +52,56 @@ export async function carjack(vt) {
 }
 export const sellVehicle = vt => request('theft.sell', {sceneId: vt.parent.id, vehicleTokenId: vt.id});
 
-/** Where this vehicle can be sold from where it stands: 'gang' (Pat — bikes) or 'chop' (Bow Breakers — motors). */
+/* ------------------------------------------------------------------ fences: who buys what, and where */
+// Auntie Pat buys anything on two wheels (pedal bikes, scooters, mopeds, scramblers, motorbikes) at The Arches on
+// Morning Lane. Cars and vans go to Bow Breakers Yard on Roman Road (Old Ford & Bow).
+export const FENCES = Object.freeze({
+  gang: {who: 'Auntie Pat', where: 'The Arches, Morning Lane (Hackney Central & Homerton)', share: 0.35},
+  chop: {who: 'Bow Breakers Yard', where: 'Bow Breakers Yard, Roman Road (Old Ford & Bow)', share: 0.25}
+});
+export const FENCE_REACH = 4;   // squares from the yard's walls that still count as "outside"
+export const buyerFor = actor => BIKE_CLASSES.has(actor?.system?.vehicle?.klass) ? 'gang' : 'chop';
+/** Distance in pixels from a point to a zone rectangle (0 inside it). */
+export function distToRect([bx, by, bw, bh], x, y) { return Math.hypot(Math.max(bx - x, 0, x - (bx + bw)), Math.max(by - y, 0, y - (by + bh))); }
+/** Where this vehicle can be sold from where it stands, or null. */
 export function fenceHere(vt) {
-  const zones = zonesOf(vt.parent); const want = BIKE_CLASSES.has(vt.actor?.system?.vehicle?.klass) && Number(vt.actor.system.vehicle.size) <= 1 ? 'gang' : 'chop';
+  const scene = vt?.parent; if (!scene || !vt.actor) return null;
+  const want = buyerFor(vt.actor), zones = zonesOf(scene);
+  // Ridden right into The Arches: anywhere inside counts.
+  if (want === 'gang' && scene.getFlag?.(NS, 'place')?.id === 'LDP-ARCHES') return {service: want, block: zones.find(z => z.service === 'drop') ?? zones[0] ?? null};
   const block = zones.find(z => z.service === want); if (!block) return null;
-  return arrivedAt(zones, block.id, tokenRect(vt)) ? {service: want, block} : null;
+  if (arrivedAt(zones, block.id, tokenRect(vt))) return {service: want, block};
+  const [x, y, w, h] = tokenRect(vt), g = scene.grid?.size || 100;
+  return distToRect(block.rect, x + w / 2, y + h / 2) <= FENCE_REACH * g ? {service: want, block} : null;
+}
+/** What the fence will pay right now. */
+export function quoteFor(vt, service = buyerFor(vt.actor), seller = null) {
+  const v = vt.actor.system.vehicle, hot = Number(vt.getFlag(NS, 'hotUntil') || 0) > Date.now();
+  const bonus = Number(seller?.system?.stage || 1) >= 3 ? 1.1 : 1;
+  return {price: Math.round(fencePrice({value: v.value, body: v.body.value, bodyMax: v.body.max, share: FENCES[service].share, hot}) * bonus / 5) * 5, hot, bonus: bonus > 1};
+}
+/** Why a fence won't touch this vehicle, or '' if it is sellable. */
+export function unsellable(vt) {
+  if (!isStolen(vt)) return `The ${vt.name} is not nicked.`;
+  if (hasAbility(vt.actor, 'docked')) return 'A docking-station bike? Every one is tracked. Nobody will touch it.';
+  if (['police', 'ambulance', 'fire', 'bus'].some(j => (vt.actor.system.vehicle.jobs || []).includes(j))) return 'Nobody in their right mind buys an emergency vehicle. Dump it somewhere.';
+  if (!Number(vt.actor.system.vehicle.value)) return `The ${vt.name} is worth nothing to a fence.`;
+  return '';
+}
+/** How this nicked vehicle stands against the rider's open order from Pat (read from the job state). */
+export function patOrderNote(actor, vt) {
+  let st = null; try { st = game.settings.get(NS, 'jobState'); } catch (_e) {}
+  const call = Object.values(st?.calls || {}).find(c => c.type === 'crew' && c.actorId === actor?.id && c.status === 'active'); if (!call) return null;
+  const o = call.data?.order || {}, id = vt.actor?.getFlag?.(NS, 'catalogId'), counts = !o.ids || o.ids.includes(id);
+  return {counts, delivered: Number(call.data?.delivered || 0), want: Number(o.want || 1), bonus: Number(o.bonus || 0)};
+}
+const riderOf = vt => { const p = occupants(vt).find(o => o.seatId === 'pilot'); return p ? vt.parent.tokens.get(p.tokenId) : null; };
+/** The nicked vehicle this character is riding on `scene`, with where to take it. Used by the phone. */
+export function ridingNicked(actor, scene = canvas?.scene) {
+  if (!actor || !scene) return null;
+  const vt = scene.tokens.find(t => t.actor?.type === 'vehicle' && isStolen(t) && riderOf(t)?.actorId === actor.id); if (!vt) return null;
+  const service = buyerFor(vt.actor), here = fenceHere(vt), why = unsellable(vt);
+  return {vt, service, here, why, fence: FENCES[service], ...quoteFor(vt, service, actor), order: service === 'gang' ? patOrderNote(actor, vt) : null};
 }
 
 /* ------------------------------------------------------------------ leader handlers */
@@ -87,7 +132,8 @@ registerHandler('theft.resolve', async ({sceneId, vehicleTokenId, tokenId, messa
     await vt.update({[`flags.${NS}.locked`]: false, [`flags.${NS}.stolen`]: true, [`flags.${NS}.thief`]: who.actor.id, [`flags.${NS}.parked`]: false, [`flags.${NS}.traffic`]: null, [`flags.${NS}.hotUntil`]: Date.now() + 180000,
       ...(plate ? {[`flags.${NS}.marker`]: {kind: 'stolen', label: 'REPORTED STOLEN', since: 'reported minutes ago', note: 'Stolen from the street. Stop and detain the driver.'}} : {})}, {acVehicleCarry: true});
   } else if (res.jammed) await vt.update({[`flags.${NS}.jammed`]: true}, {acVehicleCarry: true});
-  await card('NICKED?', `${who.name} · ${vt.name}`, `<p>${esc(res.note)}</p>${res.unlocked ? `<p><b>It's yours.</b> Right-click it → Board → Driver. ${PEDAL(vt.actor) ? 'Ride it to <b>The Arches</b> on Morning Lane for Auntie Pat.' : 'Sell it at <b>Bow Breakers Yard</b> (Old Ford & Bow), or keep it.'}</p>` : ''}${seen ? '<p class="smoke-bad">Someone saw.</p>' : ''}`, res.unlocked ? 'win' : 'lose');
+  const fence = FENCES[buyerFor(vt.actor)];
+  await card('NICKED?', `${who.name} · ${vt.name}`, `<p>${esc(res.note)}</p>${res.unlocked ? `<p><b>It's yours.</b> Right-click it → Board → Driver. Take it to <b>${esc(fence.where)}</b> — ${esc(fence.who)} will make an offer when you pull up.</p>` : ''}${seen ? '<p class="smoke-bad">Someone saw.</p>' : ''}`, res.unlocked ? 'win' : 'lose');
   if (seen) await who.actor.reportCrime(PEDAL(vt.actor) ? 'nickBike' : 'nickCar', {witnessed: true, byPolice});
   Hooks.callAll('smokeVehicleNicked', {vt, who, unlocked: res.unlocked});
   return res;
@@ -126,18 +172,15 @@ registerHandler('theft.sell', async ({sceneId, vehicleTokenId, userId}) => {
   const seller = rider?.actor ?? game.actors.get(vt.getFlag(NS, 'thief'));
   if (!seller) throw new Error('Someone has to be riding it.');
   if (!user?.isGM && !seller.testUserPermission(user, 'OWNER')) throw new Error('Only the rider can sell it.');
-  if (!isStolen(vt)) throw new Error(`Pat only buys nicked gear — the ${vt.name} is not stolen.`);
-  if (hasAbility(vt.actor, 'docked')) throw new Error('A docking-station bike? Every one is tracked. Nobody will touch it.');
-  if (['police', 'ambulance', 'fire', 'bus'].some(j => (vt.actor.system.vehicle.jobs || []).includes(j))) throw new Error('Nobody in their right mind buys an emergency vehicle. Dump it somewhere.');
-  const here = fenceHere(vt); if (!here) throw new Error(`${vt.name}: ${BIKE_CLASSES.has(vt.actor.system.vehicle.klass) && Number(vt.actor.system.vehicle.size) <= 1 ? 'bikes go to Auntie Pat at The Arches (Hackney Central)' : 'motors go to Bow Breakers Yard (Old Ford & Bow)'} — pull up outside first.`);
-  const v = vt.actor.system.vehicle;
-  const hot = Number(vt.getFlag(NS, 'hotUntil') || 0) > Date.now();
-  const price = fencePrice({value: v.value, body: v.body.value, bodyMax: v.body.max, share: here.service === 'gang' ? 0.35 : 0.25, hot});
+  const why = unsellable(vt); if (why) throw new Error(why);
+  const here = fenceHere(vt); if (!here) { const f = FENCES[buyerFor(vt.actor)]; throw new Error(`${vt.name}: ${f.who} buys these — pull up at ${f.where} first.`); }
+  const {price, hot} = quoteFor(vt, here.service, seller);
   await exitAllFromVehicle(vt, {keepDriver: false});
   const fresh = scene.tokens.get(vt.id); if (fresh) { await exitRider(scene, fresh); }
   await scene.tokens.get(vt.id)?.delete({smokeDespawn: true});
-  await seller.changeCash(price, `${here.service === 'gang' ? 'Auntie Pat' : 'Bow Breakers Yard'} takes the ${vt.name}${hot ? ' (still hot — she knocks a bit off)' : ''}.`);
+  await seller.changeCash(price, `${FENCES[here.service].who} takes the ${vt.name}${hot ? ' (still hot — a bit knocked off)' : ''}.`);
   if (here.service === 'gang') await seller.update({'system.rep.crew': Number(seller.system.rep?.crew || 0) + 1});
+  if (price >= 500 && seller.type === 'character') { const {awardXP} = await import('./jobs.mjs'); await awardXP(seller, 1, `Sold the ${vt.name}`); }
   Hooks.callAll('smokeVehicleSold', {seller, vehicleName: vt.name, catalogId: vt.actor.getFlag(NS, 'catalogId'), price, service: here.service, vehicle: vt.actor});
   return price;
 });
@@ -159,16 +202,51 @@ export function installTheft() {
     if (isLocked(vt) && !vt.actor?.testUserPermission?.(user, 'OWNER')) throw new Error(`The ${vt.name} is locked. Right-click it → Nick it.`);
   });
   // Getting into an emergency vehicle is a crime if the police see it (and you are not on a shift in it).
+  // Riding off on a street vehicle that isn't yours makes it nicked, even when the GM skipped the lock roll.
   Hooks.on('smokeBoarded', async ({vt, ot, seat, scene}) => {
     if (!isLeader() || seat.role !== 'pilot' || !ot.actor || ot.actor.type !== 'character') return;
     const jobs = vt.actor?.system?.vehicle?.jobs || [];
     if (jobs.includes('police') && !vt.getFlag(NS, 'issued') && policeNear(scene, ot, 10)) await ot.actor.reportCrime('stealCopCar', {witnessed: true, byPolice: true});
+    const streetVehicle = vt.getFlag(NS, 'locked') || vt.getFlag(NS, 'parked') || vt.getFlag(NS, 'orderFor') || vt.getFlag(NS, 'traffic');
+    if (streetVehicle && !isStolen(vt) && !vt.getFlag(NS, 'issued') && !isTraffic(vt)) {
+      const plate = vt.getFlag(NS, 'plate');
+      await vt.update({[`flags.${NS}.locked`]: false, [`flags.${NS}.stolen`]: true, [`flags.${NS}.thief`]: ot.actor.id, [`flags.${NS}.parked`]: false, [`flags.${NS}.traffic`]: null,
+        ...(plate ? {[`flags.${NS}.marker`]: {kind: 'stolen', label: 'REPORTED STOLEN', since: 'reported minutes ago', note: 'Stolen from the street. Stop and detain the driver.'}} : {})}, {acVehicleCarry: true});
+      const f = FENCES[buyerFor(vt.actor)];
+      await card('NICKED', `${ot.name} · ${vt.name}`, `<p>Off it goes. Take it to <b>${esc(f.where)}</b> — ${esc(f.who)} will make an offer when you pull up.</p>`, 'win', {whisper: [...ownersOf(ot.actor), ...game.users.filter(u => u.isGM).map(u => u.id)]});
+    }
+    await offerAtFence(scene.tokens.get(vt.id));
+  });
+  // Pull up at the right fence on a nicked ride and the buyer makes an offer in chat (once per visit).
+  Hooks.on('updateToken', (doc, change) => {
+    if (!isLeader() || !('x' in change || 'y' in change) || doc.actor?.type !== 'vehicle' || !isStolen(doc)) return;
+    offerAtFence(doc).catch(error => console.warn('The Smoke | fence offer', error));
   });
   VEHICLE_ACTIONS.push(vt => {
     const out = [];
     if (isTraffic(vt)) out.push({icon: 'fa-solid fa-hand-fist', title: 'Carjack', fn: () => carjack(vt)});
     else if (isLocked(vt) && !vt.getFlag(NS, 'jammed')) out.push({icon: 'fa-solid fa-key', title: PEDAL(vt.actor) ? 'Nick it (cut the lock)' : 'Nick it (break in & hotwire)', fn: () => nickIt(vt)});
-    if (isStolen(vt) && fenceHere(vt)) out.push({icon: 'fa-solid fa-sterling-sign', title: fenceHere(vt).service === 'gang' ? 'Sell to Auntie Pat' : 'Sell to Bow Breakers', fn: () => sellVehicle(vt)});
+    const here = isStolen(vt) && !unsellable(vt) && fenceHere(vt);
+    if (here) out.push({icon: 'fa-solid fa-sterling-sign', title: `Sell to ${FENCES[here.service].who} (£${quoteFor(vt, here.service, riderOf(vt)?.actor).price})`, fn: () => sellVehicle(vt)});
     return out;
   });
+}
+
+/** The fence's offer, whispered to the rider when they arrive. Clears when they ride away so the next visit offers again. */
+export async function offerAtFence(vt) {
+  if (!vt?.actor || !isStolen(vt)) return false;
+  const here = fenceHere(vt), was = vt.getFlag(NS, 'atFence');
+  if (!here) { if (was) await vt.update({[`flags.${NS}.atFence`]: false}, {acVehicleCarry: true}); return false; }
+  const rider = riderOf(vt); if (was || !rider?.actor) return false;
+  await vt.update({[`flags.${NS}.atFence`]: true}, {acVehicleCarry: true});
+  const f = FENCES[here.service], why = unsellable(vt), to = [...ownersOf(rider.actor), ...game.users.filter(u => u.isGM).map(u => u.id)];
+  if (why) { await card(f.who.toUpperCase(), `${f.who} won't touch it`, `<p>${esc(why)}</p>`, 'lose', {whisper: to}); return false; }
+  const {price, hot} = quoteFor(vt, here.service, rider.actor), order = here.service === 'gang' ? patOrderNote(rider.actor, vt) : null;
+  const orderLine = !order ? '' : order.counts
+    ? `<p><b>Pat's order:</b> this makes ${order.delivered + 1} of ${order.want}.${order.delivered + 1 >= order.want ? ` That finishes it: +£${order.bonus} bonus.` : ''}</p>`
+    : `<p><b>Pat's order:</b> "Lovely, but that's not what I asked for." She'll still buy it; it doesn't count toward the order.</p>`;
+  await card(f.who.toUpperCase(), `${f.who} looks over the ${vt.name}`, `<p>"I'll give you <b>£${price}</b> for it${hot ? ' — it\'s still hot, mind' : ''}."</p>${orderLine}
+    <div class="smoke-buttons"><button type="button" data-smoke-sell="${esc(vt.uuid)}"><i class="fa-solid fa-sterling-sign"></i> Sell for £${price}${order?.counts ? ' · deliver the order' : ''}</button></div>
+    <p class="smoke-dim">Or keep it and ride on. The offer comes back next time you pull up.</p>`, 'crew', {whisper: to});
+  return true;
 }

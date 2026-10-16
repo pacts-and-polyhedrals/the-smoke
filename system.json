@@ -1,8 +1,8 @@
 {
   "id": "the-smoke",
   "title": "The Smoke",
-  "description": "A complete London crime sandbox: Covenant-style exploding dice, nine street stats, Heat, vehicle boarding and chases, a linked North and East London atlas, Street Life, emergency-service shifts and The Chainring opening campaign.",
-  "version": "0.1.2",
+  "description": "A GTA-inspired London crime sandbox, starting in Hackney: Covenant-style exploding dice with nine street stats, Hustle and five-star Heat; Altered Carbon-style vehicles, boarding and chases across a linked atlas of 20 traced North and East London street maps; live pirate radio in cars and on the Blower, with Message the studio to send shout-outs to the real stations; Street Life, emergency-service shifts and Auntie Pat's bike orders; speed-dice combat with ranges, cover, ammo, Take hit or Dodge, and police who fight back; a GM Screen of roll requests, hazards and street events; 171 items with their own art, shops, local services and safehouses; first aid, rest and advances; a Character Creator and levelling wizard; and The Chainring campaign with a twelve-mission Mission Board, documented in twelve styled guides.",
+  "version": "0.4.0",
   "compatibility": {
     "minimum": "14"
   },
@@ -12,6 +12,9 @@
       "url": "https://www.patreon.com/pactsandpolyhedrals"
     }
   ],
+  "url": "https://github.com/pacts-and-polyhedrals/the-smoke",
+  "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
+  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.4.0/the-smoke-v0.4.0.zip",
   "esmodules": [
     "the-smoke.mjs"
   ],
@@ -71,20 +74,29 @@
         "htmlFields": [
           "description"
         ]
+      },
+      "ammo": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "drug": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "consumable": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "outfit": {
+        "htmlFields": [
+          "description"
+        ]
       }
     }
   },
-  "socket": true,
-  "initiative": "1d6 + @statMods.mov",
-  "grid": {
-    "distance": 1,
-    "units": "sq"
-  },
-  "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.hustle",
-  "url": "https://github.com/pacts-and-polyhedrals/the-smoke",
-  "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
-  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.1.2/the-smoke-v0.1.2.zip",
   "packs": [
     {
       "name": "london-streets",
@@ -98,6 +110,13 @@
       "label": "London Places (interiors)",
       "type": "Scene",
       "path": "packs/london-places",
+      "system": "the-smoke"
+    },
+    {
+      "name": "london-venues",
+      "label": "London Venues (campaign maps)",
+      "type": "Scene",
+      "path": "packs/london-venues",
       "system": "the-smoke"
     },
     {
@@ -115,6 +134,13 @@
       "system": "the-smoke"
     },
     {
+      "name": "campaign-cast",
+      "label": "Campaign Cast (Sandbox Campaign NPCs)",
+      "type": "Actor",
+      "path": "packs/campaign-cast",
+      "system": "the-smoke"
+    },
+    {
       "name": "pregens",
       "label": "Pregenerated Characters",
       "type": "Actor",
@@ -123,7 +149,7 @@
     },
     {
       "name": "london-items",
-      "label": "Kit, Weapons & Perks",
+      "label": "Kit: Weapons, Ammo, Drugs, Food, Clobber, Tools & Perks",
       "type": "Item",
       "path": "packs/london-items",
       "system": "the-smoke"
@@ -137,7 +163,7 @@
     },
     {
       "name": "guides",
-      "label": "The Smoke \u2014 Guides",
+      "label": "The Smoke — Guides, Books & Missions",
       "type": "JournalEntry",
       "path": "packs/guides",
       "ownership": {
@@ -149,27 +175,29 @@
   ],
   "packFolders": [
     {
-      "name": "The Smoke \u2014 London",
+      "name": "The Smoke — London",
       "sorting": "m",
       "color": "#ff8a3d",
       "packs": [
         "guides",
         "london-streets",
-        "london-places"
+        "london-places",
+        "london-venues"
       ]
     },
     {
-      "name": "The Smoke \u2014 People & Motors",
+      "name": "The Smoke — People & Motors",
       "sorting": "m",
       "color": "#78ecf3",
       "packs": [
         "pregens",
         "london-people",
+        "campaign-cast",
         "london-vehicles"
       ]
     },
     {
-      "name": "The Smoke \u2014 Kit",
+      "name": "The Smoke — Kit",
       "sorting": "m",
       "color": "#e9cc8c",
       "packs": [
@@ -178,6 +206,23 @@
       ]
     }
   ],
+  "socket": true,
+  "grid": {
+    "distance": 1,
+    "units": "sq"
+  },
+  "primaryTokenAttribute": "resources.health",
+  "secondaryTokenAttribute": "resources.hustle",
+  "background": "systems/the-smoke/assets/maps/streets/ls00-london-overview.webp",
+  "media": [
+    {
+      "type": "setup",
+      "url": "systems/the-smoke/assets/maps/streets/ls00-london-overview.webp"
+    }
+  ],
+  "license": "LICENSE",
+  "readme": "README.md",
+  "initiative": "1d6x + @statMods.mov",
   "relationships": {
     "requires": []
   }

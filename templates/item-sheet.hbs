@@ -1,6 +1,6 @@
 <div class="smoke-sheet-inner">
   <header class="smoke-head">
-    <img class="smoke-portrait small" src="{{item.img}}" data-action="editImage" data-edit="img" alt="">
+    <img class="smoke-portrait small" src="{{item.img}}" data-edit="img" alt="" title="Change the image">
     <div class="smoke-id"><input class="smoke-name" type="text" name="name" value="{{item.name}}"><span class="smoke-kicker">{{type}}</span></div>
   </header>
   <div class="smoke-body">
@@ -8,11 +8,21 @@
       {{#if (eq type "weapon")}}
         <label>Stat <select name="system.stat">{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
         <label>Impact <input type="number" name="system.impact" value="{{system.impact}}"></label>
-        <label>Range <input type="text" name="system.range" value="{{system.range}}"></label>
+        <label>Range <select name="system.range">{{#each ranges}}<option value="{{this}}" {{#if (eq this ../system.range)}}selected{{/if}}>{{this}}</option>{{/each}}</select></label>
+        <label>Category <select name="system.category">{{#each categories}}<option value="{{this}}" {{#if (eq this ../system.category)}}selected{{/if}}>{{this}}</option>{{/each}}</select></label>
         <label>Ammo <input type="number" name="system.ammo.value" value="{{system.ammo.value}}"> / <input type="number" name="system.ammo.max" value="{{system.ammo.max}}"></label>
+        <label>Ammo type <input type="text" name="system.ammoType" value="{{system.ammoType}}" placeholder="9mm, 12-gauge…"></label>
+        <label>Effect <select name="system.effect">{{#each effects}}<option value="{{this}}" {{#if (eq this ../system.effect)}}selected{{/if}}>{{#if this}}{{this}}{{else}}—{{/if}}</option>{{/each}}</select></label>
         <label>Crime <input type="text" name="system.crime" value="{{system.crime}}"></label>
+        <label>Kind <input type="text" name="system.kind" value="{{system.kind}}" placeholder="melee, firearm, less-lethal…"></label>
+        {{#if system.thrown}}<label>How many <input type="number" name="system.quantity" value="{{system.quantity}}"></label>{{/if}}
         <label><input type="checkbox" name="system.loud" {{#if system.loud}}checked{{/if}}> Loud</label>
         <label><input type="checkbox" name="system.concealable" {{#if system.concealable}}checked{{/if}}> Concealable</label>
+        <label><input type="checkbox" name="system.burst" {{#if system.burst}}checked{{/if}}> Can fire a burst</label>
+        <label><input type="checkbox" name="system.thrown" {{#if system.thrown}}checked{{/if}}> Thrown (used up)</label>
+        <label><input type="checkbox" name="system.twoHanded" {{#if system.twoHanded}}checked{{/if}}> Two-handed</label>
+        <label><input type="checkbox" name="system.restricted" {{#if system.restricted}}checked{{/if}}> Never sold</label>
+        <label><input type="checkbox" name="system.equipped" {{#if system.equipped}}checked{{/if}}> Equipped</label>
       {{/if}}
       {{#if (eq type "armour")}}
         <label>Guard bonus <input type="number" name="system.guard" value="{{system.guard}}"></label>
@@ -22,18 +32,51 @@
       {{#if (eq type "gear")}}
         <label>Tool (for nicking) <input type="text" name="system.tool" value="{{system.tool}}" placeholder="bolt cutters, angle grinder, relay box…"></label>
         <label>Stat <select name="system.stat"><option value="">—</option>{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label>Roll bonus <input type="number" name="system.bonus" value="{{system.bonus}}"></label>
+        <label>Uses <input type="text" name="system.uses" value="{{system.uses}}" placeholder="One dose, duty equipment…"></label>
+        <label>How many <input type="number" name="system.quantity" value="{{system.quantity}}" min="0"></label>
       {{/if}}
       {{#if (eq type "perk")}}
-        <label>Stat <select name="system.stat">{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label>Stat <select name="system.stat"><option value="">Any relevant stat</option>{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label>When <input type="text" name="system.when" value="{{system.when}}"></label>
+        <label>Hustle cost <input type="number" name="system.hustleCost" value="{{system.hustleCost}}" min="0"></label>
+      {{/if}}
+      {{#if (eq type "ammo")}}
+        <label>Ammo type <input type="text" name="system.ammoType" value="{{system.ammoType}}"></label>
+        <label>Rounds <input type="number" name="system.quantity" value="{{system.quantity}}"></label>
+        <label>Per box <input type="number" name="system.perBox" value="{{system.perBox}}"></label>
+      {{/if}}
+      {{#if (eq type "drug")}}
+        <label>How many <input type="number" name="system.quantity" value="{{system.quantity}}"> <input type="text" name="system.unit" value="{{system.unit}}" size="6"></label>
+        <label>High <input type="text" name="system.high" value="{{system.high}}"></label>
+        <label>Comedown <input type="text" name="system.comedown" value="{{system.comedown}}"></label>
+        <label>Lasts (minutes) <input type="number" name="system.minutes" value="{{system.minutes}}"></label>
+        <label>Street price £ <input type="number" name="system.street" value="{{system.street}}"></label>
+        <label>Heat if caught <input type="number" name="system.heat" value="{{system.heat}}"></label>
+      {{/if}}
+      {{#if (eq type "consumable")}}
+        <label>How many <input type="number" name="system.quantity" value="{{system.quantity}}"></label>
+        <label>Heals <input type="number" name="system.heal" value="{{system.heal}}"></label>
+        <label>Removes <input type="text" name="system.removes" value="{{system.removes}}" placeholder="Bleeding, Hurt"></label>
+        <label>Gives <input type="text" name="system.grants" value="{{system.grants}}" placeholder="Buzzing"></label>
+        <label>For (minutes) <input type="number" name="system.minutes" value="{{system.minutes}}"></label>
+      {{/if}}
+      {{#if (eq type "outfit")}}
+        <label><input type="checkbox" name="system.worn" {{#if system.worn}}checked{{/if}}> Wearing it</label>
+        <label>Disguise <input type="text" name="system.disguise" value="{{system.disguise}}" placeholder="workman, courier, suit…"></label>
+        <label>Heat it sheds <input type="number" name="system.heatDrop" value="{{system.heatDrop}}"></label>
+        <label>Helps <select name="system.stat"><option value="">—</option>{{#each stats}}<option value="{{key}}" {{#if (eq key ../system.stat)}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
         <label>When <input type="text" name="system.when" value="{{system.when}}"></label>
       {{/if}}
       {{#if (eq type "condition")}}
         <label>Category <input type="text" name="system.category" value="{{system.category}}"></label>
+        <label>Severity <input type="number" name="system.severity" value="{{system.severity}}" min="0"></label>
+        <label>Stacks <input type="number" name="system.stacks" value="{{system.stacks}}" min="0"></label>
         <label>Removed by <input type="text" name="system.removal" value="{{system.removal}}"></label>
       {{/if}}
       {{#unless (eq type "condition")}}{{#unless (eq type "perk")}}<label>Value £ <input type="number" name="system.value" value="{{system.value}}"></label>{{/unless}}{{/unless}}
     </div>
-    <div class="smoke-bio">{{{enriched}}}</div>
-    <textarea name="system.description" rows="6">{{system.description}}</textarea>
+    <h3>Description</h3>
+    <prose-mirror name="system.description" value="{{system.description}}" toggled>{{{enriched}}}</prose-mirror>
   </div>
 </div>

@@ -25,6 +25,18 @@ export async function request(type, data = {}) {
     game.socket.emit(SOCKET, {type: `smokeWorld.${type}`, requestId, data: payload});
   });
 }
+/** Leader replies travel over the socket as plain data: documents become {id, uuid}. */
+export function wire(value, depth = 0) {
+  if (value == null || depth > 6) return value ?? null;
+  const Doc = globalThis.foundry?.abstract?.Document;
+  if (Doc && value instanceof Doc) return {id: value.id, uuid: value.uuid};
+  if (Array.isArray(value)) return value.map(v => wire(v, depth + 1));
+  if (typeof value === 'object') {
+    if (Object.getPrototypeOf(value) === Object.prototype) return Object.fromEntries(Object.entries(value).map(([k, v]) => [k, wire(v, depth + 1)]));
+    try { return JSON.parse(JSON.stringify(value)); } catch (_e) { return null; }
+  }
+  return typeof value === 'function' ? null : value;
+}
 export function installNet() {
   game.socket.on(SOCKET, async payload => {
     const t = String(payload?.type || '');
@@ -41,7 +53,7 @@ export function installNet() {
     if (!t.startsWith('smokeWorld.') || !isLeader()) return;
     const fn = HANDLERS.get(t.slice(11)); if (!fn) return;
     const reply = value => { if (payload.requestId) game.socket.emit(SOCKET, {type:'smokeWorld.result', requestId:payload.requestId, toUserId:payload.data?.userId, gmId:game.user.id, ...value}); };
-    try { const result = await dispatch(t.slice(11),payload.data || {}); reply({result:result ?? null}); } catch (error) {
+    try { const result = await dispatch(t.slice(11),payload.data || {}); reply({result:wire(result)}); } catch (error) {
       console.warn('The Smoke | request refused', t, error);
       if (payload.requestId) reply({error:error.message}); else notify(error.message, {userIds: [payload.data?.userId], level: 'warn'});
     }

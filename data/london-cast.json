@@ -1,0 +1,7642 @@
+{
+ "cast": [
+  {
+   "key": "jules-akin",
+   "name": "Jules \"Patch\" Akin",
+   "aliases": [
+    "Jules \"Patch\" Akin",
+    "Jules Patch Akin"
+   ],
+   "role": "Dead Air Collective coordinator",
+   "faction": "AD",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-jules-akin.webp",
+   "venues": [
+    "DA2",
+    "DA7",
+    "ST4",
+    "BF5"
+   ],
+   "missions": [
+    "AD1",
+    "AD2",
+    "AD3",
+    "AD5",
+    "AD6",
+    "AD8"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 445,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Jules &quot;Patch&quot; Akin</b> \u2014 Dead Air Collective coordinator (Dead Air Collective, patron). Fictional.</p><p><b>At DA2 Cafe OTO</b> (Dalston): Dead Air coordinator. An invented experimental performance contains the genuine source of a sound later reused in the warning; the session owner has a rival offer.</p><p><b>At DA7 Backspin Studio</b> (Dalston). The fictional pirate station&#x27;s core studio can become independent, sponsored or controlled by a faction.</p><p><b>At ST4 Theatre Royal Stratford East</b> (Stratford &amp; the Stadium): visiting coordinator. An invented theatre benefit puts a missing performer&#x27;s belongings and an employer&#x27;s ultimatum backstage just before the curtain rises.</p><p><b>At BF5 UCL East Marshgate</b> (Bow Flyover &amp; Mill Meads): visiting coordinator. An invented public showcase gives a survey witness a place to compare a model with the earlier genuine plan and the later contractor&#x27;s version.</p><p class=\"smoke-dim\">Gives: AD1, AD2, AD3, AD5, AD6, AD8.</p>"
+   }
+  },
+  {
+   "key": "dee-hassan",
+   "name": "Dee Hassan",
+   "aliases": [
+    "Dee Hassan"
+   ],
+   "role": "station technician",
+   "faction": "AD",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-dee-hassan.webp",
+   "venues": [
+    "DA4",
+    "ST8"
+   ],
+   "missions": [
+    "AD4"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 230,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Dee Hassan</b> \u2014 station technician (Dead Air Collective). Fictional.</p><p>Dee Hassan wants practical independence;</p><p><b>At DA4 Vortex Jazz Club</b> (Dalston). A fictional late set carries an unscheduled dedication from a missing contact, and the person offering the recording cannot explain its date.</p><p><b>At ST8 Bridge Nine Broadcast Garage</b> (Stratford &amp; the Stadium). A fictional mobile station base lets the crew choose who gets the final live slot and who pays for it.</p><p class=\"smoke-dim\">Gives: AD4.</p>"
+   }
+  },
+  {
+   "key": "leon-marsh",
+   "name": "Leon Marsh",
+   "aliases": [
+    "Leon Marsh"
+   ],
+   "role": "retired sound engineer and archivist",
+   "faction": "AD",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-leon-marsh.webp",
+   "venues": [
+    "HB2",
+    "LF8"
+   ],
+   "missions": [
+    "AD7"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 10
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 270,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Leon Marsh</b> \u2014 retired sound engineer and archivist (Dead Air Collective). Fictional.</p><p>Leon Marsh wants the archive respected;</p><p><b>At HB2 The Old Church</b> (Highbury &amp; Albion Rd): retired sound engineer. A small late-night performance uses an old station ident that should not exist on the apparent new warning; an uncredited performer wants their fee before helping.</p><p><b>At LF8 Englefield Listening Flat</b> (Haggerston &amp; London Fields). Private station recordings can be authenticated here, while a rival waits outside with a much better cash offer.</p><p class=\"smoke-dim\">Gives: AD7.</p>"
+   }
+  },
+  {
+   "key": "nia-bell",
+   "name": "Nia \"Switch\" Bell",
+   "aliases": [
+    "Nia \"Switch\" Bell",
+    "Nia Switch Bell"
+   ],
+   "role": "radio presenter",
+   "faction": "AD",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-nia-bell.webp",
+   "venues": [
+    "BF6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 140,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Nia &quot;Switch&quot; Bell</b> \u2014 radio presenter (Dead Air Collective). Fictional.</p><p>Nia Switch Bell wants control over her own account.</p><p><b>At BF6 Pudding Mill Lane DLR station</b> (Bow Flyover &amp; Mill Meads): radio presenter by arrangement. A fictional passenger&#x27;s handover is interrupted by the arriving train, splitting the crew&#x27;s attention between a stolen case and the person holding its receipt.</p>"
+   }
+  },
+  {
+   "key": "victor-randle",
+   "name": "Victor \"Vic\" Randle",
+   "aliases": [
+    "Victor \"Vic\" Randle",
+    "Victor Vic Randle"
+   ],
+   "role": "bookmaker and lender",
+   "faction": "BB",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-victor-randle.webp",
+   "venues": [
+    "LY3",
+    "LY7"
+   ],
+   "missions": [
+    "BB1",
+    "BB2",
+    "BB3",
+    "BB4",
+    "BB5",
+    "BB6",
+    "BB7"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 610,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Victor &quot;Vic&quot; Randle</b> \u2014 bookmaker and lender (The Backroom Bookmakers, patron). Fictional.</p><p><b>At LY3 The Leyton Engineer</b> (Leyton &amp; Ruckholt): bookmaker. A bookmaker&#x27;s agent offers a lucrative early result while a previous winner arrives to collect money that was never set aside.</p><p><b>At LY7 Third Half Bookroom</b> (Leyton &amp; Ruckholt). Vic&#x27;s real debts and an invented collection racket share a ledger he wants back before his staff read it.</p><p class=\"smoke-dim\">Gives: BB1, BB2, BB3, BB4, BB5, BB6, BB7.</p>"
+   }
+  },
+  {
+   "key": "eddie-lane",
+   "name": "Eddie Lane",
+   "aliases": [
+    "Eddie Lane"
+   ],
+   "role": "bookmaker's cashier",
+   "faction": "BB",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-eddie-lane.webp",
+   "venues": [
+    "WS8",
+    "HX3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 155,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Eddie Lane</b> \u2014 bookmaker&#x27;s cashier (The Backroom Bookmakers). Fictional.</p><p>Cashier Eddie Lane wants genuine debts separated from invented ones;</p><p><b>At WS8 Well Street Loan Office</b> (South Hackney &amp; Well Street). A profitable collection business is charging genuine accounts twice and a clerk wants a share to keep quiet.</p><p><b>At HX3 Rosemary Branch Theatre</b> (Hoxton West &amp; the Canal). An invented performance has a missing prop chest whose contents connect an ordinary worker to a valuable old object.</p>"
+   }
+  },
+  {
+   "key": "frankie-wu",
+   "name": "Frankie Wu",
+   "aliases": [
+    "Frankie Wu"
+   ],
+   "role": "accountant",
+   "faction": "BB",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-frankie-wu.webp",
+   "venues": [
+    "DB6",
+    "HX6",
+    "HX8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 270,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Frankie Wu</b> \u2014 accountant (The Backroom Bookmakers). Fictional.</p><p>accountant Frankie Wu wants records that will survive scrutiny.</p><p><b>At DB6 The Talbot</b> (De Beauvoir). A fictional promoter offers a private fee to alter a programme, while the performer affected by it waits at another table.</p><p><b>At HX6 The Baring</b> (Hoxton West &amp; the Canal). A fictional investor meal exposes who actually guaranteed a transport contract, and a private consultancy offer tests the crew&#x27;s existing promises.</p><p><b>At HX8 Shepherdess Coin Rooms</b> (Hoxton West &amp; the Canal). Two lenders have sold the same debt and each has hired a different crew to enforce it.</p>"
+   }
+  },
+  {
+   "key": "rosa-baptiste",
+   "name": "Rosa Baptiste",
+   "aliases": [
+    "Rosa Baptiste"
+   ],
+   "role": "mutual-aid organiser",
+   "faction": "BM",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-rosa-baptiste.webp",
+   "venues": [
+    "SN1",
+    "SN7",
+    "WS5"
+   ],
+   "missions": [
+    "BM1",
+    "BM2",
+    "BM3",
+    "BM4",
+    "BM5",
+    "BM6",
+    "BM7",
+    "BM8"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 455,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Rosa Baptiste</b> \u2014 mutual-aid organiser (Borough Mutual, patron). Fictional.</p><p><b>At SN1 Abney Park Chapel</b> (Stoke Newington &amp; Shacklewell). A memorial recording contains a living person&#x27;s interruption; a private event gives the crew a deadline before the reel is sold.</p><p><b>At SN7 Saint Martha House</b> (Stoke Newington &amp; Shacklewell). A proposed faction base with competing demands on the same room, money and volunteers.</p><p><b>At WS5 St John of Jerusalem</b> (South Hackney &amp; Well Street): visiting organiser. An invented advice meeting holds an original petition that can expose a false redevelopment mandate before the courier returns for it.</p><p class=\"smoke-dim\">Gives: BM1, BM2, BM3, BM4, BM5, BM6, BM7, BM8.</p>"
+   }
+  },
+  {
+   "key": "adele-mensah",
+   "name": "Adele Mensah",
+   "aliases": [
+    "Adele Mensah"
+   ],
+   "role": "tenant representative",
+   "faction": "BM",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-adele-mensah.webp",
+   "venues": [
+    "CL5",
+    "CL8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 180,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Adele Mensah</b> \u2014 tenant representative (Borough Mutual). Fictional.</p><p>Tenant Adele Mensah wants concrete guarantees;</p><p><b>At CL5 Clapton Country Club</b> (Clapton). An invented auction or benefit books performers, lenders and property buyers into one crowded building with one crucial service case.</p><p><b>At CL8 Clapton Union Rooms</b> (Clapton). One of the six targeted premises; an early acquisition list names the building while its workshops are still occupied.</p>"
+   }
+  },
+  {
+   "key": "gwen-price",
+   "name": "Gwen Price",
+   "aliases": [
+    "Gwen Price"
+   ],
+   "role": "tenant organiser",
+   "faction": "BM",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-gwen-price.webp",
+   "venues": [
+    "BF2",
+    "BF8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 35,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Gwen Price</b> \u2014 tenant organiser (Borough Mutual). Fictional.</p><p>organiser Gwen Price wants a funded future.</p><p><b>At BF2 The View Tube</b> (Bow Flyover &amp; Mill Meads). A fictional courier meeting at the cafe identifies four loads with one payer; a rival&#x27;s van is due before the runner finishes their break.</p><p><b>At BF8 Carpenters Breakfast Club</b> (Bow Flyover &amp; Mill Meads). One of the six targeted premises; a redevelopment mandate was assembled from an ordinary repair petition.</p>"
+   }
+  },
+  {
+   "key": "tariq-evans",
+   "name": "Tariq Evans",
+   "aliases": [
+    "Tariq Evans"
+   ],
+   "role": "patient advocate",
+   "faction": "BM",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-tariq-evans.webp",
+   "venues": [
+    "HC3",
+    "BG8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 200,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Tariq Evans</b> \u2014 patient advocate (Borough Mutual). Fictional.</p><p>advocate Tariq Evans protects individual consent;</p><p><b>At HC3 Sutton House</b> (Hackney Central &amp; Homerton). An invented private-view loan links a family photograph to an intermediary&#x27;s older identity; a collector tries to buy the supporting papers separately.</p><p><b>At BG8 Approach Recovery Rooms</b> (Bethnal Green). An invented support venue holds willing witnesses and relatives with different demands on the crew&#x27;s protection.</p>"
+   }
+  },
+  {
+   "key": "auntie-pat",
+   "name": "Auntie Pat",
+   "aliases": [
+    "Auntie Pat"
+   ],
+   "role": "Chainring fence and fixer",
+   "faction": "CH",
+   "patron": true,
+   "existing": "pat",
+   "img": "systems/the-smoke/assets/tokens/people/npc-pat.webp",
+   "venues": [
+    "HC1"
+   ],
+   "missions": [
+    "CH4",
+    "CH5",
+    "CH6",
+    "CH7",
+    "CH8"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 455,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Auntie Pat</b> \u2014 Chainring fence and fixer (The Chainring, patron). Fictional.</p><p>Pat prefers discretion, Spanner wants more legitimate work, and Sal&#x27;s ambition can attract members who want a more forceful operation.</p><p><b>At HC1 Hackney Empire</b> (Hackney Central &amp; Homerton): established fixer. An invented benefit concert has a stolen backstage case, unpaid performers and an intermediary who needs one particular speaker kept off the bill.</p><p class=\"smoke-dim\">Gives: CH4, CH5, CH6, CH7, CH8.</p>"
+   }
+  },
+  {
+   "key": "big-sal",
+   "name": "Big Sal",
+   "aliases": [
+    "Big Sal"
+   ],
+   "role": "Chainring muscle",
+   "faction": "CH",
+   "patron": false,
+   "existing": "sal",
+   "img": "systems/the-smoke/assets/tokens/people/npc-sal.webp",
+   "venues": [],
+   "missions": [
+    "S13"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 90,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Big Sal</b> \u2014 Chainring muscle (The Chainring). Fictional.</p><p>Pat prefers discretion, Spanner wants more legitimate work, and Sal&#x27;s ambition can attract members who want a more forceful operation.</p><p class=\"smoke-dim\">Gives: S13.</p>"
+   }
+  },
+  {
+   "key": "kez",
+   "name": "Kez",
+   "aliases": [
+    "Kez"
+   ],
+   "role": "Chainring runner",
+   "faction": "CH",
+   "patron": false,
+   "existing": "kez",
+   "img": "systems/the-smoke/assets/tokens/people/npc-kez.webp",
+   "venues": [
+    "HC8",
+    "LF3",
+    "WS4",
+    "HR1",
+    "HR8"
+   ],
+   "missions": [
+    "S17"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 25,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Kez</b> \u2014 Chainring runner (The Chainring). Fictional.</p><p>Kez wants people treated as friends rather than expendable runners.</p><p><b>At HC8 Clifden Crew Garage</b> (Hackney Central &amp; Homerton). A possible crew property starts with an unresolved tenancy and an engine nobody admits owning.</p><p><b>At LF3 The Duke of Richmond</b> (Haggerston &amp; London Fields): established runner. A fictional collector holds a bicycle inspection here while a runner asks the crew to distract the buyer long enough to retrieve a personal object.</p><p><b>At WS4 The Lauriston</b> (South Hackney &amp; Well Street): established tip-off contact. A fictional promoter and a tenant organiser discover their benefits were pledged the same equipment; the supplier&#x27;s receipt points to a third patron.</p><p><b>At HR1 Museum of the Home</b> (Haggerston Park &amp; Hackney Rd): established rider. An invented oral-history evening contains an older account of Quayline&#x27;s intermediary under a different professional name.</p><p class=\"smoke-dim\">Gives: S17.</p>"
+   }
+  },
+  {
+   "key": "spanner-rob",
+   "name": "Spanner Rob",
+   "aliases": [
+    "Spanner Rob"
+   ],
+   "role": "Chainring mechanic",
+   "faction": "CH",
+   "patron": false,
+   "existing": "spanner",
+   "img": "systems/the-smoke/assets/tokens/people/npc-spanner.webp",
+   "venues": [
+    "HC7",
+    "LF1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 195,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Spanner Rob</b> \u2014 Chainring mechanic (The Chainring). Fictional.</p><p>Spanner Rob wants a sustainable workshop;</p><p><b>At HC7 Chainring Storehouse</b> (Hackney Central &amp; Homerton). Pat can grant a working base here; a rival claims the building and cargo as separate debts.</p><p><b>At LF1 London Fields Lido</b> (Haggerston &amp; London Fields): visiting mechanic. An invented cycling fundraiser draws thieves to the racks and a runner to the foyer; the same place can support a score, a chase and a later legitimate event.</p>"
+   }
+  },
+  {
+   "key": "clement-wren",
+   "name": "Clement Wren",
+   "aliases": [
+    "Clement Wren"
+   ],
+   "role": "art broker",
+   "faction": "GE",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-clement-wren.webp",
+   "venues": [
+    "CG2",
+    "CG7",
+    "OF1"
+   ],
+   "missions": [
+    "GE1",
+    "GE3",
+    "GE4",
+    "GE5",
+    "GE6",
+    "GE8",
+    "S06"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 580,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Clement Wren</b> \u2014 art broker (The Glasshouse Exchange, patron). Fictional.</p><p>Wren thinks he can preserve both until a major property sale makes neutrality expensive.</p><p><b>At CG2 Estorick Collection</b> (Canonbury &amp; Newington Green). An invented loan exhibition is missing its final crate; the crew must separate the artist&#x27;s object from the papers someone concealed inside it.</p><p><b>At CG7 Glasshouse Saleroom</b> (Canonbury &amp; Newington Green). An invitation-only fictional auction offers stolen objects and private property options in the same catalogue.</p><p><b>At OF1 St Mary Bow Church</b> (Old Ford &amp; Bow): visiting broker. An invented quiet meeting connects a frightened witness with a possible supporter while a rival tries to buy the meeting&#x27;s location.</p><p class=\"smoke-dim\">Gives: GE1, GE3, GE4, GE5, GE6, GE8, S06.</p>"
+   }
+  },
+  {
+   "key": "evie-slate",
+   "name": "Evie Slate",
+   "aliases": [
+    "Evie Slate"
+   ],
+   "role": "fixer",
+   "faction": "GE",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-evie-slate.webp",
+   "venues": [],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 150,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Evie Slate</b> \u2014 fixer (The Glasshouse Exchange). Fictional.</p><p>fixer Evie Slate prefers profitable uncertainty.</p>"
+   }
+  },
+  {
+   "key": "iris-bellamy",
+   "name": "Iris Bellamy",
+   "aliases": [
+    "Iris Bellamy"
+   ],
+   "role": "curator and collection assistant",
+   "faction": "GE",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-iris-bellamy.webp",
+   "venues": [
+    "BG5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 25,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Iris Bellamy</b> \u2014 curator and collection assistant (The Glasshouse Exchange). Fictional.</p><p>curator Iris Bellamy wants honest loans;</p><p><b>At BG5 Bethnal Green Library</b> (Bethnal Green): collection assistant. A local-history enquiry identifies a missing witness through public material and an old workshop address, without relying on an invented institutional conspiracy.</p>"
+   }
+  },
+  {
+   "key": "luca-ferretti",
+   "name": "Luca Ferretti",
+   "aliases": [
+    "Luca Ferretti"
+   ],
+   "role": "restorer",
+   "faction": "GE",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-luca-ferretti.webp",
+   "venues": [
+    "DB2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 160,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Luca Ferretti</b> \u2014 restorer (The Glasshouse Exchange). Fictional.</p><p>Restorer Luca Ferretti cares about ownership;</p><p><b>At DB2 De Beauvoir Deli</b> (De Beauvoir). A fictional courier&#x27;s ordinary food delivery contains a private envelope intended for a different household; its buyer is already on the way.</p>"
+   }
+  },
+  {
+   "key": "oona-reyes",
+   "name": "Oona Reyes",
+   "aliases": [
+    "Oona Reyes"
+   ],
+   "role": "performer and costume artist",
+   "faction": "GE",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-oona-reyes.webp",
+   "venues": [],
+   "missions": [
+    "GE2"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 25,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Oona Reyes</b> \u2014 performer and costume artist (The Glasshouse Exchange). Fictional.</p><p class=\"smoke-dim\">Gives: GE2.</p>"
+   }
+  },
+  {
+   "key": "stretch",
+   "name": "Stretch",
+   "aliases": [
+    "Stretch"
+   ],
+   "role": "Lea Boys leader",
+   "faction": "LB",
+   "patron": true,
+   "existing": "stretch",
+   "img": "systems/the-smoke/assets/tokens/people/npc-stretch.webp",
+   "venues": [],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 10
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "gang",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 665,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Stretch</b> \u2014 Lea Boys leader (The Lea Boys, patron). Fictional.</p><p>Stretch favours a Meridian partnership.</p>"
+   }
+  },
+  {
+   "key": "daz-riley",
+   "name": "Daz Riley",
+   "aliases": [
+    "Daz Riley"
+   ],
+   "role": "Lea Boys collector",
+   "faction": "LB",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-daz-riley.webp",
+   "venues": [],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 10
+     },
+     "grt": {
+      "die": 8
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 6
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "gang",
+    "resources": {
+     "health": {
+      "value": 14,
+      "max": 14
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 255,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Daz Riley</b> \u2014 Lea Boys collector (The Lea Boys). Fictional.</p><p>collector Daz Riley wants quick money and status.</p>"
+   }
+  },
+  {
+   "key": "tessa-price",
+   "name": "Tessa \"Moth\" Price",
+   "aliases": [
+    "Tessa \"Moth\" Price",
+    "Tessa Moth Price",
+    "Moth"
+   ],
+   "role": "Lea Boys organiser",
+   "faction": "LB",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-tessa-price.webp",
+   "venues": [
+    "CL3",
+    "CL7"
+   ],
+   "missions": [
+    "LB1",
+    "LB2",
+    "LB3",
+    "LB4",
+    "LB5",
+    "LB6",
+    "LB7"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "gang",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 85,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Tessa &quot;Moth&quot; Price</b> \u2014 Lea Boys organiser (The Lea Boys). Fictional.</p><p>Tessa Moth Price values territorial loyalty;</p><p><b>At CL3 The Crooked Billet</b> (Clapton). A fictional collector counts protection money in the snug while Moth&#x27;s rival wants the crew to catch him keeping part of it.</p><p><b>At CL7 Lea Bridge Social Rooms</b> (Clapton). Stretch&#x27;s collectors and Moth&#x27;s supporters hold incompatible versions of the same debt book.</p><p class=\"smoke-dim\">Gives: LB1, LB2, LB3, LB4, LB5, LB6, LB7.</p>"
+   }
+  },
+  {
+   "key": "harriet-vale",
+   "name": "DS Harriet Vale",
+   "aliases": [
+    "DS Harriet Vale"
+   ],
+   "role": "detective sergeant",
+   "faction": "LD",
+   "patron": true,
+   "existing": "vale",
+   "img": "systems/the-smoke/assets/tokens/people/npc-vale.webp",
+   "venues": [
+    "BG2",
+    "BG7"
+   ],
+   "missions": [
+    "LD1",
+    "LD2",
+    "LD3",
+    "LD4",
+    "LD5",
+    "LD6",
+    "LD7",
+    "LD8"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 8
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "police",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 450,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>DS Harriet Vale</b> \u2014 detective sergeant (The Lantern Desk, patron). Fictional.</p><p>Vale&#x27;s caution competes with her ambition.</p><p><b>At BG2 The Approach Tavern and Gallery</b> (Bethnal Green): established detective. A fictional visiting artist&#x27;s upper-gallery preview puts a stolen crate within reach of a fence who has promised it to another patron.</p><p><b>At BG7 Lantern Case Flat</b> (Bethnal Green). Vale&#x27;s fictional source meeting place is a relationship with a detective, not a police station the crew can command.</p><p class=\"smoke-dim\">Gives: LD1, LD2, LD3, LD4, LD5, LD6, LD7, LD8.</p>"
+   }
+  },
+  {
+   "key": "gavin-holt",
+   "name": "Inspector Gavin Holt",
+   "aliases": [
+    "Inspector Gavin Holt"
+   ],
+   "role": "police inspector",
+   "faction": "LD",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-gavin-holt.webp",
+   "venues": [],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 8
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "police",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 270,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Inspector Gavin Holt</b> \u2014 police inspector (The Lantern Desk). Fictional.</p><p>Inspector Gavin Holt wants inconvenient accounts contained. Holt has taken consultancy money and helped suppress accounts, but cannot control every officer or every record.</p>"
+   }
+  },
+  {
+   "key": "isla-dunn",
+   "name": "PC Isla Dunn",
+   "aliases": [
+    "PC Isla Dunn"
+   ],
+   "role": "frustrated police officer",
+   "faction": "LD",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-isla-dunn.webp",
+   "venues": [
+    "SN4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 8
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "police",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 270,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>PC Isla Dunn</b> \u2014 frustrated police officer (The Lantern Desk). Fictional.</p><p>PC Isla Dunn wants her original note heard; Dunn fears becoming a scapegoat.</p><p><b>At SN4 The Red Lion</b> (Stoke Newington &amp; Shacklewell): frustrated officer. A backroom card-night contact offers an introduction in exchange for recovering their genuine property from a dishonest collector.</p>"
+   }
+  },
+  {
+   "key": "celia-voss",
+   "name": "Celia Voss",
+   "aliases": [
+    "Celia Voss"
+   ],
+   "role": "Meridian Renewal director",
+   "faction": "MR",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-celia-voss.webp",
+   "venues": [
+    "ON2",
+    "ON8",
+    "ST2",
+    "ST7"
+   ],
+   "missions": [
+    "MR2",
+    "MR4",
+    "MR5",
+    "MR6",
+    "MR8"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 670,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Celia Voss</b> \u2014 Meridian Renewal director (Meridian Renewal, patron). Fictional.</p><p><b>At ON2 Lee Valley Hockey and Tennis Centre</b> (Olympic Park North): Meridian director. A fictional sporting fundraiser loses a prize case while its organiser tries to avoid admitting that the prize was borrowed.</p><p><b>At ON8 North Park Hospitality Lodge</b> (Olympic Park North). The fictional investor reception offers the crew money, a future role and several incompatible promises.</p><p><b>At ST2 London Stadium</b> (Stratford &amp; the Stadium): developer. An invented concert in a fictional visitor wing brings final-night publicity and a disputed load to the stadium without involving the real teams or operator in the scheme.</p><p><b>At ST7 Meridian Sales Pavilion</b> (Stratford &amp; the Stadium). The final signatures happen here, but transport, testimony and the public programme have separate control points.</p><p class=\"smoke-dim\">Gives: MR2, MR4, MR5, MR6, MR8.</p>"
+   }
+  },
+  {
+   "key": "esther-cole",
+   "name": "Esther Cole",
+   "aliases": [
+    "Esther Cole"
+   ],
+   "role": "survey technician",
+   "faction": "MR",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-esther-cole.webp",
+   "venues": [
+    "CG6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Esther Cole</b> \u2014 survey technician (Meridian Renewal). Fictional.</p><p>surveyor Esther Cole wants truthful work;</p><p><b>At CG6 Highbury Leisure Centre</b> (Canonbury &amp; Newington Green). An invented training event provides cover for a private meeting between a runner and a lender, while the runner&#x27;s actual sponsor waits outside.</p>"
+   }
+  },
+  {
+   "key": "evan-lark",
+   "name": "Evan Lark",
+   "aliases": [
+    "Evan Lark"
+   ],
+   "role": "Meridian intermediary",
+   "faction": "MR",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-evan-lark.webp",
+   "venues": [
+    "CG8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 245,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Evan Lark</b> \u2014 Meridian intermediary (Meridian Renewal). Fictional.</p><p>intermediary Evan Lark handles the unattractive details.</p><p><b>At CG8 Quayline Records Suite</b> (Canonbury &amp; Newington Green). Lark&#x27;s consultancy coordinates the acquisition payments without containing a convenient single confession.</p>"
+   }
+  },
+  {
+   "key": "martin-rusk",
+   "name": "Martin Rusk",
+   "aliases": [
+    "Martin Rusk",
+    "Rusk"
+   ],
+   "role": "Meridian security chief",
+   "faction": "MR",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-martin-rusk.webp",
+   "venues": [
+    "WW5",
+    "WW8"
+   ],
+   "missions": [
+    "MR1",
+    "MR3",
+    "MR7"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 10
+     },
+     "grt": {
+      "die": 8
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 6
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 14,
+      "max": 14
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 70,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Martin Rusk</b> \u2014 Meridian security chief (Meridian Renewal). Fictional.</p><p>Security chief Martin Rusk wants control; Rusk has escalated intimidation and paid for deception.</p><p><b>At WW5 The Kenton</b> (Homerton East &amp; Wick Woodland). A fictional benefit organiser has paid for a projector that is being collected by a rival event; the crew can recover it or sell the booking twice.</p><p><b>At WW8 East Cross Security Compound</b> (Homerton East &amp; Wick Woodland). Rusk&#x27;s fictional contractor has staff schedules and vehicles that place coercion before the supposed emergency.</p><p class=\"smoke-dim\">Gives: MR1, MR3, MR7.</p>"
+   }
+  },
+  {
+   "key": "pearl-okonkwo",
+   "name": "Pearl Okonkwo",
+   "aliases": [
+    "Pearl Okonkwo",
+    "Auntie Pearl Okonkwo"
+   ],
+   "role": "trader coordinator",
+   "faction": "NM",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-pearl-okonkwo.webp",
+   "venues": [
+    "CL2",
+    "DA1",
+    "BG3",
+    "OF3",
+    "OF7"
+   ],
+   "missions": [
+    "NM1",
+    "NM2",
+    "NM3",
+    "NM4",
+    "NM5",
+    "NM6",
+    "NM7",
+    "NM8",
+    "S19"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 460,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Pearl Okonkwo</b> \u2014 trader coordinator (The Night Market, patron). Fictional.</p><p><b>At CL2 The Princess of Wales</b> (Clapton). A courier&#x27;s boat-side meeting is interrupted by two buyers claiming the same sealed load; the pub is neutral ground until one starts a fight.</p><p><b>At DA1 Rio Cinema</b> (Dalston): visiting trader. A fictional station film night includes a threatening message on a reel delivered by the wrong courier; the projection deadline forces a choice.</p><p><b>At BG3 York Hall</b> (Bethnal Green). A fictional adult prizefight uses Sal&#x27;s photograph without agreement; a genuine promoter has spent the advance and a rival wants the show cancelled.</p><p><b>At OF3 The Lord Morpeth</b> (Old Ford &amp; Bow): visiting coordinator. A fictional bookmaker&#x27;s collector arrives during a market worker&#x27;s break to demand cash already paid to someone using the same name.</p><p class=\"smoke-dim\">Gives: NM1, NM2, NM3, NM4, NM5, NM6, NM7, NM8, S19.</p>"
+   }
+  },
+  {
+   "key": "len-fisk",
+   "name": "Len Fisk",
+   "aliases": [
+    "Len Fisk"
+   ],
+   "role": "resale broker",
+   "faction": "NM",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-len-fisk.webp",
+   "venues": [],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 315,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Len Fisk</b> \u2014 resale broker (The Night Market). Fictional.</p><p>broker Len Fisk wants an exclusive resale concession.</p>"
+   }
+  },
+  {
+   "key": "nessa-grey",
+   "name": "Nessa Grey",
+   "aliases": [
+    "Nessa Grey"
+   ],
+   "role": "clothes trader",
+   "faction": "NM",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-nessa-grey.webp",
+   "venues": [
+    "DA5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 305,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Nessa Grey</b> \u2014 clothes trader (The Night Market). Fictional.</p><p>Trader Nessa Grey protects her customers;</p><p><b>At DA5 EartH</b> (Dalston). An invented festival loses its principal hire fee; a promoter is trying to move an unrelated private consignment among the returning cases.</p>"
+   }
+  },
+  {
+   "key": "ada-march",
+   "name": "Ada \"Index\" March",
+   "aliases": [
+    "Ada \"Index\" March",
+    "Ada Index March"
+   ],
+   "role": "Red Thread researcher",
+   "faction": "RT",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ada-march.webp",
+   "venues": [
+    "DB1",
+    "DB7",
+    "ST6"
+   ],
+   "missions": [
+    "RT1",
+    "RT2",
+    "RT3",
+    "RT4",
+    "RT5",
+    "RT6",
+    "RT7",
+    "RT8"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 650,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Ada &quot;Index&quot; March</b> \u2014 Red Thread researcher (The Red Thread, patron). Fictional.</p><p><b>At DB1 St Peter de Beauvoir</b> (De Beauvoir). An invented evening meeting brings a missing person&#x27;s family into contact with someone who knows they left voluntarily.</p><p><b>At DB7 Split Second Archive</b> (De Beauvoir). An independent investigation network needs originals preserved and a decision about who may sell the story.</p><p><b>At ST6 V&amp;A East Museum</b> (Stratford &amp; the Stadium): visiting researcher. An invented public-history event can preserve a narrow supported account or sell a much broader story; the visiting campaign parties disagree about what it proves.</p><p class=\"smoke-dim\">Gives: RT1, RT2, RT3, RT4, RT5, RT6, RT7, RT8.</p>"
+   }
+  },
+  {
+   "key": "noel-harris",
+   "name": "Noel Harris",
+   "aliases": [
+    "Noel Harris"
+   ],
+   "role": "local-history volunteer",
+   "faction": "RT",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-noel-harris.webp",
+   "venues": [
+    "HR6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 185,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Noel Harris</b> \u2014 local-history volunteer (The Red Thread). Fictional.</p><p>Noel Harris values oral history;</p><p><b>At HR6 Sebright Arms</b> (Haggerston Park &amp; Hackney Rd). A fictional newcomer is offered a first broadcast slot at the price of endorsing an accusation they cannot verify.</p>"
+   }
+  },
+  {
+   "key": "zoe-akande",
+   "name": "Zoe Akande",
+   "aliases": [
+    "Zoe Akande"
+   ],
+   "role": "community solicitor",
+   "faction": "RT",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-zoe-akande.webp",
+   "venues": [
+    "CG4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 205,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Zoe Akande</b> \u2014 community solicitor (The Red Thread). Fictional.</p><p>solicitor Zoe Akande insists on clear agreements;</p><p><b>At CG4 Union Chapel</b> (Canonbury &amp; Newington Green). A fictional benefit performance needs one disputed sound case and a performer who will not accept another empty promise of later payment.</p>"
+   }
+  },
+  {
+   "key": "mara-boyd",
+   "name": "Mara \"Tern\" Boyd",
+   "aliases": [
+    "Mara \"Tern\" Boyd",
+    "Mara Tern Boyd"
+   ],
+   "role": "Towpath Union dispatcher",
+   "faction": "TU",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-mara-boyd.webp",
+   "venues": [
+    "HX2",
+    "HX7",
+    "BF1"
+   ],
+   "missions": [
+    "TU1",
+    "TU2",
+    "TU3",
+    "TU4",
+    "TU5",
+    "TU6",
+    "TU7",
+    "TU8",
+    "S14",
+    "S20"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 570,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 8
+    },
+    "biography": "<p><b>Mara &quot;Tern&quot; Boyd</b> \u2014 Towpath Union dispatcher (The Towpath Union, patron). Fictional.</p><p><b>At HX2 The Eagle</b> (Hoxton West &amp; the Canal). A fictional promoter has promised the same private meeting to two factions and borrowed a third party&#x27;s cash to pay for it.</p><p><b>At HX7 Tern Wharf Dispatch</b> (Hoxton West &amp; the Canal). The network&#x27;s contracts, vehicles and workers can be split between a cooperative, a criminal patron and Meridian.</p><p><b>At BF1 ABBA Arena</b> (Bow Flyover &amp; Mill Meads): visiting dispatcher. An invented off-night production hire brings a missing equipment case and a false guest list into a fictional event wing, separate from the actual show.</p><p class=\"smoke-dim\">Gives: TU1, TU2, TU3, TU4, TU5, TU6, TU7, TU8, S14, S20.</p>"
+   }
+  },
+  {
+   "key": "gita-mercer",
+   "name": "Gita Mercer",
+   "aliases": [
+    "Gita Mercer"
+   ],
+   "role": "dispatcher and stores keeper",
+   "faction": "TU",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-gita-mercer.webp",
+   "venues": [
+    "HX1",
+    "BF7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 175,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Gita Mercer</b> \u2014 dispatcher and stores keeper (The Towpath Union). Fictional.</p><p>Dispatcher Gita Mercer protects workers;</p><p><b>At HX1 The Wenlock Arms</b> (Hoxton West &amp; the Canal): stores keeper. A fictional repair contact has a tape case with a new owner and an old hidden repair ticket that dates the original session.</p><p><b>At BF7 Marshgate Delivery Depot</b> (Bow Flyover &amp; Mill Meads). Four final-night loads have the same customer, but one is routine business and another moves a witness&#x27;s belongings.</p>"
+   }
+  },
+  {
+   "key": "yasmin-dale",
+   "name": "Yasmin Dale",
+   "aliases": [
+    "Yasmin Dale"
+   ],
+   "role": "driver and fleet coordinator",
+   "faction": "TU",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-yasmin-dale.webp",
+   "venues": [
+    "DB3",
+    "LF7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 75,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 7
+    },
+    "biography": "<p><b>Yasmin Dale</b> \u2014 driver and fleet coordinator (The Towpath Union). Fictional.</p><p>driver Yasmin Dale wants contracts that cannot discard her staff overnight.</p><p><b>At DB3 De Beauvoir Block</b> (De Beauvoir): fleet coordinator. A fictional tenant&#x27;s hired meeting suite has a false consultancy invoice, a rival bid and a copy the paying patron did not know existed.</p><p><b>At LF7 Kingsland Courier Arch</b> (Haggerston &amp; London Fields). A vanished parcel is less important than the witness who signed for it under someone else&#x27;s name.</p>"
+   }
+  },
+  {
+   "key": "owen-pike",
+   "name": "Owen Pike",
+   "aliases": [
+    "Owen Pike"
+   ],
+   "role": "promoter and nightlife bookkeeper",
+   "faction": "VC",
+   "patron": true,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-owen-pike.webp",
+   "venues": [
+    "DA3",
+    "DA8",
+    "BF3"
+   ],
+   "missions": [
+    "VC1",
+    "VC2",
+    "VC3",
+    "VC4",
+    "VC5",
+    "VC6"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 6
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 10,
+      "max": 10
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 565,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Owen Pike</b> \u2014 promoter and nightlife bookkeeper (The Velvet Circuit, patron). Fictional.</p><p><b>At DA3 Dalston Superstore</b> (Dalston): nightlife bookkeeper. A fictional visiting promoter offers an exclusive slot to buy a missing performer&#x27;s silence; the performer has brought an ally and a competing plan.</p><p><b>At DA8 Blue Hour Basement</b> (Dalston). A fictional club beneath invented premises links promoter money, Halo stock and an attempted cover-up.</p><p><b>At BF3 The House Mill</b> (Bow Flyover &amp; Mill Meads): visiting bookkeeper. An invented heritage fundraiser has a returned ledger, a substituted donation and a witness who knows where an independent thief sold the original.</p><p class=\"smoke-dim\">Gives: VC1, VC2, VC3, VC4, VC5, VC6.</p>"
+   }
+  },
+  {
+   "key": "mara-sol",
+   "name": "Mara Sol",
+   "aliases": [
+    "Mara Sol"
+   ],
+   "role": "performer",
+   "faction": "VC",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-mara-sol.webp",
+   "venues": [],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 315,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Mara Sol</b> \u2014 performer (The Velvet Circuit). Fictional.</p><p>performer Mara Sol wants a future without Owen&#x27;s control.</p>"
+   }
+  },
+  {
+   "key": "reece-hale",
+   "name": "Reece Hale",
+   "aliases": [
+    "Reece Hale"
+   ],
+   "role": "door manager",
+   "faction": "VC",
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-reece-hale.webp",
+   "venues": [
+    "ST3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 10
+     },
+     "grt": {
+      "die": 8
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 6
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 14,
+      "max": 14
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 135,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Reece Hale</b> \u2014 door manager (The Velvet Circuit). Fictional.</p><p>Door manager Reece Hale wants staff paid;</p><p><b>At ST3 London Aquatics Centre</b> (Stratford &amp; the Stadium): event supervisor. A fictional sporting event offers a witness meeting, a valuable prize and a delivery the dispatcher has misidentified.</p>"
+   }
+  },
+  {
+   "key": "ada-finch",
+   "name": "Ada Finch",
+   "aliases": [
+    "Ada Finch"
+   ],
+   "role": "sound artist",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ada-finch.webp",
+   "venues": [
+    "WW3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 55,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Ada Finch</b> \u2014 sound artist. Fictional.</p><p><b>At WW3 The Adam and Eve</b> (Homerton East &amp; Wick Woodland). A fictional hire driver is waiting for their next job when two collectors arrive for different vans of the same colour.</p>"
+   }
+  },
+  {
+   "key": "alix-porter",
+   "name": "Alix Porter",
+   "aliases": [
+    "Alix Porter"
+   ],
+   "role": "event stores keeper",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-alix-porter.webp",
+   "venues": [
+    "VW6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 235,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Alix Porter</b> \u2014 event stores keeper. Fictional.</p><p><b>At VW6 People&#x27;s Park Tavern</b> (Victoria Park &amp; Hackney Wick). A fictional sponsor has bought a benefit&#x27;s publicity without paying the workers; a public performance creates a deadline for an honest or profitable settlement.</p>"
+   }
+  },
+  {
+   "key": "amina-keane",
+   "name": "Amina Keane",
+   "aliases": [
+    "Amina Keane"
+   ],
+   "role": "equipment-hire owner",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-amina-keane.webp",
+   "venues": [
+    "HR4",
+    "HR7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 150,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Amina Keane</b> \u2014 equipment-hire owner. Fictional.</p><p><b>At HR4 Haggerston Community Centre</b> (Haggerston Park &amp; Hackney Rd). An invented crew meeting can become a funded youth riding project, a recruitment front or the scene of a rival&#x27;s accusation; the campaign participants are fictional.</p><p><b>At HR7 Queensbridge Sound Store</b> (Haggerston Park &amp; Hackney Rd). One missing sound system is pledged to two events; an unpaid crew has moved it for a third client.</p>"
+   }
+  },
+  {
+   "key": "amir-costa",
+   "name": "Amir Costa",
+   "aliases": [
+    "Amir Costa"
+   ],
+   "role": "amateur match organiser",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-amir-costa.webp",
+   "venues": [
+    "HM5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 260,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Amir Costa</b> \u2014 amateur match organiser. Fictional.</p><p><b>At HM5 Temple Mills International Depot</b> (Hackney Marshes). A fictional interview and collection at an invented visitor wing identifies a witness by work history; the railway operation itself is not the criminal organisation.</p>"
+   }
+  },
+  {
+   "key": "anya-byrne",
+   "name": "Anya Byrne",
+   "aliases": [
+    "Anya Byrne"
+   ],
+   "role": "stage manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-anya-byrne.webp",
+   "venues": [
+    "HC4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 150,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Anya Byrne</b> \u2014 stage manager. Fictional.</p><p><b>At HC4 Oslo Hackney</b> (Hackney Central &amp; Homerton). A fictional hire collection collides with another gig&#x27;s load-out, creating a moving van encounter before the crew knows which case is theirs.</p>"
+   }
+  },
+  {
+   "key": "arthur-venn",
+   "name": "Arthur Venn",
+   "aliases": [
+    "Arthur Venn"
+   ],
+   "role": "retired cabbie",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-arthur-venn.webp",
+   "venues": [],
+   "missions": [
+    "S18"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 10
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 195,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Arthur Venn</b> \u2014 retired cabbie. Fictional.</p><p class=\"smoke-dim\">Gives: S18.</p>"
+   }
+  },
+  {
+   "key": "asha-stone",
+   "name": "Asha Stone",
+   "aliases": [
+    "Asha Stone"
+   ],
+   "role": "retired care worker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-asha-stone.webp",
+   "venues": [
+    "WW4",
+    "WW7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 10
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 75,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Asha Stone</b> \u2014 retired care worker. Fictional.</p><p><b>At WW4 The Spread Eagle</b> (Homerton East &amp; Wick Woodland). A fictional courier left a bag under the wrong table; one customer wants the ordinary contents back while another wants the envelope hidden inside.</p><p><b>At WW7 Willow Cabin</b> (Homerton East &amp; Wick Woodland). Nia Switch Bell is alive here at the start; her evidence and her present whereabouts are separate bargaining issues.</p>"
+   }
+  },
+  {
+   "key": "basil-armitage",
+   "name": "Basil Armitage",
+   "aliases": [
+    "Basil Armitage"
+   ],
+   "role": "cab dispatcher",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-basil-armitage.webp",
+   "venues": [
+    "CL6",
+    "HC5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 205,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Basil Armitage</b> \u2014 cab dispatcher. Fictional.</p><p><b>At CL6 The Elderfield</b> (Clapton). A fictional match fixer meets a runner here; the crew can steal the payoff, expose the offer or buy the runner a different exit.</p><p><b>At HC5 MOTH Club</b> (Hackney Central &amp; Homerton): visiting dispatcher. An invented club meeting is carrying a faction leadership vote under cover of an ordinary social night; a rival brings a creditor as leverage.</p>"
+   }
+  },
+  {
+   "key": "beatrice-shaw",
+   "name": "Beatrice Shaw",
+   "aliases": [
+    "Beatrice Shaw"
+   ],
+   "role": "executor",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-beatrice-shaw.webp",
+   "venues": [
+    "CG3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 70,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Beatrice Shaw</b> \u2014 executor. Fictional.</p><p><b>At CG3 The Canonbury Tavern</b> (Canonbury &amp; Newington Green). A collector holds a private preview upstairs, where a familiar frame has a new ownership story and a much higher price.</p>"
+   }
+  },
+  {
+   "key": "carmen-sloane",
+   "name": "Carmen Sloane",
+   "aliases": [
+    "Carmen Sloane"
+   ],
+   "role": "night manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-carmen-sloane.webp",
+   "venues": [
+    "ST5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 300,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Carmen Sloane</b> \u2014 night manager. Fictional.</p><p><b>At ST5 Sadler&#x27;s Wells East</b> (Stratford &amp; the Stadium). An invented late performance gives the crew an alternate stage for an appeal when the main station programme is bought or interrupted.</p>"
+   }
+  },
+  {
+   "key": "daniel-firth",
+   "name": "Daniel Firth",
+   "aliases": [
+    "Daniel Firth"
+   ],
+   "role": "committee clerk",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-daniel-firth.webp",
+   "venues": [
+    "WS3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 255,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Daniel Firth</b> \u2014 committee clerk. Fictional.</p><p><b>At WS3 The Gun</b> (South Hackney &amp; Well Street). A fictional collector uses an ordinary pub meeting to sell a protection claim they do not own, with a second crew waiting for the same fee.</p>"
+   }
+  },
+  {
+   "key": "darren-ellis",
+   "name": "Darren \"Tabs\" Ellis",
+   "aliases": [
+    "Darren \"Tabs\" Ellis",
+    "Darren Tabs Ellis"
+   ],
+   "role": "club secretary",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-darren-ellis.webp",
+   "venues": [
+    "SN6",
+    "SN8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 200,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Darren &quot;Tabs&quot; Ellis</b> \u2014 club secretary. Fictional.</p><p><b>At SN6 St Paul&#x27;s West Hackney</b> (Stoke Newington &amp; Shacklewell). An invented tenant meeting holds the clean copy of a repair petition; someone wants it replaced before the public account becomes fixed.</p><p><b>At SN8 Evering Safe Flat</b> (Stoke Newington &amp; Shacklewell). A collector has paid for a refuge but believes that makes its guest his property.</p>"
+   }
+  },
+  {
+   "key": "della-finch",
+   "name": "Della Finch",
+   "aliases": [
+    "Della Finch"
+   ],
+   "role": "cycle collector",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-della-finch.webp",
+   "venues": [
+    "HB1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 10
+     },
+     "grt": {
+      "die": 8
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 6
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 8
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 14,
+      "max": 14
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 65,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Della Finch</b> \u2014 cycle collector. Fictional.</p><p><b>At HB1 Clissold House</b> (Highbury &amp; Albion Rd). A fictional donor&#x27;s reception conceals a missing envelope among coats and catering cases; the crew can steal it, buy it or expose its owner at the wrong moment.</p>"
+   }
+  },
+  {
+   "key": "dennis-crowe",
+   "name": "Dennis Crowe",
+   "aliases": [
+    "Dennis Crowe"
+   ],
+   "role": "repairer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-dennis-crowe.webp",
+   "venues": [
+    "HX5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 255,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Dennis Crowe</b> \u2014 repairer. Fictional.</p><p><b>At HX5 The Narrowboat</b> (Hoxton West &amp; the Canal). A fictional canal courier waits for a buyer while a second crew approaches from the towpath, turning a quiet sale into a pursuit or three-way bargain.</p>"
+   }
+  },
+  {
+   "key": "eileen-grant",
+   "name": "Eileen Grant",
+   "aliases": [
+    "Eileen Grant"
+   ],
+   "role": "residents' organiser",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-eileen-grant.webp",
+   "venues": [
+    "VW4",
+    "VW8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 25,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Eileen Grant</b> \u2014 residents&#x27; organiser. Fictional.</p><p><b>At VW4 Grow Hackney</b> (Victoria Park &amp; Hackney Wick). An invented arts night includes an audio installation whose background sound disproves the claimed location of the warning.</p><p><b>At VW8 White Post Workers Rooms</b> (Victoria Park &amp; Hackney Wick). One of the six targeted premises; residents and workers disagree about a relocation offer made under a false account.</p>"
+   }
+  },
+  {
+   "key": "ellis-morgan",
+   "name": "Ellis Morgan",
+   "aliases": [
+    "Ellis Morgan"
+   ],
+   "role": "event organiser",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ellis-morgan.webp",
+   "venues": [
+    "HC6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 70,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Ellis Morgan</b> \u2014 event organiser. Fictional.</p><p><b>At HC6 The Castle Cinema</b> (Hackney Central &amp; Homerton). A fictional screening contains an accidental glimpse of a disputed van handover; the camera&#x27;s owner wants to sell the full version before the show.</p>"
+   }
+  },
+  {
+   "key": "ewan-cole",
+   "name": "Ewan Cole",
+   "aliases": [
+    "Ewan Cole"
+   ],
+   "role": "garage proprietor",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ewan-cole.webp",
+   "venues": [
+    "ON3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 185,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Ewan Cole</b> \u2014 garage proprietor. Fictional.</p><p><b>At ON3 Timber Lodge</b> (Olympic Park North). A fictional race checkpoint receives the result before the runners arrive, giving the crew a narrow chance to catch the person selling it.</p>"
+   }
+  },
+  {
+   "key": "ezra-holt",
+   "name": "Ezra Holt",
+   "aliases": [
+    "Ezra Holt"
+   ],
+   "role": "youth rowing volunteer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ezra-holt.webp",
+   "venues": [
+    "CL4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 85,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Ezra Holt</b> \u2014 youth rowing volunteer. Fictional.</p><p><b>At CL4 The Clapton Hart</b> (Clapton). A missing-person appeal brings a genuine old friend and a paid false witness to the same table.</p>"
+   }
+  },
+  {
+   "key": "farah-yilmaz",
+   "name": "Farah Yilmaz",
+   "aliases": [
+    "Farah Yilmaz"
+   ],
+   "role": "hall steward",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-farah-yilmaz.webp",
+   "venues": [
+    "HB6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 105,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Farah Yilmaz</b> \u2014 hall steward. Fictional.</p><p><b>At HB6 The Rose and Crown</b> (Highbury &amp; Albion Rd). A guest at an invented private function has pledged the same tape as security to two lenders, both of whom have sent collectors.</p>"
+   }
+  },
+  {
+   "key": "felix-dyer",
+   "name": "Felix Dyer",
+   "aliases": [
+    "Felix Dyer"
+   ],
+   "role": "caf\u00e9 employee",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-felix-dyer.webp",
+   "venues": [
+    "LF4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 305,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Felix Dyer</b> \u2014 caf\u00e9 employee. Fictional.</p><p><b>At LF4 The Spurstowe Arms</b> (Haggerston &amp; London Fields). A fictional buyer for the Whippet changes the meeting into an argument over the promised model, its ownership and the agreed price.</p>"
+   }
+  },
+  {
+   "key": "giles-archer",
+   "name": "Giles Archer",
+   "aliases": [
+    "Giles Archer"
+   ],
+   "role": "pawnbroker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-giles-archer.webp",
+   "venues": [
+    "LY5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Giles Archer</b> \u2014 pawnbroker. Fictional.</p><p><b>At LY5 Score Leisure Centre</b> (Leyton &amp; Ruckholt). A fictional runner&#x27;s sponsor has promised two athletes the same exclusive; a changing-room confrontation becomes a public race-time choice.</p>"
+   }
+  },
+  {
+   "key": "grace-okafor",
+   "name": "Grace Okafor",
+   "aliases": [
+    "Grace Okafor"
+   ],
+   "role": "tenant and warehouse keeper",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-grace-okafor.webp",
+   "venues": [
+    "DB4",
+    "DB8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Grace Okafor</b> \u2014 tenant and warehouse keeper. Fictional.</p><p><b>At DB4 The De Beauvoir Arms</b> (De Beauvoir). A fictional letting clerk meets workers over a pint and realises their premises were described as vacant before the proposed inspection.</p><p><b>At DB8 Essex Dry Goods</b> (De Beauvoir). One of the six targeted premises; the workers are present despite a prewritten inventory describing it as empty.</p>"
+   }
+  },
+  {
+   "key": "gwen-hollis",
+   "name": "Gwen Hollis",
+   "aliases": [
+    "Gwen Hollis"
+   ],
+   "role": "canal volunteer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-gwen-hollis.webp",
+   "venues": [
+    "HM6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 225,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Gwen Hollis</b> \u2014 canal volunteer. Fictional.</p><p><b>At HM6 Leyton Jubilee Park pavilion</b> (Hackney Marshes). A fictional sports booking has been sold twice, leaving an event fee, a vanished organiser and a genuine crowd waiting for doors to open.</p>"
+   }
+  },
+  {
+   "key": "hassan-arif",
+   "name": "Hassan Arif",
+   "aliases": [
+    "Hassan Arif"
+   ],
+   "role": "parts dealer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-hassan-arif.webp",
+   "venues": [
+    "LY2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 265,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Hassan Arif</b> \u2014 parts dealer. Fictional.</p><p><b>At LY2 Leyton Orient Supporters Club</b> (Leyton &amp; Ruckholt). A fictional supporters&#x27; fundraiser loses its takings; the treasurer&#x27;s honest mistake gives a separate thief cover to move the envelope.</p>"
+   }
+  },
+  {
+   "key": "helen-drew",
+   "name": "Helen Drew",
+   "aliases": [
+    "Helen Drew"
+   ],
+   "role": "event administrator",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-helen-drew.webp",
+   "venues": [
+    "ON6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 60,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Helen Drew</b> \u2014 event administrator. Fictional.</p><p><b>At ON6 The Leyton Star</b> (Olympic Park North). A fictional lender pays for a runner&#x27;s kit and later calls it a debt; a private settlement can become a theft, a public row or a new sponsorship.</p>"
+   }
+  },
+  {
+   "key": "imogen-vale",
+   "name": "Imogen Vale",
+   "aliases": [
+    "Imogen Vale"
+   ],
+   "role": "record seller",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-imogen-vale.webp",
+   "venues": [
+    "SN2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 195,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Imogen Vale</b> \u2014 record seller. Fictional.</p><p><b>At SN2 Abney Books</b> (Stoke Newington &amp; Shacklewell). A donation includes a betting book hidden inside a family history; its donor wants one page returned before anyone reads the rest.</p>"
+   }
+  },
+  {
+   "key": "indira-shaw",
+   "name": "Indira Shaw",
+   "aliases": [
+    "Indira Shaw"
+   ],
+   "role": "workshop manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-indira-shaw.webp",
+   "venues": [
+    "VW1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 20,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Indira Shaw</b> \u2014 workshop manager. Fictional.</p><p><b>At VW1 Barge East</b> (Victoria Park &amp; Hackney Wick). A fictional private dining meeting takes place aboard the barge while a courier waits dockside with a case that belongs to neither diner.</p>"
+   }
+  },
+  {
+   "key": "ivo-marsh",
+   "name": "Ivo Marsh",
+   "aliases": [
+    "Ivo Marsh"
+   ],
+   "role": "parcel clerk",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ivo-marsh.webp",
+   "venues": [
+    "OF6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 100,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Ivo Marsh</b> \u2014 parcel clerk. Fictional.</p><p><b>At OF6 Forman&#x27;s Fish Island</b> (Old Ford &amp; Bow). An invented private reception puts a contractor and a lender at adjacent tables while a visiting courier is offered money to change their account.</p>"
+   }
+  },
+  {
+   "key": "jonah-mills",
+   "name": "Jonah Mills",
+   "aliases": [
+    "Jonah Mills"
+   ],
+   "role": "book club secretary",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-jonah-mills.webp",
+   "venues": [],
+   "missions": [
+    "S01"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 20,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Jonah Mills</b> \u2014 book club secretary. Fictional.</p><p class=\"smoke-dim\">Gives: S01.</p>"
+   }
+  },
+  {
+   "key": "jonah-reed",
+   "name": "Jonah Reed",
+   "aliases": [
+    "Jonah Reed"
+   ],
+   "role": "bookseller",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-jonah-reed.webp",
+   "venues": [
+    "HB5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 205,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Jonah Reed</b> \u2014 bookseller. Fictional.</p><p><b>At HB5 Stoke Newington Town Hall</b> (Highbury &amp; Albion Rd). A fictional property hearing puts the crew, tenant representatives and a paid intermediary in one room with a short speaking slot and a missing original.</p>"
+   }
+  },
+  {
+   "key": "juno-peters",
+   "name": "Juno Peters",
+   "aliases": [
+    "Juno Peters"
+   ],
+   "role": "centre caretaker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-juno-peters.webp",
+   "venues": [
+    "WW1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 270,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Juno Peters</b> \u2014 centre caretaker. Fictional.</p><p><b>At WW1 Hackney Marshes Centre</b> (Homerton East &amp; Wick Woodland). A fictional recovery job moves through the sports complex while a charity delivery and a valuable bike shipment arrive together.</p>"
+   }
+  },
+  {
+   "key": "kenji-ward",
+   "name": "Kenji Ward",
+   "aliases": [
+    "Kenji Ward"
+   ],
+   "role": "night-shift porter",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-kenji-ward.webp",
+   "venues": [
+    "HM3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 200,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Kenji Ward</b> \u2014 night-shift porter. Fictional.</p><p><b>At HM3 New Spitalfields Market administration</b> (Hackney Marshes). A fictional hire enquiry uncovers two invoices issued for the same journey and an original that a courier will collect at closing.</p>"
+   }
+  },
+  {
+   "key": "kit-dey",
+   "name": "Kit Dey",
+   "aliases": [
+    "Kit Dey"
+   ],
+   "role": "print worker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-kit-dey.webp",
+   "venues": [
+    "OF4",
+    "OF8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 195,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Kit Dey</b> \u2014 print worker. Fictional.</p><p><b>At OF4 St Paul Old Ford</b> (Old Ford &amp; Bow). An invented residents&#x27; meeting has two genuine relocation proposals and an unsigned petition that an intermediary wants to claim as universal support.</p><p><b>At OF8 Roman Rooms Printworks</b> (Old Ford &amp; Bow). One of the six targeted premises; a clearance leaflet was produced before the incident it claims to summarise.</p>"
+   }
+  },
+  {
+   "key": "leila-trent",
+   "name": "Leila Trent",
+   "aliases": [
+    "Leila Trent"
+   ],
+   "role": "bar manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-leila-trent.webp",
+   "venues": [
+    "HX4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 105,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Leila Trent</b> \u2014 bar manager. Fictional.</p><p><b>At HX4 Victoria Miro</b> (Hoxton West &amp; the Canal). An invented loan viewing attracts a collector, a restorer and an artist with incompatible rights to the same crate.</p>"
+   }
+  },
+  {
+   "key": "lena-morris",
+   "name": "Dr Lena Morris",
+   "aliases": [
+    "Dr Lena Morris"
+   ],
+   "role": "volunteer clinician",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-lena-morris.webp",
+   "venues": [
+    "BG4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 250,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Dr Lena Morris</b> \u2014 volunteer clinician. Fictional.</p><p><b>At BG4 St John on Bethnal Green</b> (Bethnal Green). An invented memorial appeal is collecting money for a living cab driver; the embarrassed family and the dishonest broker need different resolutions.</p>"
+   }
+  },
+  {
+   "key": "lenora-pike",
+   "name": "Lenora Pike",
+   "aliases": [
+    "Lenora Pike"
+   ],
+   "role": "tenants' secretary",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-lenora-pike.webp",
+   "venues": [
+    "WS2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 270,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Lenora Pike</b> \u2014 tenants&#x27; secretary. Fictional.</p><p><b>At WS2 Hackney Picturehouse</b> (South Hackney &amp; Well Street). An invented film event puts a private witness account on the programme without the speaker&#x27;s agreement; the full recording also clears a driver.</p>"
+   }
+  },
+  {
+   "key": "liv-barrett",
+   "name": "Liv Barrett",
+   "aliases": [
+    "Liv Barrett"
+   ],
+   "role": "freight clerk",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-liv-barrett.webp",
+   "venues": [
+    "LY6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 170,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Liv Barrett</b> \u2014 freight clerk. Fictional.</p><p><b>At LY6 The Coach and Horses</b> (Leyton &amp; Ruckholt). A private debt settlement puts two authentic claimants beside a forged account; the person carrying the cash plans to leave before anyone compares them.</p>"
+   }
+  },
+  {
+   "key": "mags-cole",
+   "name": "Mags Cole",
+   "aliases": [
+    "Mags Cole"
+   ],
+   "role": "off-duty crew representative",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-mags-cole.webp",
+   "venues": [
+    "SN5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 250,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Mags Cole</b> \u2014 off-duty crew representative. Fictional.</p><p><b>At SN5 The Shacklewell Arms</b> (Stoke Newington &amp; Shacklewell). A fictional band&#x27;s missing sound case is already on a departing van while a promoter announces an expensive replacement hire.</p>"
+   }
+  },
+  {
+   "key": "malcolm-reed",
+   "name": "Malcolm \"Mal\" Reed",
+   "aliases": [
+    "Malcolm \"Mal\" Reed"
+   ],
+   "role": "retired DJ",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-malcolm-reed.webp",
+   "venues": [
+    "VW2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 10
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 45,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Malcolm &quot;Mal&quot; Reed</b> \u2014 retired DJ. Fictional.</p><p><b>At VW2 CRATE Brewery</b> (Victoria Park &amp; Hackney Wick). A fictional event crew has mixed a valuable recording into its hire returns; a rival wants to buy the whole consignment before it is sorted.</p>"
+   }
+  },
+  {
+   "key": "marisol-vega",
+   "name": "Marisol Vega",
+   "aliases": [
+    "Marisol Vega"
+   ],
+   "role": "depot forewoman",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-marisol-vega.webp",
+   "venues": [
+    "HM2",
+    "HM7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Marisol Vega</b> \u2014 depot forewoman. Fictional.</p><p><b>At HM2 New Spitalfields Market produce hall</b> (Hackney Marshes). An invented trader&#x27;s load is being removed during the rush; the crew must choose whether to recover a stolen object, follow a person or finish a paid collection.</p><p><b>At HM7 Orient Night Shed</b> (Hackney Marshes). A stolen load is mixed with an ordinary market consignment and two crews expect collection.</p>"
+   }
+  },
+  {
+   "key": "marnie-lowe",
+   "name": "Marnie Lowe",
+   "aliases": [
+    "Marnie Lowe"
+   ],
+   "role": "venue porter",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-marnie-lowe.webp",
+   "venues": [
+    "LF5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 90,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Marnie Lowe</b> \u2014 venue porter. Fictional.</p><p><b>At LF5 The Duke of Wellington</b> (Haggerston &amp; London Fields). A fictional sound-case exchange is interrupted by a bookmaker&#x27;s collector who believes its contents settle a different debt.</p>"
+   }
+  },
+  {
+   "key": "marta-severin",
+   "name": "Marta Severin",
+   "aliases": [
+    "Marta Severin"
+   ],
+   "role": "warehouse night manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-marta-severin.webp",
+   "venues": [
+    "LY4",
+    "LY8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 205,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Marta Severin</b> \u2014 warehouse night manager. Fictional.</p><p><b>At LY4 Leyton Great Hall</b> (Leyton &amp; Ruckholt). An invented private gala gives the crew access to a property-options handover, a rival buyer and an upstairs negotiation that can change the price.</p><p><b>At LY8 Larch Cold Store</b> (Leyton &amp; Ruckholt). The fictional Halo shipment changed here; the remaining stock is valuable, harmful and claimed by several patrons.</p>"
+   }
+  },
+  {
+   "key": "maya-foster",
+   "name": "Maya Foster",
+   "aliases": [
+    "Maya Foster"
+   ],
+   "role": "personal shopper",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-maya-foster.webp",
+   "venues": [
+    "ST1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 125,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Maya Foster</b> \u2014 personal shopper. Fictional.</p><p><b>At ST1 Westfield Stratford City</b> (Stratford &amp; the Stadium). A fictional collector&#x27;s private shopping appointment is cover for a stolen-object handover; the crew can follow the object or the person who paid for it.</p>"
+   }
+  },
+  {
+   "key": "mick-okoro",
+   "name": "Mick Okoro",
+   "aliases": [
+    "Mick Okoro"
+   ],
+   "role": "van-hire manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-mick-okoro.webp",
+   "venues": [
+    "VW5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 310,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Mick Okoro</b> \u2014 van-hire manager. Fictional.</p><p><b>At VW5 Number 90</b> (Victoria Park &amp; Hackney Wick). An invented club event has two rival rights to the same headline set and one visitor offering a private fee to stop it happening.</p>"
+   }
+  },
+  {
+   "key": "milo-trent",
+   "name": "Milo Trent",
+   "aliases": [
+    "Milo Trent"
+   ],
+   "role": "chef and tenant",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-milo-trent.webp",
+   "venues": [
+    "DA6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 215,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Milo Trent</b> \u2014 chef and tenant. Fictional.</p><p><b>At DA6 Dalston CLR James Library</b> (Dalston). A public-history enquiry finds an old credit, a false name and a surviving caller&#x27;s route into the missing-DJ case.</p>"
+   }
+  },
+  {
+   "key": "mina-dey",
+   "name": "Mina Dey",
+   "aliases": [
+    "Mina Dey"
+   ],
+   "role": "pressured letting clerk",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-mina-dey.webp",
+   "venues": [
+    "HB4",
+    "HB8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 110,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Mina Dey</b> \u2014 pressured letting clerk. Fictional.</p><p><b>At HB4 The Highbury Barn Tavern</b> (Highbury &amp; Albion Rd). A cycle collector meets a fence over a drink while the bicycle&#x27;s actual owner arrives for the same appointment.</p><p><b>At HB8 Orchard Lease Office</b> (Highbury &amp; Albion Rd). One of the six targeted premises; the tenants&#x27; earlier offer survives beside a later false vacancy report.</p>"
+   }
+  },
+  {
+   "key": "mo-rahman",
+   "name": "Mo Rahman",
+   "aliases": [
+    "Mo Rahman"
+   ],
+   "role": "landlord of Chicken Palace",
+   "faction": null,
+   "patron": false,
+   "existing": "mo",
+   "img": "systems/the-smoke/assets/tokens/people/npc-mo.webp",
+   "venues": [
+    "HC2"
+   ],
+   "missions": [
+    "S08"
+   ],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 145,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Mo Rahman</b> \u2014 landlord of Chicken Palace. Fictional.</p><p><b>At HC2 Round Chapel</b> (Hackney Central &amp; Homerton): established landlord. A fictional listening night becomes a three-way contest for the microphone, the missing recording and the cash collected at the door.</p><p class=\"smoke-dim\">Gives: S08.</p>"
+   }
+  },
+  {
+   "key": "nadia-sayeed",
+   "name": "Nadia Sayeed",
+   "aliases": [
+    "Nadia Sayeed"
+   ],
+   "role": "kiosk owner",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-nadia-sayeed.webp",
+   "venues": [
+    "CL1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 230,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Nadia Sayeed</b> \u2014 kiosk owner. Fictional.</p><p><b>At CL1 Clapton Library</b> (Clapton). A local-history enquiry identifies a previous owner of the missing watch and puts the crew on a trail independent of Meridian.</p>"
+   }
+  },
+  {
+   "key": "nell-grant",
+   "name": "Nell Grant",
+   "aliases": [
+    "Nell Grant"
+   ],
+   "role": "volunteer steward",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-nell-grant.webp",
+   "venues": [
+    "OF5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 75,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Nell Grant</b> \u2014 volunteer steward. Fictional.</p><p><b>At OF5 The Trampery Fish Island Village</b> (Old Ford &amp; Bow). A fictional maker&#x27;s hired workspace contains the crate that a respectable buyer says was never delivered; its ordinary creator needs their tools returned.</p>"
+   }
+  },
+  {
+   "key": "nico-evans",
+   "name": "Nico \"Blank\" Evans",
+   "aliases": [
+    "Nico \"Blank\" Evans"
+   ],
+   "role": "young adult DJ",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-nico-evans.webp",
+   "venues": [
+    "HR2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 6
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 250,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Nico &quot;Blank&quot; Evans</b> \u2014 young adult DJ. Fictional.</p><p><b>At HR2 Hoxton Hall</b> (Haggerston Park &amp; Hackney Rd). A fictional benefit performance needs an honest final bill while a sponsor threatens to withdraw the fee already promised to its workers.</p>"
+   }
+  },
+  {
+   "key": "nico-petrescu",
+   "name": "Nico Petrescu",
+   "aliases": [
+    "Nico Petrescu"
+   ],
+   "role": "contract mechanic",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-nico-petrescu.webp",
+   "venues": [
+    "ON1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 285,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Nico Petrescu</b> \u2014 contract mechanic. Fictional.</p><p><b>At ON1 Lee Valley VeloPark</b> (Olympic Park North). An invented amateur cycling event brings a valuable frame, a disputed sponsor and two collectors into the visitor and workshop areas.</p>"
+   }
+  },
+  {
+   "key": "noreen-aziz",
+   "name": "Noreen Aziz",
+   "aliases": [
+    "Noreen Aziz"
+   ],
+   "role": "launderette proprietor",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-noreen-aziz.webp",
+   "venues": [
+    "WS1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 220,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Noreen Aziz</b> \u2014 launderette proprietor. Fictional.</p><p><b>At WS1 Hackney Town Hall</b> (South Hackney &amp; Well Street). A fictional public-gallery session offers a short chance to present genuine papers before an intermediary&#x27;s misleading account is accepted by the room.</p>"
+   }
+  },
+  {
+   "key": "ollie-grant",
+   "name": "Ollie Grant",
+   "aliases": [
+    "Ollie Grant"
+   ],
+   "role": "grounds caretaker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ollie-grant.webp",
+   "venues": [
+    "HM1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 235,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Ollie Grant</b> \u2014 grounds caretaker. Fictional.</p><p><b>At HM1 Hackney Marshes North Pavilion</b> (Hackney Marshes). A fictional amateur club&#x27;s match envelope disappears between the changing corridor and the clubroom; three teams have different reasons to keep quiet.</p>"
+   }
+  },
+  {
+   "key": "oona-dale",
+   "name": "Oona Dale",
+   "aliases": [
+    "Oona Dale"
+   ],
+   "role": "costume maker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-oona-dale.webp",
+   "venues": [
+    "HR5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 295,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Oona Dale</b> \u2014 costume maker. Fictional.</p><p><b>At HR5 Hackney City Farm</b> (Haggerston Park &amp; Hackney Rd). A fictional adult volunteer&#x27;s misplaced work bag contains a meeting note sought by a collector; ordinary visitors and the farm&#x27;s real work remain separate.</p>"
+   }
+  },
+  {
+   "key": "otis-mensah",
+   "name": "Otis Mensah",
+   "aliases": [
+    "Otis Mensah"
+   ],
+   "role": "dispatcher",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-otis-mensah.webp",
+   "venues": [
+    "BG6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 8
+     },
+     "whl": {
+      "die": 10
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 30,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 6
+    },
+    "biography": "<p><b>Otis Mensah</b> \u2014 dispatcher. Fictional.</p><p><b>At BG6 Viktor Wynd Museum</b> (Bethnal Green). An invented collectors&#x27; evening offers an unusual bell, a disputed provenance and a witness who recognises its sound from an independent killing.</p>"
+   }
+  },
+  {
+   "key": "pauline-moss",
+   "name": "Pauline Moss",
+   "aliases": [
+    "Pauline Moss"
+   ],
+   "role": "supporters organiser",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-pauline-moss.webp",
+   "venues": [
+    "LY1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 280,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Pauline Moss</b> \u2014 supporters organiser. Fictional.</p><p><b>At LY1 Leyton Orient stadium</b> (Leyton &amp; Ruckholt). An invented amateur event brings a runner, a bookmaker and a coveted bicycle into the same visitor wing before a public prize-giving.</p>"
+   }
+  },
+  {
+   "key": "petra-shaw",
+   "name": "Petra Shaw",
+   "aliases": [
+    "Petra Shaw"
+   ],
+   "role": "radio hobbyist",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-petra-shaw.webp",
+   "venues": [
+    "HM4",
+    "HM8"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 200,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Petra Shaw</b> \u2014 radio hobbyist. Fictional.</p><p><b>At HM4 Orient Way railway depot</b> (Hackney Marshes). A fictional off-duty worker can clear a driver&#x27;s name, but the meeting is interrupted by a rival crew&#x27;s attempt to recover their own cargo.</p><p><b>At HM8 Silt Listening Bunker</b> (Hackney Marshes). An invented former service building contains a rehearsal that contradicts the apparent live warning.</p>"
+   }
+  },
+  {
+   "key": "polly-james",
+   "name": "Polly James",
+   "aliases": [
+    "Polly James"
+   ],
+   "role": "kiosk attendant",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-polly-james.webp",
+   "venues": [
+    "LF2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 155,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Polly James</b> \u2014 kiosk attendant. Fictional.</p><p><b>At LF2 The Prince Arthur</b> (Haggerston &amp; London Fields). A fictional courier&#x27;s abandoned coat contains a handover invitation and a key claimed by two households.</p>"
+   }
+  },
+  {
+   "key": "rafi-bellamy",
+   "name": "Rafi Bellamy",
+   "aliases": [
+    "Rafi Bellamy"
+   ],
+   "role": "event contractor",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-rafi-bellamy.webp",
+   "venues": [
+    "CG5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 140,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Rafi Bellamy</b> \u2014 event contractor. Fictional.</p><p><b>At CG5 The Alwyne Castle</b> (Canonbury &amp; Newington Green). A restorer recognises the returned painting but not the new certificate attached to it; a buyer is ready to leave with both.</p>"
+   }
+  },
+  {
+   "key": "riz-sethi",
+   "name": "Riz Sethi",
+   "aliases": [
+    "Riz Sethi"
+   ],
+   "role": "yard foreman",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-riz-sethi.webp",
+   "venues": [
+    "OF2",
+    "BF4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 85,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Riz Sethi</b> \u2014 yard foreman. Fictional.</p><p><b>At OF2 Nunnery Gallery</b> (Old Ford &amp; Bow). An invented exhibition loan hides a private property option behind the frame; an art broker is taking bids before its owner hears the full story.</p><p><b>At BF4 3 Mills Studios</b> (Bow Flyover &amp; Mill Meads): visiting foreman. An invented production crew accidentally filmed a coercive van handover; the rough cut, the passenger and the vehicle&#x27;s hirer give independent ways to pursue it.</p>"
+   }
+  },
+  {
+   "key": "rowan-hart",
+   "name": "Rowan Hart",
+   "aliases": [
+    "Rowan Hart"
+   ],
+   "role": "music tutor",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-rowan-hart.webp",
+   "venues": [
+    "ON5",
+    "ON7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 260,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Rowan Hart</b> \u2014 music tutor. Fictional.</p><p><b>At ON5 Signorelli at Stratford Cross</b> (Olympic Park North). A fictional sponsor&#x27;s coffee meeting is double booked with the worker whose account could ruin the proposed partnership.</p><p><b>At ON7 North Echo Rehearsal Rooms</b> (Olympic Park North). A genuine earlier rehearsal survives here and a sponsor is trying to buy every usable version.</p>"
+   }
+  },
+  {
+   "key": "ruth-bellamy",
+   "name": "Ruth Bellamy",
+   "aliases": [
+    "Ruth Bellamy"
+   ],
+   "role": "lockup manager",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-ruth-bellamy.webp",
+   "venues": [
+    "HB3",
+    "HB7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 45,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Ruth Bellamy</b> \u2014 lockup manager. Fictional.</p><p><b>At HB3 St Mary&#x27;s New Church</b> (Highbury &amp; Albion Rd). A fictional community-booking meeting attracts rival guarantors; the donation box and the organiser&#x27;s ledger tell different stories about who paid.</p><p><b>At HB7 Oddments Lockup</b> (Highbury &amp; Albion Rd). A thief has delivered a collection a day before its owner reports it stolen.</p>"
+   }
+  },
+  {
+   "key": "saira-moon",
+   "name": "Saira Moon",
+   "aliases": [
+    "Saira Moon"
+   ],
+   "role": "residents' chair",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-saira-moon.webp",
+   "venues": [
+    "CG1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 220,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Saira Moon</b> \u2014 residents&#x27; chair. Fictional.</p><p><b>At CG1 Newington Green Meeting House</b> (Canonbury &amp; Newington Green). A fictional residents&#x27; assembly has to choose a spokesperson while a sponsor offers money to exclude an awkward witness.</p>"
+   }
+  },
+  {
+   "key": "salma-dean",
+   "name": "Salma Dean",
+   "aliases": [
+    "Salma Dean"
+   ],
+   "role": "print worker",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-salma-dean.webp",
+   "venues": [
+    "WS6",
+    "WS7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 95,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Salma Dean</b> \u2014 print worker. Fictional.</p><p><b>At WS6 The Empress</b> (South Hackney &amp; Well Street). A fictional sponsor offers to fund the crew&#x27;s future in exchange for keeping one performer and one witness away from the final programme.</p><p><b>At WS7 Wickside Print Shop</b> (South Hackney &amp; Well Street). The same fictional customer ordered the threatening flyers and the investor invitations.</p>"
+   }
+  },
+  {
+   "key": "sana-aziz",
+   "name": "Sana Aziz",
+   "aliases": [
+    "Sana Aziz"
+   ],
+   "role": "race organiser",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-sana-aziz.webp",
+   "venues": [
+    "ON4"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 8
+     },
+     "btl": {
+      "die": 6
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 215,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 5
+    },
+    "biography": "<p><b>Sana Aziz</b> \u2014 race organiser. Fictional.</p><p><b>At ON4 The Stratford hotel</b> (Olympic Park North). An invented investor reception gives Owen, Holt and Rusk different reasons to deny the same meeting; the visiting witnesses are campaign characters.</p>"
+   }
+  },
+  {
+   "key": "seth-calder",
+   "name": "Seth Calder",
+   "aliases": [
+    "Seth Calder"
+   ],
+   "role": "recording archivist",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-seth-calder.webp",
+   "venues": [
+    "VW3",
+    "VW7"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 260,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Seth Calder</b> \u2014 recording archivist. Fictional.</p><p><b>At VW3 Howling Hops Tank Bar</b> (Victoria Park &amp; Hackney Wick). A fictional promoter&#x27;s cash meeting clashes with a supplier demanding payment; a departed worker knows who changed the delivery label.</p><p><b>At VW7 Wallis Tape Rooms</b> (Victoria Park &amp; Hackney Wick). The false warning has an earlier mix, an unpaid editor and a cleaner with an independent copy.</p>"
+   }
+  },
+  {
+   "key": "sol-mercer",
+   "name": "Sol Mercer",
+   "aliases": [
+    "Sol Mercer"
+   ],
+   "role": "grounds volunteer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-sol-mercer.webp",
+   "venues": [
+    "SN3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 40,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Sol Mercer</b> \u2014 grounds volunteer. Fictional.</p><p><b>At SN3 The Auld Shillelagh</b> (Stoke Newington &amp; Shacklewell). Two fictional presenters quarrel over a programme credit while a courier quietly tries to sell a station master to their rival.</p>"
+   }
+  },
+  {
+   "key": "sylvie-ward",
+   "name": "Sylvie Ward",
+   "aliases": [
+    "Sylvie Ward"
+   ],
+   "role": "shopkeeper",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-sylvie-ward.webp",
+   "venues": [
+    "HR3"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 70,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Sylvie Ward</b> \u2014 shopkeeper. Fictional.</p><p><b>At HR3 Signature Brew Haggerston</b> (Haggerston Park &amp; Hackney Rd). A fictional station gathering has a swapped sound case, an unpaid artist and a returned recording that should have been destroyed.</p>"
+   }
+  },
+  {
+   "key": "toby-lin",
+   "name": "Toby Lin",
+   "aliases": [
+    "Toby Lin"
+   ],
+   "role": "record dealer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-toby-lin.webp",
+   "venues": [
+    "LF6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 250,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Toby Lin</b> \u2014 record dealer. Fictional.</p><p><b>At LF6 Wilton Way Deli and Wines</b> (Haggerston &amp; London Fields). A fictional wedding recording is being held after a private dedication was heard by the wrong person; a station trader offers cash for the only other copy.</p>"
+   }
+  },
+  {
+   "key": "tom-sethi",
+   "name": "Tom Sethi",
+   "aliases": [
+    "Tom Sethi"
+   ],
+   "role": "storage tenant",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-tom-sethi.webp",
+   "venues": [
+    "WW2"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 185,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Tom Sethi</b> \u2014 storage tenant. Fictional.</p><p><b>At WW2 HBC Community Centre</b> (Homerton East &amp; Wick Woodland). An invented tenant-support evening attracts an impersonator with an apparently correct booking; a genuine organiser can identify the person who hired them.</p>"
+   }
+  },
+  {
+   "key": "uncle-sol",
+   "name": "Uncle Sol",
+   "aliases": [
+    "Uncle Sol"
+   ],
+   "role": "caf\u00e9 fixer",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-uncle-sol.webp",
+   "venues": [
+    "BG1"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 6
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 10
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 60,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Uncle Sol</b> \u2014 caf\u00e9 fixer. Fictional.</p><p><b>At BG1 Young V&amp;A</b> (Bethnal Green). An invented adult donor preview separates a loaned object from the family papers hidden in its case; the campaign&#x27;s visiting lender has concealed a private sale.</p>"
+   }
+  },
+  {
+   "key": "vee-calder",
+   "name": "Vee Calder",
+   "aliases": [
+    "Vee Calder"
+   ],
+   "role": "mobile projectionist",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-vee-calder.webp",
+   "venues": [
+    "WW6"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 10
+     },
+     "sav": {
+      "die": 8
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 50,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Vee Calder</b> \u2014 mobile projectionist. Fictional.</p><p><b>At WW6 Hub67</b> (Homerton East &amp; Wick Woodland). A fictional community-screening night has a missing guest, a returned stage costume and an unopened letter addressed to a different venue.</p>"
+   }
+  },
+  {
+   "key": "viv-shore",
+   "name": "Viv Shore",
+   "aliases": [
+    "Viv Shore"
+   ],
+   "role": "small promoter",
+   "faction": null,
+   "patron": false,
+   "existing": null,
+   "img": "systems/the-smoke/assets/tokens/people/cast-viv-shore.webp",
+   "venues": [
+    "DB5"
+   ],
+   "missions": [],
+   "system": {
+    "stats": {
+     "mus": {
+      "die": 4
+     },
+     "grt": {
+      "die": 4
+     },
+     "mov": {
+      "die": 4
+     },
+     "whl": {
+      "die": 4
+     },
+     "aim": {
+      "die": 4
+     },
+     "grf": {
+      "die": 4
+     },
+     "sav": {
+      "die": 6
+     },
+     "frt": {
+      "die": 6
+     },
+     "btl": {
+      "die": 4
+     }
+    },
+    "role": "civilian",
+    "resources": {
+     "health": {
+      "value": 8,
+      "max": 8
+     },
+     "hustle": {
+      "value": 0,
+      "max": 0
+     }
+    },
+    "cash": 160,
+    "guard": {
+     "base": 4,
+     "armour": 0,
+     "value": 4
+    },
+    "biography": "<p><b>Viv Shore</b> \u2014 small promoter. Fictional.</p><p><b>At DB5 The Scolt Head</b> (De Beauvoir). A fictional returning painting and its certificate arrive through separate couriers, allowing the crew to identify which sale was fabricated.</p>"
+   }
+  }
+ ]
+}

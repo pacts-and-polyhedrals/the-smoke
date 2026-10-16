@@ -1,0 +1,38 @@
+<div class="smoke-shop-inner">
+  <aside class="shop-rail">
+    <div class="shop-wallet"><span class="kicker">IN YOUR POCKET</span><b>£{{cash}}</b><small>Stash £{{stash}} · Rep {{rep}}</small></div>
+    <h3>Open here</h3>
+    <ul class="shop-list">{{#each shops}}<li><a data-shop-tab="{{key}}" class="{{#if active}}active{{/if}}">{{name}}</a></li>{{else}}<li class="empty">Nothing open here. Walk up to a shop on the map.</li>{{/each}}</ul>
+    {{#if isGM}}<p class="smoke-hint">GM: every shop is open to you, wherever the character is.</p>{{/if}}
+  </aside>
+  <main class="shop-main">
+    {{#if shop}}
+    <header class="shop-head"><span class="kicker">{{shop.who}}</span><h2>{{shop.name}}</h2><p>{{shop.quote}}</p>{{#if discount}}<span class="shop-discount">−{{discount}}% for you</span>{{/if}}</header>
+
+    {{#each lines}}
+    <h3>{{label}}{{#if locked}} <small><i class="fa-solid fa-lock"></i> Rep {{minRep}}</small>{{/if}}</h3>
+    <div class="shop-grid {{#if locked}}locked{{/if}}">{{#each items}}
+      <article class="shop-item"><img src="{{img}}" alt=""><div class="shop-item-body"><b>{{name}}</b><small>{{type}}{{#if (gt unit 1)}} · ×{{unit}}{{/if}}</small><p>{{blurb}}</p></div>
+        <footer><span class="shop-price {{#unless afford}}dear{{/unless}}">£{{price}}</span>{{#unless ../locked}}<input type="number" name="qty" value="1" min="1" max="20"><button type="button" data-buy="{{name}}"><i class="fa-solid fa-cart-shopping"></i> Buy</button>{{/unless}}</footer></article>
+    {{/each}}</div>
+    {{/each}}
+
+    {{#if sell.length}}<h3>Sell to Uncle <small>(safer than the street, cheaper too)</small></h3>
+    <div class="shop-grid">{{#each sell}}<article class="shop-item"><img src="{{img}}" alt=""><div class="shop-item-body"><b>{{name}}</b><small>× {{qty}} {{unit}}</small></div>
+      <footer><span class="shop-price">£{{perUnit}} each</span><input type="number" name="qty" value="1" min="1" max="{{qty}}"><button type="button" data-sell="{{id}}"><i class="fa-solid fa-sterling-sign"></i> Sell</button></footer></article>{{/each}}</div>{{/if}}
+
+    {{#if services.length}}<h3>Services</h3>
+    <div class="shop-services">{{#each services}}
+      <article class="shop-service"><i class="{{icon}}"></i><div><b>{{label}}</b><p>{{text}}</p>
+        {{#if needsVehicle}}<small>{{#if vehicle}}{{vehicle}} · £{{price}}{{else}}Drive the vehicle in first.{{/if}}</small>{{/if}}</div>
+        {{#if stash}}<div class="shop-stash"><input type="number" name="stashAmount" value="50" min="1"><button type="button" data-stash="in">Put in</button><button type="button" data-stash="out">Take out</button></div>
+        {{else}}<button type="button" data-service="{{key}}" {{#if needsVehicle}}{{#unless vehicle}}disabled{{/unless}}{{/if}}>{{#if price}}£{{price}}{{else}}Do it{{/if}}</button>{{/if}}</article>
+    {{/each}}</div>{{/if}}
+
+    {{#if wardrobe.length}}<h3>Get changed <small>(1–2 stars, out of sight: a new look loses Heat)</small></h3>
+    <div class="shop-wardrobe">{{#each wardrobe}}<button type="button" data-wear="{{id}}" class="{{#if worn}}worn{{/if}}"><img src="{{img}}" alt="">{{name}}{{#if worn}} ✓{{/if}}</button>{{/each}}</div>{{/if}}
+    {{else}}
+    <div class="shop-empty"><i class="fa-solid fa-store-slash"></i><p>{{#if nothing}}No shops here. On a street map there is always a corner shop; Pat's Arches, the markets, Uncle's Cafe, the respray shops, Bow Breakers, A&amp;E and your flat are marked on the maps.{{else}}Pick a shop.{{/if}}</p></div>
+    {{/if}}
+  </main>
+</div>

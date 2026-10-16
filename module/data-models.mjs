@@ -20,7 +20,8 @@ class PersonData extends foundry.abstract.TypeDataModel {
       heat: new SchemaField({value: N({min: 0, max: 5}), coolSince: N({min: 0}), seenBy: S()}),
       cash: N({min: 0, initial: 40}),
       stash: N({min: 0}),
-      rep: new SchemaField({crew: N(), street: N(), police: N()}),
+      rep: new SchemaField({crew: N(), street: N(), police: N(), xp: N({min: 0})}),
+      creation: new SchemaField({done: B(), background: S(), levelledTo: N({min: 1, max: 5, initial: 1})}),
       guard: new SchemaField({base: N({min: 0, initial: 4}), armour: N(), value: N({min: 0, initial: 9})}),
       armour: N({min: 0}),
       states: new SchemaField({onARoll: B(), offGame: B(), down: B(), surrendered: B(), reactionUsed:B(), downRounds:N({min:0})}),
@@ -60,7 +61,7 @@ export class VehicleData extends foundry.abstract.TypeDataModel {
         crewFull: N({min: 1, initial: 1}), passengers: N({min: 0, initial: 3}), fireControl: N({min: 0}),
         crewAssignments: S('[]'), control: S('driver'), aiPilot: S(),
         value: N({min: 0, initial: 5000}), lock: S('medium'), jobs: new ArrayField(new StringField({blank: false}), {required: true, initial: []}),
-        plateless: B(), systems: H()
+        plateless: B(), flats: N({min: 0, max: 4}), systems: H()
       }),
       biography: H()
     };
@@ -78,8 +79,27 @@ class ItemBase extends foundry.abstract.TypeDataModel {
 export class WeaponData extends ItemBase {
   static defineSchema() {
     return {...super.defineSchema(), stat: S('aim'), impact: N({min: 0, initial: 2}), range: S('Near'), ammo: res(0), loud: B(true),
-            concealable: B(true), kind: S('melee'), crime: S('assault'), equipped: B(true)};
+            concealable: B(true), kind: S('melee'), crime: S('assault'), equipped: B(true),
+            category: S('melee'),          // melee, pistol, smg, shotgun, rifle, throwable, police, heavy
+            ammoType: S(), burst: B(), thrown: B(), twoHanded: B(),
+            effect: S(),                    // '', stun, gas, fire, bleed, area, smoke
+            restricted: B()};               // police / military: never sold
   }
+}
+export class AmmoData extends ItemBase {
+  static defineSchema() { return {...super.defineSchema(), ammoType: S('9mm'), perBox: N({min: 1, initial: 50})}; }
+}
+export class DrugData extends ItemBase {
+  static defineSchema() {
+    return {...super.defineSchema(), high: S(), comedown: S(), minutes: N({min: 1, initial: 20}), street: N({min: 0}),
+            heat: N({min: 0}), crime: S('possession'), unit: S('bag')};
+  }
+}
+export class ConsumableData extends ItemBase {
+  static defineSchema() { return {...super.defineSchema(), heal: N({min: 0}), removes: S(), grants: S(), minutes: N({min: 0, initial: 30}), kind: S('food')}; }
+}
+export class OutfitData extends ItemBase {
+  static defineSchema() { return {...super.defineSchema(), worn: B(), disguise: S(), heatDrop: N({min: 0, initial: 1}), stat: S(), when: S()}; }
 }
 export class ArmourData extends ItemBase {
   static defineSchema() { return {...super.defineSchema(), guard: N(), reduction: N({min: 0}), equipped: B(true)}; }
