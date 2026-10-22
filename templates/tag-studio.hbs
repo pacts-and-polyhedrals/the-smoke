@@ -1,0 +1,90 @@
+<form class="tag-studio-main">
+  <div class="tag-studio-grid">
+    <section class="tag-panel controls">
+      <header><div class="smoke-brand-tag-heading"><img src="systems/the-smoke/assets/branding/logos/symbol.png" alt="The Smoke"><h2>Tag Studio</h2></div><p class="smoke-dim">Open-licensed friendly SVG tag maker built into The Smoke. Sketch the name, roll for quality, save presets, and export vector art.</p></header>
+      <div class="tag-form-grid">
+        <label><span>Character</span>
+          <select name="actorId">{{#each actors}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
+        </label>
+        <label><span>Tag text</span><input type="text" name="text" value="{{state.text}}" maxlength="18" placeholder="ASMO"></label>
+        <label><span>Style</span><select name="style">{{#each styles}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label><span>Background</span><select name="background"><option value="transparent" {{#if (eq state.background "transparent")}}selected{{/if}}>Transparent</option><option value="solid" {{#if (eq state.background "solid")}}selected{{/if}}>Solid paper</option></select></label>
+      </div>
+      <div class="tag-swatches">
+        <label><span>Fill</span><input type="color" name="fill" value="{{state.fill}}"></label>
+        <label><span>Outline</span><input type="color" name="outline" value="{{state.outline}}"></label>
+        <label><span>Shadow</span><input type="color" name="shadow" value="{{state.shadow}}"></label>
+        <label><span>Accent</span><input type="color" name="accent" value="{{state.accent}}"></label>
+      </div>
+      <fieldset>
+        <legend>Smoke quality</legend>
+        <div class="tag-form-grid">
+          <label><span>Stat</span><select name="stat">{{#each stats}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+          <label><span>Band</span><select name="band">{{#each bands}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+          <label><span>Outcome</span><select name="quality">{{#each qualities}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+          <label><span>Blinder</span><select name="blinder">{{#each blinderOptions}}<option value="{{value}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        </div>
+        <div class="tag-actions compact">
+          <button type="button" data-tag-roll><i class="fa-solid fa-dice"></i> Roll quality</button>
+          <p class="smoke-dim">Current finish: <strong data-quality-label>{{qualityLabel}}</strong><span data-blinder-label>{{#if state.blinder}} · Blinder {{state.blinder}}{{/if}}</span></p>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Extras</legend>
+        <div class="tag-checks">
+          <label><input type="checkbox" name="underline" {{#if state.extras.underline}}checked{{/if}}> Underline</label>
+          <label><input type="checkbox" name="arrow" {{#if state.extras.arrow}}checked{{/if}}> Arrow</label>
+          <label><input type="checkbox" name="drips" {{#if state.extras.drips}}checked{{/if}}> Drips</label>
+          <label><input type="checkbox" name="spark" {{#if state.extras.spark}}checked{{/if}}> Sparkles</label>
+          <label><input type="checkbox" name="halo" {{#if state.extras.halo}}checked{{/if}}> Halo</label>
+          <label><input type="checkbox" name="crown" {{#if state.extras.crown}}checked{{/if}}> Crown</label>
+        </div>
+      </fieldset>
+      <fieldset class="tag-paint-map">
+        <legend>Paint on the map</legend>
+        <p class="smoke-dim">Stand alongside a GM-authored paint hotspot. Real Graft roll, Spray Paint charge, territory and mission proof. <b>{{paintCanLabel}}</b></p>
+        <label><span>Paintable surface</span><select name="spotTokenId"><option value="">Choose a paintable marker</option>{{#each paintSpots}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label><span>Active commission</span><select name="missionId"><option value="">Free paint (territory only)</option>{{#each paintMissions}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label><span>Tag identity</span><select name="tagPackId">{{#each paintPacks}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        {{#if paintHint}}<p class="tag-paint-hint"><i class="fa-solid fa-circle-info"></i> {{paintHint}}</p>{{/if}}
+        <button type="button" data-tag-paint {{#unless canPaint}}disabled{{/unless}}><i class="fa-solid fa-spray-can-sparkles"></i> Spray surface (roll Graft + place decal)</button>
+      </fieldset>
+      <div class="tag-actions">
+        <button type="button" data-tag-save><i class="fa-solid fa-floppy-disk"></i> Save to character</button>
+        <button type="button" data-tag-download><i class="fa-solid fa-file-arrow-down"></i> Download SVG</button>
+        <button type="button" data-tag-copy><i class="fa-solid fa-copy"></i> Copy SVG</button>
+      </div>
+    </section>
+    <section class="tag-panel preview">
+      <header><h2>Preview</h2><p class="smoke-dim">SVG output — transparent unless you choose a paper background.</p></header>
+      <div class="tag-preview-frame">{{{previewSvg}}}</div>
+    </section>
+    <section class="tag-panel library">
+      <div class="tag-district-control"><h2>Territory on this map</h2>
+        <p class="smoke-dim">Only visible completed graffiti contributes; overpainting rivals changes control.</p>
+        <ul>{{#each districtTagScores}}<li><b>{{faction}}</b> · {{points}} points</li>{{else}}<li>No tagged presence yet</li>{{/each}}</ul>
+      </div>
+
+      <header><h2>Saved tags{{#if actor}} · {{actor.name}}{{/if}}</h2><p class="smoke-dim">Each character can keep up to 24 saved pieces.</p></header>
+      <div class="tag-library-list">
+        {{#if library.length}}
+          {{#each library}}
+            <article class="tag-library-item">
+              <div class="tag-library-thumb">{{{svg}}}</div>
+              <div class="tag-library-meta">
+                <strong>{{name}}</strong>
+                <small>{{qualityLabel}}</small>
+              </div>
+              <div class="tag-library-actions">
+                <button type="button" data-load-tag="{{id}}"><i class="fa-solid fa-rotate"></i> Load</button>
+                <button type="button" data-delete-tag="{{id}}"><i class="fa-solid fa-trash"></i> Delete</button>
+              </div>
+            </article>
+          {{/each}}
+        {{else}}
+          <p class="smoke-dim">No saved tags yet.</p>
+        {{/if}}
+      </div>
+    </section>
+  </div>
+</form>

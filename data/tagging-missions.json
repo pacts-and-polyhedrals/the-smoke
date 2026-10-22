@@ -1,0 +1,5683 @@
+{
+  "missions": [
+    {
+      "id": "tg-intro-01",
+      "n": null,
+      "code": "TG-INTRO-01",
+      "title": "First Can",
+      "giver": "Street Stories",
+      "where": "Morning Lane workshop wall (LDN-HACKNEY)",
+      "minRep": 1,
+      "requires": [],
+      "hook": "Auntie Pat lends a can and points out a wall she is happy for you to paint. Learn targeting, the Graft roll, six visible quality tiers and the Watch.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Morning Lane workshop wall (LDN-HACKNEY): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-MORNING-WALL",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 15,
+        "xp": 1,
+        "rep": {
+          "street": 1
+        },
+        "renown": {},
+        "influence": 0
+      },
+      "next": "GM grants one practice can; legal approved wall. Intro completion needs Just About or better.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": null,
+      "stage": 0,
+      "gate": 0,
+      "twist": "Even a Proper Mess stays visible; it earns no job credit until repainted successfully.",
+      "gm": "GM grants one practice can; legal approved wall. Intro completion needs Just About or better.",
+      "tagging": {
+        "identity": "TAG-STREET",
+        "sites": [
+          "SP-HC-MORNING-WALL"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HC-MORNING-WALL",
+          "name": "Morning Lane workshop wall",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDP-ARCHES"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HC-MORNING-WALL",
+          "name": "Morning Lane workshop wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 0,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-intro-02",
+      "n": null,
+      "code": "TG-INTRO-02",
+      "title": "Walls Have Ears",
+      "giver": "Street Stories",
+      "where": "Kingsland courier arch wall (LDN-HAGGERSTON) -> Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD)",
+      "minRep": 1,
+      "requires": [
+        "tg-intro-01"
+      ],
+      "hook": "A courier and a radio runner want proof the same mark can cross neighbourhoods. Photograph both placements in the in-game graffiti album.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Kingsland courier arch wall (LDN-HAGGERSTON): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LF-KINGSLAND-ARCH",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HR-QUEENSBRIDGE",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 35,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "next": "Two different map IDs; show album proof; no real camera item required.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": null,
+      "stage": 0,
+      "gate": 0,
+      "twist": "A local witness recognises the mark later; Heat depends on visibility, not a guaranteed star.",
+      "gm": "Two different map IDs; show album proof; no real camera item required.",
+      "tagging": {
+        "identity": "TAG-STREET",
+        "sites": [
+          "SP-LF-KINGSLAND-ARCH",
+          "SP-HR-QUEENSBRIDGE"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-LF-KINGSLAND-ARCH",
+          "name": "Kingsland courier arch wall",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HAGGERSTON",
+          "placeId": "LDV-LF7"
+        },
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapId": "LDN-HACKNEY-ROAD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY-ROAD",
+          "placeId": "LDV-HR7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-LF-KINGSLAND-ARCH",
+          "name": "Kingsland courier arch wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 1,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-intro-03",
+      "n": null,
+      "code": "TG-INTRO-03",
+      "title": "The Last Bus Home",
+      "giver": "Street Stories",
+      "where": "London Fields stationary bus (LDN-HAGGERSTON) -> Waterden Road parked bus (LDN-VICTORIA-PARK)",
+      "minRep": 1,
+      "requires": [
+        "tg-intro-02"
+      ],
+      "hook": "Put your mark on two parked bus props on distinct streets, then leave before they return to service.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint London Fields stationary bus (LDN-HAGGERSTON): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LF-LIDO-BUS",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Waterden Road parked bus (LDN-VICTORIA-PARK): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-VW-WATERDEN-BUS",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 60,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "next": "Provides the moving-asset decal-follow test; buses must be stationary during painting.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": null,
+      "stage": 0,
+      "gate": 0,
+      "twist": "The second bus is from a different depot; only a real painted token counts.",
+      "gm": "Provides the moving-asset decal-follow test; buses must be stationary during painting.",
+      "tagging": {
+        "identity": "TAG-STREET",
+        "sites": [
+          "SP-LF-LIDO-BUS",
+          "SP-VW-WATERDEN-BUS"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-LF-LIDO-BUS",
+          "name": "London Fields stationary bus",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HAGGERSTON",
+          "placeId": "LDV-LF1"
+        },
+        {
+          "code": "SP-VW-WATERDEN-BUS",
+          "name": "Waterden Road parked bus",
+          "mapId": "LDN-VICTORIA-PARK",
+          "zoneId": null,
+          "mapped": true,
+          "district": "VICTORIA-PARK",
+          "placeId": "LDV-VW3"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-LF-LIDO-BUS",
+          "name": "London Fields stationary bus",
+          "mapped": true
+        },
+        {
+          "code": "SP-VW-WATERDEN-BUS",
+          "name": "Waterden Road parked bus",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 2,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-intro-04",
+      "n": null,
+      "code": "TG-INTRO-04",
+      "title": "A Name That Travels",
+      "giver": "Street Stories",
+      "where": "Clapton canal footbridge support (LDN-CLAPTON) -> Bow Flyover column (LDN-BOW-FLYOVER) -> Carpenters Road fictional bridge pier (LDN-STRATFORD)",
+      "minRep": 1,
+      "requires": [
+        "tg-intro-03"
+      ],
+      "hook": "Three bridges across the linked maps. Place readable markings without a duplicate location or a GM ticking a fake box.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Clapton canal footbridge support (LDN-CLAPTON): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-TOWPATH",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Bow Flyover column (LDN-BOW-FLYOVER): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-PILLAR",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Carpenters Road fictional bridge pier (LDN-STRATFORD): Just About or better, with your own tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-CARPENTERS",
+            "identity": "TAG-STREET",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 100,
+        "xp": 3,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "next": "Cross-district bridge sequence; avoid an unsafe climbing simulator.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": null,
+      "stage": 0,
+      "gate": 0,
+      "twist": "Unlocks the Crew Identity slot in the Tagbook; full personalised vector editor is a later milestone.",
+      "gm": "Cross-district bridge sequence; avoid an unsafe climbing simulator.",
+      "tagging": {
+        "identity": "TAG-STREET",
+        "sites": [
+          "SP-CL-TOWPATH",
+          "SP-BF-PILLAR",
+          "SP-ST-CARPENTERS"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CL-TOWPATH",
+          "name": "Clapton canal footbridge support",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL2"
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": null
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CL-TOWPATH",
+          "name": "Clapton canal footbridge support",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapped": true
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 3,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ch-01",
+      "n": null,
+      "code": "TG-CH-01",
+      "title": "The Arches Signal",
+      "giver": "Auntie Pat",
+      "where": "Morning Lane workshop wall (LDN-HACKNEY) -> Chainring storehouse boundary wall (LDN-HACKNEY)",
+      "minRep": 1,
+      "requires": [
+        "m01"
+      ],
+      "hook": "Pat marks trusted collection and drop-off points. The first run is a local Chainring network test.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Morning Lane workshop wall (LDN-HACKNEY): Just About or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-MORNING-WALL",
+            "identity": "TAG-CH",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Chainring storehouse boundary wall (LDN-HACKNEY): Just About or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-STOREHOUSE",
+            "identity": "TAG-CH",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "CH": 1
+        },
+        "influence": 1
+      },
+      "next": "A sanctioned shop wall gives zero criminal Heat.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "CH",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The wrong marking can misroute a stolen bike.",
+      "gm": "A sanctioned shop wall gives zero criminal Heat.",
+      "tagging": {
+        "identity": "TAG-CH",
+        "sites": [
+          "SP-HC-MORNING-WALL",
+          "SP-HC-STOREHOUSE"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HC-MORNING-WALL",
+          "name": "Morning Lane workshop wall",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDP-ARCHES"
+        },
+        {
+          "code": "SP-HC-STOREHOUSE",
+          "name": "Chainring storehouse boundary wall",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDV-HC7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HC-MORNING-WALL",
+          "name": "Morning Lane workshop wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-HC-STOREHOUSE",
+          "name": "Chainring storehouse boundary wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 4,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ch-02",
+      "n": null,
+      "code": "TG-CH-02",
+      "title": "Spokes Across Hackney",
+      "giver": "Auntie Pat",
+      "where": "Oddments Lockup yard wall (LDN-HIGHBURY) -> Lea Bridge Social Rooms side wall (LDN-CLAPTON) -> Bow Breakers Yard exterior wall (LDN-OLD-FORD)",
+      "minRep": 1,
+      "requires": [
+        "tg-ch-01"
+      ],
+      "hook": "Carry the Chainring mark from its new supplier through the rival corridor.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Oddments Lockup yard wall (LDN-HIGHBURY): Sorted or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HB-ODDMENTS",
+            "identity": "TAG-CH",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Lea Bridge Social Rooms side wall (LDN-CLAPTON): Sorted or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-LEABRIDGE",
+            "identity": "TAG-CH",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Bow Breakers Yard exterior wall (LDN-OLD-FORD): Sorted or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-OF-BREAKERS",
+            "identity": "TAG-CH",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "CH": 1
+        },
+        "influence": 1
+      },
+      "next": "One existing Lea Boys mark is a contest slot; overpainting is explicit.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "CH",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The Lea Boys already consider one wall theirs.",
+      "gm": "One existing Lea Boys mark is a contest slot; overpainting is explicit.",
+      "tagging": {
+        "identity": "TAG-CH",
+        "sites": [
+          "SP-HB-ODDMENTS",
+          "SP-CL-LEABRIDGE",
+          "SP-OF-BREAKERS"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HB-ODDMENTS",
+          "name": "Oddments Lockup yard wall",
+          "mapId": "LDN-HIGHBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HIGHBURY",
+          "placeId": "LDV-HB7"
+        },
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL7"
+        },
+        {
+          "code": "SP-OF-BREAKERS",
+          "name": "Bow Breakers Yard exterior wall",
+          "mapId": "LDN-OLD-FORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLD-FORD",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HB-ODDMENTS",
+          "name": "Oddments Lockup yard wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-OF-BREAKERS",
+          "name": "Bow Breakers Yard exterior wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 5,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ch-03",
+      "n": null,
+      "code": "TG-CH-03",
+      "title": "Pat Owns the Route",
+      "giver": "Auntie Pat",
+      "where": "Temple Mills depot carriage (LDN-MARSHES) -> Waterden Road parked bus (LDN-VICTORIA-PARK) -> Round Chapel event-load shutter (LDN-HACKNEY)",
+      "minRep": 1,
+      "requires": [
+        "tg-ch-02"
+      ],
+      "hook": "Paint three types of transport-side frontage and bring a photo set back to Pat.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Temple Mills depot carriage (LDN-MARSHES): Just About or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-TEMPLE-TRAIN",
+            "identity": "TAG-CH",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Waterden Road parked bus (LDN-VICTORIA-PARK): Just About or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-VW-WATERDEN-BUS",
+            "identity": "TAG-CH",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Round Chapel event-load shutter (LDN-HACKNEY): Just About or better, with the Chainring Cog tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-ROUND-SHUTTER",
+            "identity": "TAG-CH",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HM-TEMPLE-TRAIN",
+              "SP-VW-WATERDEN-BUS",
+              "SP-HC-ROUND-SHUTTER"
+            ],
+            "identity": "TAG-CH",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "CH": 2
+        },
+        "influence": 1
+      },
+      "next": "Highest-quality mark among three must be Smashed It or better; train prop needed.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "CH",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A legitimate owner offers to sell the tagged bus back to its operator.",
+      "gm": "Highest-quality mark among three must be Smashed It or better; train prop needed.",
+      "tagging": {
+        "identity": "TAG-CH",
+        "sites": [
+          "SP-HM-TEMPLE-TRAIN",
+          "SP-VW-WATERDEN-BUS",
+          "SP-HC-ROUND-SHUTTER"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM5"
+        },
+        {
+          "code": "SP-VW-WATERDEN-BUS",
+          "name": "Waterden Road parked bus",
+          "mapId": "LDN-VICTORIA-PARK",
+          "zoneId": null,
+          "mapped": true,
+          "district": "VICTORIA-PARK",
+          "placeId": "LDV-VW3"
+        },
+        {
+          "code": "SP-HC-ROUND-SHUTTER",
+          "name": "Round Chapel event-load shutter",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDV-HC2"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-VW-WATERDEN-BUS",
+          "name": "Waterden Road parked bus",
+          "mapped": true
+        },
+        {
+          "code": "SP-HC-ROUND-SHUTTER",
+          "name": "Round Chapel event-load shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 6,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ad-01",
+      "n": null,
+      "code": "TG-AD-01",
+      "title": "Get the Signal Out",
+      "giver": "Jules \"Patch\" Akin",
+      "where": "Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD) -> Backspin Studio loading shutter (LDN-DALSTON)",
+      "minRep": 1,
+      "requires": [
+        "ad1"
+      ],
+      "hook": "Patch issues a two-wall Dead Air stencil campaign before the next broadcast.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD): Just About or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HR-QUEENSBRIDGE",
+            "identity": "TAG-AD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Backspin Studio loading shutter (LDN-DALSTON): Just About or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DA-BACKSPIN",
+            "identity": "TAG-AD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "AD": 1
+        },
+        "influence": 1
+      },
+      "next": "Collect a branded stencil kit from Backspin as optional mission cargo; do not spoof the radio sender.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "AD",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A rival pirate show has booked the same walls.",
+      "gm": "Collect a branded stencil kit from Backspin as optional mission cargo; do not spoof the radio sender.",
+      "tagging": {
+        "identity": "TAG-AD",
+        "sites": [
+          "SP-HR-QUEENSBRIDGE",
+          "SP-DA-BACKSPIN"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapId": "LDN-HACKNEY-ROAD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY-ROAD",
+          "placeId": "LDV-HR7"
+        },
+        {
+          "code": "SP-DA-BACKSPIN",
+          "name": "Backspin Studio loading shutter",
+          "mapId": "LDN-DALSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DALSTON",
+          "placeId": "LDV-DA7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-DA-BACKSPIN",
+          "name": "Backspin Studio loading shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 7,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ad-02",
+      "n": null,
+      "code": "TG-AD-02",
+      "title": "The Frequency Run",
+      "giver": "Jules \"Patch\" Akin",
+      "where": "Shacklewell Arms loading shutter (LDN-STOKEY) -> Bridge Nine broadcast garage shutter (LDN-STRATFORD) -> Hoxton Hall authorised display board (LDN-HACKNEY-ROAD)",
+      "minRep": 1,
+      "requires": [
+        "tg-ad-01"
+      ],
+      "hook": "Dee commissions three venue panels ahead of the live set, each in a different neighbourhood.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Shacklewell Arms loading shutter (LDN-STOKEY): Sorted or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-SN-SHACKLEWELL",
+            "identity": "TAG-AD",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Bridge Nine broadcast garage shutter (LDN-STRATFORD): Sorted or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-BRIDGE9",
+            "identity": "TAG-AD",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Hoxton Hall authorised display board (LDN-HACKNEY-ROAD): Sorted or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HR-HOXTON",
+            "identity": "TAG-AD",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "AD": 1
+        },
+        "influence": 1
+      },
+      "next": "Each tag must display the Dead Air wave, not a generic crew image.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "AD",
+      "stage": 0,
+      "gate": 0,
+      "twist": "One tag is legal promotional art, another is disputed.",
+      "gm": "Each tag must display the Dead Air wave, not a generic crew image.",
+      "tagging": {
+        "identity": "TAG-AD",
+        "sites": [
+          "SP-SN-SHACKLEWELL",
+          "SP-ST-BRIDGE9",
+          "SP-HR-HOXTON"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-SN-SHACKLEWELL",
+          "name": "Shacklewell Arms loading shutter",
+          "mapId": "LDN-STOKEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STOKEY",
+          "placeId": "LDV-SN5"
+        },
+        {
+          "code": "SP-ST-BRIDGE9",
+          "name": "Bridge Nine broadcast garage shutter",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST8"
+        },
+        {
+          "code": "SP-HR-HOXTON",
+          "name": "Hoxton Hall authorised display board",
+          "mapId": "LDN-HACKNEY-ROAD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY-ROAD",
+          "placeId": "LDV-HR2"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-SN-SHACKLEWELL",
+          "name": "Shacklewell Arms loading shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-ST-BRIDGE9",
+          "name": "Bridge Nine broadcast garage shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-HR-HOXTON",
+          "name": "Hoxton Hall authorised display board",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 8,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ad-03",
+      "n": null,
+      "code": "TG-AD-03",
+      "title": "No Dead Air Tonight",
+      "giver": "Jules \"Patch\" Akin",
+      "where": "Orient Way yard carriage (LDN-MARSHES) -> Pudding Mill Lane stationary DLR carriage (LDN-BOW-FLYOVER) -> Carpenters Road fictional bridge pier (LDN-STRATFORD)",
+      "minRep": 1,
+      "requires": [
+        "tg-ad-02"
+      ],
+      "hook": "The station wants a citywide visual takeover of rail-themed props and an overbridge before its broadcast.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Orient Way yard carriage (LDN-MARSHES): Just About or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-ORIENT-TRAIN",
+            "identity": "TAG-AD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Pudding Mill Lane stationary DLR carriage (LDN-BOW-FLYOVER): Just About or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-DLR",
+            "identity": "TAG-AD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Carpenters Road fictional bridge pier (LDN-STRATFORD): Just About or better, with the Dead Air Wave tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-CARPENTERS",
+            "identity": "TAG-AD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HM-ORIENT-TRAIN",
+              "SP-BF-DLR",
+              "SP-ST-CARPENTERS"
+            ],
+            "identity": "TAG-AD",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "AD": 2
+        },
+        "influence": 1
+      },
+      "next": "Both train carriage props must exist; no active-train boarding or vandalism instructions.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "AD",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A fake ident threatens to confuse which collective commissioned it.",
+      "gm": "Both train carriage props must exist; no active-train boarding or vandalism instructions.",
+      "tagging": {
+        "identity": "TAG-AD",
+        "sites": [
+          "SP-HM-ORIENT-TRAIN",
+          "SP-BF-DLR",
+          "SP-ST-CARPENTERS"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HM-ORIENT-TRAIN",
+          "name": "Orient Way yard carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM4"
+        },
+        {
+          "code": "SP-BF-DLR",
+          "name": "Pudding Mill Lane stationary DLR carriage",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": "LDV-BF6"
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HM-ORIENT-TRAIN",
+          "name": "Orient Way yard carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-DLR",
+          "name": "Pudding Mill Lane stationary DLR carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 9,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-lb-01",
+      "n": null,
+      "code": "TG-LB-01",
+      "title": "Moth Leaves a Sign",
+      "giver": "Moth",
+      "where": "Lea Bridge Social Rooms side wall (LDN-CLAPTON) -> Larch Cold Store outer wall (LDN-LEYTON)",
+      "minRep": 1,
+      "requires": [
+        "lb1"
+      ],
+      "hook": "A Lea Boys marker identifies contested drop points.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Lea Bridge Social Rooms side wall (LDN-CLAPTON): Just About or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-LEABRIDGE",
+            "identity": "TAG-LB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Larch Cold Store outer wall (LDN-LEYTON): Just About or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LY-LARCH",
+            "identity": "TAG-LB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "LB": 1
+        },
+        "influence": 1
+      },
+      "next": "First site contested; repaint creates a tagged revision, not a second tile.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "LB",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The Night Market is using one site too.",
+      "gm": "First site contested; repaint creates a tagged revision, not a second tile.",
+      "tagging": {
+        "identity": "TAG-LB",
+        "sites": [
+          "SP-CL-LEABRIDGE",
+          "SP-LY-LARCH"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL7"
+        },
+        {
+          "code": "SP-LY-LARCH",
+          "name": "Larch Cold Store outer wall",
+          "mapId": "LDN-LEYTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "LEYTON",
+          "placeId": "LDV-LY8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-LY-LARCH",
+          "name": "Larch Cold Store outer wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 10,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-lb-02",
+      "n": null,
+      "code": "TG-LB-02",
+      "title": "Reeds by the Water",
+      "giver": "Moth",
+      "where": "Clapton canal footbridge support (LDN-CLAPTON) -> Grow Hackney canal retaining wall (LDN-VICTORIA-PARK) -> Tern Wharf canal parapet (LDN-HOXTON-WEST)",
+      "minRep": 1,
+      "requires": [
+        "tg-lb-01"
+      ],
+      "hook": "Three waterside marks signal a new route through rival territory.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Clapton canal footbridge support (LDN-CLAPTON): Sorted or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-TOWPATH",
+            "identity": "TAG-LB",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Grow Hackney canal retaining wall (LDN-VICTORIA-PARK): Sorted or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-VW-WICK-CANAL",
+            "identity": "TAG-LB",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Tern Wharf canal parapet (LDN-HOXTON-WEST): Sorted or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HX-TERN",
+            "identity": "TAG-LB",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "LB": 1
+        },
+        "influence": 1
+      },
+      "next": "Faction-stance branch: cooperate for a permitted tag variant or contest it.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "LB",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The Towpath Union objects and offers an alternate commission.",
+      "gm": "Faction-stance branch: cooperate for a permitted tag variant or contest it.",
+      "tagging": {
+        "identity": "TAG-LB",
+        "sites": [
+          "SP-CL-TOWPATH",
+          "SP-VW-WICK-CANAL",
+          "SP-HX-TERN"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CL-TOWPATH",
+          "name": "Clapton canal footbridge support",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL2"
+        },
+        {
+          "code": "SP-VW-WICK-CANAL",
+          "name": "Grow Hackney canal retaining wall",
+          "mapId": "LDN-VICTORIA-PARK",
+          "zoneId": null,
+          "mapped": true,
+          "district": "VICTORIA-PARK",
+          "placeId": "LDV-VW4"
+        },
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HOXTON-WEST",
+          "placeId": "LDV-HX7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CL-TOWPATH",
+          "name": "Clapton canal footbridge support",
+          "mapped": true
+        },
+        {
+          "code": "SP-VW-WICK-CANAL",
+          "name": "Grow Hackney canal retaining wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 11,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-lb-03",
+      "n": null,
+      "code": "TG-LB-03",
+      "title": "Stretch Out the Borough",
+      "giver": "Moth",
+      "where": "Marshes pavilion boundary wall (LDN-MARSHES) -> VeloPark approach footbridge panel (LDN-OLYMPIC-NORTH) -> East Cross fictional overpass pillar (LDN-WICK-WOODLAND)",
+      "minRep": 1,
+      "requires": [
+        "tg-lb-02"
+      ],
+      "hook": "Spread the reed across park, footbridge and overpass while a patrol is active.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Marshes pavilion boundary wall (LDN-MARSHES): Just About or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-NORTH-PAVILION",
+            "identity": "TAG-LB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint VeloPark approach footbridge panel (LDN-OLYMPIC-NORTH): Just About or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ON-VELO",
+            "identity": "TAG-LB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint East Cross fictional overpass pillar (LDN-WICK-WOODLAND): Just About or better, with the Lea Reed tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WW-EASTCROSS",
+            "identity": "TAG-LB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HM-NORTH-PAVILION",
+              "SP-ON-VELO",
+              "SP-WW-EASTCROSS"
+            ],
+            "identity": "TAG-LB",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "LB": 2
+        },
+        "influence": 1
+      },
+      "next": "One high-risk spot; no real-world evasion choreography.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "LB",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The supposed Lee Valley ally is a Backroom bookmaker.",
+      "gm": "One high-risk spot; no real-world evasion choreography.",
+      "tagging": {
+        "identity": "TAG-LB",
+        "sites": [
+          "SP-HM-NORTH-PAVILION",
+          "SP-ON-VELO",
+          "SP-WW-EASTCROSS"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HM-NORTH-PAVILION",
+          "name": "Marshes pavilion boundary wall",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM1"
+        },
+        {
+          "code": "SP-ON-VELO",
+          "name": "VeloPark approach footbridge panel",
+          "mapId": "LDN-OLYMPIC-NORTH",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLYMPIC-NORTH",
+          "placeId": "LDV-ON1"
+        },
+        {
+          "code": "SP-WW-EASTCROSS",
+          "name": "East Cross fictional overpass pillar",
+          "mapId": "LDN-WICK-WOODLAND",
+          "zoneId": null,
+          "mapped": true,
+          "district": "WICK-WOODLAND",
+          "placeId": "LDV-WW8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HM-NORTH-PAVILION",
+          "name": "Marshes pavilion boundary wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-ON-VELO",
+          "name": "VeloPark approach footbridge panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-WW-EASTCROSS",
+          "name": "East Cross fictional overpass pillar",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 12,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-vc-01",
+      "n": null,
+      "code": "TG-VC-01",
+      "title": "Tonight Only",
+      "giver": "Owen Pike",
+      "where": "Dalston Superstore authorised panel (LDN-DALSTON) -> Hackney Empire loading shutter (LDN-HACKNEY)",
+      "minRep": 1,
+      "requires": [
+        "vc1"
+      ],
+      "hook": "Owen books two gig-promo murals ahead of opening.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Dalston Superstore authorised panel (LDN-DALSTON): Just About or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DA-SUPERSTORE",
+            "identity": "TAG-VC",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Hackney Empire loading shutter (LDN-HACKNEY): Just About or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-EMPIRE-BAY",
+            "identity": "TAG-VC",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "VC": 1
+        },
+        "influence": 1
+      },
+      "next": "Permitted show-panel variants, no criminal Heat if permission upheld.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "VC",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The performer wants an unpaid name removed from the poster.",
+      "gm": "Permitted show-panel variants, no criminal Heat if permission upheld.",
+      "tagging": {
+        "identity": "TAG-VC",
+        "sites": [
+          "SP-DA-SUPERSTORE",
+          "SP-HC-EMPIRE-BAY"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-DA-SUPERSTORE",
+          "name": "Dalston Superstore authorised panel",
+          "mapId": "LDN-DALSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DALSTON",
+          "placeId": "LDV-DA3"
+        },
+        {
+          "code": "SP-HC-EMPIRE-BAY",
+          "name": "Hackney Empire loading shutter",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDV-HC1"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-DA-SUPERSTORE",
+          "name": "Dalston Superstore authorised panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-HC-EMPIRE-BAY",
+          "name": "Hackney Empire loading shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 13,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-vc-02",
+      "n": null,
+      "code": "TG-VC-02",
+      "title": "The Velvet Trail",
+      "giver": "Owen Pike",
+      "where": "Rio Cinema side service shutter (LDN-DALSTON) -> Wenlock Arms side mural wall (LDN-HOXTON-WEST) -> Union Chapel event display wall (LDN-CANONBURY)",
+      "minRep": 1,
+      "requires": [
+        "tg-vc-01"
+      ],
+      "hook": "Three venue-side pieces build the Circuit show circuit.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Rio Cinema side service shutter (LDN-DALSTON): Sorted or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DA-RIO",
+            "identity": "TAG-VC",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Wenlock Arms side mural wall (LDN-HOXTON-WEST): Sorted or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HX-WENLOCK",
+            "identity": "TAG-VC",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Union Chapel event display wall (LDN-CANONBURY): Sorted or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CG-UNION",
+            "identity": "TAG-VC",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "VC": 1
+        },
+        "influence": 1
+      },
+      "next": "Optional co-branded art unlock can be deferred to future content.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "VC",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A Dead Air agent asks for shared credits.",
+      "gm": "Optional co-branded art unlock can be deferred to future content.",
+      "tagging": {
+        "identity": "TAG-VC",
+        "sites": [
+          "SP-DA-RIO",
+          "SP-HX-WENLOCK",
+          "SP-CG-UNION"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-DA-RIO",
+          "name": "Rio Cinema side service shutter",
+          "mapId": "LDN-DALSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DALSTON",
+          "placeId": "LDV-DA1"
+        },
+        {
+          "code": "SP-HX-WENLOCK",
+          "name": "Wenlock Arms side mural wall",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HOXTON-WEST",
+          "placeId": "LDV-HX1"
+        },
+        {
+          "code": "SP-CG-UNION",
+          "name": "Union Chapel event display wall",
+          "mapId": "LDN-CANONBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CANONBURY",
+          "placeId": "LDV-CG4"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-DA-RIO",
+          "name": "Rio Cinema side service shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-HX-WENLOCK",
+          "name": "Wenlock Arms side mural wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-CG-UNION",
+          "name": "Union Chapel event display wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 14,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-vc-03",
+      "n": null,
+      "code": "TG-VC-03",
+      "title": "Full House Full City",
+      "giver": "Owen Pike",
+      "where": "Stratford loading-bay wall (LDN-STRATFORD) -> London Fields stationary bus (LDN-HAGGERSTON) -> Bow Flyover column (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-vc-02"
+      ],
+      "hook": "Advertise the grand event from shopping frontage to transport and flyover.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Stratford loading-bay wall (LDN-STRATFORD): Just About or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-WESTFIELD",
+            "identity": "TAG-VC",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint London Fields stationary bus (LDN-HAGGERSTON): Just About or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LF-LIDO-BUS",
+            "identity": "TAG-VC",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Bow Flyover column (LDN-BOW-FLYOVER): Just About or better, with the Velvet Pulse tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-PILLAR",
+            "identity": "TAG-VC",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-ST-WESTFIELD",
+              "SP-LF-LIDO-BUS",
+              "SP-BF-PILLAR"
+            ],
+            "identity": "TAG-VC",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "VC": 2
+        },
+        "influence": 1
+      },
+      "next": "Branching permitted vs illicit route; tags still use identical art-quality rule.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "VC",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The venue forbids the final site: do you take the approved substitute?",
+      "gm": "Branching permitted vs illicit route; tags still use identical art-quality rule.",
+      "tagging": {
+        "identity": "TAG-VC",
+        "sites": [
+          "SP-ST-WESTFIELD",
+          "SP-LF-LIDO-BUS",
+          "SP-BF-PILLAR"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-ST-WESTFIELD",
+          "name": "Stratford loading-bay wall",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST1"
+        },
+        {
+          "code": "SP-LF-LIDO-BUS",
+          "name": "London Fields stationary bus",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HAGGERSTON",
+          "placeId": "LDV-LF1"
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-ST-WESTFIELD",
+          "name": "Stratford loading-bay wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-LF-LIDO-BUS",
+          "name": "London Fields stationary bus",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 15,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-tu-01",
+      "n": null,
+      "code": "TG-TU-01",
+      "title": "Tern Marks the Drop",
+      "giver": "Mara \"Tern\" Boyd",
+      "where": "Tern Wharf canal parapet (LDN-HOXTON-WEST) -> Kingsland courier arch wall (LDN-HAGGERSTON)",
+      "minRep": 1,
+      "requires": [
+        "tu1"
+      ],
+      "hook": "Two courier marks identify safe job points, with the last parcel delivered to Tern.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Tern Wharf canal parapet (LDN-HOXTON-WEST): Just About or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HX-TERN",
+            "identity": "TAG-TU",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Kingsland courier arch wall (LDN-HAGGERSTON): Just About or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LF-KINGSLAND-ARCH",
+            "identity": "TAG-TU",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "TU": 1
+        },
+        "influence": 1
+      },
+      "next": "Optional serialized instruction envelope; legal carrier signage.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "TU",
+      "stage": 0,
+      "gate": 0,
+      "twist": "One sign used to mark a false drop-off.",
+      "gm": "Optional serialized instruction envelope; legal carrier signage.",
+      "tagging": {
+        "identity": "TAG-TU",
+        "sites": [
+          "SP-HX-TERN",
+          "SP-LF-KINGSLAND-ARCH"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HOXTON-WEST",
+          "placeId": "LDV-HX7"
+        },
+        {
+          "code": "SP-LF-KINGSLAND-ARCH",
+          "name": "Kingsland courier arch wall",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HAGGERSTON",
+          "placeId": "LDV-LF7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapped": true
+        },
+        {
+          "code": "SP-LF-KINGSLAND-ARCH",
+          "name": "Kingsland courier arch wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 16,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-tu-02",
+      "n": null,
+      "code": "TG-TU-02",
+      "title": "Under the Bridges",
+      "giver": "Mara \"Tern\" Boyd",
+      "where": "Barge East quayside retaining wall (LDN-VICTORIA-PARK) -> Clapton canal footbridge support (LDN-CLAPTON) -> Roman Exchange stall shutter (LDN-OLD-FORD)",
+      "minRep": 1,
+      "requires": [
+        "tg-tu-01"
+      ],
+      "hook": "Follow a towpath circuit and identify the correct recipient by their tag.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Barge East quayside retaining wall (LDN-VICTORIA-PARK): Sorted or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-VW-BARGE",
+            "identity": "TAG-TU",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Clapton canal footbridge support (LDN-CLAPTON): Sorted or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-TOWPATH",
+            "identity": "TAG-TU",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Roman Exchange stall shutter (LDN-OLD-FORD): Sorted or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-OF-ROMAN",
+            "identity": "TAG-TU",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "TU": 1
+        },
+        "influence": 1
+      },
+      "next": "Mixed legal status across three sites.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "TU",
+      "stage": 0,
+      "gate": 0,
+      "twist": "Night Market claims the Roman Road shutter.",
+      "gm": "Mixed legal status across three sites.",
+      "tagging": {
+        "identity": "TAG-TU",
+        "sites": [
+          "SP-VW-BARGE",
+          "SP-CL-TOWPATH",
+          "SP-OF-ROMAN"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-VW-BARGE",
+          "name": "Barge East quayside retaining wall",
+          "mapId": "LDN-VICTORIA-PARK",
+          "zoneId": null,
+          "mapped": true,
+          "district": "VICTORIA-PARK",
+          "placeId": "LDV-VW1"
+        },
+        {
+          "code": "SP-CL-TOWPATH",
+          "name": "Clapton canal footbridge support",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL2"
+        },
+        {
+          "code": "SP-OF-ROMAN",
+          "name": "Roman Exchange stall shutter",
+          "mapId": "LDN-OLD-FORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLD-FORD",
+          "placeId": "LDV-OF7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-VW-BARGE",
+          "name": "Barge East quayside retaining wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-CL-TOWPATH",
+          "name": "Clapton canal footbridge support",
+          "mapped": true
+        },
+        {
+          "code": "SP-OF-ROMAN",
+          "name": "Roman Exchange stall shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 17,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-tu-03",
+      "n": null,
+      "code": "TG-TU-03",
+      "title": "Last Van Standing",
+      "giver": "Mara \"Tern\" Boyd",
+      "where": "Marshgate Delivery Depot outer wall (LDN-BOW-FLYOVER) -> Carpenters Road fictional bridge pier (LDN-STRATFORD) -> Temple Mills depot carriage (LDN-MARSHES)",
+      "minRep": 1,
+      "requires": [
+        "tg-tu-02"
+      ],
+      "hook": "Create a visible transport route ending at the rail yard.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Marshgate Delivery Depot outer wall (LDN-BOW-FLYOVER): Just About or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-MARSHGATE",
+            "identity": "TAG-TU",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Carpenters Road fictional bridge pier (LDN-STRATFORD): Just About or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-CARPENTERS",
+            "identity": "TAG-TU",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Temple Mills depot carriage (LDN-MARSHES): Just About or better, with the Towpath Knot tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-TEMPLE-TRAIN",
+            "identity": "TAG-TU",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-BF-MARSHGATE",
+              "SP-ST-CARPENTERS",
+              "SP-HM-TEMPLE-TRAIN"
+            ],
+            "identity": "TAG-TU",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "TU": 2
+        },
+        "influence": 1
+      },
+      "next": "Player carries actual delivery docket if narrative requires it; train prop only stationary.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "TU",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A rival mover has changed the route during the job.",
+      "gm": "Player carries actual delivery docket if narrative requires it; train prop only stationary.",
+      "tagging": {
+        "identity": "TAG-TU",
+        "sites": [
+          "SP-BF-MARSHGATE",
+          "SP-ST-CARPENTERS",
+          "SP-HM-TEMPLE-TRAIN"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-BF-MARSHGATE",
+          "name": "Marshgate Delivery Depot outer wall",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": "LDV-BF7"
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST8"
+        },
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM5"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-BF-MARSHGATE",
+          "name": "Marshgate Delivery Depot outer wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapped": true
+        },
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 18,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ge-01",
+      "n": null,
+      "code": "TG-GE-01",
+      "title": "Wren Signs His Work",
+      "giver": "Clement Wren",
+      "where": "Glasshouse Saleroom service shutter (LDN-CANONBURY) -> Estorick pop-up board (LDN-CANONBURY)",
+      "minRep": 1,
+      "requires": [
+        "ge1"
+      ],
+      "hook": "The Exchange sponsors two sanctioned art plates connected to a sale.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Glasshouse Saleroom service shutter (LDN-CANONBURY): Just About or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CG-GLASSHOUSE",
+            "identity": "TAG-GE",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Estorick pop-up board (LDN-CANONBURY): Just About or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CG-ESTORICK",
+            "identity": "TAG-GE",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "GE": 1
+        },
+        "influence": 1
+      },
+      "next": "Art comparison should show actual vector layers, not only journal prose.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "GE",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A signature has been copied; use the correct variant to identify the fake.",
+      "gm": "Art comparison should show actual vector layers, not only journal prose.",
+      "tagging": {
+        "identity": "TAG-GE",
+        "sites": [
+          "SP-CG-GLASSHOUSE",
+          "SP-CG-ESTORICK"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CG-GLASSHOUSE",
+          "name": "Glasshouse Saleroom service shutter",
+          "mapId": "LDN-CANONBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CANONBURY",
+          "placeId": "LDV-CG7"
+        },
+        {
+          "code": "SP-CG-ESTORICK",
+          "name": "Estorick pop-up board",
+          "mapId": "LDN-CANONBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CANONBURY",
+          "placeId": "LDV-CG2"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CG-GLASSHOUSE",
+          "name": "Glasshouse Saleroom service shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-CG-ESTORICK",
+          "name": "Estorick pop-up board",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 19,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ge-02",
+      "n": null,
+      "code": "TG-GE-02",
+      "title": "The Missing Shard",
+      "giver": "Clement Wren",
+      "where": "Orchard Lease Office shutter (LDN-HIGHBURY) -> Split Second Archive street shutter (LDN-DE-BEAUVOIR) -> Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD)",
+      "minRep": 1,
+      "requires": [
+        "tg-ge-01"
+      ],
+      "hook": "A trio of glass shards hides a provenance trail, each in a different district.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Orchard Lease Office shutter (LDN-HIGHBURY): Sorted or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HB-ORCHARD",
+            "identity": "TAG-GE",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Split Second Archive street shutter (LDN-DE-BEAUVOIR): Sorted or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DB-ARCHIVE",
+            "identity": "TAG-GE",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD): Sorted or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HR-QUEENSBRIDGE",
+            "identity": "TAG-GE",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "GE": 1
+        },
+        "influence": 1
+      },
+      "next": "Allow noncriminal proof photos where permission applies.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "GE",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The original seller used the same style to launder the history.",
+      "gm": "Allow noncriminal proof photos where permission applies.",
+      "tagging": {
+        "identity": "TAG-GE",
+        "sites": [
+          "SP-HB-ORCHARD",
+          "SP-DB-ARCHIVE",
+          "SP-HR-QUEENSBRIDGE"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HB-ORCHARD",
+          "name": "Orchard Lease Office shutter",
+          "mapId": "LDN-HIGHBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HIGHBURY",
+          "placeId": "LDV-HB8"
+        },
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapId": "LDN-DE-BEAUVOIR",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DE-BEAUVOIR",
+          "placeId": "LDV-DB7"
+        },
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapId": "LDN-HACKNEY-ROAD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY-ROAD",
+          "placeId": "LDV-HR7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HB-ORCHARD",
+          "name": "Orchard Lease Office shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 20,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ge-03",
+      "n": null,
+      "code": "TG-GE-03",
+      "title": "The Prism Line",
+      "giver": "Clement Wren",
+      "where": "Stratford loading-bay wall (LDN-STRATFORD) -> VeloPark approach footbridge panel (LDN-OLYMPIC-NORTH) -> Bow Flyover column (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-ge-02"
+      ],
+      "hook": "An ambitious exhibition wants a visible three-part prism run.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Stratford loading-bay wall (LDN-STRATFORD): Just About or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-WESTFIELD",
+            "identity": "TAG-GE",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint VeloPark approach footbridge panel (LDN-OLYMPIC-NORTH): Just About or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ON-VELO",
+            "identity": "TAG-GE",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Bow Flyover column (LDN-BOW-FLYOVER): Just About or better, with the Glasshouse Prism tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-PILLAR",
+            "identity": "TAG-GE",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-ST-WESTFIELD",
+              "SP-ON-VELO",
+              "SP-BF-PILLAR"
+            ],
+            "identity": "TAG-GE",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "GE": 2
+        },
+        "influence": 1
+      },
+      "next": "Meaningful choice to accept, reject or take a permitted alternative.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "GE",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A patron offers more money to deface a rival mark.",
+      "gm": "Meaningful choice to accept, reject or take a permitted alternative.",
+      "tagging": {
+        "identity": "TAG-GE",
+        "sites": [
+          "SP-ST-WESTFIELD",
+          "SP-ON-VELO",
+          "SP-BF-PILLAR"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-ST-WESTFIELD",
+          "name": "Stratford loading-bay wall",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST1"
+        },
+        {
+          "code": "SP-ON-VELO",
+          "name": "VeloPark approach footbridge panel",
+          "mapId": "LDN-OLYMPIC-NORTH",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLYMPIC-NORTH",
+          "placeId": "LDV-ON1"
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-ST-WESTFIELD",
+          "name": "Stratford loading-bay wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-ON-VELO",
+          "name": "VeloPark approach footbridge panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 21,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-bb-01",
+      "n": null,
+      "code": "TG-BB-01",
+      "title": "Odds on the Wall",
+      "giver": "Victor \"Vic\" Randle",
+      "where": "Third Half Bookroom shutter (LDN-LEYTON) -> Shepherdess Coin Rooms back-lane shutter (LDN-HOXTON-WEST)",
+      "minRep": 1,
+      "requires": [
+        "bb1"
+      ],
+      "hook": "Vic wants two coded signs to tell runners which book is open.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Third Half Bookroom shutter (LDN-LEYTON): Just About or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LY-THIRDHALF",
+            "identity": "TAG-BB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Shepherdess Coin Rooms back-lane shutter (LDN-HOXTON-WEST): Just About or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HX-CASHROOM",
+            "identity": "TAG-BB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "BB": 1
+        },
+        "influence": 1
+      },
+      "next": "Unlocks Backroom Odds pack; no actual gambling backend required.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "BB",
+      "stage": 0,
+      "gate": 0,
+      "twist": "One sign uses yesterday’s odds and causes a street dispute.",
+      "gm": "Unlocks Backroom Odds pack; no actual gambling backend required.",
+      "tagging": {
+        "identity": "TAG-BB",
+        "sites": [
+          "SP-LY-THIRDHALF",
+          "SP-HX-CASHROOM"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-LY-THIRDHALF",
+          "name": "Third Half Bookroom shutter",
+          "mapId": "LDN-LEYTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "LEYTON",
+          "placeId": "LDV-LY7"
+        },
+        {
+          "code": "SP-HX-CASHROOM",
+          "name": "Shepherdess Coin Rooms back-lane shutter",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HOXTON-WEST",
+          "placeId": "LDV-HX8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-LY-THIRDHALF",
+          "name": "Third Half Bookroom shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-HX-CASHROOM",
+          "name": "Shepherdess Coin Rooms back-lane shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 22,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-bb-02",
+      "n": null,
+      "code": "TG-BB-02",
+      "title": "Across the Book",
+      "giver": "Victor \"Vic\" Randle",
+      "where": "Leyton Orient supporter shuttle bus (LDN-LEYTON) -> Marshes pavilion boundary wall (LDN-MARSHES) -> De Beauvoir Block authorised mural (LDN-DE-BEAUVOIR)",
+      "minRep": 1,
+      "requires": [
+        "tg-bb-01"
+      ],
+      "hook": "A route from matchday supporters to a venue mural, with each placement logged.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Leyton Orient supporter shuttle bus (LDN-LEYTON): Sorted or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LY-ORIENT-BUS",
+            "identity": "TAG-BB",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Marshes pavilion boundary wall (LDN-MARSHES): Sorted or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-NORTH-PAVILION",
+            "identity": "TAG-BB",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint De Beauvoir Block authorised mural (LDN-DE-BEAUVOIR): Sorted or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DB-DEBEAUVOIR",
+            "identity": "TAG-BB",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "BB": 1
+        },
+        "influence": 1
+      },
+      "next": "Bus must be parked; quality bonus only once per unique spot.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "BB",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The second site contains a counterfeit marker.",
+      "gm": "Bus must be parked; quality bonus only once per unique spot.",
+      "tagging": {
+        "identity": "TAG-BB",
+        "sites": [
+          "SP-LY-ORIENT-BUS",
+          "SP-HM-NORTH-PAVILION",
+          "SP-DB-DEBEAUVOIR"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-LY-ORIENT-BUS",
+          "name": "Leyton Orient supporter shuttle bus",
+          "mapId": "LDN-LEYTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "LEYTON",
+          "placeId": "LDV-LY2"
+        },
+        {
+          "code": "SP-HM-NORTH-PAVILION",
+          "name": "Marshes pavilion boundary wall",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM1"
+        },
+        {
+          "code": "SP-DB-DEBEAUVOIR",
+          "name": "De Beauvoir Block authorised mural",
+          "mapId": "LDN-DE-BEAUVOIR",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DE-BEAUVOIR",
+          "placeId": "LDV-DB3"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-LY-ORIENT-BUS",
+          "name": "Leyton Orient supporter shuttle bus",
+          "mapped": true
+        },
+        {
+          "code": "SP-HM-NORTH-PAVILION",
+          "name": "Marshes pavilion boundary wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-DB-DEBEAUVOIR",
+          "name": "De Beauvoir Block authorised mural",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 23,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-bb-03",
+      "n": null,
+      "code": "TG-BB-03",
+      "title": "The Bookies Countermark",
+      "giver": "Victor \"Vic\" Randle",
+      "where": "Lea Bridge Social Rooms side wall (LDN-CLAPTON) -> East Cross fictional overpass pillar (LDN-WICK-WOODLAND) -> Hackney Empire loading shutter (LDN-HACKNEY)",
+      "minRep": 1,
+      "requires": [
+        "tg-bb-02"
+      ],
+      "hook": "Vic sends the crew into hostile corridors for a coded advertising war.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Lea Bridge Social Rooms side wall (LDN-CLAPTON): Just About or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-LEABRIDGE",
+            "identity": "TAG-BB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint East Cross fictional overpass pillar (LDN-WICK-WOODLAND): Just About or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WW-EASTCROSS",
+            "identity": "TAG-BB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Hackney Empire loading shutter (LDN-HACKNEY): Just About or better, with the Backroom Odds tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-EMPIRE-BAY",
+            "identity": "TAG-BB",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-CL-LEABRIDGE",
+              "SP-WW-EASTCROSS",
+              "SP-HC-EMPIRE-BAY"
+            ],
+            "identity": "TAG-BB",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "BB": 2
+        },
+        "influence": 1
+      },
+      "next": "Street outcomes affect faction stance but cannot farm infinite Renown.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "BB",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The final mark threatens a public event; noncriminal alternative is available.",
+      "gm": "Street outcomes affect faction stance but cannot farm infinite Renown.",
+      "tagging": {
+        "identity": "TAG-BB",
+        "sites": [
+          "SP-CL-LEABRIDGE",
+          "SP-WW-EASTCROSS",
+          "SP-HC-EMPIRE-BAY"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL7"
+        },
+        {
+          "code": "SP-WW-EASTCROSS",
+          "name": "East Cross fictional overpass pillar",
+          "mapId": "LDN-WICK-WOODLAND",
+          "zoneId": null,
+          "mapped": true,
+          "district": "WICK-WOODLAND",
+          "placeId": "LDV-WW8"
+        },
+        {
+          "code": "SP-HC-EMPIRE-BAY",
+          "name": "Hackney Empire loading shutter",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDV-HC1"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-WW-EASTCROSS",
+          "name": "East Cross fictional overpass pillar",
+          "mapped": true
+        },
+        {
+          "code": "SP-HC-EMPIRE-BAY",
+          "name": "Hackney Empire loading shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 24,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-nm-01",
+      "n": null,
+      "code": "TG-NM-01",
+      "title": "Follow the Lantern",
+      "giver": "Pearl Okonkwo",
+      "where": "Roman Exchange stall shutter (LDN-OLD-FORD) -> New Spitalfields unloading shutter (LDN-MARSHES)",
+      "minRep": 1,
+      "requires": [
+        "nm1"
+      ],
+      "hook": "Pearl marks an unloading pattern across two market fronts.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Roman Exchange stall shutter (LDN-OLD-FORD): Just About or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-OF-ROMAN",
+            "identity": "TAG-NM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint New Spitalfields unloading shutter (LDN-MARSHES): Just About or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-MARKET",
+            "identity": "TAG-NM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "NM": 1
+        },
+        "influence": 1
+      },
+      "next": "Approved market sign mode available if the stallholder agrees.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "NM",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A stallholder sees a different signal on an unlisted shutter.",
+      "gm": "Approved market sign mode available if the stallholder agrees.",
+      "tagging": {
+        "identity": "TAG-NM",
+        "sites": [
+          "SP-OF-ROMAN",
+          "SP-HM-MARKET"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-OF-ROMAN",
+          "name": "Roman Exchange stall shutter",
+          "mapId": "LDN-OLD-FORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLD-FORD",
+          "placeId": "LDV-OF7"
+        },
+        {
+          "code": "SP-HM-MARKET",
+          "name": "New Spitalfields unloading shutter",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM2"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-OF-ROMAN",
+          "name": "Roman Exchange stall shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-HM-MARKET",
+          "name": "New Spitalfields unloading shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 25,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-nm-02",
+      "n": null,
+      "code": "TG-NM-02",
+      "title": "Two Buyers No Map",
+      "giver": "Pearl Okonkwo",
+      "where": "Bethnal Green market service shutter (LDN-BETHNAL-GREEN) -> Larch Cold Store outer wall (LDN-LEYTON) -> Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD)",
+      "minRep": 1,
+      "requires": [
+        "tg-nm-01"
+      ],
+      "hook": "Three lantern marks help separate legitimate couriers from decoys.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Bethnal Green market service shutter (LDN-BETHNAL-GREEN): Sorted or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BG-STREET",
+            "identity": "TAG-NM",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Larch Cold Store outer wall (LDN-LEYTON): Sorted or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LY-LARCH",
+            "identity": "TAG-NM",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Queensbridge Sound Store hire shutter (LDN-HACKNEY-ROAD): Sorted or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HR-QUEENSBRIDGE",
+            "identity": "TAG-NM",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "NM": 1
+        },
+        "influence": 1
+      },
+      "next": "Street site requires initial hotspot authoring before game release.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "NM",
+      "stage": 0,
+      "gate": 0,
+      "twist": "One false paint job points toward Dead Air’s missing recordings.",
+      "gm": "Street site requires initial hotspot authoring before game release.",
+      "tagging": {
+        "identity": "TAG-NM",
+        "sites": [
+          "SP-BG-STREET",
+          "SP-LY-LARCH",
+          "SP-HR-QUEENSBRIDGE"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-BG-STREET",
+          "name": "Bethnal Green market service shutter",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BETHNAL-GREEN",
+          "placeId": null
+        },
+        {
+          "code": "SP-LY-LARCH",
+          "name": "Larch Cold Store outer wall",
+          "mapId": "LDN-LEYTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "LEYTON",
+          "placeId": "LDV-LY8"
+        },
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapId": "LDN-HACKNEY-ROAD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY-ROAD",
+          "placeId": "LDV-HR7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-BG-STREET",
+          "name": "Bethnal Green market service shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-LY-LARCH",
+          "name": "Larch Cold Store outer wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-HR-QUEENSBRIDGE",
+          "name": "Queensbridge Sound Store hire shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 26,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-nm-03",
+      "n": null,
+      "code": "TG-NM-03",
+      "title": "Market After Midnight",
+      "giver": "Pearl Okonkwo",
+      "where": "Temple Mills depot carriage (LDN-MARSHES) -> Waterden Road parked bus (LDN-VICTORIA-PARK) -> Marshgate Delivery Depot outer wall (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-nm-02"
+      ],
+      "hook": "Leave a citywide sign on rail, bus and depot before the Watch window closes.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Temple Mills depot carriage (LDN-MARSHES): Just About or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-TEMPLE-TRAIN",
+            "identity": "TAG-NM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Waterden Road parked bus (LDN-VICTORIA-PARK): Just About or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-VW-WATERDEN-BUS",
+            "identity": "TAG-NM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Marshgate Delivery Depot outer wall (LDN-BOW-FLYOVER): Just About or better, with the Night Stall tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-MARSHGATE",
+            "identity": "TAG-NM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HM-TEMPLE-TRAIN",
+              "SP-VW-WATERDEN-BUS",
+              "SP-BF-MARSHGATE"
+            ],
+            "identity": "TAG-NM",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "NM": 2
+        },
+        "influence": 1
+      },
+      "next": "Specific Banana Watch deadline, not real time; assets are stationary.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "NM",
+      "stage": 0,
+      "gate": 0,
+      "twist": "Pearl’s buyer is late; player chooses whether to let the mark expire.",
+      "gm": "Specific Banana Watch deadline, not real time; assets are stationary.",
+      "tagging": {
+        "identity": "TAG-NM",
+        "sites": [
+          "SP-HM-TEMPLE-TRAIN",
+          "SP-VW-WATERDEN-BUS",
+          "SP-BF-MARSHGATE"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM5"
+        },
+        {
+          "code": "SP-VW-WATERDEN-BUS",
+          "name": "Waterden Road parked bus",
+          "mapId": "LDN-VICTORIA-PARK",
+          "zoneId": null,
+          "mapped": true,
+          "district": "VICTORIA-PARK",
+          "placeId": "LDV-VW3"
+        },
+        {
+          "code": "SP-BF-MARSHGATE",
+          "name": "Marshgate Delivery Depot outer wall",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": "LDV-BF7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-VW-WATERDEN-BUS",
+          "name": "Waterden Road parked bus",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-MARSHGATE",
+          "name": "Marshgate Delivery Depot outer wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 27,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-bm-01",
+      "n": null,
+      "code": "TG-BM-01",
+      "title": "Mutual Aid Mural",
+      "giver": "Rosa Baptiste",
+      "where": "Hub67 community panel (LDN-WICK-WOODLAND) -> Approach Recovery Rooms awareness board (LDN-BETHNAL-GREEN)",
+      "minRep": 1,
+      "requires": [
+        "bm1"
+      ],
+      "hook": "Rosa organises two permission-based community murals with useful contact details.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Hub67 community panel (LDN-WICK-WOODLAND): Just About or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WW-HUB67",
+            "identity": "TAG-BM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Approach Recovery Rooms awareness board (LDN-BETHNAL-GREEN): Just About or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BG-RECOVERY",
+            "identity": "TAG-BM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "BM": 1
+        },
+        "influence": 1
+      },
+      "next": "Legal mural; never generate police Heat solely for visible artwork.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "BM",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A fake organiser wants the slogan used as a cover for a scam.",
+      "gm": "Legal mural; never generate police Heat solely for visible artwork.",
+      "tagging": {
+        "identity": "TAG-BM",
+        "sites": [
+          "SP-WW-HUB67",
+          "SP-BG-RECOVERY"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-WW-HUB67",
+          "name": "Hub67 community panel",
+          "mapId": "LDN-WICK-WOODLAND",
+          "zoneId": null,
+          "mapped": true,
+          "district": "WICK-WOODLAND",
+          "placeId": "LDV-WW6"
+        },
+        {
+          "code": "SP-BG-RECOVERY",
+          "name": "Approach Recovery Rooms awareness board",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BETHNAL-GREEN",
+          "placeId": "LDV-BG8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-WW-HUB67",
+          "name": "Hub67 community panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-BG-RECOVERY",
+          "name": "Approach Recovery Rooms awareness board",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 28,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-bm-02",
+      "n": null,
+      "code": "TG-BM-02",
+      "title": "A Different Kind of Notice",
+      "giver": "Rosa Baptiste",
+      "where": "St John outreach board (LDN-SOUTH-HACKNEY) -> Clapton Library outreach panel (LDN-CLAPTON) -> Abney exterior community panel (LDN-STOKEY)",
+      "minRep": 1,
+      "requires": [
+        "tg-bm-01"
+      ],
+      "hook": "Three approved public boards guide residents to welfare resources.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint St John outreach board (LDN-SOUTH-HACKNEY): Sorted or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WS-STJOHN",
+            "identity": "TAG-BM",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Clapton Library outreach panel (LDN-CLAPTON): Sorted or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-LIBRARY",
+            "identity": "TAG-BM",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Abney exterior community panel (LDN-STOKEY): Sorted or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-SN-ABNEY",
+            "identity": "TAG-BM",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "BM": 1
+        },
+        "influence": 1
+      },
+      "next": "Public board cleanup/repaint demonstrates the contested-site lifecycle.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "BM",
+      "stage": 0,
+      "gate": 0,
+      "twist": "Someone defaces one board and the crew must restore it.",
+      "gm": "Public board cleanup/repaint demonstrates the contested-site lifecycle.",
+      "tagging": {
+        "identity": "TAG-BM",
+        "sites": [
+          "SP-WS-STJOHN",
+          "SP-CL-LIBRARY",
+          "SP-SN-ABNEY"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-WS-STJOHN",
+          "name": "St John outreach board",
+          "mapId": "LDN-SOUTH-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "SOUTH-HACKNEY",
+          "placeId": "LDV-WS5"
+        },
+        {
+          "code": "SP-CL-LIBRARY",
+          "name": "Clapton Library outreach panel",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL1"
+        },
+        {
+          "code": "SP-SN-ABNEY",
+          "name": "Abney exterior community panel",
+          "mapId": "LDN-STOKEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STOKEY",
+          "placeId": "LDV-SN1"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-WS-STJOHN",
+          "name": "St John outreach board",
+          "mapped": true
+        },
+        {
+          "code": "SP-CL-LIBRARY",
+          "name": "Clapton Library outreach panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-SN-ABNEY",
+          "name": "Abney exterior community panel",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 29,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-bm-03",
+      "n": null,
+      "code": "TG-BM-03",
+      "title": "A Borough Remembers",
+      "giver": "Rosa Baptiste",
+      "where": "Round Chapel event-load shutter (LDN-HACKNEY) -> De Beauvoir Block authorised mural (LDN-DE-BEAUVOIR) -> Union Chapel event display wall (LDN-CANONBURY)",
+      "minRep": 1,
+      "requires": [
+        "tg-bm-02"
+      ],
+      "hook": "Community project finishes with a three-stop fundraising mural series.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Round Chapel event-load shutter (LDN-HACKNEY): Just About or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-ROUND-SHUTTER",
+            "identity": "TAG-BM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint De Beauvoir Block authorised mural (LDN-DE-BEAUVOIR): Just About or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DB-DEBEAUVOIR",
+            "identity": "TAG-BM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Union Chapel event display wall (LDN-CANONBURY): Just About or better, with the Borough Hand tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CG-UNION",
+            "identity": "TAG-BM",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HC-ROUND-SHUTTER",
+              "SP-DB-DEBEAUVOIR",
+              "SP-CG-UNION"
+            ],
+            "identity": "TAG-BM",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "BM": 2
+        },
+        "influence": 1
+      },
+      "next": "Two branches affect BM/MR stance; no civic-building damage.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "BM",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A donor tied to Meridian wants their name larger than the families’.",
+      "gm": "Two branches affect BM/MR stance; no civic-building damage.",
+      "tagging": {
+        "identity": "TAG-BM",
+        "sites": [
+          "SP-HC-ROUND-SHUTTER",
+          "SP-DB-DEBEAUVOIR",
+          "SP-CG-UNION"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HC-ROUND-SHUTTER",
+          "name": "Round Chapel event-load shutter",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDV-HC2"
+        },
+        {
+          "code": "SP-DB-DEBEAUVOIR",
+          "name": "De Beauvoir Block authorised mural",
+          "mapId": "LDN-DE-BEAUVOIR",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DE-BEAUVOIR",
+          "placeId": "LDV-DB3"
+        },
+        {
+          "code": "SP-CG-UNION",
+          "name": "Union Chapel event display wall",
+          "mapId": "LDN-CANONBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CANONBURY",
+          "placeId": "LDV-CG4"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HC-ROUND-SHUTTER",
+          "name": "Round Chapel event-load shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-DB-DEBEAUVOIR",
+          "name": "De Beauvoir Block authorised mural",
+          "mapped": true
+        },
+        {
+          "code": "SP-CG-UNION",
+          "name": "Union Chapel event display wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 30,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ld-01",
+      "n": null,
+      "code": "TG-LD-01",
+      "title": "The Lantern Code",
+      "giver": "DS Harriet Vale",
+      "where": "Lantern Case Flat rear display panel (LDN-BETHNAL-GREEN) -> Split Second Archive street shutter (LDN-DE-BEAUVOIR)",
+      "minRep": 1,
+      "requires": [
+        "ld1"
+      ],
+      "hook": "Vale uses two *consented private* markers as part of a covert evidence trail.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Lantern Case Flat rear display panel (LDN-BETHNAL-GREEN): Just About or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BG-LANTERN",
+            "identity": "TAG-LD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Split Second Archive street shutter (LDN-DE-BEAUVOIR): Just About or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DB-ARCHIVE",
+            "identity": "TAG-LD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "LD": 1
+        },
+        "influence": 1
+      },
+      "next": "Not sanctioned police graffiti; no police badge/impersonation.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "LD",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A witness is using the markings to identify which detective they can trust.",
+      "gm": "Not sanctioned police graffiti; no police badge/impersonation.",
+      "tagging": {
+        "identity": "TAG-LD",
+        "sites": [
+          "SP-BG-LANTERN",
+          "SP-DB-ARCHIVE"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-BG-LANTERN",
+          "name": "Lantern Case Flat rear display panel",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BETHNAL-GREEN",
+          "placeId": "LDV-BG7"
+        },
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapId": "LDN-DE-BEAUVOIR",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DE-BEAUVOIR",
+          "placeId": "LDV-DB7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-BG-LANTERN",
+          "name": "Lantern Case Flat rear display panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 31,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ld-02",
+      "n": null,
+      "code": "TG-LD-02",
+      "title": "Between the Lines",
+      "giver": "DS Harriet Vale",
+      "where": "Well Street service underpass (LDN-SOUTH-HACKNEY) -> Chainring storehouse boundary wall (LDN-HACKNEY) -> Shacklewell Arms loading shutter (LDN-STOKEY)",
+      "minRep": 1,
+      "requires": [
+        "tg-ld-01"
+      ],
+      "hook": "Three discreet symbols reveal how false reports were being routed.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Well Street service underpass (LDN-SOUTH-HACKNEY): Sorted or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WS-WELLSTREET",
+            "identity": "TAG-LD",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Chainring storehouse boundary wall (LDN-HACKNEY): Sorted or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HC-STOREHOUSE",
+            "identity": "TAG-LD",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Shacklewell Arms loading shutter (LDN-STOKEY): Sorted or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-SN-SHACKLEWELL",
+            "identity": "TAG-LD",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "LD": 1
+        },
+        "influence": 1
+      },
+      "next": "When public mark is unauthorised, Heat still applies like any other faction.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "LD",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The Chainring can interpret the third sign differently.",
+      "gm": "When public mark is unauthorised, Heat still applies like any other faction.",
+      "tagging": {
+        "identity": "TAG-LD",
+        "sites": [
+          "SP-WS-WELLSTREET",
+          "SP-HC-STOREHOUSE",
+          "SP-SN-SHACKLEWELL"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-WS-WELLSTREET",
+          "name": "Well Street service underpass",
+          "mapId": "LDN-SOUTH-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "SOUTH-HACKNEY",
+          "placeId": "LDV-WS1"
+        },
+        {
+          "code": "SP-HC-STOREHOUSE",
+          "name": "Chainring storehouse boundary wall",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HACKNEY",
+          "placeId": "LDV-HC7"
+        },
+        {
+          "code": "SP-SN-SHACKLEWELL",
+          "name": "Shacklewell Arms loading shutter",
+          "mapId": "LDN-STOKEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STOKEY",
+          "placeId": "LDV-SN5"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-WS-WELLSTREET",
+          "name": "Well Street service underpass",
+          "mapped": true
+        },
+        {
+          "code": "SP-HC-STOREHOUSE",
+          "name": "Chainring storehouse boundary wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-SN-SHACKLEWELL",
+          "name": "Shacklewell Arms loading shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 32,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-ld-03",
+      "n": null,
+      "code": "TG-LD-03",
+      "title": "A Light in the Wrong Place",
+      "giver": "DS Harriet Vale",
+      "where": "Carpenters Road fictional bridge pier (LDN-STRATFORD) -> Orient Way yard carriage (LDN-MARSHES) -> Pudding Mill Lane stationary DLR carriage (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-ld-02"
+      ],
+      "hook": "Evidence-marking operation spans bridge and transit imagery before statements are taken.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Carpenters Road fictional bridge pier (LDN-STRATFORD): Just About or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-CARPENTERS",
+            "identity": "TAG-LD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Orient Way yard carriage (LDN-MARSHES): Just About or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-ORIENT-TRAIN",
+            "identity": "TAG-LD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Pudding Mill Lane stationary DLR carriage (LDN-BOW-FLYOVER): Just About or better, with the Lantern Cipher tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-DLR",
+            "identity": "TAG-LD",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-ST-CARPENTERS",
+              "SP-HM-ORIENT-TRAIN",
+              "SP-BF-DLR"
+            ],
+            "identity": "TAG-LD",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "LD": 2
+        },
+        "influence": 1
+      },
+      "next": "Stationary prop/evidence route; avoid representing official policing as gang territory.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "LD",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A former officer planted a decoy symbol on one carriage.",
+      "gm": "Stationary prop/evidence route; avoid representing official policing as gang territory.",
+      "tagging": {
+        "identity": "TAG-LD",
+        "sites": [
+          "SP-ST-CARPENTERS",
+          "SP-HM-ORIENT-TRAIN",
+          "SP-BF-DLR"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST8"
+        },
+        {
+          "code": "SP-HM-ORIENT-TRAIN",
+          "name": "Orient Way yard carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM4"
+        },
+        {
+          "code": "SP-BF-DLR",
+          "name": "Pudding Mill Lane stationary DLR carriage",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": "LDV-BF6"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapped": true
+        },
+        {
+          "code": "SP-HM-ORIENT-TRAIN",
+          "name": "Orient Way yard carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-DLR",
+          "name": "Pudding Mill Lane stationary DLR carriage",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 33,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-mr-01",
+      "n": null,
+      "code": "TG-MR-01",
+      "title": "Meridian Says Welcome",
+      "giver": "Rusk",
+      "where": "Orchard Lease Office shutter (LDN-HIGHBURY) -> Stratford loading-bay wall (LDN-STRATFORD)",
+      "minRep": 1,
+      "requires": [
+        "mr1"
+      ],
+      "hook": "Rusk sponsors corporate-style arrows on two privately controlled display surfaces.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Orchard Lease Office shutter (LDN-HIGHBURY): Just About or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HB-ORCHARD",
+            "identity": "TAG-MR",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Stratford loading-bay wall (LDN-STRATFORD): Just About or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-WESTFIELD",
+            "identity": "TAG-MR",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "MR": 1
+        },
+        "influence": 1
+      },
+      "next": "Corporate ads, with competing permitted community option.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "MR",
+      "stage": 0,
+      "gate": 0,
+      "twist": "Residents contest whether consent was really obtained.",
+      "gm": "Corporate ads, with competing permitted community option.",
+      "tagging": {
+        "identity": "TAG-MR",
+        "sites": [
+          "SP-HB-ORCHARD",
+          "SP-ST-WESTFIELD"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HB-ORCHARD",
+          "name": "Orchard Lease Office shutter",
+          "mapId": "LDN-HIGHBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HIGHBURY",
+          "placeId": "LDV-HB8"
+        },
+        {
+          "code": "SP-ST-WESTFIELD",
+          "name": "Stratford loading-bay wall",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST1"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HB-ORCHARD",
+          "name": "Orchard Lease Office shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-ST-WESTFIELD",
+          "name": "Stratford loading-bay wall",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 34,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-mr-02",
+      "n": null,
+      "code": "TG-MR-02",
+      "title": "New Boundary New Banner",
+      "giver": "Rusk",
+      "where": "Glasshouse Saleroom service shutter (LDN-CANONBURY) -> Well Street service underpass (LDN-SOUTH-HACKNEY) -> Roman Rooms Printworks commissioned board (LDN-OLD-FORD)",
+      "minRep": 1,
+      "requires": [
+        "tg-mr-01"
+      ],
+      "hook": "Celia Voss uses a symbol campaign to suggest a new area boundary.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Glasshouse Saleroom service shutter (LDN-CANONBURY): Sorted or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CG-GLASSHOUSE",
+            "identity": "TAG-MR",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Well Street service underpass (LDN-SOUTH-HACKNEY): Sorted or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WS-WELLSTREET",
+            "identity": "TAG-MR",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Roman Rooms Printworks commissioned board (LDN-OLD-FORD): Sorted or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-OF-PRINT",
+            "identity": "TAG-MR",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "MR": 1
+        },
+        "influence": 1
+      },
+      "next": "Stance consequences: public opposition triggers rival-tag opportunities.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "MR",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A planning diagram is falsified and revealed by a misaligned stencil.",
+      "gm": "Stance consequences: public opposition triggers rival-tag opportunities.",
+      "tagging": {
+        "identity": "TAG-MR",
+        "sites": [
+          "SP-CG-GLASSHOUSE",
+          "SP-WS-WELLSTREET",
+          "SP-OF-PRINT"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CG-GLASSHOUSE",
+          "name": "Glasshouse Saleroom service shutter",
+          "mapId": "LDN-CANONBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CANONBURY",
+          "placeId": "LDV-CG7"
+        },
+        {
+          "code": "SP-WS-WELLSTREET",
+          "name": "Well Street service underpass",
+          "mapId": "LDN-SOUTH-HACKNEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "SOUTH-HACKNEY",
+          "placeId": "LDV-WS1"
+        },
+        {
+          "code": "SP-OF-PRINT",
+          "name": "Roman Rooms Printworks commissioned board",
+          "mapId": "LDN-OLD-FORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLD-FORD",
+          "placeId": "LDV-OF8"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CG-GLASSHOUSE",
+          "name": "Glasshouse Saleroom service shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-WS-WELLSTREET",
+          "name": "Well Street service underpass",
+          "mapped": true
+        },
+        {
+          "code": "SP-OF-PRINT",
+          "name": "Roman Rooms Printworks commissioned board",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 35,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-mr-03",
+      "n": null,
+      "code": "TG-MR-03",
+      "title": "The Golden Route",
+      "giver": "Rusk",
+      "where": "VeloPark approach footbridge panel (LDN-OLYMPIC-NORTH) -> East Cross fictional overpass pillar (LDN-WICK-WOODLAND) -> Bow Flyover column (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-mr-02"
+      ],
+      "hook": "Mark a chain of development-adjacent sites as Meridian’s city push.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint VeloPark approach footbridge panel (LDN-OLYMPIC-NORTH): Just About or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ON-VELO",
+            "identity": "TAG-MR",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint East Cross fictional overpass pillar (LDN-WICK-WOODLAND): Just About or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-WW-EASTCROSS",
+            "identity": "TAG-MR",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Bow Flyover column (LDN-BOW-FLYOVER): Just About or better, with the Meridian Arrow tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-PILLAR",
+            "identity": "TAG-MR",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-ON-VELO",
+              "SP-WW-EASTCROSS",
+              "SP-BF-PILLAR"
+            ],
+            "identity": "TAG-MR",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "MR": 2
+        },
+        "influence": 1
+      },
+      "next": "Both routes count for story progress but award different faction standings.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "MR",
+      "stage": 0,
+      "gate": 0,
+      "twist": "A community organiser offers to turn it into a protest mural.",
+      "gm": "Both routes count for story progress but award different faction standings.",
+      "tagging": {
+        "identity": "TAG-MR",
+        "sites": [
+          "SP-ON-VELO",
+          "SP-WW-EASTCROSS",
+          "SP-BF-PILLAR"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-ON-VELO",
+          "name": "VeloPark approach footbridge panel",
+          "mapId": "LDN-OLYMPIC-NORTH",
+          "zoneId": null,
+          "mapped": true,
+          "district": "OLYMPIC-NORTH",
+          "placeId": "LDV-ON1"
+        },
+        {
+          "code": "SP-WW-EASTCROSS",
+          "name": "East Cross fictional overpass pillar",
+          "mapId": "LDN-WICK-WOODLAND",
+          "zoneId": null,
+          "mapped": true,
+          "district": "WICK-WOODLAND",
+          "placeId": "LDV-WW8"
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-ON-VELO",
+          "name": "VeloPark approach footbridge panel",
+          "mapped": true
+        },
+        {
+          "code": "SP-WW-EASTCROSS",
+          "name": "East Cross fictional overpass pillar",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 36,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-rt-01",
+      "n": null,
+      "code": "TG-RT-01",
+      "title": "The Red Thread Begins",
+      "giver": "Ada \"Index\" March",
+      "where": "Split Second Archive street shutter (LDN-DE-BEAUVOIR) -> Abney exterior community panel (LDN-STOKEY)",
+      "minRep": 1,
+      "requires": [
+        "rt1"
+      ],
+      "hook": "Ada gives two linked symbols to make missing names visible.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Split Second Archive street shutter (LDN-DE-BEAUVOIR): Just About or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DB-ARCHIVE",
+            "identity": "TAG-RT",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Abney exterior community panel (LDN-STOKEY): Just About or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-SN-ABNEY",
+            "identity": "TAG-RT",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 65,
+        "xp": 2,
+        "rep": {
+          "street": 1
+        },
+        "renown": {
+          "RT": 1
+        },
+        "influence": 1
+      },
+      "next": "Only authorised panels; symbols still shown as vector art.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "RT",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The second mark corresponds to a misfiled witness statement.",
+      "gm": "Only authorised panels; symbols still shown as vector art.",
+      "tagging": {
+        "identity": "TAG-RT",
+        "sites": [
+          "SP-DB-ARCHIVE",
+          "SP-SN-ABNEY"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapId": "LDN-DE-BEAUVOIR",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DE-BEAUVOIR",
+          "placeId": "LDV-DB7"
+        },
+        {
+          "code": "SP-SN-ABNEY",
+          "name": "Abney exterior community panel",
+          "mapId": "LDN-STOKEY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STOKEY",
+          "placeId": "LDV-SN1"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-SN-ABNEY",
+          "name": "Abney exterior community panel",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 37,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-rt-02",
+      "n": null,
+      "code": "TG-RT-02",
+      "title": "Stitches on the Map",
+      "giver": "Ada \"Index\" March",
+      "where": "Estorick pop-up board (LDN-CANONBURY) -> Englefield back-lane wall (LDN-HAGGERSTON) -> Lantern Case Flat rear display panel (LDN-BETHNAL-GREEN)",
+      "minRep": 1,
+      "requires": [
+        "tg-rt-01"
+      ],
+      "hook": "Three markings identify places where stories disagree.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Estorick pop-up board (LDN-CANONBURY): Sorted or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CG-ESTORICK",
+            "identity": "TAG-RT",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Englefield back-lane wall (LDN-HAGGERSTON): Sorted or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-LF-LISTENING",
+            "identity": "TAG-RT",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Lantern Case Flat rear display panel (LDN-BETHNAL-GREEN): Sorted or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BG-LANTERN",
+            "identity": "TAG-RT",
+            "minQuality": "fullSuccess"
+          },
+          "stop": 2
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 130,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "RT": 1
+        },
+        "influence": 1
+      },
+      "next": "Puzzle-like sequence; no arbitrary actual street puzzle under time pressure.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "RT",
+      "stage": 0,
+      "gate": 0,
+      "twist": "The middle tag is deliberately inverted; correct it to reveal the trail.",
+      "gm": "Puzzle-like sequence; no arbitrary actual street puzzle under time pressure.",
+      "tagging": {
+        "identity": "TAG-RT",
+        "sites": [
+          "SP-CG-ESTORICK",
+          "SP-LF-LISTENING",
+          "SP-BG-LANTERN"
+        ],
+        "minQuality": "fullSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "fullSuccess",
+          "atLeastOne": null
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CG-ESTORICK",
+          "name": "Estorick pop-up board",
+          "mapId": "LDN-CANONBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CANONBURY",
+          "placeId": "LDV-CG2"
+        },
+        {
+          "code": "SP-LF-LISTENING",
+          "name": "Englefield back-lane wall",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HAGGERSTON",
+          "placeId": "LDV-LF8"
+        },
+        {
+          "code": "SP-BG-LANTERN",
+          "name": "Lantern Case Flat rear display panel",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BETHNAL-GREEN",
+          "placeId": "LDV-BG7"
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CG-ESTORICK",
+          "name": "Estorick pop-up board",
+          "mapped": true
+        },
+        {
+          "code": "SP-LF-LISTENING",
+          "name": "Englefield back-lane wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-BG-LANTERN",
+          "name": "Lantern Case Flat rear display panel",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 38,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-rt-03",
+      "n": null,
+      "code": "TG-RT-03",
+      "title": "The Thread Cannot Break",
+      "giver": "Ada \"Index\" March",
+      "where": "Temple Mills depot carriage (LDN-MARSHES) -> Tern Wharf canal parapet (LDN-HOXTON-WEST) -> Bow Flyover column (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-rt-02"
+      ],
+      "hook": "Leave three linked clues between transport, towpath and flyover.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Temple Mills depot carriage (LDN-MARSHES): Just About or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-TEMPLE-TRAIN",
+            "identity": "TAG-RT",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Tern Wharf canal parapet (LDN-HOXTON-WEST): Just About or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HX-TERN",
+            "identity": "TAG-RT",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Bow Flyover column (LDN-BOW-FLYOVER): Just About or better, with the Red Thread Loop tag",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-PILLAR",
+            "identity": "TAG-RT",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HM-TEMPLE-TRAIN",
+              "SP-HX-TERN",
+              "SP-BF-PILLAR"
+            ],
+            "identity": "TAG-RT",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 220,
+        "xp": 3,
+        "rep": {},
+        "renown": {
+          "RT": 2
+        },
+        "influence": 1
+      },
+      "next": "Use revision history to identify overpaint, then repair the correct spot.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": "RT",
+      "stage": 0,
+      "gate": 0,
+      "twist": "One previously painted symbol has been overpainted by Meridian.",
+      "gm": "Use revision history to identify overpaint, then repair the correct spot.",
+      "tagging": {
+        "identity": "TAG-RT",
+        "sites": [
+          "SP-HM-TEMPLE-TRAIN",
+          "SP-HX-TERN",
+          "SP-BF-PILLAR"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess"
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM5"
+        },
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HOXTON-WEST",
+          "placeId": "LDV-HX7"
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 39,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-city-01",
+      "n": null,
+      "code": "TG-CITY-01",
+      "title": "From Lea to Bow",
+      "giver": "Street Stories",
+      "where": "Oddments Lockup yard wall (LDN-HIGHBURY) -> Backspin Studio loading shutter (LDN-DALSTON) -> Grow Hackney canal retaining wall (LDN-VICTORIA-PARK) -> Carpenters Road fictional bridge pier (LDN-STRATFORD) -> Bow Flyover column (LDN-BOW-FLYOVER)",
+      "minRep": 1,
+      "requires": [
+        "tg-intro-04"
+      ],
+      "hook": "Put the crew’s mark into five distinct districts and include at least two unlocked sponsor identities; the Tagbook records the spread.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Oddments Lockup yard wall (LDN-HIGHBURY): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HB-ODDMENTS",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Backspin Studio loading shutter (LDN-DALSTON): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DA-BACKSPIN",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Grow Hackney canal retaining wall (LDN-VICTORIA-PARK): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-VW-WICK-CANAL",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "tag-4",
+          "text": "Paint Carpenters Road fictional bridge pier (LDN-STRATFORD): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-ST-CARPENTERS",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 3
+        },
+        {
+          "id": "tag-5",
+          "text": "Paint Bow Flyover column (LDN-BOW-FLYOVER): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BF-PILLAR",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 4
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make 2 of those pieces Smashed It or better (paint over them if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-HB-ODDMENTS",
+              "SP-DA-BACKSPIN",
+              "SP-VW-WICK-CANAL",
+              "SP-ST-CARPENTERS",
+              "SP-BF-PILLAR"
+            ],
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "strongSuccess",
+            "count": 2
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 300,
+        "xp": 5,
+        "rep": {
+          "street": 1
+        },
+        "renown": {},
+        "influence": 0
+      },
+      "next": "5 specific sites plus >=2 distinct sponsored packs; sponsor identity per site may vary. All records must be distinct site IDs, unique to this mission run.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": null,
+      "stage": 0,
+      "gate": 0,
+      "twist": "One sponsoring faction objects to appearing beside another. Resolve the conflict instead of auto-claiming their Renown.",
+      "gm": "5 specific sites plus >=2 distinct sponsored packs; sponsor identity per site may vary. All records must be distinct site IDs, unique to this mission run.",
+      "tagging": {
+        "identity": "ANY_UNLOCKED",
+        "sites": [
+          "SP-HB-ODDMENTS",
+          "SP-DA-BACKSPIN",
+          "SP-VW-WICK-CANAL",
+          "SP-ST-CARPENTERS",
+          "SP-BF-PILLAR"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess",
+          "strongMarksAtLeast": 2
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-HB-ODDMENTS",
+          "name": "Oddments Lockup yard wall",
+          "mapId": "LDN-HIGHBURY",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HIGHBURY",
+          "placeId": "LDV-HB7"
+        },
+        {
+          "code": "SP-DA-BACKSPIN",
+          "name": "Backspin Studio loading shutter",
+          "mapId": "LDN-DALSTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DALSTON",
+          "placeId": "LDV-DA7"
+        },
+        {
+          "code": "SP-VW-WICK-CANAL",
+          "name": "Grow Hackney canal retaining wall",
+          "mapId": "LDN-VICTORIA-PARK",
+          "zoneId": null,
+          "mapped": true,
+          "district": "VICTORIA-PARK",
+          "placeId": "LDV-VW4"
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapId": "LDN-STRATFORD",
+          "zoneId": null,
+          "mapped": true,
+          "district": "STRATFORD",
+          "placeId": "LDV-ST8"
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BOW-FLYOVER",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-HB-ODDMENTS",
+          "name": "Oddments Lockup yard wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-DA-BACKSPIN",
+          "name": "Backspin Studio loading shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-VW-WICK-CANAL",
+          "name": "Grow Hackney canal retaining wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-ST-CARPENTERS",
+          "name": "Carpenters Road fictional bridge pier",
+          "mapped": true
+        },
+        {
+          "code": "SP-BF-PILLAR",
+          "name": "Bow Flyover column",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 40,
+      "taggingOnly": true
+    },
+    {
+      "id": "tg-city-02",
+      "n": null,
+      "code": "TG-CITY-02",
+      "title": "Nothing Stays Painted",
+      "giver": "Street Stories",
+      "where": "Lea Bridge Social Rooms side wall (LDN-CLAPTON) -> Split Second Archive street shutter (LDN-DE-BEAUVOIR) -> Temple Mills depot carriage (LDN-MARSHES) -> Tern Wharf canal parapet (LDN-HOXTON-WEST) -> Bethnal Green market service shutter (LDN-BETHNAL-GREEN)",
+      "minRep": 1,
+      "requires": [
+        "tg-city-01"
+      ],
+      "hook": "Reclaim five contested sites across five districts after their earliest tags are overwritten or cleaned; demonstrate the city responds.",
+      "objectives": [
+        {
+          "id": "tag-1",
+          "text": "Paint Lea Bridge Social Rooms side wall (LDN-CLAPTON): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-CL-LEABRIDGE",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 0
+        },
+        {
+          "id": "tag-2",
+          "text": "Paint Split Second Archive street shutter (LDN-DE-BEAUVOIR): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-DB-ARCHIVE",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 1
+        },
+        {
+          "id": "tag-3",
+          "text": "Paint Temple Mills depot carriage (LDN-MARSHES): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HM-TEMPLE-TRAIN",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 2
+        },
+        {
+          "id": "tag-4",
+          "text": "Paint Tern Wharf canal parapet (LDN-HOXTON-WEST): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-HX-TERN",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 3
+        },
+        {
+          "id": "tag-5",
+          "text": "Paint Bethnal Green market service shutter (LDN-BETHNAL-GREEN): Just About or better, with any tag you have unlocked",
+          "auto": {
+            "on": "tagPlaced",
+            "siteId": "SP-BG-STREET",
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "narrowSuccess"
+          },
+          "stop": 4
+        },
+        {
+          "id": "quality-bonus",
+          "text": "Make one of those pieces Smashed It or better (paint over one if you need to)",
+          "auto": {
+            "on": "tagPlaced",
+            "siteIds": [
+              "SP-CL-LEABRIDGE",
+              "SP-DB-ARCHIVE",
+              "SP-HM-TEMPLE-TRAIN",
+              "SP-HX-TERN",
+              "SP-BG-STREET"
+            ],
+            "identity": "ANY_UNLOCKED",
+            "minQuality": "strongSuccess",
+            "count": 1
+          }
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 500,
+        "xp": 5,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "next": "Proof requires legal surface history/revision, not simply retagging a clean site. All records must be distinct site IDs, unique to this mission run.",
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/icons/items/spray-paint.svg",
+      "group": "tagging",
+      "faction": null,
+      "stage": 0,
+      "gate": 0,
+      "twist": "A rival group proposes a joint community wall, giving a durable peace ending.",
+      "gm": "Proof requires legal surface history/revision, not simply retagging a clean site. All records must be distinct site IDs, unique to this mission run.",
+      "tagging": {
+        "identity": "ANY_UNLOCKED",
+        "sites": [
+          "SP-CL-LEABRIDGE",
+          "SP-DB-ARCHIVE",
+          "SP-HM-TEMPLE-TRAIN",
+          "SP-HX-TERN",
+          "SP-BG-STREET"
+        ],
+        "minQuality": "narrowSuccess",
+        "qualityPolicy": {
+          "eachAtLeast": "narrowSuccess",
+          "atLeastOne": "strongSuccess",
+          "strongMarksAtLeast": 1
+        }
+      },
+      "stops": [
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapId": "LDN-CLAPTON",
+          "zoneId": null,
+          "mapped": true,
+          "district": "CLAPTON",
+          "placeId": "LDV-CL7"
+        },
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapId": "LDN-DE-BEAUVOIR",
+          "zoneId": null,
+          "mapped": true,
+          "district": "DE-BEAUVOIR",
+          "placeId": "LDV-DB7"
+        },
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapId": "LDN-MARSHES",
+          "zoneId": null,
+          "mapped": true,
+          "district": "MARSHES",
+          "placeId": "LDV-HM5"
+        },
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": null,
+          "mapped": true,
+          "district": "HOXTON-WEST",
+          "placeId": "LDV-HX7"
+        },
+        {
+          "code": "SP-BG-STREET",
+          "name": "Bethnal Green market service shutter",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": null,
+          "mapped": true,
+          "district": "BETHNAL-GREEN",
+          "placeId": null
+        }
+      ],
+      "locations": [
+        {
+          "code": "SP-CL-LEABRIDGE",
+          "name": "Lea Bridge Social Rooms side wall",
+          "mapped": true
+        },
+        {
+          "code": "SP-DB-ARCHIVE",
+          "name": "Split Second Archive street shutter",
+          "mapped": true
+        },
+        {
+          "code": "SP-HM-TEMPLE-TRAIN",
+          "name": "Temple Mills depot carriage",
+          "mapped": true
+        },
+        {
+          "code": "SP-HX-TERN",
+          "name": "Tern Wharf canal parapet",
+          "mapped": true
+        },
+        {
+          "code": "SP-BG-STREET",
+          "name": "Bethnal Green market service shutter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Bring a Spray Paint gear item with paint left. Open Tag Studio (Alt+G) and select the active mission.",
+        "Travel to each named street map. Mission paint canvases are placed automatically when a commission starts or you arrive. The GM can move or repair any marker from the Mission Board.",
+        "Target or right-click the paint spot, pick a tag, and roll Graft. The result becomes a visible, persistent graffiti decal.",
+        "A failed or poor-quality tag can be painted over with another charge. Only validated marks at the required quality complete objectives.",
+        "Mission rewards are automatic after every required painted surface (and any quality challenge) is completed."
+      ],
+      "order": 41,
+      "taggingOnly": true
+    }
+  ],
+  "groups": [
+    {
+      "key": "tagging",
+      "name": "Tags & Territory",
+      "kicker": "SPRAY THE CITY"
+    }
+  ]
+}

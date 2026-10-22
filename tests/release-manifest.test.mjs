@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+import {resolve, dirname} from 'node:path';
+const root=resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const json=JSON.parse(readFileSync(resolve(root,'system.json'),'utf8'));
+const build=JSON.parse(readFileSync(resolve(root,'data/build-info.json'),'utf8'));
+assert.equal(json.id,'the-smoke');
+assert.match(json.version,/^\d+\.\d+\.\d+$/);
+assert.equal(json.version,build.version);
+assert.equal(json.manifest,'https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json');
+assert.equal(json.download,`https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v${json.version}/the-smoke-v${json.version}.zip`);
+assert.equal(json.compatibility.minimum,'14');
+assert.ok(json.esmodules?.includes('the-smoke.mjs'));
+assert.ok(json.packs?.length>0);
+console.log('v'+json.version+' version, manifest, download and build-info agree');

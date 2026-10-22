@@ -25,6 +25,7 @@ export class RadioReceiver{
   if(!allowed){this.failedKey=null;this._drop();this._status('disabled');return;}
   if(!power){this.failedKey=null;this._drop();this._status('car-off');return;}
   if(!station){this._drop();this._status('no-station');return;}
+  if(!station.stream){this.enabled=false;this._drop();this._status('external');return;}
   const key=station.id+'|'+station.stream;
   // An error stays quiet until the user retries, tunes elsewhere, or the source changes.
   if(!retry&&key===(this.failedKey??this.key))return;

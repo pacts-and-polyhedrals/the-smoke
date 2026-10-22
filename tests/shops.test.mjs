@@ -18,11 +18,13 @@ const sold = new Set(Object.values(SHOPS).flatMap(s => (s.stock || []).flatMap(l
 for (const w of LIB.filter(i => i.type === 'weapon' && sold.has(i.name) && i.system.ammoType)) assert.ok(LIB.some(a => a.type === 'ammo' && a.system.ammoType === w.system.ammoType && sold.has(a.name)), `${w.name}: its ammo is sold`);
 
 // Rep gates and discounts.
-const rep1 = {stage: 1, rep: {crew: 0, street: 0}}, rep3 = {stage: 3, rep: {crew: 3, street: 5}};
-const at1 = stockFor('dealer', LIB, rep1), at3 = stockFor('dealer', LIB, rep3);
-assert.equal(at1.find(l => l.minRep === 2).locked, true, 'guns locked at Rep 1');
-assert.equal(at3.find(l => l.minRep === 3).locked, false, 'Rep 3 line open at Rep 3');
-assert.equal(at3.find(l => l.minRep === 4).locked, true, 'Rep 4 line still locked');
+const rep1 = {stage: 1, rep: {crew: 0, street: 0}}, rep3 = {stage: 3, rep: {crew: 3, street: 5}}, rep6 = {stage: 6, rep: {crew: 0, street: 0}};
+const at1 = stockFor('dealer', LIB, rep1), at3 = stockFor('dealer', LIB, rep3), at6 = stockFor('dealer', LIB, rep6);
+assert.equal(at1.find(l => l.minRep === 3).locked, true, 'guns locked at Rep 1');
+assert.equal(at3.find(l => l.minRep === 3).locked, false, 'out the back opens at Rep 3');
+assert.equal(at3.find(l => l.minRep === 6).locked, true, 'the good stuff still locked at Rep 3');
+assert.equal(at6.find(l => l.minRep === 6).locked, false, 'the good stuff at Rep 6');
+assert.equal(at6.find(l => l.minRep === 9).locked, true, 'don\'t ask: Rep 9');
 assert.equal(discountFor(rep1, 'gang'), 0); assert.equal(discountFor(rep3, 'gang'), .2, 'street + Pat discounts cap at 20%');
 assert.equal(discountFor(rep1, 'corner', ['Wide Boy']), .1, 'Wide Boy perk');
 const grinder = LIB.find(i => i.name === 'Angle Grinder');
@@ -41,7 +43,7 @@ await giveItem(jaz, LIB.find(i => i.name === 'Smart Suit'), 1); assert.equal(ite
 game.actors = Object.assign([jaz], {get: id => id === jaz.id ? jaz : null});
 await net.request('shop.buy', {actorId: jaz.id, shopKey: 'corner', itemName: 'Energy Drink', qty: 3});
 assert.equal(itemNamed(jaz, 'Energy Drink').system.quantity, 3); assert.equal(jaz.system.cash, 5000 - 6);
-await assert.rejects(net.request('shop.buy', {actorId: jaz.id, shopKey: 'dealer', itemName: 'Kalash'}), /Rep 4/);
+await assert.rejects(net.request('shop.buy', {actorId: jaz.id, shopKey: 'dealer', itemName: 'Kalash'}), /Rep 9/);
 await assert.rejects(net.request('shop.buy', {actorId: jaz.id, shopKey: 'corner', itemName: 'Kalash'}), /does not sell/);
 const poor = fakeActor({cash: 5}); game.actors = Object.assign([jaz, poor], {get: id => [jaz, poor].find(a => a.id === id)});
 await assert.rejects(net.request('shop.buy', {actorId: poor.id, shopKey: 'gang', itemName: 'Angle Grinder'}), /has £5/);
@@ -54,7 +56,9 @@ assert.equal(jaz.system.cash - before, 80, '2 wraps × £50 × 80%'); assert.equ
 
 // Services: kip at the flat, the stash, A&E.
 jaz.system.resources.health.value = 3; await jaz.addCondition('Hurt'); await jaz.addCondition('Broken'); jaz.system.heat.value = 2; jaz.system.resources.hustle.value = 0;
+game.time={worldTime:43200,advance:async seconds=>(game.time.worldTime+=seconds)};
 await net.request('shop.service', {actorId: jaz.id, shopKey: 'safehouse', service: 'rest'});
+assert.equal(game.time.worldTime,72000,'safehouse shop rest advances the shared Watch by 8 hours');
 assert.equal(jaz.system.resources.health.value, 10); assert.equal(jaz.system.resources.hustle.value, 3); assert.equal(jaz.system.heat.value, 0);
 assert.deepEqual(conditionNames(jaz), ['Broken'], 'a broken bone needs A&E');
 const cash = jaz.system.cash;

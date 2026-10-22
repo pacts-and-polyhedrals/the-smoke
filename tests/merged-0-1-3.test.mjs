@@ -102,7 +102,12 @@ const G = await import('../module/gameplay.mjs');
   const street = sceneOf('LDN-DALSTON'); const ts2 = tok(street, sal, 100, 100);
   assert.match(G.restProblem(sal, ts2), /flat or a safehouse/, 'not on a street corner');
   assert.equal(G.restProblem(sal, ts2, {isGM: true}), null, 'the GM can rest anyone anywhere');
-  await G.restNow(sal);
+  const priorTime=game.time;
+  game.time={worldTime:1200,advance:async seconds=>(game.time.worldTime+=seconds)};
+  const night=await G.restNow(sal);
+  assert.equal(night.watchSeconds,28800);
+  assert.equal(game.time.worldTime,30000,'rest advances exactly eight watch hours');
+  game.time=priorTime;
   assert.equal(sal.system.resources.health.value, 14); assert.equal(sal.system.resources.hustle.value, 3); assert.equal(sal.system.heat.value, 0);
   assert.deepEqual(conditionNames(sal), ['Broken', 'Cuffed'], 'a broken bone and cuffs stay');
 
@@ -196,6 +201,8 @@ const G = await import('../module/gameplay.mjs');
   rx.follow(DEFAULT_STATIONS[1]); assert.equal(audios.length, 1, 'the same station is not reconnected');
   rx.follow(DEFAULT_STATIONS[1], {power: false}); assert.equal(rx.status, 'car-off');
   rx.stop(); assert.equal(rx.status, 'off'); assert.equal(rx.enabled, false);
+  assert.ok(DEFAULT_STATIONS.every(s=>s.stream),'all six default tuner entries have a direct stream configured');
+  assert.ok(!DEFAULT_STATIONS.some(s=>['codesouth','esencia-urbana'].includes(s.id)),'the two unverified streams have been removed');
   // Message the studio (0.2.2): each station's own channels, the message filled in where the channel allows it.
   const v = Object.fromEntries(core.validateStations(DEFAULT_STATIONS).map(s => [s.id, s]));
   const msg = 'Big up Jaz & the Chainring!';
@@ -223,9 +230,10 @@ const G = await import('../module/gameplay.mjs');
   assert.throws(() => core.validateStations([{...DEFAULT_STATIONS[1], chatUrl: 'javascript:alert(1)'}]), /HTTPS/);
   // Presets a GM saved before contacts existed keep the supplied stations' contacts; a custom station has none.
   const R = await import('../module/radio/radio.mjs');
-  const old = DEFAULT_STATIONS.map(({chatUrl, whatsapp, sms, phone, email, messageUrl, ...rest}) => rest).concat([{id: 'custom-x', name: 'Kool', genre: '', stream: 'https://k/live.mp3', website: 'https://k/'}]);
+  const old = DEFAULT_STATIONS.slice(0,6).map(({chatUrl, whatsapp, sms, phone, email, messageUrl, ...rest}) => rest).concat([{id: 'custom-x', name: 'Kool', genre: '', stream: 'https://k/live.mp3', website: 'https://k/'}]);
   settings.set('radioStations', JSON.stringify(old));
   const list = R.stations();
+  assert.equal(list.length,7,'only six verified defaults plus the GM custom stream remain');
   assert.equal(list.find(s => s.id === 'rude-fm').sms, '+447501442882'); assert.equal(list.find(s => s.id === 'custom-x').email, '');
   assert.match(list.find(s => s.id === 'rude-fm').chatUrl, /^https:\/\/chatroll\.com\//, 'saved presets gain the studio chat'); assert.equal(list.find(s => s.id === 'custom-x').chatUrl, '');
   const cx = R.studioChatContext(v['rude-fm'], links('rude-fm').chat, `  ${'y'.repeat(600)} `);
@@ -237,13 +245,22 @@ const G = await import('../module/gameplay.mjs');
   assert.equal(R.radioAPI.studioChat(v['rude-fm'], 'Second shout'), chat, 'an open chat is brought forward, not reloaded'); assert.equal(chat.draft, 'Second shout');
   delete foundry.applications.instances;
   assert.throws(() => R.radioAPI.studioChat(v['flex-fm'], 'x'), /no studio chat/);
-  settings.delete('radioStations');
+  const installedHook = (await import('node:fs')).readFileSync(new URL('../the-smoke.mjs',import.meta.url),'utf8');
+  assert.match(installedHook, /await migrateRadioPresets\(\)/, 'the ready hook must actually trigger the one-time preset migration');
+  await R.migrateRadioPresets();
+  assert.equal(settings.get('radioPresetVersion'),515,'migration version saved once');
+  const after=JSON.parse(settings.get('radioStations'));
+  assert.equal(after.length,7,'old six and the GM station; no dead presets re-added');
+  const removed=after.filter(s=>s.id!=='custom-x');
+  settings.set('radioStations',JSON.stringify(removed));
+  assert.equal(R.stations().some(s=>s.id==='custom-x'),false,'removed custom preset stays removed');
+  settings.delete('radioStations');settings.delete('radioPresetVersion');
 }
 
 /* ---------------------------------------------------------------- merged content */
 {
   const content = J('content.json');
-  assert.equal(content.version, '0.4.0');
+  assert.equal(content.version, (await import('../module/content.mjs')).VERSION, 'journal source uses its own retained content edition; a system hotfix must not rewrite guides');
   assert.equal(content.actors.length, 72, '4 pregens, 15 named NPCs, 24 Londoners, 29 motors');
   assert.equal(content.items.filter(i => i.type === 'condition').length, 31);
   const names = new Set(LIB.map(i => i.name));

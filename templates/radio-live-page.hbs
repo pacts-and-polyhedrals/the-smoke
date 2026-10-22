@@ -1,0 +1,9 @@
+<section class="smoke-live-page-inner" aria-label="{{station.name}} live player">
+  <header class="smoke-live-page-header"><div><h2>{{station.name}} · Official live radio</h2><p>The broadcaster controls this player. Press Play inside the page. If it stays blank, the station does not allow embedding.</p></div></header>
+  <nav class="smoke-live-page-actions">
+    <a href="{{station.playerUrl}}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-up-right-from-square"></i> Open live station in browser</a>
+    <button type="button" data-live-page-reload><i class="fa-solid fa-rotate-right"></i> Reload station page</button>
+  </nav>
+  <iframe data-live-page-frame src="{{station.playerUrl}}" title="{{station.name}} live listening page" loading="eager" allow="autoplay; encrypted-media" referrerpolicy="no-referrer" sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-presentation" ></iframe>
+  <p class="smoke-radio-hint">Some stations block embedding in Forge. Use the browser button above to listen directly to their broadcast. No audio is relayed by The Smoke.</p>
+</section>

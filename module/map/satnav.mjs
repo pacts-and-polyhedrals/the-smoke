@@ -4,11 +4,15 @@
 // the street map you're looking at. Everything here is local to each player's screen; nothing is sent to anyone.
 import {NS} from '../config.mjs';
 import {esc} from '../world/net.mjs';
-import {mapIdOf, zonesOf} from '../world/spawn.mjs';
+import {mapIdOf} from '../world/spawn.mjs';
 import {loadAtlas} from './map-transit.mjs';
 import * as C from './satnav-core.mjs';
-import {ridingNicked} from '../world/theft.mjs';
+import {ridingNicked, buyerFor} from '../world/theft.mjs';
 import {missionData, missionState, needed} from '../world/missions.mjs';
+import {atlasRoads} from '../world/roads.mjs';
+import {missionPaintPosition} from '../graffiti/mission-placements.mjs';
+import {QUALITY_LABEL} from '../graffiti/core.mjs';
+import {propUnits, propDestination, propMapId} from '../world/mission-props.mjs';
 
 const IMG = `systems/${NS}/assets/maps/satnav/london-satnav.webp`;
 /** How much of the overview the screen shows at each zoom step (overview px across). */
@@ -26,8 +30,12 @@ export async function satnavData() {
     const {atlas, places, venues} = await loadAtlas();
     let overview = {maps: []};
     try { const r = await fetch(`systems/${NS}/data/london-overview.json`); if (r.ok) overview = await r.json(); } catch (_e) {}
-    const net = C.roadNetwork(atlas), missions = await missionData().catch(() => ({missions: []}));
-    data = {atlas, places, venues, venueById: new Map((venues?.maps || []).map(v => [v.id, v])), overview, net, missions: missions.missions || [], k: C.overviewScale(atlas, overview), destinations: C.satnavDestinations(atlas, places, venues)};
+    const {net} = await atlasRoads(), missions = await missionData().catch(() => ({missions: []}));
+    // graffiti commission sites: which street map each paint surface is on (0.5.23: so the sat nav can find every one)
+    let paint = {sites: []};
+    try { const r = await fetch(`systems/${NS}/data/tagging-catalogue.json`); if (r.ok) paint = await r.json(); } catch (_e) {}
+    data = {atlas, places, venues, venueById: new Map((venues?.maps || []).map(v => [v.id, v])), overview, net, missions: missions.missions || [], k: C.overviewScale(atlas, overview), destinations: C.satnavDestinations(atlas, places, venues),
+      paintSites: new Map((paint.sites || []).map(x => [x.id, x]))};
     return data;
   })();
   return loading;
@@ -84,6 +92,64 @@ const zoneTarget = (d, mapId, zoneId, label) => {
   const m = C.tileOf(d.atlas, mapId), z = m?.zones?.find(q => q.id === zoneId); if (!z) return null;
   return {mapId, x: z.rect[0] + z.rect[2] / 2, y: z.rect[1] + z.rect[3] / 2, goal: C.kerbFor(m, z), label: label ?? z.name, sub: m.name, zoneId};
 };
+/* ------------------------------------------------------------------ the right motor */
+const EMERGENCY = ['police', 'ambulance', 'fire', 'bus'];
+/** The nicked vehicle a character is driving now (on whichever map they're on), with who buys it and why not. */
+export function ridingNow(actor) {
+  if (!actor) return null;
+  const {token, vehicle} = trackedTokens(actor);
+  try { return ridingNicked(actor, token?.parent) ?? null; }
+  catch (_e) {   // a motor with odd stats: still tell what it is and who'd buy it
+    const pilot = (vehicle?.getFlag?.(NS, 'vehicleOccupants') || []).find(o => o.seatId === 'pilot');
+    return vehicle?.getFlag?.(NS, 'stolen') && pilot?.tokenId === token?.id ? {vt: vehicle, service: buyerFor(vehicle.actor), why: ''} : null;
+  }
+}
+/** Does what they're driving do for this sale? `ids` is the catalogue list the buyer wants (null: any of its kind). */
+export function rideFits(riding, {service = 'gang', ids = null} = {}) {
+  if (!riding || riding.why || riding.service !== service) return false;
+  return !ids?.length || ids.includes(riding.vt?.actor?.getFlag?.(NS, 'catalogId'));
+}
+const destinationOf = (d, test) => d.destinations.find(test) ?? null;
+const asTarget = (x, extra = {}) => x && {mapId: x.mapId, x: x.x, y: x.y, goal: x.goal, label: x.label, ...extra};
+/** Who buys it: Pat at The Arches (bikes), Bow Breakers (cars). */
+export function fenceTarget(d, service, riding = null) {
+  if (service === 'gang') return asTarget(destinationOf(d, x => x.placeId === 'LDP-ARCHES'), {sub: `${riding?.vt?.name ?? 'The bike'} for Pat`, fence: 'gang'});
+  for (const m of d.atlas.maps) { const z = (m.zones || []).find(q => q.service === 'chop'); if (z) return {...zoneTarget(d, m.id, z.id), sub: `${riding?.vt?.name ?? 'The motor'} for the crusher`, fence: 'chop'}; }
+  return null;
+}
+/** The nearest service of a kind (a respray …) to where you are. */
+export function serviceTarget(d, service, here = null) {
+  let best = null;
+  for (const m of d.atlas.maps) for (const z of (m.zones || []).filter(q => q.service === service)) {
+    const t = zoneTarget(d, m.id, z.id); if (!t) continue;
+    const at = C.toGlobal(d.atlas, m.id, ...t.goal), dd = here ? Math.hypot(at[0] - here[0], at[1] - here[1]) : 0;
+    if (!best || dd < best.dd) best = {t, dd};
+  }
+  return best?.t ?? null;
+}
+/**
+ * The nearest parked or chained vehicle worth nicking for a sale: `ids` (the models wanted), else any the buyer takes
+ * (`service`); `orderFor` keeps to the bikes Kez tipped off for one order. A moving target: it follows the token.
+ */
+export function nickableTarget(d, here, {ids = null, service = null, orderFor = null, label = 'Nick'} = {}) {
+  let best = null;
+  for (const s of game.scenes ?? []) {
+    if (!C.tileOf(d.atlas, mapIdOf(s))) continue;
+    for (const t of s.tokens ?? []) {
+      if (t.actor?.type !== 'vehicle' || t.getFlag?.(NS, 'stolen') || (t.getFlag?.(NS, 'vehicleOccupants') || []).length) continue;
+      if (!(t.getFlag(NS, 'locked') || t.getFlag(NS, 'parked') || t.getFlag(NS, 'orderFor'))) continue;
+      if (orderFor && t.getFlag(NS, 'orderFor') !== orderFor) continue;
+      if (ids?.length && !ids.includes(t.actor.getFlag?.(NS, 'catalogId'))) continue;
+      if (service && buyerFor(t.actor) !== service) continue;
+      if ((t.actor.system?.vehicle?.jobs || []).some(j => EMERGENCY.includes(j)) || !Number(t.actor.system?.vehicle?.value ?? 1)) continue;
+      const at = globalOf(d, t); if (!at) continue;
+      const dd = here ? Math.hypot(at[0] - here[0], at[1] - here[1]) : 0;
+      if (!best || dd < best.dd) best = {t, dd};
+    }
+  }
+  return best && {tokenId: best.t.id, label: `${label}: ${best.t.name}`, sub: 'Parked up'};
+}
+
 /** Where a job wants you now: the pick-up, the drop-off, the next bus stop, the patient, the car you're chasing … */
 export function callTarget(d, call, here = null, actor = null) {
   if (!call) return null; const st = call.stage;
@@ -91,13 +157,18 @@ export function callTarget(d, call, here = null, actor = null) {
   if (st === 'dropoff' && call.data?.dest) return zoneTarget(d, call.data.dest.mapId, call.data.dest.zoneId, call.data.dest.label);
   if (call.type === 'bus') { const s = call.data?.stops?.[call.index ?? 0]; if (s) return {...zoneTarget(d, s.mapId, s.zoneId, `Stop: ${s.label}`), stop: call.index ?? 0}; }
   if (call.type === 'crew') {
-    // on one of the bikes already? then it's back to Pat's
-    let riding = null; try { riding = actor && ridingNicked(actor, trackedTokens(actor).token?.parent); } catch (_e) {}
-    if (riding) { const a = d.destinations.find(x => x.placeId === 'LDP-ARCHES'); if (a) return {mapId: a.mapId, x: a.x, y: a.y, goal: a.goal, label: a.label, sub: `${riding.vt?.name ?? 'The bike'} for Pat`}; }
-    const spots = (call.data?.spots || []).map(s => zoneTarget(d, s.mapId, s.zoneId, `Tip-off: ${s.label}`)).filter(Boolean);
-    const g = s => C.toGlobal(d.atlas, s.mapId, ...s.goal);
-    if (here && spots.length) return spots.sort((a, b) => Math.hypot(...g(a).map((v, i) => v - here[i])) - Math.hypot(...g(b).map((v, i) => v - here[i])))[0];
-    return spots[0] ?? null;
+    // back to Pat's only on a nicked bike that's on her order; anything else, keep looking
+    const order = call.data?.order || {}, ids = order.ids ?? null, riding = ridingNow(actor);
+    const progress = `Pat's order: ${Number(call.data?.delivered || 0)}/${Number(order.want || 1)}`;
+    if (rideFits(riding, {service: 'gang', ids})) return fenceTarget(d, 'gang', riding);
+    const sub = riding ? `${riding.vt?.name ?? 'That'} isn't on Pat's order · ${progress}` : progress;
+    const g = t => t.tokenId ? globalOf(d, sceneTokenById(t.tokenId)) : C.toGlobal(d.atlas, t.mapId, ...t.goal), far = t => { const p = g(t); return p && here ? Math.hypot(p[0] - here[0], p[1] - here[1]) : 0; };
+    const tipped = nickableTarget(d, here, {orderFor: call.id, ids, label: 'Tip-off'});
+    const spots = (call.data?.spots || []).filter(s => !s.seeded).map(s => zoneTarget(d, s.mapId, s.zoneId, `Tip-off: ${s.label}`)).filter(Boolean);
+    const choice = [tipped, ...spots].filter(Boolean).sort((a, b) => far(a) - far(b))[0]
+      ?? nickableTarget(d, here, {ids, service: 'gang', label: 'Nick'})
+      ?? (call.data?.spots || []).map(s => zoneTarget(d, s.mapId, s.zoneId, `Tip-off: ${s.label}`)).filter(Boolean).sort((a, b) => far(a) - far(b))[0];
+    return choice ? {...choice, sub} : null;
   }
   if (call.type === 'police' && ['stop', 'pursuit', 'arrest'].includes(st)) {
     const t = sceneTokenById(call.data?.stolenTokenId ?? call.data?.suspectTokenId);
@@ -126,7 +197,7 @@ function resolveTarget(d, here) {
   if (t.missionId) {
     const m = d.missions.find(x => x.id === t.missionId), st = missionState()[t.missionId];
     if (!m || ['done', 'failed'].includes(st?.status)) return {ended: true, label: t.label, passed: st?.status === 'done'};
-    cur = missionTarget(d, m, st); if (!cur) return {missing: true, label: m.title};
+    cur = missionTarget(d, m, st, null, {actor: game.actors?.get?.(nav.actorId), here}); if (!cur) return {missing: true, label: m.title};
     cur = {...cur, missionId: m.id};
   }
   if (cur.tokenId) {
@@ -138,11 +209,26 @@ function resolveTarget(d, here) {
   return pin ? {...cur, pin, goal} : {missing: true, label: cur.label};
 }
 
-/** Where a mission sends the crew next: the place of its first unticked objective that names one, else its first place. */
-export function missionTarget(d, m, st = null, stop = null) {
-  const o = (m.objectives || []).find(x => x.stop != null && Number(st?.ticks?.[x.id] || 0) < needed(x));
-  const s = stop ?? m.stops?.[o?.stop ?? 0]; if (!s) return null;
+/**
+ * A graffiti commission's paint site: the surface itself on its street map (the marker or parked bus, wherever the GM
+ * has moved it), else the kerb where the game will put it. 0.5.23: before, a site with no venue or street door to aim
+ * at (Bow Flyover, the breakers' yard, Bethnal Green Road …) could not be found, and the sat nav fell back to the first.
+ */
+function paintSiteTarget(d, m, s, sub) {
+  const site = d.paintSites?.get?.(s.code); if (!site) return null;
+  for (const scene of game.scenes ?? []) {
+    if (mapIdOf(scene) !== site.sceneMapId) continue;
+    const tok = scene.tokens?.find?.(t => !t.hidden && t.getFlag?.(NS, 'tagSpot')?.siteId === s.code);
+    if (tok) { const [x, y] = centreOf(tok); return {mapId: site.sceneMapId, x, y, goal: [x, y], label: s.name, sub, stop: s.code, surface: true}; }
+  }
+  const map = C.tileOf(d.atlas, site.sceneMapId); if (!map) return null;
+  const p = missionPaintPosition(map, site, s, d.venues?.maps, d.places?.maps, [], 100);
+  return Number.isFinite(p?.x) && Number.isFinite(p?.y) ? {mapId: site.sceneMapId, x: p.x, y: p.y, goal: [p.x, p.y], label: s.name, sub, stop: s.code} : null;
+}
+/** A mission stop as a target: a graffiti surface, a mapped venue's street entrance, a zone on a street map, or an interior's door. */
+function stopTarget(d, m, s) {
   const sub = `${m.code ?? `Mission ${m.n}`} · ${m.title}`;
+  if (m.tagging) { const t = paintSiteTarget(d, m, s, sub); if (t) return t; }
   if (s.placeId) {   // a mapped venue: its street entrance (or its approach's)
     const door = doorOf(d, s.placeId);
     if (door) { const loc = C.toLocal(d.atlas, ...door); return {mapId: loc.mapId, x: loc.x, y: loc.y, goal: [loc.x, loc.y], label: s.name, sub, stop: s.code, placeId: s.placeId}; }
@@ -151,6 +237,97 @@ export function missionTarget(d, m, st = null, stop = null) {
   const door = doorOf(d, s.mapId); if (!door) return null;
   const loc = C.toLocal(d.atlas, ...door);
   return {mapId: loc.mapId, x: loc.x, y: loc.y, goal: [loc.x, loc.y], label: s.name, sub, stop: s.code};
+}
+/** "Get to Broadway Market": the place the objective names (on its map if it can), else the inside's door or the district's middle. */
+function placeForMap(d, mapId, text = '') {
+  const said = String(text).toLowerCase(), named = d.destinations.filter(x => x.label && said.includes(x.label.toLowerCase().replace(/ ·.*$/, '')));
+  const pick = named.find(x => x.mapId === mapId) ?? named.sort((a, b) => b.label.length - a.label.length)[0];
+  if (pick) return asTarget(pick);
+  if (!C.tileOf(d.atlas, mapId)) { const door = doorOf(d, mapId); if (!door) return null; const loc = C.toLocal(d.atlas, ...door); const p = destinationOf(d, x => x.placeId === mapId); return {mapId: loc.mapId, x: loc.x, y: loc.y, goal: [loc.x, loc.y], label: p?.label ?? 'Inside'}; }
+  return asTarget(destinationOf(d, x => x.group === 'Districts' && x.mapId === mapId));
+}
+/** A block (zone) on a street map, venue or interior, by its code or id: its middle; else the map itself. */
+function zonePlace(d, mapId, zoneCode, label, sub) {
+  const maps = [...(d.atlas?.maps || []), ...(d.places?.maps || []), ...(d.venues?.maps || [])], map = maps.find(x => x.id === mapId);
+  const z = zoneCode ? (map?.zones || []).find(q => q.code === zoneCode || q.id === zoneCode) : null;
+  if (z?.rect) { const x = z.rect[0] + z.rect[2] / 2, y = z.rect[1] + z.rect[3] / 2; return {mapId, x, y, goal: [x, y], label, sub}; }
+  if (C.tileOf(d.atlas, mapId)) { const t = placeForMap(d, mapId, label); return t ? {...t, label, sub} : null; }
+  return doorOf(d, mapId) ? {mapId, x: 0, y: 0, goal: [0, 0], label, sub} : null;   // an interior: the sat nav takes you to its door
+}
+/**
+ * Mission cargo: the parcel itself if it is lying on a map (where the job put it, or where someone dropped it), else
+ * where it is to be collected; once one of the crew is carrying it, the handover. 0.5.23: cargo objectives had no
+ * place at all, so the sat nav skipped them and fell back to the mission's first place (or Pat's, for the opening).
+ */
+function cargoTarget(d, m, st, o, sub) {
+  const units = propUnits(m).filter(u => u.prop.id === o.auto.propId); if (!units.length) return null;
+  const rec = u => st?.parcels?.[u.serial] ?? {status: 'world'};
+  const lying = u => {
+    const r = rec(u); if (r.status !== 'world' || !r.sceneId) return null;
+    const scene = game.scenes?.get?.(r.sceneId), tok = scene?.tokens?.get?.(r.tokenId), mapId = mapIdOf(scene); if (!tok || !mapId) return null;
+    const [x, y] = centreOf(tok); return {mapId, x, y, goal: [x, y], sub};
+  };
+  const at = (point, zone, label) => {
+    const dest = propDestination(m, point); if (!dest) return null;
+    if (typeof point === 'number') { const t = stopTarget(d, m, dest); return t ? {...t, label} : null; }
+    return zonePlace(d, propMapId(dest), zone, label, sub);
+  };
+  if (o.auto.on === 'cargoCollected') {
+    const waiting = units.filter(u => !['held', 'delivered'].includes(rec(u).status));
+    for (const u of waiting) { const t = lying(u); if (t) return {...t, label: `Collect: ${u.prop.name}`}; }
+    return waiting.length ? at(waiting[0].prop.pickup, waiting[0].prop.pickupZone, `Collect: ${waiting[0].prop.name}`) : null;
+  }
+  const left = units.filter(u => rec(u).status !== 'delivered'); if (!left.length) return null;
+  const carried = left.find(u => rec(u).status === 'held');
+  if (carried) return at(carried.prop.delivery, carried.prop.deliveryZone, `Deliver: ${carried.prop.name}`);
+  for (const u of left) { const t = lying(u); if (t) return {...t, label: `Pick up: ${u.prop.name}`}; }
+  return at(left[0].prop.delivery, left[0].prop.deliveryZone, `Deliver: ${left[0].prop.name}`);
+}
+/**
+ * Where a mission sends the crew next. In order through the objectives still to do: one tied to a place goes there;
+ * one that ticks on reaching a map goes to the place it names; cargo goes to the parcel, then to its handover; a sale
+ * goes to the buyer only when you're driving a nicked motor that fits (else to the nearest one worth nicking); a
+ * respray only once you're in a nicked motor. Objectives with no place (the GM ticks them) are passed over; if nothing
+ * still to do has a place, the sat nav stays with the last place the job took you to (0.5.23: it went back to the
+ * first). `actor` and `here` say what you're driving and where.
+ */
+export function missionTarget(d, m, st = null, stop = null, {actor = null, here = null} = {}) {
+  if (stop) return stopTarget(d, m, stop);
+  const sub = `${m.code ?? `Mission ${m.n}`} · ${m.title}`, riding = actor ? ridingNow(actor) : null;
+  const list = m.objectives || [], open = o => Number(st?.ticks?.[o.id] || 0) < needed(o);
+  for (const o of list.filter(open)) {
+    if (o.stop != null && m.stops?.[o.stop]) { const t = stopTarget(d, m, m.stops[o.stop]); if (t) return t; }
+    const a = o.auto; if (!a) continue;
+    // "one of them at Smashed It": the nearest of its sites, to paint over
+    if (a.on === 'tagPlaced' && o.stop == null && (a.siteIds?.length || a.siteId)) {
+      const options = (a.siteIds ?? [a.siteId]).map(id => m.stops?.find(x => x.code === id)).filter(Boolean).map(x => stopTarget(d, m, x)).filter(Boolean);
+      const dist = t => { const g = here && C.toGlobal(d.atlas, t.mapId, t.x, t.y); return g ? Math.hypot(g[0] - here[0], g[1] - here[1]) : 0; };
+      const best = here ? options.sort((p, q) => dist(p) - dist(q))[0] : options.at(-1);   // nearest; else the last of the set
+      if (best) return {...best, label: `${best.label} · repaint at ${QUALITY_LABEL[a.minQuality] ?? 'a higher quality'} or better`};
+      continue;
+    }
+    if (a.on === 'map') { const t = placeForMap(d, a.mapId, o.text); if (t) return {...t, sub}; continue; }
+    if (a.on === 'cargoCollected' || a.on === 'cargoDelivered') { const t = cargoTarget(d, m, st, o, sub); if (t) return t; continue; }
+    if (a.on === 'sold') {
+      const service = a.service === 'chop' ? 'chop' : 'gang', ids = a.ids ?? null;
+      if (rideFits(riding, {service, ids})) return {...fenceTarget(d, service, riding), sub: `${fenceTarget(d, service, riding)?.sub} · ${sub}`};
+      const t = nickableTarget(d, here, {ids, service}) ?? (m.stops || []).map(s => s.code?.startsWith('EX-') ? stopTarget(d, m, s) : null).find(Boolean);
+      if (t) return {...t, sub: riding ? `${riding.vt?.name ?? 'That'} won't do · ${sub}` : sub};
+      continue;
+    }
+    if (a.on === 'service' && riding && !riding.why) { const t = serviceTarget(d, a.service, here); if (t) return {...t, sub: `${riding.vt?.name ?? 'The motor'} · ${sub}`}; }
+  }
+  // Nothing still to do has a place of its own: stay with the place of the last objective before the first open one.
+  const first = list.findIndex(open);
+  for (let i = first - 1; i >= 0; i--) {
+    const o = list[i], a = o.auto;
+    const t = o.stop != null && m.stops?.[o.stop] ? stopTarget(d, m, m.stops[o.stop]) : a?.on === 'map' ? placeForMap(d, a.mapId, o.text)
+      : a?.on === 'cargoDelivered' || a?.on === 'cargoCollected' ? (() => { const p = (m.props || []).find(x => x.id === a.propId); const pt = p && (a.on === 'cargoDelivered' ? [p.delivery, p.deliveryZone] : [p.pickup, p.pickupZone]); const dest = pt && propDestination(m, pt[0]); return dest ? (typeof pt[0] === 'number' ? stopTarget(d, m, dest) : zonePlace(d, propMapId(dest), pt[1], p.name, sub)) : null; })() : null;
+    if (t) return {...t, sub: t.sub ?? sub};
+  }
+  // a job with no places at all: the mission's first place (campaign jobs), or Pat's for the opening's
+  if (m.group === 'opening' || !m.code || ['CH1', 'CH2', 'CH3'].includes(m.code)) { const a = destinationOf(d, x => x.placeId === 'LDP-ARCHES'); if (a && !list.some(o => o.stop != null)) return asTarget(a, {sub}); }
+  const s = m.stops?.[0]; return s ? stopTarget(d, m, s) : null;
 }
 /* ------------------------------------------------------------------ start / stop */
 export async function startSatNav(actor, target) {
@@ -167,8 +344,8 @@ export async function startCallNav(actor, call) {
 }
 /** Directions for a mission: follows it from place to place as its objectives tick. */
 export async function startMissionNav(actor, m, stop = null) {
-  const d = await satnavData(), mission = d.missions.find(x => x.id === m.id) ?? m;
-  const t = missionTarget(d, mission, missionState()[mission.id], stop); if (!t) throw new Error('This mission has no place on the map yet.');
+  const d = await satnavData(), mission = d.missions.find(x => x.id === m.id) ?? m, {token, vehicle} = trackedTokens(actor), here = token ? globalOf(d, vehicle ?? token) : null;
+  const t = missionTarget(d, mission, missionState()[mission.id], stop, {actor, here}); if (!t) throw new Error('This mission has no place on the map yet.');
   return startSatNav(actor, stop ? {...t} : {missionId: mission.id, label: mission.title});
 }
 export function stopSatNav() {

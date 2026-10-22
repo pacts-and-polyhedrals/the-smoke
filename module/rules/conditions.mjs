@@ -37,6 +37,29 @@ export const CONDITION_EFFECTS = Object.freeze({
   'Numbed':       {ignores: ['In Pain', 'Hurt']}
 });
 
+/** Default Banana Watch durations for effects applied directly from a sheet/chat action.
+ * Drug and consumable use supplies its own duration; this is the fallback for a GM
+ * applying a temporary condition by name, not a replacement for combat-round rules.
+ * Permanent injuries, wounds, restraint and "until you get some rest" effects stay untimed.
+ */
+export const WATCH_CONDITION_DEFAULTS = Object.freeze({
+  'Blazed':       {minutes: 60, then: 'Foggy', thenMinutes: 120},
+  'Wired':        {minutes: 30, then: 'Crashing', thenMinutes: 60},
+  'Loved Up':     {minutes: 45, then: 'Wrung Out', thenMinutes: 90},
+  'Numb':         {minutes: 60, then: 'Jittery', thenMinutes: 120},
+  'Giggling':     {minutes: 2},
+  'Pumped':       {minutes: 120, then: 'Roid Rage', thenMinutes: 240},
+  'Foggy':        {minutes: 120},
+  'Crashing':     {minutes: 60},
+  'Wrung Out':    {minutes: 90},
+  'Jittery':      {minutes: 120},
+  'Roid Rage':    {minutes: 240},
+  'Buzzing':      {minutes: 30},
+  'Dutch Courage': {minutes: 30},
+  'Numbed':       {minutes: 60},
+  'Mullered':     {minutes: 240}
+});
+
 export const CONDITION_LIBRARY = Object.freeze([
   {name: 'Bruised', category: 'physical', severity: 1, description: 'Knocked about. No effect on its own; two more Bruises make you Hurt.', removal: 'A rest or a night\'s kip.'},
   {name: 'Hurt', category: 'physical', severity: 2, description: '-1 to Muscle, Grit and Moves rolls.', removal: 'First aid (Savvy, Medium) or a night at the safehouse.'},
@@ -59,7 +82,7 @@ export const CONDITION_LIBRARY = Object.freeze([
   {name: 'Wired', category: 'drug', severity: 1, description: 'Coked up: +1 Front and Bottle. Everyone you talk to can tell.', removal: 'Wears off (then Crashing).'},
   {name: 'Loved Up', category: 'drug', severity: 1, description: 'Pilled: +2 Front, -1 Aim and Savvy. You love everyone, even the police.', removal: 'Wears off (then Wrung Out).'},
   {name: 'Numb', category: 'drug', severity: 1, description: 'Benzos: Shaken and Bricking It have no effect; -1 Moves and Aim.', removal: 'Wears off (then Jittery).'},
-  {name: 'Giggling', category: 'drug', severity: 1, description: 'Nitrous: -2 Savvy, -1 Front. It lasts about a minute.', removal: 'Wears off quickly.'},
+  {name: 'Giggling', category: 'drug', severity: 1, description: 'Nitrous: -2 Savvy, -1 Front. Lasts two Banana Watch minutes.', removal: 'Wears off quickly.'},
   {name: 'Pumped', category: 'drug', severity: 1, description: 'Steroids: +1 Muscle, -1 Front.', removal: 'Wears off (then Roid Rage).'},
   {name: 'Foggy', category: 'comedown', severity: 1, description: 'Comedown: -1 Savvy.', removal: 'Sleep, or wait it out.'},
   {name: 'Crashing', category: 'comedown', severity: 2, description: 'Comedown: -1 Front and Bottle.', removal: 'Sleep, or wait it out.'},

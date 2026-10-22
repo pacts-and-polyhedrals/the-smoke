@@ -151,11 +151,11 @@ assert.equal(textHash('<p>Clissold&nbsp;House  NEED MAP</p>'), textHash('<div>Cl
 const old = '<div class="smoke-journal"><h2>HB1 · Clissold House <small class="sj-needmap">NEED MAP</small></h2></div>';
 const mk = (name, content, flags = {}) => ({id: name, name, text: {content}, flags: {[NS]: flags}});
 const pg = [mk('HB · Highbury and Albion Rd', old, {textHash: textHash(old)}), mk('SN · Stoke Newington and Shacklewell', old + '<p>My notes: Della owes the crew.</p>', {textHash: textHash(old)}), mk('How to Use the Register', reg.pages[0].text.content)];
-const upd = []; const entry = {ownership: {default: 0}, pages: pg, update: async () => null, createEmbeddedDocuments: async () => null, updateEmbeddedDocuments: async (t, list) => upd.push(...list)};
+const upd = []; const entry = {flags: {[NS]: {guideEdition: reg.flags[NS].guideEdition}}, ownership: {default: 0}, pages: pg, update: async () => null, createEmbeddedDocuments: async () => null, updateEmbeddedDocuments: async (t, list) => upd.push(...list)};
 game.users = []; const refreshed = await updateGuide(entry, reg);
-assert.equal(refreshed, 1, 'the untouched page is refreshed');
+assert.equal(refreshed, 1, 'same-edition setup refreshes an untouched page');
 assert.ok(upd.some(u => u._id === 'HB · Highbury and Albion Rd' && u['text.content']?.includes('sj-venue-map')), 'with the maps');
-assert.ok(!upd.some(u => u._id === 'SN · Stoke Newington and Shacklewell' && u['text.content']), 'a page the GM wrote in is left alone');
+assert.ok(!upd.some(u => u._id === 'SN · Stoke Newington and Shacklewell' && u['text.content']), 'same-edition GM edits are left alone; new-edition backup/refresh is covered separately');
 
 /* ---------------------------------------------------------------- compendium (when the build tools are installed) */
 try {

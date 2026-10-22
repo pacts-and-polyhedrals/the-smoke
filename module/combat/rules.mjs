@@ -13,14 +13,30 @@ export function rangeBand(squares) {
 
 /* ------------------------------------------------------------------ speed dice */
 const SPEED_BY_MOVES = {4: 1, 6: 2, 8: 2, 10: 3, 12: 3, 20: 4};
+/** Why someone gets no speed dice at all this round ('' if they roll): Down, Cuffed, or surrendered in this fight. */
+export function speedDiceBlock({conditions = [], surrendered = false} = {}) {
+  const c = new Set(conditions);
+  return surrendered ? 'Surrendered' : c.has('Down') ? 'Down' : c.has('Cuffed') ? 'Cuffed' : '';
+}
 /** How many speed dice a character rolls this round. Down, Cuffed or surrendered: none; Stunned or Knackered: one fewer. */
 export function speedDiceCount({movDie = 4, conditions = [], surrendered = false, bonus = 0} = {}) {
   const c = new Set(conditions);
-  if (surrendered || c.has('Down') || c.has('Cuffed')) return 0;
+  if (speedDiceBlock({conditions, surrendered})) return 0;
   let n = (SPEED_BY_MOVES[Number(movDie)] ?? 1) + Number(bonus || 0);
   if (c.has('Stunned')) n -= 1;
   if (c.has('Knackered')) n -= 1;
   return Math.max(1, Math.min(5, n));
+}
+/**
+ * Stunned part-way through a round costs one of the dice still to come ("reduces speed dice for that round"), never
+ * the one being acted on now, and never the last die of the round: minimum one. queue is the revealed order, cursor
+ * the action being played. Returns the queue index to drop, or -1.
+ */
+export function stunnedDrop(queue = [], cursor = 0, cid) {
+  const mine = queue.map((e, i) => ({e, i})).filter(x => x.e.cid === cid);
+  if (mine.length < 2) return -1;
+  const later = mine.filter(x => x.i > cursor);
+  return later.length ? later[later.length - 1].i : -1;   // the queue runs highest first, so their last entry is their lowest die
 }
 /** Every die is one action. The queue runs highest die first; ties go to the better Moves die, then characters before NPCs. */
 export function buildQueue(entries) {

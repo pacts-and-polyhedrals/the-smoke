@@ -1,20 +1,29 @@
 <div class="smoke-levelup-inner">
   <header class="lv-head">
-    <div><span class="kicker">REP {{info.level}} · {{info.title}} → REP {{plan.to}}</span><h2>{{#if top}}Already a Legend{{else}}{{actor.name}}, {{nextTitle}}{{/if}}</h2><p>{{nextBlurb}}</p></div>
+    <div>{{#if bonusOnly}}<span class="kicker">REP {{milestoneLevel}} · UNCLAIMED BONUS</span><h2>Pick your milestone reward</h2><p>You already earned this one. Choose the reward; no XP or ordinary level gains are lost.</p>{{else}}<span class="kicker">REP {{info.level}} · {{info.title}} → REP {{plan.to}}{{#if plan.newTier}} · NEW TIER: {{plan.tierName}}{{/if}}</span><h2>{{#if top}}{{info.title}}{{else}}{{actor.name}}, {{nextTitle}}{{/if}}</h2><p>{{nextBlurb}}</p>{{/if}}</div>
     <div class="lv-xp"><b>{{info.xp}}</b><small>XP{{#if info.next}} / {{info.next}}{{/if}}</small></div>
   </header>
   <main class="lv-main">
-    {{#if top}}<p class="lv-lead">Rep 5 is the top. There is nothing left to prove — only to lose.</p>
+    {{#if bonusOnly}}
+    <p class="lv-lead">Missed bonuses left to claim: <b>{{missedCount}}</b>. These milestone rewards are in addition to the level-up perks, stat steps and Growth you've already earned.</p>
+    <h3><i class="fa-solid fa-star"></i> Rep {{milestoneLevel}} — choose your bonus</h3>
+    <div class="lv-bonus-choices">{{#each bonusChoices}}<button type="button" data-lv-bonus="{{id}}" class="{{#if selected}}selected{{/if}}" {{#unless available}}disabled{{/unless}}><i class="fa-solid fa-{{icon}}"></i><b>{{name}}</b><small>{{detail}}</small></button>{{/each}}</div>
+    {{else}}{{#if top}}<p class="lv-lead">Rep {{maxRep}} is the top of the tree. There is nothing left to prove — only to lose.</p>
     {{else}}{{#unless enoughXP}}<p class="lv-warn"><i class="fa-solid fa-lock"></i> Rep {{plan.to}} needs {{info.next}} XP; {{actor.name}} has {{info.xp}}. Jobs, Pat's orders and missions earn XP (the GM can award it too).</p>{{/unless}}
-    <h3><b>1</b> Raise a stat <small>(up to d{{plan.cap}} at Rep {{plan.to}})</small></h3>
-    <div class="lv-stats">{{#each stats}}<button type="button" data-lv-stat="{{key}}" class="{{#if selected}}selected{{/if}}" {{#unless ok}}disabled{{/unless}}><b>{{abbr}}</b><span>{{label}}</span><small>d{{die}}{{#if next}} → d{{next}}{{/if}}</small></button>{{/each}}</div>
-    <h3><b>2</b> A new perk</h3>
-    <div class="lv-perks">{{#each perks}}<button type="button" data-lv-perk="{{name}}" class="{{#if selected}}selected{{/if}}"><b>{{name}}</b><small>{{abbr}} · {{when}}</small></button>{{/each}}</div>
-    <h3><b>3</b> Growth</h3>
+    <p class="lv-lead">Rep {{plan.to}} brings: {{#if plan.statUpgrade}}a stat step{{/if}}{{#if plan.perk}}a new perk{{/if}}{{#if plan.growthRoll}}, Growth{{/if}}{{#if plan.hustle}}, +1 Hustle (the {{plan.tierName}} tier){{/if}}{{#if plan.milestone}}, and a <b>milestone bonus</b>{{/if}}.</p>
+    {{#if plan.statUpgrade}}<h3><b>{{steps.stat}}</b> Raise a stat <small>(up to d{{plan.cap}} at Rep {{plan.to}})</small></h3>
+    <div class="lv-stats">{{#each stats}}<button type="button" data-lv-stat="{{key}}" class="{{#if selected}}selected{{/if}}" {{#unless ok}}disabled{{/unless}}><b>{{abbr}}</b><span>{{label}}</span><small>d{{die}}{{#if next}} → d{{next}}{{/if}}</small></button>{{/each}}</div>{{/if}}
+    {{#if plan.perk}}<h3><b>{{steps.perk}}</b> A new perk</h3>
+    <div class="lv-perks">{{#each perks}}<button type="button" data-lv-perk="{{name}}" class="{{#if selected}}selected{{/if}}"><b>{{name}}</b><small>{{abbr}} · {{when}}</small></button>{{/each}}</div>{{/if}}
+    {{#if plan.growthRoll}}<h3><b>{{steps.growth}}</b> Growth</h3>
     <p class="lv-lead">Roll your Grit die for Health (gain half, rounded up) and the better of Moves or Grit for Guard (3+ gains 1, the top face gains 2). Raising Grit or Moves first makes these rolls bigger.</p>
     {{#if growth}}<div class="lv-growth"><span>Health <b>+{{growth.health}}</b> <small>rolled {{growth.healthRoll}} on d{{growth.healthDie}}</small></span><span>Guard <b>+{{growth.guard}}</b> <small>rolled {{growth.guardRoll}} on d{{growth.guardDie}}</small></span>{{#if plan.hustle}}<span>Hustle <b>+1</b></span>{{/if}}</div>
-    {{else}}<button type="button" class="lv-roll" data-lv-growth><i class="fa-solid fa-dice"></i> Roll Growth</button>{{/if}}
-    {{/if}}
+    {{else}}<button type="button" class="lv-roll" data-lv-growth><i class="fa-solid fa-dice"></i> Roll Growth</button>{{/if}}{{/if}}
+    {{#if plan.milestone}}<h3><b>{{steps.milestone}}</b> Rep {{plan.to}} milestone — pick your bonus</h3>
+    <p class="lv-lead">Every three Rep levels earns an extra reward. Your stat/perk choice and Growth still count as normal.</p>
+    <div class="lv-bonus-choices">{{#each bonusChoices}}<button type="button" data-lv-bonus="{{id}}" class="{{#if selected}}selected{{/if}}" {{#unless available}}disabled{{/unless}}><i class="fa-solid fa-{{icon}}"></i><b>{{name}}</b><small>{{detail}}</small></button>{{/each}}</div>{{/if}}
+    {{/if}}{{/if}}
   </main>
-  {{#unless top}}<footer class="lv-foot">{{#if problem}}<span class="lv-problem">{{problem}}</span>{{else}}<span></span>{{/if}}<button type="button" class="hot" data-lv-confirm {{#unless ready}}disabled{{/unless}}><i class="fa-solid fa-arrow-trend-up"></i> Level up to Rep {{plan.to}}</button></footer>{{/unless}}
+  {{#if bonusOnly}}<footer class="lv-foot">{{#if problem}}<span class="lv-problem">{{problem}}</span>{{else}}<span></span>{{/if}}<button type="button" class="hot" data-lv-confirm {{#unless ready}}disabled{{/unless}}><i class="fa-solid fa-star"></i> Claim Rep {{milestoneLevel}} bonus</button></footer>
+  {{else}}{{#unless top}}<footer class="lv-foot">{{#if problem}}<span class="lv-problem">{{problem}}</span>{{else}}<span></span>{{/if}}<button type="button" class="hot" data-lv-confirm {{#unless ready}}disabled{{/unless}}><i class="fa-solid fa-arrow-trend-up"></i> Level up to Rep {{plan.to}}</button></footer>{{/unless}}{{/if}}
 </div>

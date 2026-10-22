@@ -1,0 +1,876 @@
+{
+  "edition": "0.5.14",
+  "groups": [
+    {
+      "key": "radio",
+      "name": "The Radio Wars",
+      "kicker": "WHO OWNS THE DIAL"
+    }
+  ],
+  "missions": [
+    {
+      "id": "rw-point-blank-01",
+      "n": null,
+      "code": "RW-POINT-01",
+      "title": "Point Blank: Spread the Signal",
+      "giver": "Point Blank (fictional London contact)",
+      "where": "Point Blank · Eagle Wharf promo lockup",
+      "minRep": 1,
+      "requires": [],
+      "hook": "A quiet producer's room under the Wharf. Get the late sets heard before the suits buy the dial. Run flyers and collect street requests for the underground lineup. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Point Blank · Eagle Wharf promo lockup on LDN-HOXTON-WEST and complete promo with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "point-blank",
+            "actionId": "promo"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 25,
+        "xp": 1,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 1,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "point-blank",
+        "actionId": "promo",
+        "mapId": "LDN-HOXTON-WEST"
+      },
+      "stops": [
+        {
+          "code": "RADIO-point-blank",
+          "name": "Point Blank · Eagle Wharf promo lockup",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": "eagle-wharf-block",
+          "mapped": true,
+          "placeId": "LDN-HOXTON-WEST"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-point-blank",
+          "name": "Point Blank · Eagle Wharf promo lockup",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Point Blank · Eagle Wharf promo lockup contact marker on LDN-HOXTON-WEST.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Spread the Signal and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 1,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-point-blank-02",
+      "n": null,
+      "code": "RW-POINT-02",
+      "title": "Point Blank: Hold the Frequency",
+      "giver": "Point Blank (fictional London contact)",
+      "where": "Point Blank · Eagle Wharf promo lockup",
+      "minRep": 1,
+      "requires": [
+        "rw-point-blank-01"
+      ],
+      "hook": "A quiet producer's room under the Wharf. Get the late sets heard before the suits buy the dial. Run flyers and collect street requests for the underground lineup. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Point Blank · Eagle Wharf promo lockup on LDN-HOXTON-WEST and complete defend with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "point-blank",
+            "actionId": "defend"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 45,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 2,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "point-blank",
+        "actionId": "defend",
+        "mapId": "LDN-HOXTON-WEST"
+      },
+      "stops": [
+        {
+          "code": "RADIO-point-blank",
+          "name": "Point Blank · Eagle Wharf promo lockup",
+          "mapId": "LDN-HOXTON-WEST",
+          "zoneId": "eagle-wharf-block",
+          "mapped": true,
+          "placeId": "LDN-HOXTON-WEST"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-point-blank",
+          "name": "Point Blank · Eagle Wharf promo lockup",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Point Blank · Eagle Wharf promo lockup contact marker on LDN-HOXTON-WEST.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Hold the Frequency and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 2,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-rude-fm-01",
+      "n": null,
+      "code": "RW-RUDEF-01",
+      "title": "Rude FM: Spread the Signal",
+      "giver": "Rude FM (fictional London contact)",
+      "where": "Rude FM · Dalston aerial contact",
+      "minRep": 1,
+      "requires": [],
+      "hook": "An upstairs signal runner needs help keeping the jungle sound alive. Mind the rival promoters. Repair the receiver and carry the evening set to the next relay. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Rude FM · Dalston aerial contact on LDN-HAGGERSTON and complete promo with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "rude-fm",
+            "actionId": "promo"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 25,
+        "xp": 1,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 1,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "rude-fm",
+        "actionId": "promo",
+        "mapId": "LDN-HAGGERSTON"
+      },
+      "stops": [
+        {
+          "code": "RADIO-rude-fm",
+          "name": "Rude FM · Dalston aerial contact",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": "dalston-block",
+          "mapped": true,
+          "placeId": "LDN-HAGGERSTON"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-rude-fm",
+          "name": "Rude FM · Dalston aerial contact",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Rude FM · Dalston aerial contact contact marker on LDN-HAGGERSTON.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Spread the Signal and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 3,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-rude-fm-02",
+      "n": null,
+      "code": "RW-RUDEF-02",
+      "title": "Rude FM: Hold the Frequency",
+      "giver": "Rude FM (fictional London contact)",
+      "where": "Rude FM · Dalston aerial contact",
+      "minRep": 1,
+      "requires": [
+        "rw-rude-fm-01"
+      ],
+      "hook": "An upstairs signal runner needs help keeping the jungle sound alive. Mind the rival promoters. Repair the receiver and carry the evening set to the next relay. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Rude FM · Dalston aerial contact on LDN-HAGGERSTON and complete defend with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "rude-fm",
+            "actionId": "defend"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 45,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 2,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "rude-fm",
+        "actionId": "defend",
+        "mapId": "LDN-HAGGERSTON"
+      },
+      "stops": [
+        {
+          "code": "RADIO-rude-fm",
+          "name": "Rude FM · Dalston aerial contact",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": "dalston-block",
+          "mapped": true,
+          "placeId": "LDN-HAGGERSTON"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-rude-fm",
+          "name": "Rude FM · Dalston aerial contact",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Rude FM · Dalston aerial contact contact marker on LDN-HAGGERSTON.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Hold the Frequency and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 4,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-vision-radio-01",
+      "n": null,
+      "code": "RW-VISIO-01",
+      "title": "Vision Radio UK: Spread the Signal",
+      "giver": "Vision Radio UK (fictional London contact)",
+      "where": "Vision Radio UK · Shacklewell promoter",
+      "minRep": 1,
+      "requires": [],
+      "hook": "A booking contact is trying to stay above board while rival flyers cover every wall. Secure legitimate venue slots and keep the weekend broadcast going. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Vision Radio UK · Shacklewell promoter on LDN-DALSTON and complete promo with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "vision-radio",
+            "actionId": "promo"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 25,
+        "xp": 1,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 1,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "vision-radio",
+        "actionId": "promo",
+        "mapId": "LDN-DALSTON"
+      },
+      "stops": [
+        {
+          "code": "RADIO-vision-radio",
+          "name": "Vision Radio UK · Shacklewell promoter",
+          "mapId": "LDN-DALSTON",
+          "zoneId": "shacklewell-block-3",
+          "mapped": true,
+          "placeId": "LDN-DALSTON"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-vision-radio",
+          "name": "Vision Radio UK · Shacklewell promoter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Vision Radio UK · Shacklewell promoter contact marker on LDN-DALSTON.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Spread the Signal and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 5,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-vision-radio-02",
+      "n": null,
+      "code": "RW-VISIO-02",
+      "title": "Vision Radio UK: Hold the Frequency",
+      "giver": "Vision Radio UK (fictional London contact)",
+      "where": "Vision Radio UK · Shacklewell promoter",
+      "minRep": 1,
+      "requires": [
+        "rw-vision-radio-01"
+      ],
+      "hook": "A booking contact is trying to stay above board while rival flyers cover every wall. Secure legitimate venue slots and keep the weekend broadcast going. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Vision Radio UK · Shacklewell promoter on LDN-DALSTON and complete defend with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "vision-radio",
+            "actionId": "defend"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 45,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 2,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "vision-radio",
+        "actionId": "defend",
+        "mapId": "LDN-DALSTON"
+      },
+      "stops": [
+        {
+          "code": "RADIO-vision-radio",
+          "name": "Vision Radio UK · Shacklewell promoter",
+          "mapId": "LDN-DALSTON",
+          "zoneId": "shacklewell-block-3",
+          "mapped": true,
+          "placeId": "LDN-DALSTON"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-vision-radio",
+          "name": "Vision Radio UK · Shacklewell promoter",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Vision Radio UK · Shacklewell promoter contact marker on LDN-DALSTON.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Hold the Frequency and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 6,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-flex-fm-01",
+      "n": null,
+      "code": "RW-FLEXF-01",
+      "title": "Flex FM: Spread the Signal",
+      "giver": "Flex FM (fictional London contact)",
+      "where": "Flex FM · Clarence Road listening point",
+      "minRep": 1,
+      "requires": [],
+      "hook": "The listening point knows what everyone in the borough is playing. Get a tune on before the competition. Take listener votes, test the aerial and deliver the results. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Flex FM · Clarence Road listening point on LDN-HACKNEY and complete promo with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "flex-fm",
+            "actionId": "promo"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 25,
+        "xp": 1,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 1,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "flex-fm",
+        "actionId": "promo",
+        "mapId": "LDN-HACKNEY"
+      },
+      "stops": [
+        {
+          "code": "RADIO-flex-fm",
+          "name": "Flex FM · Clarence Road listening point",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": "clarence-block",
+          "mapped": true,
+          "placeId": "LDN-HACKNEY"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-flex-fm",
+          "name": "Flex FM · Clarence Road listening point",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Flex FM · Clarence Road listening point contact marker on LDN-HACKNEY.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Spread the Signal and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 7,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-flex-fm-02",
+      "n": null,
+      "code": "RW-FLEXF-02",
+      "title": "Flex FM: Hold the Frequency",
+      "giver": "Flex FM (fictional London contact)",
+      "where": "Flex FM · Clarence Road listening point",
+      "minRep": 1,
+      "requires": [
+        "rw-flex-fm-01"
+      ],
+      "hook": "The listening point knows what everyone in the borough is playing. Get a tune on before the competition. Take listener votes, test the aerial and deliver the results. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Flex FM · Clarence Road listening point on LDN-HACKNEY and complete defend with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "flex-fm",
+            "actionId": "defend"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 45,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 2,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "flex-fm",
+        "actionId": "defend",
+        "mapId": "LDN-HACKNEY"
+      },
+      "stops": [
+        {
+          "code": "RADIO-flex-fm",
+          "name": "Flex FM · Clarence Road listening point",
+          "mapId": "LDN-HACKNEY",
+          "zoneId": "clarence-block",
+          "mapped": true,
+          "placeId": "LDN-HACKNEY"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-flex-fm",
+          "name": "Flex FM · Clarence Road listening point",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Flex FM · Clarence Road listening point contact marker on LDN-HACKNEY.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Hold the Frequency and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 8,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-supreme-fm-01",
+      "n": null,
+      "code": "RW-SUPRE-01",
+      "title": "Supreme FM: Spread the Signal",
+      "giver": "Supreme FM (fictional London contact)",
+      "where": "Supreme FM · Broadway Market showcase",
+      "minRep": 1,
+      "requires": [],
+      "hook": "Community radio has a stall here. They've got a stage to fill and a signal to protect. Organise the showcase and keep the sponsor's people happy. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Supreme FM · Broadway Market showcase on LDN-BETHNAL-GREEN and complete promo with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "supreme-fm",
+            "actionId": "promo"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 25,
+        "xp": 1,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 1,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "supreme-fm",
+        "actionId": "promo",
+        "mapId": "LDN-BETHNAL-GREEN"
+      },
+      "stops": [
+        {
+          "code": "RADIO-supreme-fm",
+          "name": "Supreme FM · Broadway Market showcase",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": "broadway-market-2",
+          "mapped": true,
+          "placeId": "LDN-BETHNAL-GREEN"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-supreme-fm",
+          "name": "Supreme FM · Broadway Market showcase",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Supreme FM · Broadway Market showcase contact marker on LDN-BETHNAL-GREEN.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Spread the Signal and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 9,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-supreme-fm-02",
+      "n": null,
+      "code": "RW-SUPRE-02",
+      "title": "Supreme FM: Hold the Frequency",
+      "giver": "Supreme FM (fictional London contact)",
+      "where": "Supreme FM · Broadway Market showcase",
+      "minRep": 1,
+      "requires": [
+        "rw-supreme-fm-01"
+      ],
+      "hook": "Community radio has a stall here. They've got a stage to fill and a signal to protect. Organise the showcase and keep the sponsor's people happy. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Supreme FM · Broadway Market showcase on LDN-BETHNAL-GREEN and complete defend with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "supreme-fm",
+            "actionId": "defend"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 45,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 2,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "supreme-fm",
+        "actionId": "defend",
+        "mapId": "LDN-BETHNAL-GREEN"
+      },
+      "stops": [
+        {
+          "code": "RADIO-supreme-fm",
+          "name": "Supreme FM · Broadway Market showcase",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": "broadway-market-2",
+          "mapped": true,
+          "placeId": "LDN-BETHNAL-GREEN"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-supreme-fm",
+          "name": "Supreme FM · Broadway Market showcase",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Supreme FM · Broadway Market showcase contact marker on LDN-BETHNAL-GREEN.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Hold the Frequency and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 10,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-radio-caroline-01",
+      "n": null,
+      "code": "RW-RADIO-01",
+      "title": "Radio Caroline: Spread the Signal",
+      "giver": "Radio Caroline (fictional London contact)",
+      "where": "Radio Caroline · Marshgate listening post",
+      "minRep": 1,
+      "requires": [],
+      "hook": "A London relay contact holds the old-school broadcast archive. Its history is worth something to both sides. Recover a missing recording and help the listening post stay on air. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Radio Caroline · Marshgate listening post on LDN-BOW-FLYOVER and complete promo with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "radio-caroline",
+            "actionId": "promo"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 25,
+        "xp": 1,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 1,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "radio-caroline",
+        "actionId": "promo",
+        "mapId": "LDN-BOW-FLYOVER"
+      },
+      "stops": [
+        {
+          "code": "RADIO-radio-caroline",
+          "name": "Radio Caroline · Marshgate listening post",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": "marshgate-block",
+          "mapped": true,
+          "placeId": "LDN-BOW-FLYOVER"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-radio-caroline",
+          "name": "Radio Caroline · Marshgate listening post",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Radio Caroline · Marshgate listening post contact marker on LDN-BOW-FLYOVER.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Spread the Signal and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 11,
+      "radioOnly": true
+    },
+    {
+      "id": "rw-radio-caroline-02",
+      "n": null,
+      "code": "RW-RADIO-02",
+      "title": "Radio Caroline: Hold the Frequency",
+      "giver": "Radio Caroline (fictional London contact)",
+      "where": "Radio Caroline · Marshgate listening post",
+      "minRep": 1,
+      "requires": [
+        "rw-radio-caroline-01"
+      ],
+      "hook": "A London relay contact holds the old-school broadcast archive. Its history is worth something to both sides. Recover a missing recording and help the listening post stay on air. This is a fictional London radio-war contact, not the broadcaster’s actual address.",
+      "objectives": [
+        {
+          "id": "radio-1",
+          "text": "Go to Radio Caroline · Marshgate listening post on LDN-BOW-FLYOVER and complete defend with a successful verified radio-war roll.",
+          "auto": {
+            "on": "radioWar",
+            "stationId": "radio-caroline",
+            "actionId": "defend"
+          },
+          "stop": 0
+        }
+      ],
+      "rewards": {
+        "cash": 0,
+        "fee": 45,
+        "xp": 2,
+        "rep": {},
+        "renown": {},
+        "influence": 0
+      },
+      "page": "",
+      "pageUuid": null,
+      "journalKey": null,
+      "img": "systems/the-smoke/assets/ui/radio-relay.svg",
+      "group": "radio",
+      "faction": null,
+      "stage": 2,
+      "gate": 0,
+      "twist": "Rival promoters are watching the dial. Each action takes Banana Watch time; try again on a later game day if your roll fails.",
+      "gm": "These venues and contacts are fictional; real stations are only sources of live audio. Your mission requires the confirmed physical contact on the correct scene.",
+      "radioWar": {
+        "stationId": "radio-caroline",
+        "actionId": "defend",
+        "mapId": "LDN-BOW-FLYOVER"
+      },
+      "stops": [
+        {
+          "code": "RADIO-radio-caroline",
+          "name": "Radio Caroline · Marshgate listening post",
+          "mapId": "LDN-BOW-FLYOVER",
+          "zoneId": "marshgate-block",
+          "mapped": true,
+          "placeId": "LDN-BOW-FLYOVER"
+        }
+      ],
+      "locations": [
+        {
+          "code": "RADIO-radio-caroline",
+          "name": "Radio Caroline · Marshgate listening post",
+          "mapped": true
+        }
+      ],
+      "playGuide": [
+        "Find the Radio Caroline · Marshgate listening post contact marker on LDN-BOW-FLYOVER.",
+        "Right-click the radio-war contact. Choose Work this station.",
+        "Select Hold the Frequency and roll the indicated stat.",
+        "A successful verified roll completes the objective; failed attempts can be retried on the next Banana Watch day."
+      ],
+      "order": 12,
+      "radioOnly": true
+    }
+  ]
+}

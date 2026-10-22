@@ -1,19 +1,60 @@
 ✓ advancement.test.mjs: advancement: 10 backgrounds, the creation steps (18+), Rep levels, caps, unlocks, level-up checks, growth — ok
+✓ audit-chase.test.mjs: audit (chases): units hunting the chase join its tracker (others still drive), only chase people wait their turn, street cards never strand a car, late crashes do not teleport, Self-play can end its chase, fire and stuck-check tools are the GM's — ok
+✓ audit-world.test.mjs: audit (world): missions paid once, crew answers all count, no HTML in remote rolls, unfreezable queue, checked cuffs and repairs, the token in play, tidy driven actors, sheet lock, studio time — ok
+✓ branding-manifest.test.mjs: v0.5.24 listing, all original website assets, remote gallery URLs, and spoiler-safe copy validated
+✓ branding-release.test.mjs: branding manifest, supplied art paths, and Foundry UI references valid
+✓ chase-decisions.test.mjs: chase decisions: upgrade defaults, real travel collisions, native drags, non-expiring prompts, mode permissions, shared traffic batches, single escape opportunity, damage gates, cancellation and duplicate-click protection — ok
+✓ chase-ownership.test.mjs: chase ownership: concurrent sightings create one chase, existing fight remains intact, scene binding cleans up — ok
+✓ chase.test.mjs: chase: turn-based on sight, speed dice, the gauge and its checks, swerves and crashes, fire and BOOM, police and traffic on their go, losing a die, getting away — ok
 ✓ combat-flow.test.mjs: combat flow: begin, private rolls, reveal order, hits with armour/effects/area, Heat, cover, grab, surrender, round end, Take hit/Dodge cards — ok
 ✓ combat-rules.test.mjs: combat rules: speed dice, queue, ranges, cover, ammo, bursts, drive-bys, effects, ramming, police AI — ok
+✓ console-template.test.mjs: console template: 30 conditional renders, balanced markup, response-gated Continue and mode-specific controls — ok
+✓ driving-prompt-resolution.test.mjs: driving prompts: Foundry merge deletion, 36 chase outcome cases, duplicate damage protection, saved-world recovery and completed UI cards — ok
+✓ driving.test.mjs: driving: gauge, checks, incidents, collisions, fire, chase AI ok
+✓ escape-move.test.mjs: escape move: the escaper drags out of turn, the ring shows the reach, long drags stop at the limit, Done needs a move, all squares used ends it, other cards hold everyone else — ok
+✓ extras-0-5.test.mjs: 0.5 extras: crew bar, drug effects and comedowns, redosing, the Banana Watch, story mode and self-play, Rep migration — ok
 ✓ fence.test.mjs: fence: scrambler sells at The Arches (corner, Morning Lane), offers on arrival, Pat's order counted, cars to Bow Breakers — ok
+✓ full-auto-blocker.test.mjs: full auto blocked: genuine saved-player prompt prevents all NPC progress until cleared; next player die is not skipped — ok
+✓ full-auto.test.mjs: full auto: NPC action progresses without Continue while the next player die remains available — ok
+✓ graffiti-authority.test.mjs: graffiti authority: server-matched Graft roll, tile persistence, charges, Watch, mission proof, territory, anti-forgery/replay, repaint and cosmetic repair — ok
+✓ graffiti-core.test.mjs: graffiti core: 42 missions, 57 planned spots/20 maps, SVG quality gates, territory scores, anti-replay and complete mission group integration — ok
+✓ graffiti-drop-to-paint.test.mjs: drop-to-paint: named street-zone markers, existing mission linkage, right-click by GM/players, public buses and 5 self-contained SVG font styles across 6 quality outcomes — ok
+✓ heat-guides.test.mjs: heat guides: four guide pages print the new crime ceilings and police numbers in every store; existing worlds refresh untouched pages once and keep GM edits — ok
+✓ heat-scaling.test.mjs: heat scaling: thieving and carjacking cap at 1★, fights 2★, guns 3★, killings (now detected) 4–5★; at most four police vehicles a map; extras go home as the stars drop — ok
 ✓ items.test.mjs: items: 171 in the library; drugs, food, first aid, outfits, ammo and street prices — ok
+✓ jobs-e2e.test.mjs: jobs end to end: taxi £36, courier £26, ambulance £80, fire £140, bus £58, police disturbance £50, ANPR £75, pursuit £90, Pat's order £60 — ok
+✓ journal-upgrade.test.mjs: journal upgrade: edited-page backups, failure safety, stable IDs, renamed pages, style refresh, extra notes and GM ownership — ok
 ✓ maps-import.test.mjs: maps import: 25 maps, 4 row folders, re-run safe — ok
 ✓ merged-0-1-3.test.mjs: 0.1.3 inside 0.2.1: request channel, services, rest, first aid, advances, Take hit/Dodge, turn clock, reloads, radio, merged content — ok
 ✓ migration.test.mjs: migration: old weapons get ammo types, categories, effects and icons; made characters marked — ok
-✓ missions.test.mjs: missions: 12 opening missions, 12 faction careers and 20 local cases wired to pages, maps and places; gates, Renown, Influence, fees, auto ticks, MISSION PASSED, fail and reset — ok
+✓ mission-property-catalogue.test.mjs: mission catalogue: 111/125 missions with actual property, 119 collectable units, 224 required event-driven physical objectives, 14 non-portable-person/vehicle missions — ok
+✓ mission-props-transit.test.mjs: mission property: two real speakers, secure pickup, no dupe, ground drop, crew recovery, venue-required handover, auto ticks, completion; manual exits tolerate footprints — ok
+✓ missions.test.mjs: missions: 12 opening missions, 12 faction careers and 20 local cases wired to pages, maps and places; every job a text thread with a twist at each finale; gates, Renown, Influence, fees, auto ticks, MISSION PASSED, fail and reset — ok
+✓ player-right-click.test.mjs: player right-click: tokens drawn before the patch get the street menu (Pat's bikes: Nick it), NPC-driven motors offer Carjack, police units do not, re-install is safe — ok
+✓ player-theft.test.mjs: player theft: non-owned NPC contact, consumed rolls, no replay, forged actor refusal, witnessed failure, no invented cash — ok
+✓ police-chat-recovery.test.mjs: police chat recovery: unrelated/stale hits filtered, genuine hit must resolve, reset/deleted encounter clears obsolete decisions, fresh Front roll works, automatic round races skip — ok
+✓ police-reinforcements.test.mjs: police reinforcements: units hunting someone in a fight or chase go on its tracker (now or next round), never drive in between turns, drive in and get out on their own go — ok
+✓ radio-studio-beta.test.mjs: radio beta: private GM inbox, player links hidden, real contact GM-only, station removal, verified ownership, replay/rate limits, replies, scheduled roleplay broadcasts and replay protection — ok
+✓ radio-war.test.mjs: radio wars: 6 canonical sites / 6 active relays, 12 missions, real map tokens, player right-click, GM-verified rolls, Watch time, Rep/influence, anti-replay and wrong-station safeguards — ok
+✓ radio-webplayer-fallback.test.mjs: radio presets: six direct stations, dead presets removed, upgrade preserves user feeds, volume and control remain intact — ok
+✓ recovery-contract.test.mjs: recovery contract: authoritative distance ledger, scoped blockers, ghost-chase cleanup, visible nonowned NPC actions and no ownership escalation — ok
+✓ release-manifest.test.mjs: v0.5.24 version, manifest, download and build-info agree
+✓ rep-milestones.test.mjs: Rep milestones: 11 bonus levels, full stat/perk/Growth stacking, 4 choices, caps, no replay, older character recovery and UI — ok
 ✓ requests.test.mjs: requests: hazards apply harm after armour, cash and Heat; teamwork averages; one answer each — ok
 ✓ rules.test.mjs: rules + data: 11 groups passed
-✓ satnav.test.mjs: sat nav: one road network, routes and steps, destinations, job targets, live re-routing, map drawing (PIXI 7 and 8) — ok
+✓ satnav-missions.test.mjs: sat nav on every mission: 179 missions, 1788 points along the way (in order and ticked out of order) — always the next place the job needs; cargo to the parcel, then the handover — ok
+✓ satnav.test.mjs: sat nav: one road network, routes and steps, destinations, job targets (to the buyer only in the right vehicle), live re-routing, map drawing (PIXI 7 and 8) — ok
+✓ service-police-visibility.test.mjs: services: distant helicopter no longer blocks garage; nearby helicopter/ground police, indoors and star threshold retain intended visibility — ok
 ✓ shops.test.mjs: shops: stock, Rep locks, discounts, stacking, Uncle buys, kip/stash/A&E, bodyshop prices, locations — ok
-✓ smoke-import.test.mjs: import + init + ready: ok; 39 hooks registered
+✓ slow-guard.test.mjs: slow guard: loops that fall behind rest for 15 s, the GM is told once — ok
+✓ smoke-import.test.mjs: import + init + ready: ok; 53 hooks registered
+✓ speed-dice-refresh.test.mjs: speed dice: two dice back in every new fight after a surrender (any ending, rest, Busted, Wasted, stuck 0.5.16 saves), the Console says why someone is out, late arrivals dealt in, Stunned costs a die — ok
+✓ tag-studio-v14-startup.test.mjs: Tag Studio v14 getter-only state: construction, context, SVG, quality, save/load/delete and paint dispatch — ok
+✓ tagging-mission-canvas.test.mjs: tagging mission canvas: all 57 anchored/road-accessible sites, first and later missions, scene import, arrival, deleted/hidden repair, idempotence and GM authority — ok
+✓ tagging-missions-e2e.test.mjs: tagging missions end to end: all 42 commissions pass as Tag Studio picks; sat nav follows every next site after paints and GM ticks; too-rough, free-paint and not-on-the-job paints say why; crew can be changed; the nearest needed surface and the job’s own tag are chosen; side-on buses are in reach — ok
+✓ token-hook-safety.test.mjs: token hooks: Foundry four-argument signature, PC/NPC/vehicle drops and drag movements never cancelled, graffiti markers still auto-named — ok
+✓ traffic.test.mjs: traffic: every map has roads in and out; trips edge to edge in the left lane; easing off at corners; queueing; leaving and being replaced; old and job cars pick up a trip; police chase along the roads — ok
+✓ vehicle-ambient-crew.test.mjs: ambient vehicle crew: live cabbies/fare, police officers, bus/ambulance, helicopter aircrew, atomic movement, player seats, real carjack victims — ok
 ✓ venues.test.mjs: venues: 160 interiors and 51 approaches, 152 street pins, transit, folders, mission stops and a cast of 115 — ok
+✓ watch-conditions.test.mjs: watch conditions: pausing, high -> comedown, fast-forward, legacy upgrade, permanent injuries, FX and world-time listener — ok
 all tests passed
-templates: 14 compiled, 67 renders, tags balanced — ok
-node --check: every .mjs passes
-assets: 2,873 referenced paths resolve

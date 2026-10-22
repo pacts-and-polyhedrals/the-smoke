@@ -1,56 +1,98 @@
-<div class="smoke-mb">
+<div class="smoke-mb {{#if storyLocked}}story-locked{{/if}}">
+  {{#if isGM}}<div class="mb-mode"><span class="kicker">PLAY MODE</span>
+    <button type="button" data-play-mode="story" class="{{#unless selfPlay}}on{{/unless}}" title="You run the storyline; players get side work and the missions you start"><i class="fa-solid fa-book-skull"></i> Story mode</button>
+    <button type="button" data-play-mode="self" class="{{#if selfPlay}}on{{/if}}" title="Players can open any mission and run it themselves, whenever they like"><i class="fa-solid fa-user-astronaut"></i> Self-play</button>
+    <small>{{#if selfPlay}}Players can start, tick and finish any mission.{{else}}Players see only side work and the missions you start.{{/if}}</small></div>{{/if}}
+  {{#if empty}}
+  <main class="mb-detail mb-side">
+    <header class="mb-head"><div><img class="smoke-brand-mb-wordmark" src="systems/the-smoke/assets/branding/logos/wordmark.png" alt="The Smoke"><span class="kicker">STORY MODE · THE GM RUNS THE STORY</span><h1>Side work</h1><p>No mission on right now. The GM will bring you in when it's time — meanwhile, there's money to be made.</p></div></header>
+    <ul class="mb-sidework">{{#each sideWork}}<li><i class="{{icon}}"></i><span><b>{{label}}</b><small>{{hint}}</small></span></li>{{/each}}</ul>
+    <p class="mb-small">Shifts start from the driver's seat of a work vehicle (taxi, bus, police car, ambulance, fire pump, courier bike) on the Blower, or right-click it → <b>Start shift</b>. Pat's orders and the Chainring's jobs come to your Blower too. Selling on the street: use the item on your sheet.</p>
+    <p><button type="button" class="hot" data-open-blower><i class="fa-solid fa-mobile-screen"></i> Open the Blower</button></p>
+  </main>
+  {{else}}
   <aside class="mb-list">
-    <header>
+    <header><img class="smoke-brand-mb-wordmark" src="systems/the-smoke/assets/branding/logos/wordmark.png" alt="The Smoke">
       <select data-group aria-label="Story">{{#each groups}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{name}} — {{done}}/{{total}}{{#if active}} ●{{/if}}</option>{{/each}}</select>
       <span class="kicker">{{group.kicker}}</span><h2>{{group.name}}</h2>
       {{#if fs}}<p class="mb-standing" style="--fc: {{fs.color}}"><b>Renown {{fs.renown}}</b> · {{fs.rank}} · Influence {{fs.influence}}/{{fs.cap}} · {{fs.stanceLabel}}</p>{{/if}}
       <p>{{counts.done}} passed · {{counts.active}} on · {{counts.available}} open</p>
     </header>
     <ol>{{#each list}}<li class="{{status}} {{#if active}}picked{{/if}}"><a data-pick="{{id}}"><b>{{n}}</b><span>{{title}}<small>{{giver}}</small></span><em>{{label}}</em></a></li>{{/each}}</ol>
+    {{#if storyLocked}}<p class="mb-small mb-locked-note"><i class="fa-solid fa-book-skull"></i> Story mode: you see what the GM has put you on. Side work is always on the Blower.</p>{{/if}}
     <footer><button type="button" data-view="{{#if factionsView}}mission{{else}}factions{{/if}}"><i class="fa-solid fa-people-group"></i> {{#if factionsView}}Back to the missions{{else}}Factions &amp; Renown{{/if}}</button></footer>
   </aside>
   <main class="mb-detail">
     {{#if factionsView}}
     <header class="mb-head mb-fhead"><div><span class="kicker">THE SANDBOX CAMPAIGN</span><h1>Factions &amp; Renown</h1><p>Renown with each faction opens its commissions (the offer gate) and raises the Influence cap. Ranks: {{ranks}}.</p></div></header>
-    <table class="mb-factions"><thead><tr><th>Faction</th><th>Renown</th><th>Influence</th><th>Stance</th><th>Career</th></tr></thead><tbody>
+    <table class="mb-factions"><thead><tr><th>Faction</th><th>Renown</th><th>Influence</th><th>Stance</th><th>Territory</th><th>Career</th></tr></thead><tbody>
       {{#each factions}}<tr style="--fc: {{color}}">
         <td><img src="{{img}}" alt=""><span><b>{{name}}</b><small>{{patron}}</small></span></td>
         <td><b>{{renown}}</b> <small>{{rank}}</small>{{#if ../isGM}}<span class="mb-step"><button type="button" data-renown="-1" data-code="{{code}}" aria-label="Less Renown">−</button><button type="button" data-renown="1" data-code="{{code}}" aria-label="More Renown">+</button></span>{{/if}}</td>
         <td>{{influence}}/{{cap}}{{#if ../isGM}}<span class="mb-step"><button type="button" data-influence="-1" data-code="{{code}}" aria-label="Spend Influence">−</button><button type="button" data-influence="1" data-code="{{code}}" aria-label="Restore Influence">+</button></span>{{/if}}</td>
         <td>{{#if ../isGM}}<select data-stance="{{code}}" aria-label="Stance">{{#each stances}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>{{else}}{{stanceLabel}}{{/if}}</td>
+        <td><b>{{territoryPoints}}</b> <small>paint points</small></td>
         <td><small>{{done}}/8 · next: {{next}}</small>{{#if ../isGM}} <button type="button" class="mb-link" data-profile="{{code}}">Profile</button>{{/if}}</td></tr>{{/each}}
     </tbody></table>
     {{else}}{{#if m}}
     <header class="mb-head {{m.fcClass}}"><img src="{{m.img}}" alt=""><div><span class="kicker">{{m.kicker}}</span><h1>{{m.title}}</h1><p>{{m.where}}</p></div><span class="mb-status {{m.status}}">{{m.label}}</span></header>
-    <p class="mb-hook">{{m.hook}}</p>
+    {{#if m.call.length}}<div class="mb-call" aria-label="The call">{{#each m.call}}<p class="sj-text in">{{this}}</p>{{/each}}</div>{{else}}<p class="mb-hook">{{m.hook}}</p>{{/if}}
+    {{#if m.tagging}}
+    <section class="mb-cargo mb-tagging"><h3><i class="fa-solid fa-spray-can-sparkles"></i> Graffiti commission</h3>
+      <p class="mb-small">Each active graffiti commission automatically places its paintable canvas markers at the named street locations, including when you arrive on a map you have not visited before. Stand beside the marker, right-click → Tag surface or press Alt+G. Graft determines the quality of your permanent decal. Failed paint can be sprayed over; no manual ticking required.</p>
+      <button type="button" data-open-tags><i class="fa-solid fa-palette"></i> Open Tag Studio</button>
+      {{#if isGM}}{{#if (eq m.status "active")}}<button type="button" data-repair-paint title="Restore all missing paintable mission canvases on the commission's street maps"><i class="fa-solid fa-spray-can-sparkles"></i> Repair / prepare mission canvases</button>{{/if}}{{/if}}
+      <ul class="mb-cargo-list">{{#each m.taggingSpots}}<li><span><b>{{label}}</b> ({{sceneMapId}}) · {{#if done}}<b>Painted ✓</b>{{else}}{{#if placed}}Canvas ready{{else}}Canvas pending — will spawn on arrival or GM repair{{/if}}{{/if}}</span>{{#if (eq ../m.status "active")}} <button type="button" class="mb-mini" data-site-directions="{{siteId}}" title="Sat nav to this site"><i class="fa-solid fa-diamond-turn-right"></i></button>{{/if}}</li>{{/each}}</ul>
+    </section>
+    {{/if}}
     <h3>Objectives</h3>
     <ul class="mb-objectives">{{#each m.objectives}}<li class="{{#if done}}done{{/if}}">
       <i class="fa-{{#if done}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i><span>{{text}}{{#if multi}} <b>{{have}}/{{need}}</b>{{/if}}{{#if auto}} <small>ticks itself</small>{{/if}}</span>
-      {{#if ../isGM}}{{#if (eq ../m.status "active")}}<button type="button" data-tick="{{id}}" data-delta="1" title="Tick"><i class="fa-solid fa-check"></i></button>{{#if have}}<button type="button" data-tick="{{id}}" data-delta="-1" title="Untick"><i class="fa-solid fa-rotate-left"></i></button>{{/if}}{{/if}}{{/if}}</li>{{/each}}</ul>
+      {{#if ../canRun}}{{#if (eq ../m.status "active")}}{{#unless autoCargo}}<button type="button" data-tick="{{id}}" data-delta="1" title="Tick"><i class="fa-solid fa-check"></i></button>{{#if have}}<button type="button" data-tick="{{id}}" data-delta="-1" title="Untick"><i class="fa-solid fa-rotate-left"></i></button>{{/if}}{{/unless}}{{/if}}{{/if}}</li>{{/each}}</ul>
+    {{#if m.playGuide.length}}
+    <details class="mb-playguide" open><summary><i class="fa-solid fa-map"></i> How to play this job without a GM</summary>
+      <ol>{{#each m.playGuide}}<li>{{this}}</li>{{/each}}</ol>
+    </details>
+    {{/if}}
+    {{#if m.cargo.length}}
+    <section class="mb-cargo"><h3><i class="fa-solid fa-box-open"></i> Physical mission property</h3>
+      <p class="mb-small">These are real collectable objects on the mapped scenes. Find the object, stand alongside it, then right-click → Collect (or target with T and press Alt+I). It appears in your gear. Use that gear item to Drop or Deliver, or use the controls below. Dropped objects stay on the map for the crew to recover.</p>
+      {{#if (eq m.status "active")}}
+        {{#if cargoCharacters.length}}<label class="mb-small">Character collecting <select name="mbCargoActor">{{#each cargoCharacters}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{name}}</option>{{/each}}</select></label>{{/if}}
+      {{/if}}
+      <ul class="mb-cargo-list">{{#each m.cargo}}<li><div><b>{{name}}{{#if number}} ({{number}}){{/if}}</b> {{#if heavy}}<small>Heavy</small>{{/if}}<p class="mb-small"><b>{{statusText}}</b></p><small>Pickup: {{from}} → Handover: {{to}}</small></div>
+        {{#if (eq ../m.status "active")}}<div class="mb-cargo-actions">{{#if canCollect}}<button type="button" data-cargo-action="collect" data-cargo-serial="{{serial}}">Collect</button>{{/if}}{{#if canCarry}}<button type="button" data-cargo-action="drop" data-cargo-serial="{{serial}}">Drop</button><button type="button" data-cargo-action="deliver" data-cargo-serial="{{serial}}">Deliver</button>{{/if}}</div>{{/if}}
+      </li>{{/each}}</ul>
+      {{#if isGM}}{{#if (eq m.status "active")}}<button type="button" data-repair-cargo>Repair missing mission property</button>{{/if}}{{/if}}
+    </section>
+    {{/if}}
     <p class="mb-pays">{{#each m.pays}}<span>{{this}}</span>{{/each}}</p>
     {{#if m.places.length}}<p class="mb-places">{{#each m.places}}<a {{#if ../isGM}}{{#if ref}}data-ref="{{ref}}"{{/if}}{{/if}} class="{{#if mapped}}mapped{{else}}need{{/if}}" title="{{#if mapped}}Mapped{{#if placeId}}: its own scene in London Venues{{/if}}{{else}}NEED MAP: no interior map yet{{/if}}"><b>{{code}}</b> {{name}}{{#unless mapped}} <small>NEED MAP</small>{{/unless}}</a>{{#if ../isGM}}{{#if placeId}}<button type="button" class="mb-mapbtn" data-view-map="{{placeId}}" title="Open the {{name}} map (imports it if needed)"><i class="fa-solid fa-map"></i></button>{{/if}}{{/if}}{{/each}}</p>{{/if}}
     {{#if isGM}}{{#if m.mapIds.length}}<p class="mb-small"><button type="button" data-prepare-maps title="Import this mission's venue maps (and their approaches) into the Scenes tab, under The Smoke — Venues"><i class="fa-solid fa-map-location-dot"></i> Prepare this mission's maps ({{m.mapIds.length}})</button></p>{{/if}}{{/if}}
     {{#if m.cast.length}}<div class="mb-cast">{{#each m.cast}}<a class="mb-person {{#if here}}here{{/if}}" {{#if ../isGM}}data-person="{{key}}"{{/if}} title="{{name}}{{#if role}} — {{role}}{{/if}}{{#if ../isGM}}{{#if here}} (open){{else}} (bring in){{/if}}{{/if}}"><img src="{{img}}" alt=""><span>{{name}}</span></a>{{/each}}{{#if isGM}}<button type="button" data-cast title="Import this mission's giver and venue contacts from the Campaign Cast compendium"><i class="fa-solid fa-users"></i> Bring in the cast</button>{{/if}}</div>{{/if}}
     {{#if m.lock}}<p class="mb-small">Locked: needs {{m.lock}}.</p>{{/if}}
     {{#if m.on}}<p class="mb-small">On it: <b>{{m.on}}</b></p>{{/if}}
-    {{#if m.stop}}<p><button type="button" data-directions><i class="fa-solid fa-diamond-turn-right"></i> Directions: {{m.stop.name}}</button></p>{{/if}}
-    {{#if isGM}}
+    {{#if m.routable}}<p><button type="button" data-directions><i class="fa-solid fa-diamond-turn-right"></i> Directions{{#if m.stop}}: {{m.stop.name}}{{/if}}</button></p>{{/if}}
+    {{#if canRun}}
     <section class="mb-gm">
       {{#if (eq m.status "available")}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div>
       <button type="button" class="hot" data-start><i class="fa-solid fa-play"></i> Start the mission</button>{{/if}}
-      {{#if (eq m.status "locked")}}<p class="mb-small">You can still start it — a different sponsor or a local lead can bring a job forward:</p><div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div><button type="button" data-start><i class="fa-solid fa-play"></i> Start anyway</button>{{/if}}
-      {{#if (eq m.status "active")}}{{#if m.picks.length}}<label class="mb-small">Renown goes to <select name="mbRenownTo">{{#each m.picks}}<option value="{{code}}">{{name}}</option>{{/each}}</select></label>{{/if}}
+      {{#if (eq m.status "locked")}}{{#if isGM}}<p class="mb-small">You can still start it — a different sponsor or a local lead can bring a job forward:</p><div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div><button type="button" data-start><i class="fa-solid fa-play"></i> Start anyway</button>{{else}}<p class="mb-small">Locked for now. Keep at it.</p>{{/if}}{{/if}}
+      {{#if (eq m.status "active")}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div><button type="button" data-crew title="Change who is on this job (only characters on it get credit and pay)"><i class="fa-solid fa-users"></i> Update who's on it</button>
+      {{#if m.picks.length}}<label class="mb-small">Renown goes to <select name="mbRenownTo">{{#each m.picks}}<option value="{{code}}">{{name}}</option>{{/each}}</select></label>{{/if}}
       <button type="button" class="hot" data-set="done"><i class="fa-solid fa-flag-checkered"></i> Mission passed (pay out)</button><button type="button" data-set="failed"><i class="fa-solid fa-xmark"></i> Failed</button>{{/if}}
       {{#unless (eq m.status "locked")}}{{#unless (eq m.status "available")}}<button type="button" data-set="reset"><i class="fa-solid fa-rotate-left"></i> Reset</button>{{/unless}}{{/unless}}
-      <button type="button" data-page><i class="fa-solid fa-book-open"></i> Mission page</button>
+      {{#if isGM}}<button type="button" data-page><i class="fa-solid fa-book-open"></i> Mission page</button>
       <details><summary>GM notes</summary><div class="mb-notes">{{{m.gm}}}{{#if m.campaign}}<p><b>Campaign expansion ({{m.code}}).</b></p>{{{m.campaign}}}{{/if}}
         <p><b>Pressure:</b> {{#if m.campaignTwist}}{{m.campaignTwist}} {{/if}}{{m.twist}}</p>
         {{#if m.decision}}<p><b>The choice:</b> {{{m.decision}}}</p>{{/if}}
         {{#if m.consequences}}<p><b>What follows:</b> {{{m.consequences}}}</p>{{/if}}
         {{#if m.evidence.length}}<p><b>The Quiet Ledger:</b> {{#each m.evidence}}<a data-ref="{{this}}">{{this}}</a> {{/each}}</p>{{/if}}
-        {{#if m.continues.length}}<p><b>Continue with:</b> {{#each m.continues}}<a data-ref="{{code}}">{{code}} {{title}}</a>{{#unless @last}} · {{/unless}}{{/each}}</p>{{else}}{{#if m.next}}<p><b>Next:</b> {{m.next}}</p>{{/if}}{{/if}}</div></details>
+        {{#if m.continues.length}}<p><b>Continue with:</b> {{#each m.continues}}<a data-ref="{{code}}">{{code}} {{title}}</a>{{#unless @last}} · {{/unless}}{{/each}}</p>{{else}}{{#if m.next}}<p><b>Next:</b> {{m.next}}</p>{{/if}}{{/if}}</div></details>{{/if}}
+      {{#unless isGM}}<p class="mb-small">Self-play: you run this one. Objectives that "tick themselves" do; tick the rest when they're done, then call it.</p>{{/unless}}
     </section>
     {{/if}}
     {{/if}}{{/if}}
   </main>
+  {{/if}}
 </div>

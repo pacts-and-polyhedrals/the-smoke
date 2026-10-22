@@ -24,7 +24,9 @@ export function observedByPolice(token,actor=token?.actor){
  if(!token)return false;
  return token.parent.tokens.some(t=>{
   const police=t.getFlag(NS,'police');if(!police)return false;
-  if(police.unit==='heli')return Number(actor?.system.heat?.value)>=3&&!token.getFlag(NS,'indoors');
+  // Match the bounded police sightings used by Heat/chases. A distant helicopter
+  // does NOT have infinite line of sight over an entire London street scene.
+  if(police.unit==='heli')return Number(actor?.system?.heat?.value)>=3&&!token.getFlag(NS,'indoors')&&distanceSquares(t,token)<=22;
   return distanceSquares(t,token)<=14;
  });
 }
@@ -87,7 +89,8 @@ export async function performService(actor,kind,c){
   const old=c.vehicle.getFlag(NS,'plate');let plate;do{plate=ukPlate();}while(plate===old);
   await c.vehicle.update({[`flags.${NS}.plate`]:plate,[`flags.${NS}.previousPlate`]:old??null,[`flags.${NS}.marker`]:null,[`flags.${NS}.resprayed`]:true,[`flags.${NS}.hotUntil`]:0},{acVehicleCarry:true});
   patch['system.heat.value']=0;patch['system.heat.coolSince']=0;
- }else await c.vehicle.actor.update({'system.vehicle.body.value':c.vehicle.actor.system.vehicle.body.max,'system.vehicle.flats':0});
+ }else{await c.vehicle.actor.update({'system.vehicle.body.value':c.vehicle.actor.system.vehicle.body.max,'system.vehicle.flats':0});
+  await c.vehicle.update({[`flags.${NS}.patched`]:false,...(c.vehicle.getFlag(NS,'fire')?{[`flags.${NS}.fire`]:null,light:{dim:0,bright:0}}:{})},{acVehicleCarry:true});}
  await actor.update(patch);
  await card('LOCAL SERVICE',c.label,`<p>${esc(actor.name)} pays £${c.price} at ${esc(c.zone.name)}. ${kind==='repair'?'Body restored, tyres changed.':kind==='respray'?`Heat cleared; new plates fitted: <b class="smoke-plate">${esc(c.vehicle.getFlag(NS,'plate')??'')}</b>.`:'One Heat star removed.'}</p>`,'cash');
  Hooks.callAll('smokeService',{actor,service:kind,shop:c.zone.service,vehicle:c.vehicle??null});
@@ -104,7 +107,7 @@ export function installServices(){
  VEHICLE_ACTIONS.push(vt=>{
   const pilot=(vt.getFlag(NS,'vehicleOccupants')??[]).find(o=>o.seatId==='pilot'),actor=pilot&&vt.parent.tokens.get(pilot.tokenId)?.actor;
   if(!actor?.isOwner)return [];
-  return [{icon:'fa-solid fa-screwdriver-wrench',title:'Local services',fn:()=>openServices(actor)}];
+  return [{icon:'fa-solid fa-screwdriver-wrench',title:'Local services',playerAllowed:true,fn:()=>openServices(actor)}];
  });
  Hooks.on('renderTokenHUD',(hud,html)=>{
   const root=html?.querySelector?html:html?.[0],token=hud.document??hud.object?.document;

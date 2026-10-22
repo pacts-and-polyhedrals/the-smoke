@@ -1,0 +1,21 @@
+// 0.5.22: the background loops rest when they fall behind, instead of piling up and freezing the table.
+import assert from 'node:assert/strict';
+import process from 'node:process';
+import './runtime-stub.mjs';
+const chat = []; globalThis.ChatMessage = {implementation: {create: async d => { chat.push(d); return d; }}, getSpeaker: () => ({})};
+game.users = Object.assign([{id: 'gm', isGM: true, active: true}], {activeGM: {id: 'gm'}, get: () => ({id: 'gm', isGM: true}), filter: f => [{id: 'gm', isGM: true}].filter(f)});
+const {slowGuard} = await import('../module/world/slow-guard.mjs');
+const t0 = 1_000_000;
+assert.equal(slowGuard.took('traffic', 400, 1000, t0), false, 'a quick step is fine');
+assert.equal(slowGuard.took('traffic', 2500, 1000, t0), false, 'one slow step is forgiven');
+assert.equal(slowGuard.took('traffic', 300, 1000, t0), false); assert.equal(slowGuard.took('traffic', 2500, 1000, t0), false, 'not two in a row');
+assert.equal(slowGuard.took('traffic', 2600, 1000, t0 + 1), true, 'two slow steps running: rest');
+assert.equal(slowGuard.resting('traffic', t0 + 5000), true); assert.equal(slowGuard.resting('police', t0 + 5000), false, 'only that loop rests');
+assert.equal(slowGuard.resting('traffic', t0 + 16000), false, 'back after fifteen seconds');
+await new Promise(r => setTimeout(r, 20));
+assert.equal(chat.length, 1); assert.match(chat[0].content, /SLOW DOWN/); assert.deepEqual(chat[0].whisper, ['gm'], 'the GM is told, privately');
+slowGuard.took('traffic', 3000, 1000, t0 + 20000); slowGuard.took('traffic', 3000, 1000, t0 + 20001);
+await new Promise(r => setTimeout(r, 20));
+assert.equal(chat.length, 1, 'and not told again for ten minutes');
+console.log('slow guard: loops that fall behind rest for 15 s, the GM is told once — ok');
+process.exit(0);

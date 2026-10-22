@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import './runtime-stub.mjs';
+import {observedByPolice} from '../module/world/services.mjs';
+const NS='the-smoke';
+const make=(x,y,police=null,{indoors=false}={})=>({x,y,width:1,height:1,parent:null,actor:{system:{heat:{value:4}}},
+ getFlag:(ns,key)=>ns===NS?(key==='police'?police:key==='indoors'?indoors:null):null});
+const scene={grid:{size:100},tokens:[]};
+const target=make(300,300);target.parent=scene;
+const distantHeli=make(3300,3300,{unit:'heli'});distantHeli.parent=scene;
+const nearHeli=make(1000,700,{unit:'heli'});nearHeli.parent=scene;
+const distantCar=make(2000,300,{unit:'car'});distantCar.parent=scene;
+const nearCar=make(700,300,{unit:'car'});nearCar.parent=scene;
+scene.tokens=[target,distantHeli,distantCar];
+assert.equal(observedByPolice(target,target.actor),false,'distant helicopter and ground car are not map-wide observers');
+scene.tokens.push(nearHeli);
+assert.equal(observedByPolice(target,target.actor),true,'nearby helicopter spots a wanted car outdoors');
+scene.tokens.pop();scene.tokens.push(nearCar);
+assert.equal(observedByPolice(target,target.actor),true,'nearby ground police can block respray');
+scene.tokens=[target,nearHeli];const indoor=make(300,300,null,{indoors:true});indoor.parent=scene;
+assert.equal(observedByPolice(indoor,indoor.actor),false,'indoors conceals a car from nearby helicopter');
+indoor.actor.system.heat.value=2;
+assert.equal(observedByPolice(target,indoor.actor),false,'helicopter does not block service below three stars');
+console.log('services: distant helicopter no longer blocks garage; nearby helicopter/ground police, indoors and star threshold retain intended visibility — ok');

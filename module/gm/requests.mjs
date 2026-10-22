@@ -69,10 +69,23 @@ export async function respond(message, {requestId, actorId, stat, label}) {
   return actor.rollStat(stat, {band: state.tn ? null : state.band, tn: state.tn, label: `${state.title}: ${label}`, context: {kind: 'request', requestId, messageId: message.id, actorId}});
 }
 
-/** Leader GM: a request roll came in. Record it, apply hazard consequences, finish teamwork. */
-export async function recordResponse(message, roll) {
+/** Leader GM: a request roll came in. Record it, apply hazard consequences, finish teamwork.
+ * Answers to one card are handled one at a time from a fresh read of the card: a whole crew answering a teamwork
+ * check at once used to overwrite each other's results (and a lost answer could be rolled, and hurt, twice). */
+const cardQueues = new Map();
+export function recordResponse(message, roll) {
+  const key = message?.id ?? 'none';
+  const next = (cardQueues.get(key) ?? Promise.resolve()).catch(() => {}).then(() => recordResponseNow(game.messages?.get?.(message?.id) ?? message, roll));
+  cardQueues.set(key, next);
+  void next.finally(() => { if (cardQueues.get(key) === next) cardQueues.delete(key); }).catch(() => {});
+  return next;
+}
+async function recordResponseNow(message, roll) {
   const state = foundry.utils.deepClone(message.getFlag(NS, 'request')); if (!state || state.results[roll.context.actorId]) return null;
+  if (!state.actorIds.includes(roll.context.actorId)) return null;   // only the characters the GM asked
   const actor = game.actors.get(roll.context.actorId);
+  if (actor && roll.actorUuid && roll.actorUuid !== actor.uuid) return null;   // a roll can only answer for its own character
+  if (roll.stat && !state.responses.some(r => r.stat === roll.stat)) return null;
   const res = {name: actor?.name ?? roll.actorName, stat: roll.stat, total: roll.total, tn: roll.tn, margin: roll.margin, outcomeKey: roll.outcomeKey, outcome: roll.outcome, success: Boolean(roll.success), applied: ''};
   if (state.kind === 'hazard' && actor) {
     const c = hazardFor(state.hazard, roll.outcomeKey);
@@ -88,11 +101,14 @@ export async function recordResponse(message, roll) {
   await message.update({content: renderRequest(state), [`flags.${NS}.request`]: state});
   return state;
 }
+/** The most Heat a street event's consequence can bring on its own (0.5.22: only crimes, and killings above all, go higher). */
+export const MISHAP_HEAT_CAP = 2;
 export async function applyConsequence(actor, c, {armoured = false, reason = ''} = {}) {
   const dmg = hazardDamage(c, actor.system?.armour, armoured);
   if (dmg) await actor.applyDamage(dmg);
   for (const name of c.conditions || []) if (name !== 'Down' || Number(actor.system?.resources?.health?.value) <= 0) await actor.addCondition(name);
-  if (c.heat) await actor.changeHeat(Number(c.heat), reason);
+  // A street mishap (being recognised, a tip-off) is not a crime: it can bring a patrol (2★ at most), never armed police.
+  if (c.heat) { const now = Math.max(0, Math.min(5, Number(actor.system?.heat?.value) || 0)), to = Math.max(now, Math.min(now + Number(c.heat), MISHAP_HEAT_CAP)); if (to > now) await actor.changeHeat(to - now, reason); }
   if (c.cashPct) { const lose = Math.round(Number(actor.system.cash || 0) * Number(c.cashPct) / 100); if (lose) await actor.changeCash(-lose, `${reason}: gone.`); }
 }
 

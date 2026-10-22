@@ -1,9 +1,12 @@
 <div class="smoke-creator-inner">
+  <div class="smoke-brand-creator"><img src="systems/the-smoke/assets/branding/logos/logo-horizontal.png" alt="The Smoke — Pacts and Polyhedrals"></div>
   <nav class="cr-steps">{{#each steps}}<a data-goto="{{key}}" class="{{#if active}}active{{/if}} {{#if done}}done{{/if}} {{#if bad}}bad{{/if}}"><b>{{n}}</b> {{label}}</a>{{/each}}</nav>
   <main class="cr-main">
     {{#if (eq step "who")}}
-    <h2>Who are you?</h2>
-    <p class="cr-lead">Everyone in The Smoke is somebody from somewhere. Name, a street name if you have one, and your ends.</p>
+    <div class="smoke-brand-creator-intro">
+      <img src="systems/the-smoke/assets/branding/graphics/chainring-poster.png" alt="The Chainring — Nick a bike. Make a name.">
+      <div><h2>Who are you?</h2><p class="cr-lead">Everyone in The Smoke is somebody from somewhere. Name, a street name if you have one, and your ends.</p><p class="cr-lead">Start small. Make a name.</p></div>
+    </div>
     <div class="cr-form">
       <label>Name <input type="text" data-field="name" value="{{draft.name}}" placeholder="Jaz Kaur"></label>
       <label>Street name <input type="text" data-field="alias" value="{{draft.alias}}" placeholder="Tealeaf"></label>

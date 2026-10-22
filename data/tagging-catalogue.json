@@ -1,0 +1,1137 @@
+{
+  "designVersion": "0.5.7-proposal",
+  "qualityTiers": [
+    "severeFailure",
+    "costlyFailure",
+    "narrowSuccess",
+    "fullSuccess",
+    "strongSuccess",
+    "exceptionalSuccess"
+  ],
+  "factions": [
+    {
+      "code": "CH",
+      "name": "The Chainring"
+    },
+    {
+      "code": "AD",
+      "name": "Dead Air Collective"
+    },
+    {
+      "code": "LB",
+      "name": "The Lea Boys"
+    },
+    {
+      "code": "VC",
+      "name": "The Velvet Circuit"
+    },
+    {
+      "code": "TU",
+      "name": "The Towpath Union"
+    },
+    {
+      "code": "GE",
+      "name": "The Glasshouse Exchange"
+    },
+    {
+      "code": "BB",
+      "name": "The Backroom Bookmakers"
+    },
+    {
+      "code": "NM",
+      "name": "The Night Market"
+    },
+    {
+      "code": "BM",
+      "name": "Borough Mutual"
+    },
+    {
+      "code": "LD",
+      "name": "The Lantern Desk"
+    },
+    {
+      "code": "MR",
+      "name": "Meridian Renewal"
+    },
+    {
+      "code": "RT",
+      "name": "The Red Thread"
+    }
+  ],
+  "tagPacks": [
+    {
+      "id": "TAG-CH",
+      "faction": "CH",
+      "title": "Chainring Cog",
+      "motif": "Spray-painted chainwheel + twin spoke slashes",
+      "palette": "burnt orange / graphite",
+      "unlock": {
+        "completeMissionId": "m01",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/ch/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/ch/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/ch/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/ch/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/ch/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/ch/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/ch/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-AD",
+      "faction": "AD",
+      "title": "Dead Air Wave",
+      "motif": "Radio transmitter waveform + broken antenna arc",
+      "palette": "electric cyan / cream",
+      "unlock": {
+        "completeMissionId": "ad1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/ad/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/ad/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/ad/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/ad/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/ad/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/ad/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/ad/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-LB",
+      "faction": "LB",
+      "title": "Lea Reed",
+      "motif": "Sharp reed blade + tide arrows",
+      "palette": "river green / black",
+      "unlock": {
+        "completeMissionId": "lb1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/lb/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/lb/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/lb/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/lb/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/lb/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/lb/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/lb/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-VC",
+      "faction": "VC",
+      "title": "Velvet Pulse",
+      "motif": "Theatre curtain fold folded into jagged sound wave",
+      "palette": "violet / copper",
+      "unlock": {
+        "completeMissionId": "vc1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/vc/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/vc/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/vc/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/vc/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/vc/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/vc/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/vc/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-TU",
+      "faction": "TU",
+      "title": "Towpath Knot",
+      "motif": "Interlocked boat-hook and two towpath lines",
+      "palette": "teal / rust",
+      "unlock": {
+        "completeMissionId": "tu1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/tu/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/tu/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/tu/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/tu/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/tu/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/tu/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/tu/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-GE",
+      "faction": "GE",
+      "title": "Glasshouse Prism",
+      "motif": "Faceted prism with missing shard",
+      "palette": "ivory / gold",
+      "unlock": {
+        "completeMissionId": "ge1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/ge/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/ge/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/ge/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/ge/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/ge/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/ge/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/ge/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-BB",
+      "faction": "BB",
+      "title": "Backroom Odds",
+      "motif": "Broken odds slip and split playing-card pips",
+      "palette": "burgundy / pale gold",
+      "unlock": {
+        "completeMissionId": "bb1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/bb/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/bb/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/bb/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/bb/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/bb/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/bb/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/bb/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-NM",
+      "faction": "NM",
+      "title": "Night Stall",
+      "motif": "Crescent and lantern-framed market stall",
+      "palette": "amber / midnight blue",
+      "unlock": {
+        "completeMissionId": "nm1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/nm/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/nm/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/nm/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/nm/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/nm/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/nm/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/nm/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-BM",
+      "faction": "BM",
+      "title": "Borough Hand",
+      "motif": "Joined sleeves framing an open door",
+      "palette": "warm blue / ochre",
+      "unlock": {
+        "completeMissionId": "bm1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/bm/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/bm/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/bm/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/bm/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/bm/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/bm/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/bm/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-LD",
+      "faction": "LD",
+      "title": "Lantern Cipher",
+      "motif": "Coded lantern aperture and discreet beam",
+      "palette": "blue-grey / soft amber",
+      "unlock": {
+        "completeMissionId": "ld1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/ld/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/ld/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/ld/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/ld/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/ld/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/ld/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/ld/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-MR",
+      "faction": "MR",
+      "title": "Meridian Arrow",
+      "motif": "Corporate-upward geometric arrows, easily contested",
+      "palette": "slick gold / anthracite",
+      "unlock": {
+        "completeMissionId": "mr1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/mr/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/mr/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/mr/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/mr/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/mr/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/mr/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/mr/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-RT",
+      "faction": "RT",
+      "title": "Red Thread Loop",
+      "motif": "Continuous knotted string and needle loop",
+      "palette": "brick red / off-white",
+      "unlock": {
+        "completeMissionId": "rt1",
+        "minimumRenown": 1
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/rt/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/rt/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/rt/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/rt/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/rt/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/rt/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/rt/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    },
+    {
+      "id": "TAG-STREET",
+      "faction": null,
+      "title": "First Mark",
+      "motif": "Simple London curb / broken signal icon (non-branded)",
+      "palette": "chalk white / black",
+      "unlock": {
+        "default": true
+      },
+      "variants": {
+        "severeFailure": "assets/graffiti/svg/street/severeFailure.svg",
+        "costlyFailure": "assets/graffiti/svg/street/costlyFailure.svg",
+        "narrowSuccess": "assets/graffiti/svg/street/narrowSuccess.svg",
+        "fullSuccess": "assets/graffiti/svg/street/fullSuccess.svg",
+        "strongSuccess": "assets/graffiti/svg/street/strongSuccess.svg",
+        "exceptionalSuccess": "assets/graffiti/svg/street/exceptionalSuccess.svg"
+      },
+      "runtimeFallback": "assets/graffiti/webp/street/{outcome}.webp",
+      "sourceStatus": "planned; artwork not yet generated"
+    }
+  ],
+  "sites": [
+    {
+      "id": "SP-HC-MORNING-WALL",
+      "label": "Morning Lane workshop wall",
+      "sceneMapId": "LDN-HACKNEY",
+      "nearestVenueId": "LDP-ARCHES",
+      "surface": "wall",
+      "brief": "Chainring practice wall by The Arches; obtain Pat’s permission",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HC-ROUND-SHUTTER",
+      "label": "Round Chapel event-load shutter",
+      "sceneMapId": "LDN-HACKNEY",
+      "nearestVenueId": "LDV-HC2",
+      "surface": "shutter",
+      "brief": "Fictional loading-area shutter, not the heritage building fabric",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HC-EMPIRE-BAY",
+      "label": "Hackney Empire loading shutter",
+      "sceneMapId": "LDN-HACKNEY",
+      "nearestVenueId": "LDV-HC1",
+      "surface": "shutter",
+      "brief": "Stage-service shutter with venue authorisation in sanctioned jobs",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HC-STOREHOUSE",
+      "label": "Chainring storehouse boundary wall",
+      "sceneMapId": "LDN-HACKNEY",
+      "nearestVenueId": "LDV-HC7",
+      "surface": "wall",
+      "brief": "Auntie Pat’s delivery-marking wall",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-LF-KINGSLAND-ARCH",
+      "label": "Kingsland courier arch wall",
+      "sceneMapId": "LDN-HAGGERSTON",
+      "nearestVenueId": "LDV-LF7",
+      "surface": "wall",
+      "brief": "Courier arch exterior; visible from mapped street",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-LF-LIDO-BUS",
+      "label": "London Fields stationary bus",
+      "sceneMapId": "LDN-HAGGERSTON",
+      "nearestVenueId": "LDV-LF1",
+      "surface": "bus",
+      "brief": "Spawn a stationary Clippermaster Bus, never a moving vehicle target",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-LF-LISTENING",
+      "label": "Englefield back-lane wall",
+      "sceneMapId": "LDN-HAGGERSTON",
+      "nearestVenueId": "LDV-LF8",
+      "surface": "wall",
+      "brief": "Fictional side alley, not residential property",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HR-QUEENSBRIDGE",
+      "label": "Queensbridge Sound Store hire shutter",
+      "sceneMapId": "LDN-HACKNEY-ROAD",
+      "nearestVenueId": "LDV-HR7",
+      "surface": "shutter",
+      "brief": "Shop frontage and radio equipment handover",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HR-HOXTON",
+      "label": "Hoxton Hall authorised display board",
+      "sceneMapId": "LDN-HACKNEY-ROAD",
+      "nearestVenueId": "LDV-HR2",
+      "surface": "wall",
+      "brief": "Event-sanctioned art panel independent of protected building",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HR-SIGBREW",
+      "label": "Signature Brew yard wall",
+      "sceneMapId": "LDN-HACKNEY-ROAD",
+      "nearestVenueId": "LDV-HR3",
+      "surface": "wall",
+      "brief": "Event-promotional frontage subject to permission",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-DA-BACKSPIN",
+      "label": "Backspin Studio loading shutter",
+      "sceneMapId": "LDN-DALSTON",
+      "nearestVenueId": "LDV-DA7",
+      "surface": "shutter",
+      "brief": "Dead Air studio delivery point",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-DA-SUPERSTORE",
+      "label": "Dalston Superstore authorised panel",
+      "sceneMapId": "LDN-DALSTON",
+      "nearestVenueId": "LDV-DA3",
+      "surface": "wall",
+      "brief": "Promoter/venue sanctioned art panel",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-DA-RIO",
+      "label": "Rio Cinema side service shutter",
+      "sceneMapId": "LDN-DALSTON",
+      "nearestVenueId": "LDV-DA1",
+      "surface": "shutter",
+      "brief": "Fictional service shutter, not historic facade",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-SN-SHACKLEWELL",
+      "label": "Shacklewell Arms loading shutter",
+      "sceneMapId": "LDN-STOKEY",
+      "nearestVenueId": "LDV-SN5",
+      "surface": "shutter",
+      "brief": "Night-time gig frontage",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-SN-ABNEY",
+      "label": "Abney exterior community panel",
+      "sceneMapId": "LDN-STOKEY",
+      "nearestVenueId": "LDV-SN1",
+      "surface": "wall",
+      "brief": "Approved offsite information panel, never gravestones",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HB-ODDMENTS",
+      "label": "Oddments Lockup yard wall",
+      "sceneMapId": "LDN-HIGHBURY",
+      "nearestVenueId": "LDV-HB7",
+      "surface": "wall",
+      "brief": "A secured yard wall tied to Chainring salvage",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HB-ORCHARD",
+      "label": "Orchard Lease Office shutter",
+      "sceneMapId": "LDN-HIGHBURY",
+      "nearestVenueId": "LDV-HB8",
+      "surface": "shutter",
+      "brief": "Meridian/Glasshouse lease dispute frontage",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-CG-UNION",
+      "label": "Union Chapel event display wall",
+      "sceneMapId": "LDN-CANONBURY",
+      "nearestVenueId": "LDV-CG4",
+      "surface": "wall",
+      "brief": "Temporary sanctioned gig display panel",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-CG-GLASSHOUSE",
+      "label": "Glasshouse Saleroom service shutter",
+      "sceneMapId": "LDN-CANONBURY",
+      "nearestVenueId": "LDV-CG7",
+      "surface": "shutter",
+      "brief": "Gallery exchange and counterfeit placards",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-CG-ESTORICK",
+      "label": "Estorick pop-up board",
+      "sceneMapId": "LDN-CANONBURY",
+      "nearestVenueId": "LDV-CG2",
+      "surface": "wall",
+      "brief": "Fictional temporary outdoor board, not museum facade",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-CL-LEABRIDGE",
+      "label": "Lea Bridge Social Rooms side wall",
+      "sceneMapId": "LDN-CLAPTON",
+      "nearestVenueId": "LDV-CL7",
+      "surface": "wall",
+      "brief": "Lea Boys turf display",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-CL-TOWPATH",
+      "label": "Clapton canal footbridge support",
+      "sceneMapId": "LDN-CLAPTON",
+      "nearestVenueId": "LDV-CL2",
+      "surface": "bridge",
+      "brief": "Mapped fictional bridge support near Princess of Wales",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-CL-LIBRARY",
+      "label": "Clapton Library outreach panel",
+      "sceneMapId": "LDN-CLAPTON",
+      "nearestVenueId": "LDV-CL1",
+      "surface": "wall",
+      "brief": "Approved community message wall",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HM-ORIENT-TRAIN",
+      "label": "Orient Way yard carriage",
+      "sceneMapId": "LDN-MARSHES",
+      "nearestVenueId": "LDV-HM4",
+      "surface": "train",
+      "brief": "Requires new stationary railway carriage prop",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HM-TEMPLE-TRAIN",
+      "label": "Temple Mills depot carriage",
+      "sceneMapId": "LDN-MARSHES",
+      "nearestVenueId": "LDV-HM5",
+      "surface": "train",
+      "brief": "Requires new stationary railway carriage prop",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HM-MARKET",
+      "label": "New Spitalfields unloading shutter",
+      "sceneMapId": "LDN-MARSHES",
+      "nearestVenueId": "LDV-HM2",
+      "surface": "shutter",
+      "brief": "Produce hall service side",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HM-NORTH-PAVILION",
+      "label": "Marshes pavilion boundary wall",
+      "sceneMapId": "LDN-MARSHES",
+      "nearestVenueId": "LDV-HM1",
+      "surface": "wall",
+      "brief": "Football supporters and bookmaker rivalry",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-LY-ORIENT-BUS",
+      "label": "Leyton Orient supporter shuttle bus",
+      "sceneMapId": "LDN-LEYTON",
+      "nearestVenueId": "LDV-LY2",
+      "surface": "bus",
+      "brief": "Requires stationary Clippermaster Bus mission token",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-LY-LARCH",
+      "label": "Larch Cold Store outer wall",
+      "sceneMapId": "LDN-LEYTON",
+      "nearestVenueId": "LDV-LY8",
+      "surface": "wall",
+      "brief": "Night Market trade routes and rival markings",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-LY-THIRDHALF",
+      "label": "Third Half Bookroom shutter",
+      "sceneMapId": "LDN-LEYTON",
+      "nearestVenueId": "LDV-LY7",
+      "surface": "shutter",
+      "brief": "Backroom Bookmakers contact",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-DB-ARCHIVE",
+      "label": "Split Second Archive street shutter",
+      "sceneMapId": "LDN-DE-BEAUVOIR",
+      "nearestVenueId": "LDV-DB7",
+      "surface": "shutter",
+      "brief": "Red Thread sign trail",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-DB-DEBEAUVOIR",
+      "label": "De Beauvoir Block authorised mural",
+      "sceneMapId": "LDN-DE-BEAUVOIR",
+      "nearestVenueId": "LDV-DB3",
+      "surface": "wall",
+      "brief": "Cultural venue-approved spot",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-DB-PRINTER",
+      "label": "De Beauvoir Arms delivery wall",
+      "sceneMapId": "LDN-DE-BEAUVOIR",
+      "nearestVenueId": "LDV-DB4",
+      "surface": "wall",
+      "brief": "Flyer workshop/van arrival",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-WS-WELLSTREET",
+      "label": "Well Street service underpass",
+      "sceneMapId": "LDN-SOUTH-HACKNEY",
+      "nearestVenueId": "LDV-WS1",
+      "surface": "overpass",
+      "brief": "New fictional underpass hotspot near civic street; not civic building",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-WS-STJOHN",
+      "label": "St John outreach board",
+      "sceneMapId": "LDN-SOUTH-HACKNEY",
+      "nearestVenueId": "LDV-WS5",
+      "surface": "wall",
+      "brief": "Borough Mutual permission-only welfare announcement",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-VW-WICK-CANAL",
+      "label": "Grow Hackney canal retaining wall",
+      "sceneMapId": "LDN-VICTORIA-PARK",
+      "nearestVenueId": "LDV-VW4",
+      "surface": "wall",
+      "brief": "Waterside graffiti site",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-VW-WATERDEN-BUS",
+      "label": "Waterden Road parked bus",
+      "sceneMapId": "LDN-VICTORIA-PARK",
+      "nearestVenueId": "LDV-VW3",
+      "surface": "bus",
+      "brief": "Spawn stationary Clippermaster Bus at a marked lay-by",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-VW-BARGE",
+      "label": "Barge East quayside retaining wall",
+      "sceneMapId": "LDN-VICTORIA-PARK",
+      "nearestVenueId": "LDV-VW1",
+      "surface": "wall",
+      "brief": "Towpath Union delivery route; not on boat",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-WW-EASTCROSS",
+      "label": "East Cross fictional overpass pillar",
+      "sceneMapId": "LDN-WICK-WOODLAND",
+      "nearestVenueId": "LDV-WW8",
+      "surface": "overpass",
+      "brief": "New under-flyover support, no physical access instructions",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-WW-HUB67",
+      "label": "Hub67 community panel",
+      "sceneMapId": "LDN-WICK-WOODLAND",
+      "nearestVenueId": "LDV-WW6",
+      "surface": "wall",
+      "brief": "Approved youth project board",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-ON-VELO",
+      "label": "VeloPark approach footbridge panel",
+      "sceneMapId": "LDN-OLYMPIC-NORTH",
+      "nearestVenueId": "LDV-ON1",
+      "surface": "bridge",
+      "brief": "Fictional permitted panel near VeloPark",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-ON-EVENT-BUS",
+      "label": "VeloPark shuttle bus",
+      "sceneMapId": "LDN-OLYMPIC-NORTH",
+      "nearestVenueId": "LDV-ON1",
+      "surface": "bus",
+      "brief": "Stationary service shuttle, asset already in bus catalogue",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-ST-BRIDGE9",
+      "label": "Bridge Nine broadcast garage shutter",
+      "sceneMapId": "LDN-STRATFORD",
+      "nearestVenueId": "LDV-ST8",
+      "surface": "shutter",
+      "brief": "Dead Air presenter Dee Hassan’s secondary radio base",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-ST-CARPENTERS",
+      "label": "Carpenters Road fictional bridge pier",
+      "sceneMapId": "LDN-STRATFORD",
+      "nearestVenueId": "LDV-ST8",
+      "surface": "bridge",
+      "brief": "New overbridge pier prop near studio garage",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-ST-WESTFIELD",
+      "label": "Stratford loading-bay wall",
+      "sceneMapId": "LDN-STRATFORD",
+      "nearestVenueId": "LDV-ST1",
+      "surface": "wall",
+      "brief": "Fictional commercial service court, not mall facade",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HX-TERN",
+      "label": "Tern Wharf canal parapet",
+      "sceneMapId": "LDN-HOXTON-WEST",
+      "nearestVenueId": "LDV-HX7",
+      "surface": "bridge",
+      "brief": "Towpath Union courier wall",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HX-CASHROOM",
+      "label": "Shepherdess Coin Rooms back-lane shutter",
+      "sceneMapId": "LDN-HOXTON-WEST",
+      "nearestVenueId": "LDV-HX8",
+      "surface": "shutter",
+      "brief": "Backroom Bookmakers message board",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-HX-WENLOCK",
+      "label": "Wenlock Arms side mural wall",
+      "sceneMapId": "LDN-HOXTON-WEST",
+      "nearestVenueId": "LDV-HX1",
+      "surface": "wall",
+      "brief": "Velvet Circuit venue-approved panel",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-BG-LANTERN",
+      "label": "Lantern Case Flat rear display panel",
+      "sceneMapId": "LDN-BETHNAL-GREEN",
+      "nearestVenueId": "LDV-BG7",
+      "surface": "wall",
+      "brief": "Covert evidence marker on a private consented panel",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-BG-RECOVERY",
+      "label": "Approach Recovery Rooms awareness board",
+      "sceneMapId": "LDN-BETHNAL-GREEN",
+      "nearestVenueId": "LDV-BG8",
+      "surface": "wall",
+      "brief": "Borough Mutual approved welfare board",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-BG-STREET",
+      "label": "Bethnal Green market service shutter",
+      "sceneMapId": "LDN-BETHNAL-GREEN",
+      "nearestVenueId": null,
+      "surface": "shutter",
+      "brief": "Fictional market-side shutter requiring new scene hotspot",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-OF-BREAKERS",
+      "label": "Bow Breakers Yard exterior wall",
+      "sceneMapId": "LDN-OLD-FORD",
+      "nearestVenueId": null,
+      "surface": "wall",
+      "brief": "Fictional yard beside existing Bow Breakers map destination",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-OF-ROMAN",
+      "label": "Roman Exchange stall shutter",
+      "sceneMapId": "LDN-OLD-FORD",
+      "nearestVenueId": "LDV-OF7",
+      "surface": "shutter",
+      "brief": "Night Market territory",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-OF-PRINT",
+      "label": "Roman Rooms Printworks commissioned board",
+      "sceneMapId": "LDN-OLD-FORD",
+      "nearestVenueId": "LDV-OF8",
+      "surface": "wall",
+      "brief": "Printworks permission-based art station",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-BF-DLR",
+      "label": "Pudding Mill Lane stationary DLR carriage",
+      "sceneMapId": "LDN-BOW-FLYOVER",
+      "nearestVenueId": "LDV-BF6",
+      "surface": "train",
+      "brief": "Requires new stationary rail-carriage prop; no active train mechanics",
+      "isExistingHotspot": false,
+      "requiresNewProp": true,
+      "implementation": "stationary vehicle/rail prop + transform-following vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-BF-PILLAR",
+      "label": "Bow Flyover column",
+      "sceneMapId": "LDN-BOW-FLYOVER",
+      "nearestVenueId": null,
+      "surface": "overpass",
+      "brief": "Fictional paintable pier, exact rectangle to be approved in scene",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    },
+    {
+      "id": "SP-BF-MARSHGATE",
+      "label": "Marshgate Delivery Depot outer wall",
+      "sceneMapId": "LDN-BOW-FLYOVER",
+      "nearestVenueId": "LDV-BF7",
+      "surface": "wall",
+      "brief": "Towpath deliveries and Night Market distribution",
+      "isExistingHotspot": false,
+      "requiresNewProp": false,
+      "implementation": "scene-bound hotspot + transparent vector decal",
+      "anchorPx": null,
+      "anchorRotation": null,
+      "siteOwner": null
+    }
+  ],
+  "implemented": true,
+  "authoring": "Hotspot world token anchors are placed by the GM (no invented pixel coordinates)"
+}

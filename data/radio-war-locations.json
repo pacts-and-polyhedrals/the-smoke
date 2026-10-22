@@ -1,0 +1,66 @@
+{
+  "edition": "0.5.15",
+  "note": "Six active stations have fictional campaign contacts on London maps. Real broadcasters are unaffiliated; contact locations and activities are invented for The Smoke. The two unverified stations and their optional map contacts have been retired.",
+  "locations": [
+    {
+      "stationId": "point-blank",
+      "mapId": "LDN-HOXTON-WEST",
+      "zoneId": "eagle-wharf-block",
+      "title": "Point Blank · Eagle Wharf promo lockup",
+      "kind": "promoter",
+      "side": "underground",
+      "pitch": "A quiet producer's room under the Wharf. Get the late sets heard before the suits buy the dial.",
+      "task": "Run flyers and collect street requests for the underground lineup."
+    },
+    {
+      "stationId": "rude-fm",
+      "mapId": "LDN-HAGGERSTON",
+      "zoneId": "dalston-block",
+      "title": "Rude FM · Dalston aerial contact",
+      "kind": "relay",
+      "side": "underground",
+      "pitch": "An upstairs signal runner needs help keeping the jungle sound alive. Mind the rival promoters.",
+      "task": "Repair the receiver and carry the evening set to the next relay."
+    },
+    {
+      "stationId": "vision-radio",
+      "mapId": "LDN-DALSTON",
+      "zoneId": "shacklewell-block-3",
+      "title": "Vision Radio UK · Shacklewell promoter",
+      "kind": "promoter",
+      "side": "licensed",
+      "pitch": "A booking contact is trying to stay above board while rival flyers cover every wall.",
+      "task": "Secure legitimate venue slots and keep the weekend broadcast going."
+    },
+    {
+      "stationId": "flex-fm",
+      "mapId": "LDN-HACKNEY",
+      "zoneId": "clarence-block",
+      "title": "Flex FM · Clarence Road listening point",
+      "kind": "listener",
+      "side": "underground",
+      "pitch": "The listening point knows what everyone in the borough is playing. Get a tune on before the competition.",
+      "task": "Take listener votes, test the aerial and deliver the results."
+    },
+    {
+      "stationId": "supreme-fm",
+      "mapId": "LDN-BETHNAL-GREEN",
+      "zoneId": "broadway-market-2",
+      "title": "Supreme FM · Broadway Market showcase",
+      "kind": "promoter",
+      "side": "licensed",
+      "pitch": "Community radio has a stall here. They've got a stage to fill and a signal to protect.",
+      "task": "Organise the showcase and keep the sponsor's people happy."
+    },
+    {
+      "stationId": "radio-caroline",
+      "mapId": "LDN-BOW-FLYOVER",
+      "zoneId": "marshgate-block",
+      "title": "Radio Caroline · Marshgate listening post",
+      "kind": "relay",
+      "side": "licensed",
+      "pitch": "A London relay contact holds the old-school broadcast archive. Its history is worth something to both sides.",
+      "task": "Recover a missing recording and help the listening post stay on air."
+    }
+  ]
+}

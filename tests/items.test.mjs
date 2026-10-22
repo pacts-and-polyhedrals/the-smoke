@@ -3,6 +3,7 @@ import assert from 'assert';
 import {fakeActor, itemNamed, conditionNames, LIB, chat} from './fakes.mjs';
 game.users = Object.assign([{id: 'gm', isGM: true, active: true}], {activeGM: {id: 'gm'}, get: id => ({id, isGM: true})});
 game.user = {id: 'gm', isGM: true, targets: new Set()};
+game.time = {worldTime: 0};
 globalThis.canvas = {scene: null};
 const {CONDITION_EFFECTS, CONDITION_LIBRARY, statPenalty} = await import('../module/rules/conditions.mjs');
 const items = await import('../module/world/items.mjs');
@@ -27,7 +28,9 @@ assert.deepEqual(conditionNames(jaz), ['Wired']);
 assert.equal(itemNamed(jaz, 'Charlie'), undefined, 'the only wrap is used up');
 assert.equal(statPenalty(new Set(conditionNames(jaz)), 'frt'), 1, 'Wired: +1 Front');
 const wired = itemNamed(jaz, 'Wired');
-await items.tickTimedConditions(wired.getFlag('the-smoke', 'expiresAt') + 1, [jaz]);
+assert.equal(wired.getFlag('the-smoke', 'expiresWorldTime'), 30*60, 'high expires after 30 game-clock minutes');
+game.time.worldTime = 30*60+1;
+await items.tickTimedConditions(undefined, [jaz]);
 assert.deepEqual(conditionNames(jaz), ['Crashing'], 'the high turns into the comedown');
 assert.equal(statPenalty(new Set(conditionNames(jaz)), 'btl'), -1, 'Crashing: -1 Bottle');
 

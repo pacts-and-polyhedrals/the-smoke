@@ -14,14 +14,14 @@ class PersonData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
     return {
       stats: new SchemaField(Object.fromEntries(STAT_KEYS.map(k => [k, die(4)]))),
-      stage: N({min: 1, max: 5, initial: 1}),
+      stage: N({min: 1, max: 33, initial: 1}),
       advancement:new SchemaField({available:N({min:0}),spent:N({min:0})}),
       resources: new SchemaField({health: res(10), hustle: res(3)}),
       heat: new SchemaField({value: N({min: 0, max: 5}), coolSince: N({min: 0}), seenBy: S()}),
       cash: N({min: 0, initial: 40}),
       stash: N({min: 0}),
       rep: new SchemaField({crew: N(), street: N(), police: N(), xp: N({min: 0})}),
-      creation: new SchemaField({done: B(), background: S(), levelledTo: N({min: 1, max: 5, initial: 1})}),
+      creation: new SchemaField({done: B(), background: S(), levelledTo: N({min: 1, max: 33, initial: 1}), milestoneRewards:S('[]')}),
       guard: new SchemaField({base: N({min: 0, initial: 4}), armour: N(), value: N({min: 0, initial: 9})}),
       armour: N({min: 0}),
       states: new SchemaField({onARoll: B(), offGame: B(), down: B(), surrendered: B(), reactionUsed:B(), downRounds:N({min:0})}),
@@ -58,7 +58,7 @@ export class VehicleData extends foundry.abstract.TypeDataModel {
       vehicle: new SchemaField({
         klass: S('car'), size: N({min: 0, initial: 2}), perfDie: N({choices:DIE_LADDER,min: 4, max: 20, initial: 6}), handling: N({min: -4, max: 4}),
         speed: N({min: 0, initial: 9}), body: res(12), destroyed:B(), armour: N({min: 0}), fuel: res(10),
-        crewFull: N({min: 1, initial: 1}), passengers: N({min: 0, initial: 3}), fireControl: N({min: 0}),
+        crewFull: N({min: 1, initial: 1}), passengers: N({min: 0, initial: 3}), fireControl: N({min: 0}), crewDie: N({min: 0, max: 20}),
         crewAssignments: S('[]'), control: S('driver'), aiPilot: S(),
         value: N({min: 0, initial: 5000}), lock: S('medium'), jobs: new ArrayField(new StringField({blank: false}), {required: true, initial: []}),
         plateless: B(), flats: N({min: 0, max: 4}), systems: H()

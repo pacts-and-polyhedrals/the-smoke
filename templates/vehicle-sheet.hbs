@@ -1,55 +1,97 @@
-<div class="smoke-sheet-inner">
+<div class="smoke-sheet-inner smoke-vsheet status-{{statusKey}}">
   <header class="smoke-head">
     <img class="smoke-portrait" src="{{actor.img}}" data-edit="img" alt="" title="Change the image">
     <div class="smoke-id">
-      <input class="smoke-name" type="text" name="name" value="{{actor.name}}">
+      <input class="smoke-name" type="text" name="name" value="{{actor.name}}" placeholder="Name">
       <div class="smoke-sub">
         <label>Class <input type="text" name="system.vehicle.klass" value="{{v.klass}}"></label>
         <label>Value £ <input type="number" name="system.vehicle.value" value="{{v.value}}"></label>
         <label>Lock <select name="system.vehicle.lock">{{#each locks}}<option value="{{@key}}" {{#if (eq @key ../v.lock)}}selected{{/if}}>{{this}}</option>{{/each}}</select></label>
+        <label>Plate <b class="smoke-plate">{{plate}}</b></label>
       </div>
     </div>
-    <div class="smoke-body-meter"><div class="fill" style="width: {{bodyPct}}%"></div><span>BODY {{v.body.value}}/{{v.body.max}}</span></div>
+    <div class="smoke-vstatus s-{{statusKey}}" title="{{statusHint}}">{{#if fire}}<i class="fa-solid fa-fire"></i>{{/if}}<b>{{status}}</b><small>{{statusHint}}</small></div>
+    <div class="smoke-head-actions">
+      <button type="button" data-board title="Board / choose a seat" {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-car-side"></i></button>
+      <button type="button" data-radio title="Car radio" {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-radio"></i></button>
+      {{#if isGM}}<button type="button" data-vehicle-control title="Who's inside / who drives" {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-users-gear"></i></button>{{/if}}
+    </div>
   </header>
+
+  <section class="smoke-bars">
+    <div class="bar body"><span>BODY</span><input type="number" name="system.vehicle.body.value" value="{{v.body.value}}"> / <input type="number" name="system.vehicle.body.max" value="{{v.body.max}}">
+      {{#if isGM}}<button type="button" data-vhurt title="Take 1"><i class="fa-solid fa-minus"></i></button><button type="button" data-vfix title="Fix 1"><i class="fa-solid fa-plus"></i></button>{{/if}}
+      <div class="meter"><div class="fill" style="width: {{bodyPct}}%"></div></div></div>
+    <div class="bar fuel"><span>FUEL</span><input type="number" name="system.vehicle.fuel.value" value="{{v.fuel.value}}"> / <input type="number" name="system.vehicle.fuel.max" value="{{v.fuel.max}}"><div class="meter"><div class="fill" style="width: {{fuelPct}}%"></div></div></div>
+    <div class="bar guard"><span>GUARD</span><b>{{guard}}</b><small>armour <input type="number" name="system.vehicle.armour" value="{{v.armour}}" min="0">{{#if evasive}} · evasive{{/if}}</small></div>
+    <div class="bar gauge"><span>GAUGE</span><b class="g">{{bands.green}}</b><b class="y">{{bands.yellow}}</b><b class="r">{{bands.red}}</b><small>squares / action</small></div>
+    <div class="bar dice"><span>CHASE</span><b>{{chaseDice}}d6</b><small>speed dice</small></div>
+  </section>
+  <section class="smoke-quick-actions">
+    <button type="button" data-board {{#unless tokenOnMap}}disabled title="Place it on the map first"{{/unless}}><i class="fa-solid fa-chair"></i> Board / seats</button>
+    {{#if riders}}<button type="button" data-everyone-out><i class="fa-solid fa-people-arrows"></i> Everyone out (driver stays)</button>{{/if}}
+    {{#each mineInside}}<button type="button" data-get-out="{{uuid}}" class="{{#if ../fire}}hot{{/if}}"><i class="fa-solid fa-person-walking-arrow-right"></i> {{name}}: get out</button>{{/each}}
+    {{#if lights}}<button type="button" data-lights {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-tower-broadcast"></i> Blues &amp; twos</button>{{/if}}
+    <button type="button" data-radio {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-radio"></i> Car radio</button>
+    {{#if isGM}}{{#if tokenOnMap}}{{#if fire}}<button type="button" data-put-out><i class="fa-solid fa-fire-extinguisher"></i> Put it out</button><button type="button" data-explode class="hot"><i class="fa-solid fa-explosion"></i> Blow it now</button>{{else}}{{#unless burnt}}<button type="button" data-ignite title="Set it alight"><i class="fa-solid fa-fire"></i></button>{{/unless}}{{/if}}{{/if}}{{/if}}
+    {{#if isGM}}{{#if stuckChecks}}<button type="button" data-clear-checks class="hot" title="Driving checks waiting on this vehicle. Clears them without rerolling or applying anything."><i class="fa-solid fa-broom"></i> Clear {{stuckChecks}} stuck check{{#if stuckPlural}}s{{/if}}</button>{{/if}}{{/if}}
+  </section>
+
+  <nav class="smoke-tabs">
+    <a data-tab-target="drive">Drive</a><a data-tab-target="crew">Crew &amp; Seats</a><a data-tab-target="incidents">Incidents{{#if incidentCount}} ({{incidentCount}}){{/if}}</a><a data-tab-target="story">Story</a>
+  </nav>
+
   <div class="smoke-body">
-    <div class="smoke-vehicle-banner">
-      <img src="{{actor.prototypeToken.texture.src}}" alt="Vehicle token">
-      <div>
-        <span class="kicker">{{v.klass}} · Lock: {{v.lock}}{{#if v.flats}} · {{v.flats}} flat{{/if}}</span>
-        <h2>{{status}}</h2>
-        <div class="row">
-          <button type="button" data-board {{#unless tokenOnMap}}disabled title="Place it on the map first"{{/unless}}><i class="fa-solid fa-chair"></i> Board / choose seat</button>
-          <button type="button" data-vehicle-control {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-users-gear"></i> Occupants & control</button>
-          <button type="button" data-radio {{#unless tokenOnMap}}disabled{{/unless}}><i class="fa-solid fa-radio"></i> Car radio</button>
+    <section class="smoke-tab" data-tab="drive">
+      <div class="smoke-driver">{{#if driver}}<i class="fa-solid fa-car"></i> <b>{{driver.name}}</b> at the wheel — Wheels d{{driver.whl}} + Performance d{{perf}}, Handling {{v.handling}}{{#unless driver.pc}} <small>(NPC: crew die d{{crew}})</small>{{/unless}}{{else}}<i class="fa-solid fa-user-slash"></i> Nobody at the wheel. {{#if isGM}}NPC rolls use the crew die (d{{crew}}) + Performance d{{perf}}.{{else}}Take the driver's seat to roll.{{/if}}{{/if}}</div>
+      <div class="smoke-stats smoke-vmoves">
+        {{#each moves}}
+        <div class="smoke-stat" title="{{hint}}">
+          <button type="button" class="stat-roll" data-vmove="{{key}}" {{#if disabled}}disabled{{/if}}><b>{{abbr}}</b><span>{{label}}</span></button>
+          <small class="vmove-hint">{{hint}}</small>
         </div>
+        {{/each}}
       </div>
-    </div>
-    <div class="smoke-vgrid">
-      <label>Performance die <select name="system.vehicle.perfDie">{{#each dice}}<option value="{{this}}" {{#if (eq this ../v.perfDie)}}selected{{/if}}>d{{this}}</option>{{/each}}</select></label>
-      <label>Handling <input type="number" name="system.vehicle.handling" value="{{v.handling}}" min="-4" max="4"></label>
-      <label>Speed (squares) <input type="number" name="system.vehicle.speed" value="{{v.speed}}"></label>
-      <label>Body <input type="number" name="system.vehicle.body.value" value="{{v.body.value}}"> / <input type="number" name="system.vehicle.body.max" value="{{v.body.max}}"></label>
-      <label>Armour <input type="number" name="system.vehicle.armour" value="{{v.armour}}"></label>
-      <label>Size <input type="number" name="system.vehicle.size" value="{{v.size}}"></label>
-      <label>Crew <input type="number" name="system.vehicle.crewFull" value="{{v.crewFull}}"></label>
-      <label>Passengers <input type="number" name="system.vehicle.passengers" value="{{v.passengers}}"></label>
-      <label>Fuel <input type="number" name="system.vehicle.fuel.value" value="{{v.fuel.value}}"> / <input type="number" name="system.vehicle.fuel.max" value="{{v.fuel.max}}"></label>
-      <label>Flat tyres <input type="number" name="system.vehicle.flats" value="{{v.flats}}" min="0" max="4"></label>
-      <label><input type="checkbox" name="system.vehicle.plateless" {{#if v.plateless}}checked{{/if}}> No plate</label>
-      {{#if isGM}}<label><input type="checkbox" name="system.vehicle.destroyed" {{#if v.destroyed}}checked{{/if}}> Written off</label>{{/if}}
-    </div>
-    <p class="smoke-hint">Behind the wheel the <b>Performance die replaces the driver's Effort die</b> on Wheels rolls, and Handling is added. A wrecked vehicle (Body 0) rolls one die step lower; another hit writes it off, and a written-off vehicle cannot be driven.</p>
-    <h3>Shift work</h3>
-    <div class="smoke-job-chips">{{#each jobChoices}}<label><input type="checkbox" data-vehicle-job="{{key}}" {{#if on}}checked{{/if}}> {{label}}</label>{{/each}}</div>
-    {{#if jobs.length}}<ul class="smoke-list">{{#each jobs}}<li><i class="{{icon}}"></i> <b>{{label}}</b> — {{hint}}</li>{{/each}}</ul>{{/if}}
-    <p class="smoke-hint">Take the driver seat, then start a shift from the Blower or right-click the vehicle → <b>Start shift</b>. Callouts come to your Blower.</p>
-    <h3>Abilities</h3>
-    <ul class="smoke-list">{{#each abilities}}<li><i class="{{icon}}"></i> <b>{{label}}</b>{{#if seats}} <small>({{seats}})</small>{{/if}} — {{text}}</li>{{else}}<li class="empty">None.</li>{{/each}}</ul>
-    <h3>Seats</h3>
-    <ul class="smoke-list seats">{{#each seats}}<li><b>{{label}}</b>{{#if occupant}} — {{occupant}}{{else}} <small>empty</small>{{/if}}</li>{{/each}}</ul>
-    <h3>Extra vehicle systems</h3>
-    <prose-mirror name="system.vehicle.systems" value="{{v.systems}}" toggled>{{{systemsHTML}}}</prose-mirror>
-    <h3>The motor</h3>
-    <prose-mirror name="system.biography" value="{{actor.system.biography}}" toggled>{{{biographyHTML}}}</prose-mirror>
+      <h3>The motor</h3>
+      <div class="smoke-vgrid">
+        <label>Performance <select name="system.vehicle.perfDie">{{#each dice}}<option value="{{this}}" {{#if (eq this ../v.perfDie)}}selected{{/if}}>d{{this}}</option>{{/each}}</select></label>
+        <label>Handling <input type="number" name="system.vehicle.handling" value="{{v.handling}}" min="-4" max="4"></label>
+        <label>Speed (squares) <input type="number" name="system.vehicle.speed" value="{{v.speed}}"></label>
+        <label>Size <input type="number" name="system.vehicle.size" value="{{v.size}}"></label>
+        <label>Crew die (NPC driver) <select name="system.vehicle.crewDie">{{#each crewDice}}<option value="{{v}}" {{#if (eq v ../v.crewDie)}}selected{{/if}}>{{l}}</option>{{/each}}</select></label>
+        <label>Flat tyres <input type="number" name="system.vehicle.flats" value="{{v.flats}}" min="0" max="4"></label>
+        <label><input type="checkbox" name="system.vehicle.plateless" {{#if v.plateless}}checked{{/if}}> No plate</label>
+        {{#if isGM}}<label><input type="checkbox" name="system.vehicle.destroyed" {{#if v.destroyed}}checked{{/if}}> Written off</label>{{/if}}
+      </div>
+      <div class="smoke-gauge-strip"><span class="g" style="width:{{gaugePct.g}}%">GREEN {{bands.green}}</span><span class="y" style="width:{{gaugePct.y}}%">YELLOW {{bands.yellow}}</span><span class="r" style="width:{{gaugePct.r}}%">RED {{bands.red}}</span></div>
+      <p class="smoke-hint">Behind the wheel the <b>Performance die replaces the driver's Effort die</b> on Wheels rolls, and Handling is added. In a chase each speed die is one action on the gauge: <b class="g">green</b> up to Speed is safe; <b class="y">yellow</b> (to 1½×) is Handling −1 and a Medium check; <b class="r">red</b> (to 2×) is −2 and a Hard check. Fail and you lose it. Drive over another vehicle and you swerve (Wheels) or crash. Flat tyres cost 2 squares and a Performance step each; under half Body it slows down. At <b>0 Body it catches fire</b>: get out before the end of the next round, or go up with it.</p>
+    </section>
+
+    <section class="smoke-tab" data-tab="crew">
+      <div class="smoke-vgrid">
+        <label>Crew <input type="number" name="system.vehicle.crewFull" value="{{v.crewFull}}"></label>
+        <label>Passengers <input type="number" name="system.vehicle.passengers" value="{{v.passengers}}"></label>
+      </div>
+      <h3>Seats</h3>
+      <ul class="smoke-list seats">{{#each seats}}<li><b>{{label}}</b>{{#if occupant}} — {{occupant}}{{else}} <small>empty</small>{{/if}}</li>{{/each}}</ul>
+      <h3>Abilities</h3>
+      <ul class="smoke-list">{{#each abilities}}<li><i class="{{icon}}"></i> <b>{{label}}</b>{{#if seats}} <small>({{seats}})</small>{{/if}} — {{text}}</li>{{else}}<li class="empty">None.</li>{{/each}}</ul>
+      <h3>Shift work</h3>
+      <div class="smoke-job-chips">{{#each jobChoices}}<label><input type="checkbox" data-vehicle-job="{{key}}" {{#if on}}checked{{/if}}> {{label}}</label>{{/each}}</div>
+      {{#if jobs.length}}<ul class="smoke-list">{{#each jobs}}<li><i class="{{icon}}"></i> <b>{{label}}</b> — {{hint}}</li>{{/each}}</ul>{{/if}}
+      <p class="smoke-hint">Take the driver seat, then start a shift from the Blower or right-click the vehicle → <b>Start shift</b>. Callouts come to your Blower.</p>
+    </section>
+
+    <section class="smoke-tab" data-tab="incidents">
+      <ul class="smoke-list smoke-incidents">{{#each incidents}}<li class="k-{{kind}}"><i class="fa-solid {{icon}}"></i> <b>{{label}}</b>{{#if body}} <span class="smoke-bad">−{{body}} Body</span>{{/if}}<small>{{when}}{{#if driver}} · {{driver}} driving{{/if}}{{#if scene}} · {{scene}}{{/if}}</small></li>{{else}}<li class="empty">Clean record. For now.</li>{{/each}}</ul>
+      {{#if isGM}}{{#if incidentCount}}<button type="button" data-clear-incidents><i class="fa-solid fa-eraser"></i> Clear the log</button>{{/if}}{{/if}}
+    </section>
+
+    <section class="smoke-tab" data-tab="story">
+      <h3>Extra vehicle systems</h3>
+      <prose-mirror name="system.vehicle.systems" value="{{v.systems}}" toggled>{{{systemsHTML}}}</prose-mirror>
+      <h3>The motor's story</h3>
+      <prose-mirror name="system.biography" value="{{actor.system.biography}}" toggled>{{{biographyHTML}}}</prose-mirror>
+    </section>
   </div>
 </div>

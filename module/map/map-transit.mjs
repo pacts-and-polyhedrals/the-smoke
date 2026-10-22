@@ -20,11 +20,39 @@ export const isStreetMapId = id => String(id || '').startsWith('LDN-');
 const seatOf = t => t?.getFlag?.(NS, 'vehicleSeat') || null;
 const occupantList = vt => { const raw = vt?.getFlag?.(NS, 'vehicleOccupants'); return Array.isArray(raw) ? raw : []; };
 
-/** The exit strip this token's centre stands in, or null. */
-export function linkAt(scene, token) {
-  const links = mapLinks(scene); const g = scene?.grid?.size || 100;
-  const cx = Number(token.x || 0) + Number(token.width || 1) * g / 2, cy = Number(token.y || 0) + Number(token.height || 1) * g / 2;
-  return links.find(l => l.to && cx >= l.rect[0] && cx < l.rect[0] + l.rect[2] && cy >= l.rect[1] && cy < l.rect[1] + l.rect[3]) || null;
+/** The mapped exit occupied by a token. Manual crossings also accept the token's actual
+ * footprint or an approach within one grid square, to avoid false "not at an exit" errors
+ * with large vehicles and narrow doorway strips. Automatic crossings remain centre-only. */
+export function linkAt(scene, token, {near = false} = {}) {
+  const links = mapLinks(scene).filter(l => l.to && Array.isArray(l.rect) && l.rect.length === 4);
+  const g = Math.max(1, Number(scene?.grid?.size) || 100);
+  const x = Number(token?.x) || 0, y = Number(token?.y) || 0;
+  const w = Math.max(.25, Number(token?.width) || 1) * g, h = Math.max(.25, Number(token?.height) || 1) * g;
+  const cx = x + w / 2, cy = y + h / 2;
+  const exact = links.find(l => cx >= l.rect[0] && cx < l.rect[0] + l.rect[2] && cy >= l.rect[1] && cy < l.rect[1] + l.rect[3]);
+  if (exact || !near) return exact || null;
+  const nearLinks = links.map(l => {
+    const [rx,ry,rw,rh] = l.rect;
+    const dx = Math.max(rx - (x + w), x - (rx + rw), 0);
+    const dy = Math.max(ry - (y + h), y - (ry + rh), 0);
+    const distance = Math.hypot(dx, dy);
+    const centreDistance = Math.hypot(Math.max(rx-cx,0,cx-(rx+rw)),Math.max(ry-cy,0,cy-(ry+rh)));
+    return {link:l, distance, centreDistance};
+  }).filter(v => v.distance <= g * 1.05);
+  nearLinks.sort((a,b) => a.distance-b.distance || a.centreDistance-b.centreDistance);
+  return nearLinks[0]?.link || null;
+}
+/** Nearest mapped exit for a useful refusal message, without relaxing security limits. */
+export function nearestExit(scene, token) {
+  const g = Math.max(1, Number(scene?.grid?.size) || 100),
+    tx = Number(token?.x) || 0, ty = Number(token?.y) || 0,
+    tw = Math.max(.25, Number(token?.width) || 1) * g,
+    th = Math.max(.25, Number(token?.height) || 1) * g;
+  return mapLinks(scene).filter(l => l.to && Array.isArray(l.rect)).map(link => {
+    const [x,y,w,h] = link.rect;
+    const dx=Math.max(x-(tx+tw),tx-(x+w),0), dy=Math.max(y-(ty+th),ty-(y+h),0);
+    return {link, squares: Math.hypot(dx,dy)/g};
+  }).sort((a,b)=>a.squares-b.squares)[0] || null;
 }
 
 /** Where a token lands on the connecting map: same position along the edge, one square in. */
@@ -248,6 +276,16 @@ async function remapCombat(source, target, idMap) {
   for (const combat of game.combats) {
     const updates = combat.combatants.filter(c => c.sceneId === source.id && idMap[c.tokenId]).map(c => ({_id: c.id, sceneId: target.id, tokenId: idMap[c.tokenId]}));
     if (!updates.length) continue;
+    if (combat.getFlag?.(NS, 'chase')) {
+      const chase = combat.getFlag(NS, 'chase');
+      for (const up of updates) {
+        const fresh = target.tokens.get(up.tokenId);
+        if (fresh?.actor?.type === 'character') await fresh.setFlag(NS, 'chaseTransfer', {auto: Boolean(chase.auto), sourceId: combat.id});
+      }
+      await combat.deleteEmbeddedDocuments('Combatant', updates.map(up => up._id));
+      if (!combat.combatants.some(c => c.actor?.type === 'character')) await combat.delete();
+      continue; // Chases belong to a scene. Never strand one with scene:null after a map crossing.
+    }
     await combat.updateEmbeddedDocuments('Combatant', updates);
     if (target.id !== source.id && combat.scene?.id === source.id) await combat.update({scene: null});
   }
@@ -265,7 +303,9 @@ async function walkIn(source, target, people, land, {vehicle = null} = {}) {
   const spots = formation(people.length, land, dims);
   const data = people.map((t, i) => { const d = retarget(t.toObject(), target); const o = occ.find(x => x.tokenId === t.id);
     if (o) { d.width = o.original?.width || 1; d.height = o.original?.height || 1; d.rotation = 0; }
-    foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, null); foundry.utils.setProperty(d,`flags.${NS}.transitAt`,Date.now()); d.x = spots[i].x; d.y = spots[i].y; return d; });
+    // A passenger who walks into a venue is no longer attached to the parked motor.
+    foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, null); foundry.utils.setProperty(d, `flags.${NS}.ambientCrew`, null);
+    foundry.utils.setProperty(d,`flags.${NS}.transitAt`,Date.now()); d.x = spots[i].x; d.y = spots[i].y; return d; });
   const created = await target.createEmbeddedDocuments('Token', data, {acVehicleCarry: true, acTransit: true});
   const idMap = {}; people.forEach((t, i) => { idMap[t.id] = created[i].id; });
   await remapCombat(source, target, idMap);
@@ -286,7 +326,11 @@ async function driveTo(source, target, vehicle, land) {
     const g = target.grid?.size || 100, pos = seatPositions(newToken, seatLayout(newToken.actor || vehicle.actor), g), half = g * 0.5;
     const rData = riders.map(({o, t}) => { const d = retarget(t.toObject(), target); const p = pos[o.seatId] || {x: newToken.x + newToken.width * g / 2 - half / 2, y: newToken.y + newToken.height * g / 2 - half / 2};
       d.x = Math.round(p.x); d.y = Math.round(p.y); d.width = 0.5; d.height = 0.5; d.rotation = newToken.rotation || 0; d.elevation = newToken.elevation || 0; d.sort = (newToken.sort || 0) + 1;
-      foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, {vehicleTokenId: newToken.id, seatId: o.seatId}); return d; });
+      foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, {vehicleTokenId: newToken.id, seatId: o.seatId});
+      // A moved ambient driver must point to the NEW token ID or carjacking/despawn would lose the real NPC.
+      if (o.ambient) { const old = foundry.utils.getProperty(d, `flags.${NS}.ambientCrew`) || {};
+        foundry.utils.setProperty(d, `flags.${NS}.ambientCrew`, {...old, vehicleTokenId: newToken.id}); }
+      return d; });
     const created = await target.createEmbeddedDocuments('Token', rData, {acVehicleCarry: true, acTransit: true});
     riders.forEach(({t}, i) => { idMap[t.id] = created[i].id; });
     await newToken.update({[`flags.${NS}.vehicleOccupants`]: list.map(o => ({...o, tokenId: idMap[o.tokenId]}))}, {acVehicleCarry: true});
@@ -302,6 +346,9 @@ export async function transfer(source, token, link, opts = {}) {
   return serial ? serial(source.id, () => transferNow(source, token, link, opts)) : transferNow(source, token, link, opts);
 }
 async function transferNow(source, token, link, {user = game.user, companions = [], destination = null, quiet = false} = {}) {
+  const {chaseOf, pendingResponses} = await import('../world/chase-state.mjs');
+  const chase = chaseOf(source), pending = chase ? pendingResponses(chase) : [];
+  if (source.tokens.some(t => t.getFlag(NS, 'policeStop')) || pending.length) throw new Error('Resolve the police decision, escape move or incoming hit before changing maps.');
   const stamp = Number(token.getFlag(NS, 'transitAt') || 0);
   if (Date.now() - stamp < 1200) return null;
   const target = await findOrImportScene(link.to);
@@ -340,7 +387,7 @@ async function cross({sceneId, tokenId, userId, destination}) {
   const seat = seatOf(token); if (seat) { const vt = source.tokens.get(seat.vehicleTokenId); if (vt) token = vt; }
   let link;
   if (destination) {
-    const here = linkAt(source, token);
+    const here = linkAt(source, token, {near:true});
     if (!canChooseDestination(asked, user) && here?.kind !== 'district') throw new Error(`${user?.name || 'That player'} cannot choose where ${token.name} goes.`);
     const d = (await transitDestinations()).find(x => x.key === destination); if (!d) throw new Error('Unknown destination.');
     link = {to: d.mapId, toName: d.label, land: d.land};
@@ -349,11 +396,10 @@ async function cross({sceneId, tokenId, userId, destination}) {
       const driver = occupantList(token).find(o => o.seatId === 'pilot');
       if (!driver || !source.tokens.get(driver.tokenId)?.actor?.testUserPermission?.(user, 'OWNER')) throw new Error(`${user?.name || 'That player'} does not control ${token.name}.`);
     }
-    link = linkAt(source, token); if (!link) throw new Error(`${token.name} is not at a map exit.`);
-    // Five stars: roadblocks on every exit (world/heat.mjs). The driver has to run it.
-    if (link.kind === 'edge' && token.actor?.type === 'vehicle') {
-      const pilot = occupantList(token).find(o => o.seatId === 'pilot'); const driver = pilot && source.tokens.get(pilot.tokenId)?.actor;
-      if (driver && game.smoke?.heat?.roadblockCheck) await game.smoke.heat.roadblockCheck(source, token, driver);
+    link = linkAt(source, token, {near:true});
+    if (!link) {
+      const nearest = nearestExit(source, token);
+      throw new Error(nearest ? `${token.name} is not near enough to a mapped exit. Nearest: ${nearest.link.toName || nearest.link.to} (about ${nearest.squares.toFixed(1)} grid squares from your token footprint). Move closer to its marked doorway or road strip.` : `No mapped exits found on ${source.name}. Ask the GM to repair this scene's map metadata.`);
     }
   }
   if (link.pedestrianOnly && token.actor?.type === 'vehicle' && !hasAbility(token.actor, 'nimble')) throw new Error('That exit is a footpath. Park and walk, or use a bicycle.');
@@ -376,7 +422,7 @@ export async function crossToNextMap(token, {destination = null} = {}) {
 
 export async function openTravelDialog(token) {
   const list = await transitDestinations(); if (!list.length) throw new Error('No London destinations found.');
-  const subject = vehicleOf(token) || token, here = linkAt(token.parent, subject);
+  const subject = vehicleOf(token) || token, here = linkAt(token.parent, subject, {near:true});
   const groups = new Map(); for (const d of list) { if (!groups.has(d.group)) groups.set(d.group, []); groups.get(d.group).push(d); }
   const preferred = here?.kind === 'district' ? list.find(d => d.mapId === here.to) : null;
   const options = [...groups].map(([g, ds]) => `<optgroup label="${esc(g)}">${ds.map(d => `<option value="${esc(d.key)}" ${d === preferred ? 'selected' : ''}>${esc(d.short || d.label)}</option>`).join('')}</optgroup>`).join('');
@@ -421,7 +467,7 @@ export function installMapTransit() {
       const root = html instanceof HTMLElement ? html : html?.[0]; const doc = hud.document ?? hud.object?.document; if (!root || !doc) return;
       let subject = doc; const seat = seatOf(doc); if (seat) subject = doc.parent.tokens.get(seat.vehicleTokenId) || doc;
       if (!mapOf(doc.parent)) return;
-      const link = linkAt(doc.parent, subject), choose = canChooseDestination(doc) || link?.kind === 'district';
+      const link = linkAt(doc.parent, subject, {near:true}), choose = canChooseDestination(doc) || link?.kind === 'district';
       const col = root.querySelector('.col.left') || root.querySelector('.left'); if (!col || col.querySelector('.smoke-transit-hud')) return;
       const add = (icon, title, fn) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'control-icon smoke-transit-hud'; b.title = title; b.dataset.tooltip = title; b.innerHTML = `<i class="${icon}" inert></i>`;
         b.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); fn().catch(error => ui.notifications.warn(error.message)); }); col.append(b); };

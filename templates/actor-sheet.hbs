@@ -7,7 +7,7 @@
         <label>Alias <input type="text" name="system.identity.alias" value="{{system.identity.alias}}"></label>
         <label>Ends <input type="text" name="system.identity.ends" value="{{system.identity.ends}}"></label>
         <label>Crew <input type="text" name="system.identity.crew" value="{{system.identity.crew}}"></label>
-        <label>Rep {{#if isGM}}<input type="number" name="system.stage" value="{{system.stage}}" min="1" max="5">{{else}}<b class="smoke-rep-badge">{{rep.level}} · {{rep.title}}</b>{{/if}}</label>
+        <label>Rep {{#if isGM}}<input type="number" name="system.stage" value="{{system.stage}}" min="1" max="33">{{else}}<b class="smoke-rep-badge">{{rep.level}} · {{rep.title}}</b>{{/if}}</label>
       </div>
     </div>
     <div class="smoke-heat h{{heat}}" title="{{heatInfo.response}}">
@@ -86,7 +86,7 @@
 
     <section class="smoke-tab" data-tab="state">
       <div class="smoke-conditions">
-        {{#each conditionLibrary}}<button type="button" class="cond {{#if active}}on{{/if}}" data-condition="{{name}}" title="{{description}}&#10;Removed by: {{removal}}">{{name}}{{#if stacks}} ×{{stacks}}{{/if}}</button>{{/each}}
+        {{#each conditionLibrary}}<button type="button" class="cond {{#if active}}on{{/if}}" data-condition="{{name}}" title="{{description}}&#10;Removed by: {{removal}}{{#if gameEnds}}&#10;Banana Watch: {{timeLeft}} (until {{gameEnds}}){{/if}}">{{name}}{{#if stacks}} ×{{stacks}}{{/if}}{{#if timeLeft}} <small class="cond-time" data-smoke-condition-expiry="{{expiresWorldTime}}">{{timeLeft}}</small>{{/if}}</button>{{/each}}
       </div>
       <div class="smoke-states">
         <label><input type="checkbox" name="system.states.onARoll" {{#if system.states.onARoll}}checked{{/if}}> On a Roll (next roll explodes on its top two faces)</label>
@@ -94,7 +94,10 @@
       </div>
       <h3>Rep</h3>
       <div class="smoke-rep">
-        <div class="rep-level"><b>Rep {{rep.level}}</b> · {{rep.title}}<div class="rep-bar"><div class="fill" style="width: {{rep.pct}}%"></div><span>{{rep.xp}}{{#if rep.next}} / {{rep.next}} XP{{else}} XP · top of the tree{{/if}}</span></div></div>
+        <div class="rep-level"><b>Rep {{rep.level}}</b> · {{rep.title}} <small class="rep-tier">{{rep.tierName}} tier · of {{rep.max}}</small><div class="rep-bar"><div class="fill" style="width: {{rep.pct}}%"></div><span>{{rep.xp}}{{#if rep.next}} / {{rep.next}} XP{{else}} XP · top of the tree{{/if}}</span></div></div>
+        <div class="smoke-rep-ladder" title="The road from Nobody to King of London">{{#each rep.ladder}}<span class="{{#if done}}done{{/if}}{{#if here}} here{{/if}} t{{tier}}{{#if milestone}} milestone{{/if}}" data-tooltip="Rep {{level}} · {{title}} · {{xp}} XP ({{tierName}}){{#if milestone}} · BONUS LEVEL{{/if}}"></span>{{/each}}</div>
+        <p class="smoke-dim">{{rep.blurb}}{{#if rep.nextMilestone}} · Next milestone: <b>Rep {{rep.nextMilestone}}</b>.{{/if}}{{#if rep.nextTitle}} Next: <b>{{rep.nextTitle}}</b>{{#if rep.nextTier}} — into the {{rep.nextTier}} tier{{/if}}.{{/if}}</p>
+        {{#if rep.missingMilestones.length}}<button type="button" data-level-up class="hot"><i class="fa-solid fa-star"></i> Claim {{rep.missingMilestones.length}} earned milestone bonus{{#if (gt rep.missingMilestones.length 1)}}es{{/if}}</button>{{/if}}
         {{#if rep.canLevel}}<button type="button" data-level-up class="hot"><i class="fa-solid fa-arrow-trend-up"></i> Level up to Rep {{rep.nextLevel}}</button>{{/if}}
         {{#unless system.creation.done}}{{#unless isNPC}}<button type="button" data-creator><i class="fa-solid fa-user-plus"></i> Character creator</button><button type="button" data-quick-build><i class="fa-solid fa-dice"></i> Quick build</button>{{/unless}}{{/unless}}
       </div>

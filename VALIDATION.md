@@ -1,41 +1,99 @@
-# Validation · The Smoke v0.4.0
+## v0.5.24 right-click validation
 
-## Completed checks (this build)
+- `node tests/run-all.mjs`: **59/59 suites passed** (58 + `player-right-click.test.mjs`).
+- The new test builds a token the way Foundry draws one before the system patches anything, with its right-click handlers held by its interaction manager.
+  - Before the fix: a player had no right-click on it.
+  - After the fix: the right-click opens the street menu, and Pat's order bike offers Nick it.
+  - An NPC-driven car offers Carjack; a police unit doesn't.
+  - Installing twice (init, then ready) is safe.
+- This is not a live Foundry run. Foundry's own drawing code was modelled, not executed.
 
-- 15 automated suites pass (`node tests/run-all.mjs`): the campaign venues (every venue's six keyed rooms, the register's connections, no overlapping zones, the two ways out and where they land, the 51 approaches' ENTER and SERVICE pins, the 152 street pins clear of each other, imports into the district folders, destinations, parking, mission stops, the cast and its import, and the refresh of unedited guide pages), and rules and data, advancement and creation, the Combat Console (speed dice, queue, hits, Take hit / Dodge cards, the Down countdown), combat rules, fencing, items, map import, migration, missions (the 12 opening missions, 93 faction commissions and 20 local cases: every page, map, venue anchor and objective place exists; the plan's offer gates, Renown awards and fees per career; gating; crew-fee split; Renown and Influence on MISSION PASSED; the GM picking a local case's faction; the faction panel), GM roll requests, shops, the import of every module through init and ready, and a suite for the v0.1.3 work inside v0.3.0 (the leader request channel, local services, rest, first aid, advances, hit resolution once, the core-tracker turn clock, reloads, pirate radio, its Message the studio links and the in-Foundry Studio chat window, and the merged content), and the sat nav (mission Directions follow a mission from place to place; the road network is one connected graph; Bethnal Green → The Arches gives the expected roads, turns and map exits; every destination reaches every other by car and on foot; job targets per stage; live re-routing; the route drawn through PIXI 7 and PIXI 8 calls).
-- Every runtime module passes `node --check`; all 14 templates compile and render with realistic data (67 renders, tags balanced).
-- Ten LevelDB compendiums rebuilt and audited: 21 street scenes and 4 interiors (each with its level, background, zones and, for streets, the traced road lines), 211 venue scenes (160 interiors, 51 approaches), 29 vehicles, 39 people, 108 campaign cast, 4 pregens, 171 items in 8 folders, 31 conditions, 27 journals / 265 pages (3,600+ cross-links between journal pages, every one resolving to a page that exists). Every embedded document, image and token path resolves. GM guides and the missions guide are GM-only, and the guides compendium is closed to players.
-- `data/content.json` (what world setup imports) carries the same documents with content keys: 202 items, 72 actors, 27 journals.
-- Chromium previews of the merged windows: the character sheet (every tab), vehicle sheet, item sheet, the Blower with live radio, Street Control, the radio window with Message the studio, the Studio chat window, the preset editor, and the merged guides. The chat window's preview could not load the stations' live chats (this build machine has no route to their sites), so the live check is step 12 of the list below. The sat nav was driven in Chromium with Foundry stand-ins (start, walking along and across maps, heading-up, whole route, folded, arrived, inside The Arches, a taxi job switching from pick-up to drop-off and ending) and its route drawn on a real PIXI 7.4 and PIXI 8.6 canvas over the Hackney Central map, with no console errors.
-- The v0.1.3 source bundle's own 105 tests and radio browser checks were not in the uploaded ZIP, so they were not re-run; the suite above covers the same features in the merged code.
+## v0.5.23 sat nav, graffiti and sweep validation
 
-## What the automated checks establish
+- `node tests/run-all.mjs`: **58/58 suites passed**. New: `tagging-missions-e2e`, `satnav-missions`, `jobs-e2e`. Extended: `missions`.
+- **Sat nav:** all 179 missions at 1,788 points, in order and with single out-of-order GM ticks: 0 wrong (0.5.21: 112 missions wrong somewhere).
+- **Graffiti:** all 42 commissions painted through `graffiti.paint` with Tag Studio's own choices. Every objective ticks, and every commission passes.
+  - Shortfall cases each give a clear note: too rough, free paint, not on the job.
+  - **Update who's on it** makes the commission available to the added character.
+- **Jobs:** taxi, courier, ambulance, fire, bus, police (disturbance, ANPR, pursuit) and Pat's order, from callout to pay-out.
+- **Fuzz:** 90 handlers × player/GM × empty/stale payloads; 3 crashes fixed, 0 left. All Foundry hook listeners called with bare documents: no system errors (only the test environment's missing `HTMLElement`).
+- **Static:** all 83 modules import; handlers, settings, hooks and template buttons cross-referenced; mission, site, vehicle and venue data checked. ESLint: no new problems. Templates: 16 compiled, 95 renders.
+- **Not a live Foundry run.**
 
-Workflow tests call the real system modules against small stand-ins for Foundry documents, hooks, sockets and windows. They do not run Foundry's licensed server, its canvas, document validation or a real multi-user network, no live audio stream was played, and no message was sent to a station from this build. The manifest declares minimum 14 and makes no `verified` claim.
+## v0.5.22 Heat, stability and bus validation
 
-## Live acceptance · GM plus two player accounts
+- `node tests/run-all.mjs`: **55/55 suites passed** (52 + `heat-scaling`, `heat-guides`, `slow-guard`; `chase`, `requests` and `tagging-mission-canvas` updated to the new rules).
+- **Heat ladder:** every crime's ceiling, police witnesses, repeated petty crime, the old carjack-then-drive-off route (now 1★), gunfire capped at 3★, and killings at 4★/5★.
+- **Police response:** 0/1/2/2/3/6 vehicles by star; at 5★ on a test map, 4 vehicles plus the helicopter. Dropping to 2★ sends 3 unseen units home; a car within sight of a character stays.
+- **Killings:** checked on both damage paths. A fist knockout is not a killing.
+- **Slow guard:** two long steps in a row rest the loop for 15 s, with one GM card.
+- **Guides:** pack and JSON are equal for all 270 pages, with text fingerprints matching. In a mock world the migration refreshes an untouched page and a page from an older release, keeps a GM-edited page, and runs once.
+- **Bus sites:** each gets a 2×6 parked, locked bus on the road; a 0.5.21 marker is swapped.
+- **The freeze was not reproduced** (there is no live Foundry server here); the fixes target the write load found in the code.
+- ESLint on the changed files: no new problems. Templates: 16 compiled, 95 renders. Imports: 0 unresolved.
 
-Use a separate test world with optional modules disabled.
+## v0.5.19 reinforcements validation
 
-1. Install/update and confirm version 0.4.0. Check the console for start-up errors.
-2. New world: Street Control → Set up the world, assigning Jaz and Femi to the two players. Run it twice. Confirm 25 scenes (overview, four street folders, four interiors), the Kit folder by type, people and motors in their folders, twelve guides, no duplicates.
-3. Upgrade a copy of a v0.1.3 world and a copy of a v0.2.0 world. Edit a PC's cash, Health, notes and ownership and leave two riders in a vehicle first. Confirm the edits, seats and assignments survive, the upgrade card lists what was added, and old items gain icons and weapon fields.
-4. Players: sheet editing (and read-only sheets for others), item drops, Unarmed, conditions with Bruised stacking, reload from ammo boxes, the Blower's character list, the private GM/missions guides. Roll Wheels from a player's vehicle on another map while the GM views elsewhere.
-5. Spend the last shared Hustle point from two clients; fire the last round twice. Only one succeeds each time.
-6. Combat Console: start a fight, roll speed dice privately, reveal, act in order. Attack: the target chooses Take hit or Dodge once; pick one condition. Bleeding and Burning at round end, Stunned expiry, reactions back, a Down character's Stay Conscious card each round and Wasted after three. Repeat one round on the core combat tracker.
-7. First aid twice on the same injury (the second is refused); rest at the flat with 2 stars (cleared) and with 3 stars (refused); A&E with Broken (stays, cast note); spend an advance (Rep cap respected); level up with XP.
-8. Board two riders. Drag, rotate and move the vehicle. Change seats, use cages, exit, cross map edges, enter interiors. Occupants move with the vehicle and regain their footprint on exit.
-9. Local services and the Shop window: respray (£100, new plate, Heat cleared, still stolen), clothes (£25, −1 star), garage repair (price per Body and tyre), refused in police sight, refused with too little pocket cash, stash untouched. Buy, sell to Uncle, stash in and out.
-10. Complete taxi, ANPR/arrest/custody, patient/A&E, fire, courier, bus and Pat-order loops, including a map crossing with a fare, patient and prisoner. Fill the ambulance or cage first and confirm loading/arrest cannot advance.
-11. Pause with an offered call and a deteriorating patient; reload while paused; resume; all clocks move together.
-12. Message the studio: on a phone, Flex FM's WhatsApp and Rude FM's Text open with the message filled in; Radio Caroline's Email opens a mail with subject and body; Studio chat on Rude FM and Vision Radio UK opens their live chat in a Foundry window with the message copied, a second press brings the same window forward without reloading it, and dragging or resizing the window works over the chat; Point Blank FM's Studio chat shows their homepage box (or, if their site refuses to be shown inside other sites, Open on their site opens it in the browser); Their site buttons copy the message and open the page; Show the table posts a card; the draft survives a station change; a GM edits a contact in Edit presets and a bad number is refused.
-13. Radio with two players: each presses Listen once; the driver tunes for both riders; passengers cannot tune; volume and mute stay local; power-off silences both; exit restores the phone; a map crossing keeps the car station. Reload: no autoplay. Retry/Resume, station links, a custom GM preset. Closing the panel keeps playing; Stop disconnects.
-14. Raise Heat through five stars, run the roadblock, lose police through cooling. A resprayed stolen car does not re-trigger its old ANPR marker.
-15. GM Screen: post a quick check, a teamwork check and a hazard; players answer on the card. Roll a street event, award cash/XP/an advance, make an NPC, open each Tool. Mission Board: start Mission 1, watch an objective tick itself (sell a bike to Pat), pass it and see the pay-out.
-16. Character Creator: make a new character through every step; the quick builder applies a valid spread.
-17. Sat nav: accept a taxi fare and press Directions. The sat nav opens bottom right of the canvas, left of the sidebar (also with the sidebar collapsed), with the route to the fare; driving moves the arrow and re-routes; a map exit is named and crossing it keeps the route; picking up the fare switches it to the drop-off; finishing the job ends it. Try Sat nav → The Arches on foot, Alt+N to fold it, zoom, whole route and heading-up; the route line shows on the street map and the London overview for that player only; reload keeps the route.
-18. Sandbox Campaign: upgrade a world, check the 15 new GM journals in The Smoke — Guides (players cannot open them) and that their links open the right pages. On the Mission Board, switch to a career (e.g. The Night Market): NM1 is open and NM2 locked; pass NM1 and see the crew fee split, +1 Renown and NM2 open on the card. Pass a local case and pick its faction. In Factions & Renown, change Renown, Influence and stance. Press Directions on a mission; the sat nav goes to its first place, then the next as objectives tick. Missions 1–3 show the Chainring Renown and their campaign scenes.
+- `node tests/run-all.mjs`: **49/49 suites passed** (48 + `police-reinforcements.test.mjs`; `audit-chase.test.mjs` updated to the new rule).
+- Reproduced on the 0.5.18 code first, in the same harness: with an ordinary fight on, the police unit hunting the fighter was still in the real-time driving list and was not added to the fight when the round began. On 0.5.19: it joins at Begin round with dice; a unit dispatched mid-round joins the tracker at once as NEXT ROUND and never moves in real time; next round it is dealt dice; on its go it drives closer, and once close two officers get out and join while the car parks and leaves the tracker; in a chase, a unit dispatched while dice are being rolled is dealt dice that round, however far away; a unit after somebody outside the chase keeps driving and stays off the tracker.
+- ESLint on the changed files: no new problems. Templates: 16 compiled, 95 renders. Imports: 0 unresolved.
 
-19. Venues: walk a character into an ENTER pin on a street map (e.g. Round Chapel or MOTH Club on Hackney Central): the approach or venue imports into *The Smoke — Venues / HC · Hackney Central & Homerton* and the token arrives at the doorstep; walk into room 1, through the rooms to room 6 and out of its REAR ACCESS; come back out the front and stand beside the pin. Drive up in a car: the riders park and walk in. On the Mission Board (NM7), press **Prepare this mission's maps** (Clissold House with its park approach, Rio Cinema, CRATE Brewery with Queens Yard) and a map button; press **Bring in the cast** (Pearl Okonkwo, Della Finch, Mal Reed under *The Smoke — Campaign Cast*). Directions on NM7 lead to the Clissold Park gate; walking into the park ticks the first objective. Upgrade a 0.3.0 world: the Venue Register pages show their maps unless you had edited them.
+## v0.5.18 escape-move validation
 
-Record the click sequence and console stack for any failure. GitHub release upload is also still to do.
+- `node tests/run-all.mjs`: **48/48 suites passed** (47 + `escape-move.test.mjs`; `chase-decisions.test.mjs` updated).
+- Reproduced on the 0.5.17 code first, with the same chase harness: pressing the escape card's button before moving ended the opening ("still in sight") and the next drag was refused with "Wait for your own turn"; a drag made *before* pressing it did move. On 0.5.18 the drag moves the escaper out of turn through the real token-update path, a drag past six squares stops at six and ends the escape, Done before moving is refused for players, and another character's open police card no longer blocks the escaper.
+- The map ring was exercised with a stand-in canvas (radius = squares left, centred on the escaper). ESLint on the changed files: no new problems. Templates: 16 compiled, 95 renders. Imports: 0 unresolved.
+
+## v0.5.17 speed dice & scrolling validation
+
+- `node tests/run-all.mjs`: **47/47 suites passed** (46 existing + `speed-dice-refresh.test.mjs`). Per-suite results are in `tests/TEST-RESULTS.txt`.
+- The stuck-surrender bug was reproduced on the 0.5.16 release code before the fix: 2 speed dice in the first fight; after surrendering, ending the fight from the core tracker and resting, 0 in the next fight. The new suite checks every way a fight can end, rest, Busted, Wasted, saves already stuck from 0.5.16, Cuffed, late arrivals and Stunned.
+- Scrolling, in headless Chromium with a strict Foundry-style frame (window content clipped): all 16 window templates, every context in `tests/template-contexts.mjs`, every sheet tab, with and without long lists, at the default size, 520 px and 380 px tall — 0.5.16: 24 renders with unreachable content (Street Control, Tag Studio, Shop rail); 0.5.17: 0. Dialogs (60-seat bus list; services with a forced tall height) and Token HUD columns (vehicle at the bottom edge, GM buttons, small screen) — 0.5.16: 4 of 5 cases with unreachable buttons; 0.5.17: all reachable.
+- ESLint on the changed files: 0 problems. Templates: 16 compiled, 95 renders. Imports: 0 unresolved.
+- Still not a live Foundry/Forge run: see the checks at the end of RELEASE-v0.5.17.md.
+
+## v0.5.16 audit validation
+
+- `node tests/run-all.mjs`: **46/46 suites passed** (44 existing + `audit-world.test.mjs` and `audit-chase.test.mjs`). Per-suite results are in `tests/TEST-RESULTS.txt`.
+- Static checks across all 134 JavaScript files: `node --check`, ESLint 9 with Foundry globals (0 real errors), import/export resolution (0 unresolved), 1,542 asset paths in code, data and packs (0 missing), 11 LevelDB packs opened and every record parsed, 3,600 compendium links (0 broken), 16 templates / 95 renders, CSS parse (0 errors), language keys (0 missing). Details and every finding: AUDIT-v0.5.16.md.
+- The mission double-payment bug was reproduced against the v0.5.15 code (paid twice) before the fix; the new test fails on that code and passes on 0.5.16.
+- Still not a live Foundry/Forge multiplayer run: see the acceptance list in AUDIT-v0.5.16.md.
+
+## v0.5.6 supplemental validation — conditions and mission property
+
+- `node tests/run-all.mjs`: **32/32 suites passed** on the development source, including `watch-conditions.test.mjs`, `mission-props-transit.test.mjs`, `mission-property-catalogue.test.mjs`, and chase/police integration tests. Re-run after the ZIP is extracted; results are preserved in `tests/TEST-RESULTS.txt`.
+- `watch-conditions.test.mjs` specifically verifies stopped watch vs wall-time jump, paced countdown, high→comedown transition, no repeated updates, fast-forward catch-up through multiple timed stages, permanence of physical conditions, manual-sheet effects, matching published item durations, one-time conversion of legacy timers, and a Foundry world-time update hook.
+- A passing test suite is **not** a live Foundry/Forge multiplayer verification. Complete `CONDITIONS-WATCH.md` and `MISSIONS.md` test instructions in a cloned world before promotion.
+
+---
+
+# Validation · The Smoke v0.5.3
+
+## Completed checks
+
+The live-reported stuck-success bug was reproduced before the fix using Foundry-style object merging: a successful automatic evasion still left one open prompt. The new driving-prompt suite now passes automatic/manual resolution, actual chat-hook handling, explicit flag deletion, 36 outcome combinations across yellow/red driving, green/red evasions, PIT saves and ram defences, movement and Console gates, concurrent/repeated damage protection, failure of the final deletion, preservation of an outcome needing GM review, completed-button clicks, actor matching and recovery of old saved checks without rerolling or repeating damage. Chase stand-ins now reproduce the server’s merge/deletion semantics.
+
+
+- **23 automated suites** pass with the actual system modules and Foundry document/socket/hook stand-ins. Per-suite results are in `tests/TEST-RESULTS.txt`.
+- Journal upgrade coverage checks GM-only backups of edited shipped pages, aborting replacement if backup creation fails, stable page IDs, renamed-page matching, preserving user-created notes, style-only changes, and idempotent same-edition setup. The older venue suite also checks preservation of subsequent local edits.
+- `node scripts/journals/verify.mjs` checks **27 journals / 270 pages**, **3,600 guide links**, **297 LevelDB records**, all **31 conditions**, **33 Rep levels**, every library item and motor, and current mechanical summaries for all **125 missions**. Both JSON sources and the prebuilt compendium match page for page, including ownership and flags. All page image paths exist. Public guide links stay within public journals.
+- All **265 original page IDs** remain present. Five new reference pages use deterministic IDs. Rebuilding the guide content twice produces identical HTML.
+- Chromium rendered every page at **1100px and 390px** viewport widths: **540 page layouts**, with no document-width overflow or missing images. Tables scroll within their panels on narrow screens. Screenshots of the welcome, conditions, chase, mission and phone-handout pages were inspected; table contrast and numbered-list spacing were corrected.
+- Every project JavaScript module passes `node --check`; JSON files parse. Developer node_modules are excluded from the release.
+- The full release ZIP is built with its root `system.json`, modules, templates, styles, JSON data, maps, art and compendiums. Packaging verifies CRCs, extracts every file, compares source hashes and verifies the manifest. The saved downloadable copy is read back and checked before delivery. A previous truncated ZIP is superseded by this release.
+
+The chase regression suites cover real convoy movement and native player-owned vehicle drags in ordinary travel, automatic/manual evasions, movement and response locks, prompts older than an hour, one-time automation-default migration, Story/Self-play permissions, shared traffic batches, one finite escape opportunity, zero-star resolution, custody after failed stops, crime-aware armed enforcement, incoming-hit gates, cancellation during the reading delay and duplicate Done clicks. Existing coverage also checks ram responses before damage, PITs, crashes, fire and star-by-star escape.
+
+## Live acceptance still required
+
+There is no licensed Foundry 14 / Forge server or real multi-user canvas in this environment. Chromium checks the bundled journal HTML/CSS, not Foundry's journal editor or its actual document permissions. Compatibility declares minimum 14 without a verified-live claim.
+
+1. In a copied older world, log in as active GM, wait for the 0.5.3 upgrade card and open Guide Index. Confirm all journal styles, current rules and cross-links. Edit a shipped page and add a custom page before upgrading: verify the edited text is in a GM-only Backup journal and the custom page remains.
+2. Import a guide from the compendium in a new test world and compare its text/style with the setup-created copy. Check GM-only mission and venue entries from a player account.
+3. Board a driver and passenger, drive through a parked motor and check the automatic Wheels/incident result. Disable automatic evasion and resolve the manual card.
+4. Start a chase in Story and Self-play. Confirm separate police/PC entries, one shared traffic phase, Continue after each NPC action, all pending responses holding the queue and Begin round waiting at round end.
+5. Test a successful talk response and its one foot/vehicle escape move; test a failed ordinary stop and custody; test a high-Heat recorded gun crime and the answerable armed response. Surrender must still go to custody.
+6. Resolve a police ram, PIT save and Take hit/Dodge before advancing. Pause or turn Assist off during its delay; verify later actions do not run themselves.
+7. Stay clear for successive rounds to lose stars to zero. Cross a district boundary after resolving cards and confirm a destination-map chase with a new round.
+
+8. In the existing affected world, keep its successful driving roll and restart as GM. Confirm the completed pending lock is removed with Health/Body and dice unchanged. Repeat yellow/red checks, evasions, PITs and ram saves; Done/Continue must become available after each answer.

@@ -1,7 +1,8 @@
 <div class="phone-shell">
+  {{#if boot}}<div class="phone-boot">{{{banana}}}<span>BANANA</span></div>{{/if}}
   <div class="phone-notch"></div>
   <div class="phone-screen">
-    <div class="phone-status"><span>THE BLOWER</span><span>4G ▮▮▮</span></div>
+    <div class="phone-status"><span class="phone-brand"><img class="smoke-brand-blower-symbol" src="systems/the-smoke/assets/branding/logos/symbol.png" alt="" aria-hidden="true"> {{{banana}}} THE BLOWER</span><span class="phone-time" data-smoke-clock="time">{{clock}}</span><span>4G ▮▮▮</span></div>
     {{#if actors.length}}
     <select name="actor" aria-label="Character">{{#each actors}}<option value="{{id}}" {{#if (eq id ../actor.id)}}selected{{/if}}>{{name}}</option>{{/each}}</select>
     {{/if}}
@@ -90,4 +91,5 @@
     <p class="phone-hint">No character. Ask the GM to assign you one (User Configuration → Character), or for ownership of a pregen.</p>
     {{/if}}
   </div>
+  <div class="phone-chin">{{{banana}}} BANANA <small>Blower 15 Pro</small></div>
 </div>

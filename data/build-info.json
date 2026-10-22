@@ -1,8 +1,17 @@
 {
-  "version": "0.4.0",
+  "version": "0.5.24",
   "sources": [
-    "the-smoke v0.2.0",
-    "the-smoke v0.1.3 (base the-smoke-v0.1.1.zip)"
+    "0.5.24: players can right-click every vehicle that was on the map when the world loaded (Pat's order bikes, parked cars) — the right-click menu is installed before the first map is drawn; motors with an NPC at the wheel offer Carjack (2026-10-21); see RELEASE-v0.5.24.md",
+    "0.5.23: sat nav fixed on every mission (cargo, graffiti sites without a door, GM-ticked steps no longer send it back to the start), graffiti commissions explain why a paint didn't count and pick the right surface/commission/tag, crew can be changed mid-mission, 'get to X' ticks for anyone already there, jobs end-to-end tested, courier spawn vehicle fixed (2026-10-21); see RELEASE-v0.5.23.md",
+    "0.5.22: Heat that fits the game (crime ceilings: thieving/carjacking 1★, fights 2★, guns 3★, killings 4–5★, now detected), a smaller capped police response that stands down as the stars drop, lag guards for the background loops, and real parked buses for bus tagging sites (2026-10-21); see RELEASE-v0.5.22.md",
+    "0.5.21: automatic tagging mission paint canvas placement/arrival recovery for 54 referenced sites, without any authored site assignment (2026-10-21); see RELEASE-v0.5.21.md",
+    "0.5.20: police chat and automatic chase round repairs; role-appropriate real traffic NPCs and atomic seat movement (2026-10-21); see RELEASE-v0.5.20.md",
+    "0.5.19: police reinforcements join the combat tracker (2026-10-21); see RELEASE-v0.5.19.md",
+    "0.5.18: police escape move fixes on top of 0.5.17 (2026-10-21); see RELEASE-v0.5.18.md",
+    "0.5.17: speed dice and scrolling fixes on top of 0.5.16 (2026-10-21); see RELEASE-v0.5.17.md",
+    "Audited and debugged from the uploaded the-smoke-v0_5_15.zip (2026-10-21); see AUDIT-v0.5.16.md",
+    "Verified downloadable The Smoke v0.5.3 ZIP (2026-10-19)",
+    "Reference regression baseline v0.5.0 ZIP (2026-10-17)"
   ],
   "packs": {
     "london-streets": {
@@ -45,5 +54,15 @@
       "documents": 27,
       "embedded": 265
     }
+  },
+  "candidate": {
+    "type": "manifest-ready-github-release",
+    "basedOn": "v0.5.23 package; all existing user-authored changes retained",
+    "publisher": "Two GitHub release assets prepared; not uploaded by this build",
+    "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
+    "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.24/the-smoke-v0.5.24.zip",
+    "liveFoundryVerified": false,
+    "audit": "59-suite automated regression, including a player right-click on tokens drawn before the system loaded, plus every 0.5.23 check",
+    "work": "Foundry fixes a token's right-click handlers when it draws the token. The system installed its player right-click menu at 'ready', after the first map was drawn, so every token already on that map kept Foundry's owner-only right-click: the GM could right-click them, players could not, until the map was reloaded. The menu is now installed at 'init', and tokens already drawn are re-armed. Vehicles with a Street Life NPC at the wheel (not only moving traffic) offer Carjack."
   }
 }

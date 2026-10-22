@@ -1,11 +1,11 @@
 // Shops and the map spots that do something: the corner shop (any street), Pat's Arches, the markets, Uncle's Cafe
-// (drugs, and shooters from Rep 2), the respray shops, Bow Breakers, Homerton A&E and your flat (kip, stash, wardrobe).
+// (drugs, and shooters from Rep 3), the respray shops, Bow Breakers, Homerton A&E and your flat (kip, stash, wardrobe).
 // Purchases, sales and services run on the leader GM; prices come from the item library, less any discounts earned.
 import {NS} from '../config.mjs';
 import {clampHeat} from '../rules/core.mjs';
 import {hasUnlock} from '../rules/advancement.mjs';
-import {isLeader, registerHandler, request, card, esc, ownersOf} from './net.mjs';
-import {zonesOf, tokenRect, distanceSquares, mapIdOf, isStreetScene} from './spawn.mjs';
+import {registerHandler, request, card, ownersOf} from './net.mjs';
+import {zonesOf, tokenRect, distanceSquares, isStreetScene, actorToken} from './spawn.mjs';
 import {arrivedAt} from '../rules/jobs-core.mjs';
 import {distToRect} from './theft.mjs';
 import {offerFor, performService, servicePrice} from './services.mjs';
@@ -27,13 +27,13 @@ export const SHOPS = Object.freeze({
   dealer: {name: 'Uncle\'s Cafe', who: 'Uncle', quote: '"Full English? Or the other menu?"', buysDrugs: 0.8,
     stock: [{items: L('Full English|Pie & Mash')},
             {label: 'The other menu', items: L('Skunk|Charlie|Pills|Benzos|Nitrous|Roids')},
-            {label: 'Out the back (Rep 2)', minRep: 2, items: L('Knuckle Duster|Lock Knife|Zombie Knife|Machete|Pocket .22|Converted Pistol|Compact Pistol|Fictional Show Plates|Service Revolver|Sawn-off Shotgun|Farmer\'s Double|Air Rifle|Stab Vest|Fake ID|Key Programmer|Relay Box|Spare Plates|.22 Rounds|9mm Rounds|.38 Rounds|12-Gauge Shells|Air Rifle Pellets|Petrol Bomb|Firework Rocket')},
-            {label: 'Out the back (Rep 3)', minRep: 3, items: L('Polymer Nine|Machine Pistol|Micro SMG|Pump Shotgun|Hunting Rifle|Bulletproof Vest|Smoke Grenade|.308 Rounds')},
-            {label: 'Don\'t ask (Rep 4)', minRep: 4, items: L('Hand Cannon|Kalash|Frag Grenade|.50 Rounds|7.62 Rounds')}]},
+            {label: 'Out the back (Rep 3)', minRep: 3, items: L('Knuckle Duster|Lock Knife|Zombie Knife|Machete|Pocket .22|Converted Pistol|Compact Pistol|Fictional Show Plates|Service Revolver|Sawn-off Shotgun|Farmer\'s Double|Air Rifle|Stab Vest|Fake ID|Key Programmer|Relay Box|Spare Plates|.22 Rounds|9mm Rounds|.38 Rounds|12-Gauge Shells|Air Rifle Pellets|Petrol Bomb|Firework Rocket')},
+            {label: 'The good stuff (Rep 6)', minRep: 6, items: L('Polymer Nine|Machine Pistol|Micro SMG|Pump Shotgun|Hunting Rifle|Bulletproof Vest|Smoke Grenade|.308 Rounds')},
+            {label: 'Don\'t ask (Rep 9)', minRep: 9, items: L('Hand Cannon|Kalash|Frag Grenade|.50 Rounds|7.62 Rounds')}]},
   respray: {name: 'Respray', who: 'the bodyshop', quote: '"Colour? Plates? Don\'t tell me where it\'s from."',
     stock: [{items: L('Toolkit|Vehicle Repair Kit|Jerry Can|Spare Plates')}], services: ['respray', 'repair']},
   chop: {name: 'Bow Breakers Yard', who: 'Big Den', quote: '"Bring it round the back."',
-    stock: [{items: L('Toolkit|Vehicle Repair Kit|Jerry Can|Spare Plates|Slim Jim|Screwdriver Set')}, {label: 'Rep 2', minRep: 2, items: L('Relay Box|Key Programmer')}], services: ['repair']},
+    stock: [{items: L('Toolkit|Vehicle Repair Kit|Jerry Can|Spare Plates|Slim Jim|Screwdriver Set')}, {label: 'Rep 3', minRep: 3, items: L('Relay Box|Key Programmer')}], services: ['repair']},
   hospital: {name: 'Homerton A&E', who: 'the triage nurse', quote: '"Take a seat. It\'s about a four-hour wait."',
     stock: [{label: 'The chemist', items: L('Painkillers|Bandages|First Aid Kit|Bottle of Water')}], services: ['treat']},
   safehouse: {name: 'Your Flat', who: 'Mo downstairs', quote: '"Rent\'s Friday. Keep the noise down."', changing: true, services: ['rest', 'stash']}
@@ -87,7 +87,7 @@ export function shopsAt(token) {
   }
   return [...out];
 }
-const tokenOf = actor => canvas?.scene?.tokens?.find(t => t.actorId === actor.id) ?? game.scenes.find(s => s.tokens.some(t => t.actorId === actor.id))?.tokens.find(t => t.actorId === actor.id) ?? null;
+const tokenOf = actor => actorToken(actor);   // the token in play, not a stale one on the map the GM happens to be viewing
 /** The vehicle this character is driving, if any. */
 const drivingOf = token => { const seat = token?.getFlag?.(NS, 'vehicleSeat'); return seat?.seatId === 'pilot' ? token.parent.tokens.get(seat.vehicleTokenId) : null; };
 export function shopsFor(actor) { const t = tokenOf(actor); return t ? shopsAt(t) : []; }

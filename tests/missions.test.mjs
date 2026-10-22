@@ -19,17 +19,29 @@ const codes = data.missions.filter(m => m.code).map(m => m.code); assert.equal(n
 const journals = Object.fromEntries(J('london-guides.json').journals.map(j => [j.key, j]));
 for (const m of data.missions) {
   for (const r of m.requires) { assert.ok(ids.has(r), `${m.id} needs ${r}`); if (m.n) assert.ok(data.missions.find(x => x.id === r).n < m.n, `${m.id}: ${r} comes earlier`); }
-  for (const o of m.objectives) if (o.auto) assert.ok(['sold', 'map', 'service', 'job', 'buy'].includes(o.auto.on), `${m.id}.${o.id}: auto rule`);
+  for (const o of m.objectives) if (o.auto) assert.ok(['sold', 'map', 'service', 'job', 'buy', 'cargoCollected', 'cargoDelivered'].includes(o.auto.on), `${m.id}.${o.id}: auto rule`);
   assert.ok(m.objectives.length >= 3 && m.hook && m.giver && m.title, `${m.id}: hook, giver and objectives`);
   assert.ok(journals[m.journalKey]?.pages.some(p => p.name === m.page), `${m.id}: its page is in ${m.journalKey}`);
   assert.match(m.pageUuid, /^Compendium\.the-smoke\.guides\.JournalEntry\.[0-9a-f]{16}\.JournalEntryPage\.[0-9a-f]{16}$/);
 }
-const atlas = J('london-street-atlas.json'), places = J('london-places.json'), maps = new Set([...atlas.maps, ...places.maps].map(m => m.id));
+const atlas = J('london-street-atlas.json'), places = J('london-places.json'), venues = J('london-venues.json'), maps = new Set([...atlas.maps, ...places.maps, ...venues.maps].map(m => m.id));
 const zones = Object.fromEntries(atlas.maps.map(m => [m.id, new Set(m.zones.map(z => z.id))]));
 for (const m of data.missions) {
   for (const o of m.objectives) { if (o.auto?.on === 'map') assert.ok(maps.has(o.auto.mapId), `${o.auto.mapId} is a real map`); if (o.stop != null) assert.ok(m.stops[o.stop], `${m.id}.${o.id}: its stop`); }
   for (const s of m.stops || []) { assert.ok(maps.has(s.mapId), `${m.id}: ${s.code} on a real map`); if (s.zoneId) assert.ok(zones[s.mapId]?.has(s.zoneId), `${m.id}: ${s.code} anchor ${s.zoneId}`); }
 }
+// The voice: every campaign job and case lands as the giver's texts (the hook is the thread in one line); its GM notes say
+// how it goes down; every career finale has a twist; its journal page opens on the call and carries the heat and the twist.
+for (const m of [...careers, ...cases]) {
+  assert.ok(Array.isArray(m.call) && m.call.length >= 2 && m.call.length <= 5, `${m.id}: the call is a short text thread`);
+  assert.equal(m.hook, m.call.join(' '), `${m.id}: the hook is the call`);
+  assert.match(m.gm, /How it goes down/, `${m.id}: how it goes down`); assert.ok(m.twist, `${m.id}: the heat`);
+  assert.equal(new Set(m.objectives.map(o => o.id)).size, m.objectives.length, `${m.id}: objective ids unique`);
+  const page = journals[m.journalKey].pages.find(p => p.name === m.page).html;
+  assert.match(page, /The call<\/h2><div class="sj-phone">/, `${m.id}: the page opens on the call`); assert.match(page, /The heat/, `${m.id}: the heat`);
+  if (m.stage === 8) { assert.match(m.gm, /The twist/, `${m.id}: a finale twist`); assert.match(page, /sj-box twist/, `${m.id}: the twist on the page`); }
+}
+for (const m of opening.filter(x => x.code)) assert.match(m.campaign, /How it goes down/, `${m.id}: the campaign expansion in the same voice`);
 // careers: eight stages, the plan's offer gates, Renown awards and fees; one Influence back (two for the capstone)
 const GATES = [0, 1, 3, 5, 8, 11, 15, 20], RENOWN = [1, 2, 2, 3, 3, 4, 5, 5], FEES = [80, 120, 160, 240, 320, 480, 640, 1000];
 for (const fc of Object.keys(data.factions)) {
@@ -98,6 +110,7 @@ await net.request('mission.set', {id: 'ad1', status: 'done'});
 assert.equal(jaz.system.cash - cashBefore, 40, '£80 crew fee, two of them');
 assert.deepEqual(settings.get('factions').AD, {renown: 1, influence: 1, stance: 'open'});
 assert.equal(M.statusOf(byId('ad2'), settings.get('missions'), settings.get('factions')), 'available', 'AD2 opens at Renown 1');
+assert.ok(chat.some(c => /AD1 · /.test(c.content || '') && /class="smoke-call"/.test(c.content || '') && /sj-text in/.test(c.content || '')), 'the job lands as a text thread from the giver');
 // A local case: the GM picks which faction gets the Renown.
 await net.request('mission.start', {id: 's01', actorIds: [jaz.id]});
 await net.request('mission.set', {id: 's01', status: 'done', renownTo: 'BM'});
@@ -108,8 +121,20 @@ await net.request('faction.set', {code: 'NM', influence: 9}); assert.equal(setti
 await net.request('faction.set', {code: 'NM', stance: 'hostile'}); assert.equal(settings.get('factions').NM.stance, 'hostile');
 await assert.rejects(net.request('faction.set', {code: 'NM', stance: 'cross'}), /stance/);
 // Failing.
+// 0.5.23: "get to the market" ticks for someone already standing on that map when the mission starts, and for a
+// character the GM drops straight onto a map (no map crossing needed).
+const market = {id: 'sc-hag', getFlag: (ns, k) => k === 'streetAtlas' ? {id: 'LDN-HAGGERSTON'} : null, tokens: [{actorId: jaz.id, hidden: false}]};
+game.scenes = [market];
+await net.request('mission.set', {id: 'm02', status: 'reset'});
 await net.request('mission.start', {id: 'm02', actorIds: [jaz.id]});
+assert.equal(settings.get('missions').m02.ticks.market, 1, 'already at the market: ticked at the start');
+await net.request('mission.set', {id: 'm02', status: 'reset'}); game.scenes = [];
+await net.request('mission.start', {id: 'm02', actorIds: [jaz.id]});
+assert.equal(settings.get('missions').m02.ticks.market, undefined);
+M.installMissions(); Hooks.callAll('createToken', {actor: jaz, hidden: false, parent: market}, {});
+for (let i = 0; i < 20 && !settings.get('missions').m02.ticks.market; i++) await new Promise(r => setTimeout(r, 5));
+assert.equal(settings.get('missions').m02.ticks.market, 1, 'dropped onto the map by the GM: ticked');
 await net.request('mission.set', {id: 'm02', status: 'failed'});
 assert.equal(settings.get('missions').m02.status, 'failed');
-console.log('missions: 12 opening missions, 12 faction careers and 20 local cases wired to pages, maps and places; gates, Renown, Influence, fees, auto ticks, MISSION PASSED, fail and reset — ok');
+console.log('missions: 12 opening missions, 12 faction careers and 20 local cases wired to pages, maps and places; every job a text thread with a twist at each finale; gates, Renown, Influence, fees, auto ticks, MISSION PASSED, fail and reset — ok');
 process.exit(0);

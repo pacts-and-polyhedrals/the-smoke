@@ -1,4 +1,266 @@
+## 0.5.24 — Players can right-click every vehicle
+
+- **Fixed: a player's right-click did nothing on vehicles that were already on the map when the world loaded** (Pat's order bikes, parked cars, chained bikes), while the GM could. Foundry fixes a token's right-click when it draws it, and the players' street menu was installed after the first map was drawn. It's now installed before, and tokens already drawn are re-armed.
+- A car the GM placed with an NPC driving it (not moving traffic) now offers **Carjack**. Police units with their crew aboard don't.
+- New suite: `player-right-click` (59 suites). See `RELEASE-v0.5.24.md`.
+
+## 0.5.23 — The sat nav on every mission; graffiti commissions that explain themselves
+
+- **Sat nav fixed across the board.** On 0.5.21, 112 of 179 missions sent it to the wrong place at some step (1,788 points checked). Cargo objectives had no place, so it fell back to the first stop or Pat's. Graffiti sites with no venue door couldn't be found. When only GM-ticked steps were left, it went back to the start. Now cargo goes to the parcel, then the handover; graffiti goes to the real surface; GM-only steps stay with the last place. 0 wrong. The Mission Board's Directions button names where it goes, with per-site directions on graffiti jobs.
+- **Graffiti commissions.** A paint that doesn't count says why: too rough, wrong tag, free paint, or not on the job. Tag Studio starts on the nearest surface a job still needs, picks the commission and the job's tag, and shows what the job needs. **Update who's on it** changes the crew of a running mission. Objectives read in plain words (Just About, the Chainring Cog tag). Side-on parked buses can be tagged from their ends. The site list shows Painted ✓.
+- **Missions.** "Get to X" ticks for anyone already there at the start, or dropped there by the GM. M2's Broadway Market ticks on the map it's actually on (Bethnal Green), as well as Haggerston.
+- **Sweep fixes.** The Street Control courier vehicle is now the Deliverer E-Bike (was a scooter with no courier job). Respond, Stand down and Clear no longer crash with no map. An arrest no longer crashes when the stolen car is gone. Two bikes sold to Pat close together no longer leave her order stuck.
+- New suites: `tagging-missions-e2e`, `satnav-missions`, `jobs-e2e`; `missions` extended (58 suites). Handler fuzz (90 handlers), hook fuzz, import, cross-reference and data checks. See `RELEASE-v0.5.23.md`.
+
+## 0.5.22 — Heat that fits the game, a calmer table, real buses to paint
+
+- **Crimes have a ceiling.** Thieving, carjacking, graffiti and dangerous driving: 1★ at most, however often. Assault and failing to stop: up to 2★. Hitting a cop or nicking a police car: 2★. Gunfire: 2–3★. Only a killing brings 4★ (armed police); a second killing or a dead officer, 5★. A police witness adds +1 within the ceiling; a lesser crime never lowers Heat. Street-event consequences (e.g. *Someone Recognises You*) stop at 2★.
+- **Killings are now detected.** A lethal attack (gun, bleed/fire/area, impact 4+) that drops a person to 0 Health reports a killing, on automatic damage and on *Take hit*, with a KILLING card. Before, murder was never reported.
+- **Smaller police response:** 0/1/2/2/3/6 vehicles by star (was 0/1/3/4/7/10), never more than the new **Heat: most police vehicles on a map** setting (default 4). When the stars drop, unseen extra units go back to base.
+- **Lag/freeze guards** (the reported frozen interface could not be reproduced without a live server; these remove the likely overload). Traffic and police moves are written in one batch per tick, including travel meters (before, one extra write per moving vehicle every second). The crew bar only redraws when a player character changes. Both background loops rest for 15 s if a step runs long twice, and the GM gets a **SLOW DOWN** card with the settings to turn down.
+- **Bus tagging sites are real buses.** The four bus sites get an out-of-service Clippermaster parked at the kerb (locked, not traffic). Unpainted 0.5.21 markers at bus sites are swapped automatically. Train sites are still markers.
+- Guides: the four pages with Heat tables print the new numbers (JSON, source and compendium). Existing worlds refresh them once if unedited (migration 4). New suites: `heat-scaling`, `heat-guides`, `slow-guard` (55 suites). See `RELEASE-v0.5.22.md`.
+
+## 0.5.21 — Tagging missions now drop their canvas tokens
+
+- **Fixed missing paintable canvases in later graffiti missions.** The previous code started a tagging commission but never materialised its authored canvas markers; only manually placed markers were available. From this version, mission start imports/inspects its actual street maps and automatically creates the named paint surfaces for all current objectives.
+- On scene import, map transition, GM canvas arrival, character-token placement, mission-state change and GM startup recovery, a single GM synchronises missing markers for active graffiti commissions.
+- The 54 named sites referenced by the 42 commissions are placeable across 20 street maps. All 57 catalogue sites were checked for valid street-accessible positions: 51 have genuine venue/door anchors and six receive reproducible approximate locations that the GM can drag without changing the mission identity.
+- Idempotent per-scene locks prevent duplicated markers during concurrent arrivals. Existing manual/canvas markers are never overwritten or moved; deleted markers are repaired and system-created hidden ones are shown again.
+- Added **Repair / prepare mission canvases** on the active tagging Mission Board for the GM, plus `await game.smoke.graffiti.repairMissionSpots()` for current existing active scenes or `await game.smoke.graffiti.prepareMissionSpots(missionId)` for one active commission.
+- Automatic marks use the exact verified mission site ID. A paint attempt still needs real proximity, Spray Paint gear, Graft roll and authenticated mission proof. None of the prior mission rewards or existing graffiti records are altered.
+- New `tagging-mission-canvas.test.mjs` confirms cross-map commissions, target positions, authority, race-safe duplicate prevention, repair, ordinary token drops and GM manual placements. Existing chase, police, occupant, radio, mission and economy systems remain in place.
+
+## 0.5.20 — Police chat decisions, chase auto-round recovery, and real vehicle crew
+
+- Repaired police chat buttons that failed with an unrelated/stale incoming-hit card instead of invoking Front, Moves or Wheels rolls. Actual hits on the target still must be resolved.
+- Reproduced the report that restarting combat restores chat buttons. On Combat deletion, obsolete police-stop flags and their choice buttons are closed; hit cards belonging to a deleted encounter cannot block a new police stop. Existing live incoming hits remain blocking.
+- Automatic chase-round start now skips benign duplicate requests instead of freezing the chase; old matching autopilot errors clear once during migration.
+- All moving background cars, taxis, buses, motorcycles, emergency vehicles and responding police gain actual role-appropriate NPC drivers/officers/passengers. Their tokens are attached to seats and travel atomically with their motors, including during turn-based chase and helicopter moves.
+- Police disembark from their actual vehicles, and successful carjacks eject the car's real NPC occupants. Moving NPC traffic continues autonomously; PCs boarding take it out of traffic automation.
+- Corrected cross-map ambient driver IDs and duplicate crew setup; preserves all v0.5.19 combat reinforcement, mission and map code. See `RELEASE-v0.5.20.md`.
+
+## 0.5.19 — More stars mid-fight: new police join the combat tracker
+
+- **Fixed: police piling on in the middle of a turn-based fight or chase.** When Heat went up during a fight, the new units appeared on the map and drove in every second in real time while everyone else was waiting for their dice. In a chase, units that weren't already in it did the same until they caught up. Now, while a fight or chase is on, every police unit hunting someone in it **goes on its combat tracker** and only moves on its own speed dice: dealt in straight away while dice are still being rolled, otherwise from the next round (the Console shows them as *NEXT ROUND*). The dispatch card says so.
+- **Ordinary fights** (not chases) now include the police cars too: on its go a car drives in along the roads, and once it's close its officers get out and join the fight on foot while the car parks up. (GM: *Police AI* on its turn, or *Done* to skip.)
+- **Begin round** deals in any police who have arrived since the last round, so nobody is missed.
+- Units hunting someone **outside** the fight or chase still drive in real time; the helicopter still moves once a round in a chase and now holds station over a fight.
+- Suites: new `tests/police-reinforcements.test.mjs` (49 suites, all passing); `audit-chase.test.mjs` updated (it encoded the old "keep driving until you reach the chase" rule). Reproduced on 0.5.18 first: with a fight on, the unit hunting the fighter still drove in real time and never joined the tracker. Journals and compendiums are unchanged.
+
+## 0.5.18 — The police escape move works the way it reads
+
+When a Talk or Run succeeds and the police fumble, you get one escape move (six squares on foot, or the vehicle's safe speed) while police and traffic wait.
+
+- **Fixed: pressing the card's button threw the move away.** The button read *Finish escape move*, and pressing it before moving ended the opening on the spot ("still in sight"); after that, dragging your token said *Wait for your own turn*, because the chase's dice were back in charge. Now the button is **Done moving — finish the escape**, and a player who hasn't moved yet is told to move first (the GM can still end it).
+- **Drag straight away, even though it isn't your die.** The card says so, and the escaper can always move during the opening, even if someone else's police card is open at the same time (that used to block them too).
+- **A ring on the map shows how far you can get** (blue, with "ESCAPE · n sq left"), and shrinks as you use squares. A character on foot whose die it is gets the same kind of ring for their six squares.
+- **A drag past the limit stops at it** instead of being refused (on foot and in a vehicle), and **using every square ends the escape by itself.** The result card says how far you got.
+- The Combat Console's waiting line reads "take the escape move (drag up to n sq, then Done)".
+- Suites: new `tests/escape-move.test.mjs` (48 suites, all passing); `chase-decisions.test.mjs` updated to the new behaviour. Reproduced on 0.5.17 first: Done before moving ended the opening, and the next drag was refused. Journals and compendiums are unchanged.
+
+## 0.5.17 — Speed dice come back; every window, dialog and menu scrolls
+
+**Speed dice (the rule):** at the start of every round each fighter rolls fresh speed dice from their Moves die (d4 1d6 · d6/d8 2d6 · d10/d12 3d6 · d20 4d6); Stunned and Knackered each take one, minimum one; Down, Cuffed and surrendered characters get none. Each die is one action, highest first.
+
+- **Fixed: a player who had ever surrendered was OUT of every fight after, even after resting.** Surrender was a switch on the character that only the GM's *End Fight* button in the Combat Console turned off. Ending a fight any other way (a chase called off or escaped, the core tracker's End Combat, being Busted or Wasted) left it on, a night's rest didn't touch it, and nothing on the sheet showed it. Now a surrender belongs to the fight it was made in: it ends when that fight ends (however it ends), when you leave the fight, when you're Busted or Wasted, or after a night's rest — and a surrender from another fight never costs dice. Worlds already stuck are fixed when the GM loads the world (the console log names who was stood back up).
+- **The Combat Console says why someone has no dice:** `OUT · SURRENDERED`, `OUT · CUFFED`, `OUT · DOWN` (hover for what clears it), or `NEXT ROUND` for someone who joined after the reveal — instead of a bare `OUT`.
+- **Late arrivals are dealt in** if they join while dice are still being rolled (police piling out of a van, a unit catching the chase); after the reveal they join next round.
+- **Stunned now costs a speed die,** as the rules say: stunned part-way through a round, your lowest die still to come is lost (never the one you're acting on, never your last of the round), shown struck through in the Console; stunned before the dice are rolled, you roll one fewer.
+- Cuffs are unchanged on purpose: rest does not remove them (a key, a Hard Graft roll or the custody suite does), and the Console now says that's why you're out.
+
+**Scrolling:**
+- **Street Control** (the GM's main menu) never scrolled — its lower sections were simply cut off on smaller screens. It scrolls now.
+- **Tag Studio**, the **Shop**'s list of places, the **Mission Board**'s mission rail (which could squeeze the mission list to nothing) and the radio presets editor scroll.
+- **Every dialog** (bus and coach seats, local services, travel, targets, the welcome and diagnostics pages, …) scrolls inside itself and keeps its OK / Cancel buttons on screen.
+- **Right-click token menus (Token HUD):** a column that hangs off the top or bottom of the screen slides back onto it; one taller than the screen scrolls its Smoke buttons (Foundry's own buttons and their pop-out palettes are left alone). Street-action pop-up menus stay on screen.
+- Every Smoke window can always be scrolled to its end, whatever the window frame does.
+
+- Suites: new `tests/speed-dice-refresh.test.mjs` (47 suites, all passing). The stuck-surrender bug was reproduced on the 0.5.16 code (two dice in the first fight, none in the next, even after a rest) before the fix. A browser check of every window template at its default size and at 520 px and 380 px tall (each sheet tab, with and without long lists) went from 24 renders with unreachable content to 0; dialogs and Token HUD columns were checked the same way. Journals and compendium packs are unchanged.
+
+## 0.5.16 — Full-system audit: chases free the rest of the map, missions pay once, stuck checks cleared
+
+A complete audit and debug pass over v0.5.15 (every module read; syntax, lint, import, asset, compendium, link, template, CSS and API checks; see **AUDIT-v0.5.16.md** for the method and the full findings table).
+
+- **Missions pay once.** Mission progress is now written through one queue from a fresh read. Previously two events at the same moment (two of the crew crossing into the mission's map together, a sale and a tick, cargo and a graffiti proof) could both pass a mission — paying everyone's cash, XP, Rep and Renown twice — or quietly lose a tick or a cargo update.
+- **A chase no longer freezes the rest of the map.** Characters who aren't in the chase move freely (before, every character on the map was told to wait for a turn they didn't have). Police units that aren't in the chase keep driving, and units that reach it join at the end of the round — previously units sent when Heat rose mid-chase sat still until it ended. Pedestrians keep walking.
+- **Driving cards never strand a motor on the street.** Outside a chase an unanswered evasive card (or a result waiting for review) no longer locks the vehicle; it resolves whenever it's rolled, and a late crash result no longer teleports the car back to the impact point. GMs get **Clear stuck checks** on the vehicle sheet.
+- **Roll requests:** when the whole crew answers a request at once, every answer is recorded and teamwork totals appear; a roll only counts for its own character and the stats the GM asked for.
+- **Leader-side checks:** remote rolls can no longer put arbitrary HTML into GM-authored chat cards; cable ties check the target's state, your reach and that you carry ties; toolkit repairs use the real roll, once; only the GM sets a healthy motor alight; GM-hidden paint spots can't be tagged by id.
+- **Self-play** players can end the chase they're running.
+- **Reliability:** one stuck world action can no longer freeze every later one (the queue moves on after 45 s); the job clock no longer stacks ticks; the Combat Console and chase autopilot ignore Street Life's every-second traffic updates; the right token is used for a character with stale tokens on other maps (police response, Wasted/Busted, shops, items).
+- **Housekeeping:** vehicles players drive keep their own actor in *The Smoke — Driven Vehicles*, deleted once no token uses it.
+- **New option:** *Character sheets: lock players' progress fields* (off by default).
+- Studio Inbox shows scheduled broadcasts in Banana Watch time; traffic-phase notices go to the GM only; the upgrade card's chase description matches current behaviour; 31 dead imports removed.
+- Suites: new `tests/audit-world.test.mjs` and `tests/audit-chase.test.mjs` (46 suites, all passing). The double-payment bug was reproduced on the 0.5.15 code before the fix. Journals and compendium packs are unchanged.
+
+## 0.5.15 — Public-beta Studio Inbox and independent radio safety
+
+- Retired CodeSouth and Esencia Urbana from both the default tuner and saved custom presets; removed both conditional radio-war contact locations. System-authored retired contact tokens are cleaned up on GM radio-war synchronisation (GM-created tokens remain untouched).
+- Replaced the player-facing external chat, website, email, SMS, WhatsApp and telephone actions with *private in-game messages* and *request airtime*. A player cannot send a real station contact action through The Smoke.
+- Kept the GM's original real station contact panel and added a private Studio Inbox with Reply, Broadcast Now, Queue Prerecorded on the Banana Watch and Decline controls. Broadcasts are explicitly fictional Foundry chat messages, **not real radio audio or external station submissions**.
+- Scheduled announcements survive reloads as marked ChatMessages, release once on a world-time update with an active GM, and do not double publish on repeated time updates. Added request IDs, per-player cooldown, ownership checks and role guards.
+- Added beta radio and licence documentation. Public Foundry package listing requires separate human-authorship and third-party rights review.
+- Preserved v0.5.14 token movement, watch rest, police visibility, radio wars, chase, missions, tags, advancement and original branding.
+- v0.5.15 release ZIP and matching standalone system.json prepared for GitHub/Forge; live Forge GM + player testing still needed.
+
+## 0.5.14 — Token drag recovery, eight-hour rests, Radio Wars and Heat visibility
+
+- Corrected graffiti `preCreateToken`/`preUpdateToken` callback signatures and `false` returns that cancelled normal character, NPC, police and vehicle placement or movement; tests verify normal drags do not get blocked.
+- Normal safehouse, character and GM rest actions advance the shared Banana Watch by exactly 28,800 seconds. Normal physical recovery, condition persistence and world-time event processing remain in place.
+- Removed CodeSouth and Esencia Urbana from the default Blower/car dial because neither had a verified direct stream. Preserved GM-supplied custom streams and removed the old failed Airtime URL during migration. The original six native-stream presets are unchanged.
+- Added six active fictional radio-war London contacts, with two extra conditional London contacts if the GM explicitly configures working streams for the two removed stations. Contact tokens appear next to the mapped street, are draggable, and can be operated by players without owning them.
+- Added twelve Radio Wars missions. GM-verifiable stat checks increase/decrease signal standing, advance the Banana Watch, award Street Rep for strong successes, and provide replay-resistant auto mission completion.
+- Corrected respray/garage police detection: helicopters only count within 22 squares and while the wanted vehicle is outdoors, matching the police pursuit system. They no longer block spray shops from anywhere on the map.
+- Corrected graffiti helicopter witnessing to use the actual `police.unit==='heli'` flag rather than an obsolete `kind` field.
+- Added integration and compatibility tests for original token drag/drop, timed rest, garage line of sight, radio maps and NPC interactions; kept the earlier full chase, mission cargo, graffiti, combat and Watch tests.
+- Local automated testing completed; live Forge multiplayer, external radio feeds and map rendering still need verification.
+
+## v0.5.13 — Radio stations: functional listener actions and correct fallback
+
+- Removed the old CodeSouth direct feed from the shipped defaults after reports of browser Retry loops. The published `codesouth.out.airtime.pro` entry was a historical directory reference, not a current live verification.
+- Corrected Esencia Urbana, which v0.5.12 deliberately shipped without any audio feed: Listen now opens its official live listening page in a Foundry window rather than being disabled.
+- The two new presets have **Open live player** controls inside Smoke and **Open in browser** for broadcasters that refuse to be framed by Forge. The embedded pages use the station's real player; Smoke never fabricates audio playback status.
+- Kept the six verified-model direct-stream presets on the existing HTML5 receiver. Custom stations can configure an optional official `playerUrl` while preserving their direct stream.
+- Migrates existing custom world settings only if CodeSouth still uses the exact previous shipped URL, preserving GM-entered alternative working streams and intentionally removed presets.
+- Corrected misleading Retry/external-only UI, added safe webplayer window management and clearer station setup documentation.
+- Live audio availability still depends on the broadcaster and its embed policy. Until actual current raw MP3/AAC endpoints are supplied or independently verified, these two do **not** have identical volume/stop behaviour to direct-stream stations.
+
+## 0.5.12 — Extra Rep rewards, CodeSouth and Esencia Urbana
+
+- Every three Rep levels (3 through 33) now grant a **separate, player-selected milestone** alongside the existing stat/perk and Growth rewards. Choices: +3 Health, +1 base Guard (maximum three picks), +1 maximum/current Hustle (maximum two picks), or a level-scaled cash payout.
+- The Rep level-up wizard shows milestone choices clearly; actor sheets highlight milestone levels and offer a **Claim milestone bonus** button to veterans who passed earlier milestones. Historical claims require no XP and do not reroll original level gains.
+- Radio presets added: **CodeSouth.FM** with a public direct stream, and **Esencia Urbana** with a link to the official listening site (no verified direct audio-only stream yet). Existing edited radio lists are kept and upgraded once, respecting subsequent removals.
+- Includes all **v0.5.11** Drop & Paint improvements: player right-click of auto-named surfaces, direct bus tagging and vector path graffiti with openly licensed lettering outlines.
+- Packaging and regression checks updated for the existing GitHub manifest and Forge workflow. Browser and Forge-specific interactions remain to be tested live.
+
+## 0.5.11 — Drop & Paint vector graffiti upgrade
+
+- Automatically named scene markers from current street zones (Morning Lane 1, etc.), direct right-click to Tag Surface, compatible with traffic actors and mission sites, zero repeated preassignment for casual tagging.
+- Replaced generic browser typefaces with outlined SVG glyphs from appropriately licensed fonts. SVG decals persist with the exact visual look instead of browser font fallbacks.
+
+## 0.5.11 — Drop & Paint: real vector handstyles and no site setup
+
+- **Just drop a Paintable Surface:** a drag-and-drop marker automatically acquires a unique durable site ID and a road/zone name such as `Morning Lane 1` or `Mare Street 2`. The GM also has a one-click map drop tool. No catalogue assignment or mission ID is required for free tagging.
+- **Right-click to spray:** players and the GM right-click paintable surface tokens (or a visible bus/train) and choose Tag Surface. The Studio opens with the exact target selected. Shift-right-click retains the native GM token HUD.
+- **Transport:** real bus and train vehicle tokens are automatically paintable without an extra marker or per-vehicle setup. Their decals follow the vehicle as before.
+- **Missions remain precise:** named mission hotspots continue to work, while auto-named sites can match an active commission ONLY if their mapped street name/vehicle category unambiguously matches the designated target. Unrelated tags still gain territorial influence but cannot tick a job at the wrong address.
+- **Five better lettering styles, all pure SVG:** replaced browser-dependent generic font tags with *outlined glyph art* from commercially reusable open-licensed fonts (Lobster Two, Noto Sans Display, DejaVu, Comic Neue). The resulting SVG uses only internal paths, gradients and shapes; no external font or CDN is needed in Forge. The six established roll-quality effects and trusted GM-side regeneration remain intact.
+- Updated tests for auto naming, player/GM right-click, real SVG glyph paths, six outcomes, bus/train eligibility and free-tagging integration. Full existing police/chase/cargo/clock/mission regressions retained.
+- Release ZIP and standalone `system.json` both identify **v0.5.11**. Actual Forge rendering and map-placement click interaction still need live testing.
+
+## 0.5.9 — The Smoke: original website branding and package listing
+
+- Replaced the package summary with street-level Hackney copy. No references to other games in the storefront description.
+- Updated `system.json` background and setup media to the original website artwork; additionally added publicly hosted icon, cover, and screenshot URLs for Forge previews before installation, plus original logo and city art inside the rich HTML description.
+- Installed all original brand-kit logo and poster SVG/PNG assets in `assets/branding`, named for stable in-game URLs.
+- Applied appropriate logo and artwork references to the actual in-game applications, including GM Screen, Street Control, Mission Board, Character Creator, Tag Studio, Blower and first-world setup.
+- Preserved all game mechanics, saved world data and compendiums from 0.5.8.
+
+# The Smoke v0.5.8 — Painted Streets & Territory
+
+- Persistent transparent SVG graffiti decals created through Tag Studio on GM-authored paintable street surfaces.
+- 42 playable mission briefs added to the Mission Board, mapped to 57 authorable sites on 20 London maps (coordinates require GM placement).
+- Server-verified Graft rolls, physical Spray Paint charges, one-time mission evidence, Banana Watch painting times, approved/witnessed Heat rules.
+- District and faction territory scores, crew Street Rep for excellent new-site work, sponsor Renown/Influence on completed commissions, and map paint-over replacement.
+- Vehicle-attached decals follow vehicle tokens and carry artwork when their tokens transfer scenes; missing decals can be repaired without rerolling.
+- Existing campaigns, map exits, mission cargo, combat, chase automation, conditions and previous artwork retained.
+
+# v0.5.6 — Physical missions, reliable map exits, Banana Watch conditions (19 October 2026)
+
+- 111 of 125 missions now create tangible serialized mission property on their actual mapped pickup scenes: **112 property types / 119 separate units**. Physical pickup and handover are **mandatory** via 224 event-driven objectives; players cannot just tick away required cargo milestones. No fabricated cash or vehicle ownership is granted.
+- **AD1 Borrowed Speakers**: two independent Dead Air speaker flight cases spawn at Queensbridge Sound Store (HR7.2), can be carried/dropped/recovered as character Items, and must both be handed over inside the Round Chapel Event Hall (HC2.2). Specific GM-less play guide provides the whole route and tasks.
+- Added instructions on the Mission Board for all 111 property missions; new cargo status, carrier, destination, Collect/Drop/Deliver controls, and GM recovery; character gear items are clickable and their deletion action routes to Drop or Deliver.
+- Added **S04 missing fundraiser greyhound and cash tin** as two tracked returnables. Items dropped anywhere remain physical tokens on that scene, and can be reclaimed by another crew member. Accidental missing property can be repaired by the active GM.
+- Manual transitions now accept token footprint touching or within 1.05 grid squares of a valid exit, fixing common “not near an exit” false negatives. Automatic crossings remain strict, nearest-exit errors include helpful distance, and a duplicate roadblock check was removed.
+- **Timed conditions now follow the Banana Watch's shared game clock**, not browser-wall time. Highs, comedowns, drink/medicine boosts and temporary conditions applied from a sheet tick forward only when Foundry world time advances. A stopped or paused game clock freezes them; x60 clock speed and crown time-jumps accelerate them. A large time jump catches up all linked stages. Permanent wounds/restraint keep their existing removal rules.
+- The condition buttons now show remaining watch minutes and expiry; drug visuals display watch minutes and update while the clock advances. Existing legacy `expiresAt` conditions migrate once at active GM login. `CONDITIONS-WATCH.md` documents the exact rules and migration limitation; `tests/watch-conditions.test.mjs` protects against regressions.
+- `system.json` and `data/build-info.json` both identify v0.5.6, matching the versioned GitHub ZIP and original releases/latest manifest convention. All v0.5.5 chase, police, street actions, radio, 160 interior venues and owned characters remain intact. Original guide content edition deliberately remains 0.5.3.
+- Added physical cargo, exit and Banana Watch regression suites (32 automated suites total). This is static/integration-test validated only; **live Forge GM + player behaviour remains unverified**. See MISSIONS.md and INSTALL.md.
+
+# v0.5.5 — GitHub manifest / Forge update delivery repair (19 October 2026)
+
+- Release `system.json` and the system ZIP now carry the same `0.5.5` version, system ID, and resolvable GitHub release conventions.
+- Restored required `manifest` and `download` URLs in both the uploaded release manifest and the ZIP's own system manifest. Forge/Foundry can now fetch the full ZIP from the versioned release asset.
+- Release asset uses the exact filename `the-smoke-v0.5.5.zip` and the expected tag is `v0.5.5`. Do not rename either without updating both manifests.
+- Added `tests/release-manifest.test.mjs` to catch missing links, prerelease version mismatches, wrong asset filename and wrong release tag.
+- Gameplay code is unchanged from 0.5.4-rc1. This release packages all chase automation, driver gauges, police AI, player street menus and roll recovery, still subject to live Forge/Foundry multiplayer acceptance.
+- Existing guides deliberately remain on content edition 0.5.3, so existing custom pages will not be regenerated just because the executable system version changed.
+
+# v0.5.4-rc1 — chase and player street-interaction recovery (original local development candidate)
+
+- Restored automatic police spotting/chase start and an actual **Full Auto** NPC loop, with **Assisted** and **Manual** choices, fail-closed transitions, real player-decision gates and GM-visible errors. A recorded Wheels result cannot be rolled twice to force an advance.
+- Restored vehicle distance tracking for selected free-drive cars, player moves, police/traffic path movement and helicopters; chase rings retain the original green/yellow/red budget. Fixed empty/occupied motor measurement and turn validation.
+- Removed unrelated encounter/global stopped-token freezes; active chases own their specific scene Combat, reject duplicate simultaneous start attempts, preserve ordinary fights and clean up scene ownership.
+- Added bounded helicopter movement and last-sighting search; police follow roads and search last-known areas. Traffic supports a grouped phase or up to 12 independently rolled cars.
+- The Combat Console prioritises the active chase, shows unresolved roll/response identity and offers GM-only *certify saved roll* and *cancel unrolled stale prompt* actions with explicit warnings and an audit card. Full Auto resumes only when blockers really clear.
+- Added safe, allowlisted player street menus on right-click of **non-owned vehicles and NPCs**, with a T/Alt+I scene-tool fallback. Theft, carjacking and boarding still require a nearby owned character and server-side checks. Pickpocket uses a Graft roll and GM adjudication rather than inventing loot. GM-only token controls remain hidden.
+- Added tests for automatic police-to-player turn hand-off, simultaneous chase entry, scene ownership, saved travel measurement, scoped blockers and player theft authorization. Original system and campaign tests remain intact.
+- Updated package and build-info versions to 0.5.5; guides intentionally stay at content edition 0.5.3 so unchanged journal text is not migrated again. **Not GitHub-published or live Forge-verified.** Full test report: RECOVERY-STATUS.md.
+
+# v0.5.3 — completed driving checks release the chase
+
+- Fixed evasions, yellow/red driving checks, PIT saves and ram defences leaving movement and Done/Continue locked after a roll. Foundry merges flag objects; completed prompt IDs now use explicit nested deletion.
+- Completed checks from older worlds are recovered on active GM login using their saved prompt/roll identity. No dice, damage or speed movement are replayed. Unanswered checks remain pending.
+- Records the landed result before applying it, protects simultaneous/repeated resolutions, and preserves an applied-result marker if the final deletion fails. An outcome error stays available for GM review instead of offering another roll.
+- Completed chat buttons remain disabled; stale clicks cannot reroll a resolved check. Explosion cleanup also removes prompt flags correctly.
+- The chase document stand-ins now reproduce Foundry object merging and deletion. A regression suite exercises 36 combinations across yellow/red checks, evasions, PITs and rams, plus saved-world recovery and duplicate damage protection.
+- Keeps the 0.5.2 rulebook edition and all 27 journals / 270 pages; this hotfix changes completion handling rather than the rules.
+
+# v0.5.2 — current journals and complete release package
+
+- Restyled all 27 journals / 270 pages to match the missions and Blower, with navigation, a rules index, readable tables and edition labels.
+- Rewrote 63 rule chapters against the implementation, including all conditions, Rep levels, recovery/services, jobs, items, vehicle incidents, chases and police decisions. Added five reference pages.
+- Replaced the obsolete starter's five-stage Rep and fixed bonuses with the actual opening missions. Generated current gates, objective tracking and reward splits for all 125 mission pages.
+- Rebuilt the Guides LevelDB compendium from the same text as both JSON sources. All 3,600 journal links resolve; public guides do not link to GM-only pages.
+- Guide upgrades back up edited shipped pages before replacement, retain user-created pages and stable IDs, handle renamed pages, and apply style-only updates. Repeated same-edition setup preserves new GM edits.
+- Rebuilt the full installable ZIP to replace a truncated previous delivery. No GitHub release was published.
+
+# v0.5.1 · Deliberate chases and police decisions
+
+- Automatic chase creation and assisted NPC turns default to off; upgrades reset the old default-on behaviour once. Later opt-ins survive reload.
+- Story-mode chase controls remain with the GM; participating Self-play players can start and manage their own chases.
+- Assistance runs one action after a configurable reading delay, then waits for Continue. It never starts the next round automatically.
+- Civilian traffic shares one phase, animated in scene-wide batches. Police and PCs retain separate actions.
+- Unresolved driving checks, police decisions, escape moves and incoming hit cards gate progression. Prompts do not silently expire. The console refreshes when a response resolves.
+- Travel collisions reach both the convoy movement path and native player-owned vehicle drags. Evasive rolls run automatically by default; the manual option remains.
+- Movement locks prevent another drag or Done from overtaking incident resolution. Stale Done clicks cannot advance twice. Cancelling assistance during its delay prevents the action.
+- Police ram/PIT responses wait for the driver. A failed police handling check ends movement rather than granting a half-speed follow-up.
+- Stop cards now resolve their outcomes. Success removes one star and offers one vehicle/foot escape move. Nonviolent failure means custody; a recorded gun crime or killing at high Heat can generate one incoming attack, with a response gate. Surrender means custody.
+- Breaking contact makes police search; staying beyond reach loses one star per round until zero. Helicopters no longer rubber-band to the target at round end.
+- Cross-map chases resume as a scene-bound pursuit rather than leaving a combat with no scene. Finish decisions before crossing maps.
+- Added regression coverage and updated world guide content. No live Foundry/Forge verification is claimed.
+
 # Changelog
+## 0.5.0 — chases, crashes and fire; Rep to 33; the crew bar and the Banana Watch (17 Oct 2026)
+- **Police chases go turn-based.** When a police unit gets eyes on a wanted player at the wheel (or anyone at two stars or more), the map becomes a chase in the Combat Console: the wanted, every unit after them and the four nearest passing cars. Real-time traffic and hunting pause on that map. Police units and traffic roll their own **speed dice** by their Performance die; a driver rolls the better of their own and their motor's.
+- **The movement gauge.** Every action behind the wheel is measured: **green** up to Speed (safe), **yellow** to 1½× (Handling −1 for the rest of the action and a Medium Wheels check), **red** to 2× (−2 and a Hard check). Nothing past red: a longer drag is shortened. The check pops up in chat the moment you cross a line; fail it and you skid, spin or crash — Body lost, riders thrown about, the action over. Coloured rings on the map show what's left; the Console shows the gauge. Flat tyres and damage shorten it. In a chase you drive on your own dice only.
+- **Incidents.** Drive a player's vehicle over another vehicle — traffic, a parked car, a GM-driven motor — and an **evasive manoeuvre** card appears (Wheels: Easy, Medium or Hard by how fast you were going). Fail and it's a collision: both vehicles damaged by speed and size, people inside hurt, you stop dead where you hit, and it's dangerous driving (or worse, if it's a police car) in front of witnesses. Every skid, crash, ram, PIT, shot and fire is logged on the motor's **Incidents** tab.
+- **Fire.** At **0 Body a motor catches fire** (flames, a light, and a card with a Get out! button for everyone inside). It goes up at the end of the next round in a fight, or after about fifteen seconds outside one — or straight away if it takes another solid hit. Anyone still inside takes 10 and is Burning; people and motors within four squares are caught too. What's left is a burnt-out shell. A garage or a roadside patch-up puts a fire out.
+- **Police and traffic with equal options.** In auto mode (the default; toggle it in the Console) units drive the real roads on their own dice: toward where you're going rather than where you are, stopping short of you, pushing into yellow and red with the same checks you make. Alongside they PIT you (hold it at Hard or spin and lose your next die) or ram you at three stars; at four, armed units shoot from the car; near someone on foot two officers get out and join the fight. Traffic carries on along its trip and pulls over for the blues. Players get the same: **Evasive** (+2 Guard), **Ram**, **PIT**, **Bail out**. Get 30 squares clear of every unit at the end of a round and you've lost them; the units search where they last saw you for a minute.
+- **Vehicle sheets like character sheets:** status, Body / Fuel / Guard / gauge / chase dice across the top, quick actions, tabs (Drive, Crew & Seats, Incidents, Story) and rollable moves — Drive, Evasive, Push it, Redline, Ram, PIT, Patch up (Graft, once until a garage sees it) and Hotwire. A crew die for NPC drivers.
+- **Rep runs to 33**, in five tiers — Street, Known, Firm, Guv'nor, Empire — from Nobody to Crime Lord, Emperor of the Smoke and **King of London**. Odd levels raise a stat, even levels add a perk, every third rolls Growth, each new tier adds Hustle; the tier sets the stat cap (d20 from Rep 27). Every mission in the campaign together reaches about Rep 19, so a crew finishes well inside the ladder. Uncle's back room opens at Rep 3, the good stuff at 6, "don't ask" at 9; the fences' bonus at 6; your own crew at 13. Existing characters keep their standing (old Rep 2/3/4/5 → 3/6/9/14, with the XP to match). The sheet shows the whole ladder.
+- **The crew bar:** every player character, always on screen. The GM clicks a face to go to their map and centre on them (or the motor they're in); hover for Rep, Health, Hustle, Guard, Heat, cash, conditions, where they are and what they're in; right-click for the sheet. Drag it, fold it.
+- **The Banana Watch:** an always-on world clock — day, date and time — on a smartwatch from Banana (the fruit with a bite out of it). In-game time runs while the game is unpaused, at a speed the GM sets (real time by default), or it shows real London time; the GM sets the clock from the crown. **The Blower is a Banana** now too: logo, clock on the status bar, a boot screen.
+- **Under the influence:** each high and each comedown has its own look on the player's own screen — Skunk's green haze, Charlie's wired jitter, Pills' swimming colours, Benzos' tunnel, Nitrous' wobble, Roids' red pulse, and grey, foggy, shaky comedowns (Mullered sways). A rush as it kicks in, a crash as the comedown starts. Every drug's high and comedown is checked to be added automatically; another of the same on the comedown lifts it and starts the high again. Subtle or off in Settings; the GM can preview each one.
+- **Two ways to play the missions** (the GM's call, on the Mission Board, GM Screen or Street Control): **Story mode** (default) — the GM runs the storyline; players get only the side work (shifts, Pat's orders, hustles) and the missions the GM starts. **Self-play** — players open, start, tick and finish any open mission themselves, whenever they like. The Mission Board has a button on the GM Screen, in Street Control and in the scene controls.
+- Suites: new `tests/driving.test.mjs` (the gauge, checks, incidents, collisions, fire, police and traffic choices), `tests/chase.test.mjs` (a whole chase on stand-ins: turn-based on sight, speed dice, the gauge refusing past red and out of turn, a failed check, a crash into a bus, fire and the explosion, police closing in and ramming, traffic, a lost die, auto mode, getting away) and `tests/extras-0-5.test.mjs` (crew bar, drug effects and comedowns, the watch, story mode and self-play, Rep migration); the advancement and shop suites cover the 33-level ladder.
+## 0.4.2 — traffic on the real roads, a sat nav that knows your motor (16 Oct 2026)
+- **Street Life traffic drives the real roads.** Each car gets a trip along the traced road network (the sat nav's, cut to the street map): in at one edge of the map and out at another, turning where the roads turn. It keeps to the left-hand lane, eases off for sharp corners (a kink right ahead is driven through), queues behind anything in its lane — another car, a bike, a player standing in the road — and pulls over for blue lights. Oncoming traffic and cars parked at the kerb don't hold it up. A car that leaves the map is replaced by one coming in at an edge; when Street Life first fills a map, cars start part-way along their trips. After a few blocked moves a car noses past other traffic (never past people).
+- **Smooth movement.** Every move is animated over the gap until the next one, so cars glide rather than hop. Moves now come every second by default (*Street Life: seconds between traffic moves*, 1–5) and there's a new *Street Life: traffic speed* setting (squares a second, default 2.5). Buses, vans and the fire pump run a little slower; a car fleeing a pursuit runs faster.
+- Older cars, a job's stolen car and patrol cars pick up a trip from where they are, the way they face. A job's car that reaches the edge turns back in instead of leaving.
+- **Police chase along the same roads**, a move every second, each animated: along the roads toward the wanted character, easing off for corners and stopping a couple of squares short. Area cars, Trojans, bikes and carriers each have their own chase speed. The helicopter still flies straight.
+- **Sat nav: the buyer only in the right motor.** On Pat's order the sat nav sends you back to The Arches only when you're driving a nicked bike that's on her order. On a BMX when she wants a Whippet, in a car, or in anything nobody will buy, it keeps you looking and says why (*Grit Kid BMX isn't on Pat's order*). It takes you to the nearest bike Kez tipped off, then the tip-off spots not yet seeded.
+- **Missions too.** A sale objective (*Bring Pat a Carbon Whippet*, *Deliver it to Bow Breakers Yard*) routes to the buyer only when you're driving a nicked motor that fits it. Until then it routes to the nearest parked or chained one worth nicking. A respray objective routes to the nearest bodyshop only once you're in a nicked motor. The opening's missions follow their own objectives (*Get to Broadway Market*, *Get to Uncle's Cafe*, *Get to Leyton*), so every one of them now has **Directions** on the Mission Board and the Blower.
+- **Street Control:** the scene-control button opens it once per press (no deprecated `onClick`, double fires ignored). It reuses the window if Game Settings already has it open and brings it forward. If something stops it opening you get an error message instead of nothing, and each part of the window is guarded so one odd actor can't stop it. *Fill streets* and *Clear* say what they did (or that the map is already full, or isn't a street map). The window shows how many cars are driving.
+- The sat nav and traffic share one road network, built once.
+- Suites: new `tests/traffic.test.mjs` covers every map's roads in and out, trips edge to edge in the left lane, corners, queueing, oncoming and parked traffic, leaving and being replaced, old cars picking up trips, blue lights, a simulated minute of traffic (always on a road, nobody driving into the car in front) and police chases. The sat nav suite covers the right-motor rules for Pat's orders and Missions 1, 2, 5 and 7. The import suite covers the Street Control button.
+## 0.4.1 — the campaign in the voice of the manor (15 Oct 2026)
+- **Every word of the Sandbox Campaign rewritten** as a Hackney local would tell it — slang and attitude, still quick to read at the table — in place of the plan's formal register. That covers all 96 career jobs and 20 local cases (hook, brief, scenes, objectives, heat, the choice, what follows), the twelve faction profiles, the nine chapters of the campaign book, the CH1–CH3 campaign expansions in the opening, and all 160 venues in the Venue Register (what's going on, getting in, coming back, moving in) with a line for every district. The original Handbook, GM's Book, guides and the opening's own missions are unchanged.
+- **Bigger jobs:** each job now has set pieces — phone-call jobs, chases, heists and double-crosses — and a **twist**. The twist at the end of every career is a proper finale, and the twists hook into each other (Pat's Arches, Vic's books, Rusk's money). The Quiet Ledger chapter lists every twist in one table so the GM can keep the double-crosses straight. Factions, people, places, maps, gates, fees, Renown and evidence routes are the same as before.
+- **The call:** a job now lands as a text thread from whoever's giving it — on the Mission Board, in the chat card when the GM starts the mission, and at the top of its journal page (on the giver's phone, with their portrait). Each journal page reads *The call*, objectives, *The score*, *How it goes down* (one line per scene, with linked room codes and the rolls), *The heat*, *Your call*, *What it leads to*, *The twist* and the Quiet Ledger.
+- **Worlds in progress:** objective ids are unchanged, so missions already started keep their ticks. Campaign journal pages a world still has exactly as 0.3.0 or 0.4.0 shipped them are refreshed on upgrade (`data/guide-history.json` now knows the 0.4.0 pages); pages you've written in are left alone.
+- Suites: the missions suite checks that every job and case has a call (two to five texts, the hook in one line), how it goes down, the heat, a twist at every career finale and on its page, and that the start card shows the thread.
 ## 0.4.0 — every campaign venue mapped, and the cast (15 Oct 2026)
 - **160 venue interiors**, one scene each, from the *NEED MAP Register*: six keyed rooms (zone plaques carry the register's codes, HB1.1 … HB1.6), connected as the register says (1–2, 2–3, 2–4, 3–5, 4–5, 5–6, 1–6) with a door on every connection, the public entry at room 1 and the loading or secondary arrival at room 6, each with its own way out. Sizes follow each brief (32×24 squares; 40×28 sports venues; 44×28 depots and the produce hall; 48×32 the stadiums and Westfield; 36×16 Barge East). Layouts are drawn per venue, so no two pubs are alike, and every room is furnished for what it is — nave and altar, bar and snug, cellar barrels, stalls, brewing tanks, print presses, a velodrome, a lido, a boxing ring, a mill wheel, a moored barge. Vehicles are never drawn: yards have marked loading and lorry bays for vehicle tokens.
 - **51 approach maps** for the venues off the drawn roads: a park or cemetery path, a square, a plaza, a side street of terraces, a market or depot gate, a yard under the railway arches, a stadium forecourt, a towpath or riverside. Each has the street it leaves (and the way back), an **ENTER** pin at each venue's front door and a **SERVICE** pin at its back way in; six serve two venues.

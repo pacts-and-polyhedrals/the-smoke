@@ -6,8 +6,9 @@ import {outcomeFromMargin, blinderTier, isSuccess, damageValue, damageConsequenc
 import {statPenalty, offGameFor, blocksEffortExplosion} from '../rules/conditions.mjs';
 import {suggestTN, successChance} from '../rules/difficulty.mjs';
 import {driverContext,seatInfo,isExposedSeat} from '../vehicles/vehicle-abilities.mjs';
-import {cannotDrive,CONDITION_EFFECTS} from '../rules/conditions.mjs';
+import {cannotDrive} from '../rules/conditions.mjs';
 import {isLeader, registerHandler, request} from '../world/net.mjs';
+import {tierOf} from '../rules/advancement.mjs';
 
 const esc = v => foundry.utils.escapeHTML(String(v ?? ''));
 const BAND_LABEL = {easy: 'Easy', medium: 'Medium', hard: 'Hard', miracle: 'Long Shot'};
@@ -42,7 +43,7 @@ export function prepareRoll(actor, stat, options = {}) {
   if (perk) notes.push(`Perk: ${perk.name}`);
   const state = onARoll && !offGame ? 'onARoll' : offGame && !onARoll ? 'offGame' : 'normal';
   const built = buildFormula({
-    effortDie, statDie: Number(actor.system.stats?.[stat]?.die ?? 4), stage: Number(actor.system.stage ?? 1), state,
+    effortDie, statDie: Number(actor.system.stats?.[stat]?.die ?? 4), stage: tierOf(actor.system.stage ?? 1), state,   // the Rep tier is the Covenant Stage
     modifier, perkApplies: Boolean(perk), statUpgrades, effortUpgrades: Math.max(0, effortUpgrades), effortDowngrades: Math.max(0, -effortUpgrades),
     noEffortExplosion: blocksEffortExplosion(conditions)
   });
@@ -144,8 +145,10 @@ async function rollAttackNow(actor, weapon, targetToken = null, options = {}) {
 }
 
 async function remoteRoll(type, actor, data) {
-  const token=actor.token??canvas?.scene?.tokens.find(t=>t.actorId===actor.id);
-  data.options={...data.options,sceneId:token?.parent.id??canvas?.scene?.id,tokenId:token?.id};
+  // Keep the token the caller named (a driver in a particular seat); only fill in what is missing.
+  const named=data.options?.sceneId&&data.options?.tokenId;
+  const token=named?null:actor.token??canvas?.tokens?.controlled?.find?.(t=>t.actor?.id===actor.id)?.document??canvas?.scene?.tokens.find(t=>t.actorId===actor.id);
+  data.options={...data.options,sceneId:data.options?.sceneId??token?.parent?.id??canvas?.scene?.id,tokenId:data.options?.tokenId??token?.id};
   const response = await request(type, {actorUuid:actor.uuid, ...data});
   return response ? {result:response.result, message:game.messages.get(response.messageId) ?? {id:response.messageId}, roll:null} : null;
 }
@@ -155,15 +158,38 @@ async function authorizedActor(actorUuid, userId) {
   return actor;
 }
 const rollReply = out => out ? {messageId:out.message.id, result:out.result} : null;
+/** Only the escaped notes list the Combat Console sends may ride along in a GM-authored roll card. */
+const SAFE_EXTRA = /^<ul class="smoke-notes">(<li>[^<>]*<\/li>)*<\/ul>$/;
+/** Options a player's client may set on a roll the leader makes for them. Card HTML, whispers and state handling stay
+ * the leader's; anything else is dropped. */
+export function remoteRollOptions(options = {}, userId = null) {
+  const o = options && typeof options === 'object' ? options : {};
+  const out = {};
+  for (const k of ['band', 'tn', 'label', 'modifier', 'hustle', 'perk', 'effortDie', 'effortUpgrades', 'statUpgrades', 'vehicle', 'sceneId', 'tokenId', 'context', 'fixedTarget'])
+    if (o[k] !== undefined) out[k] = o[k];
+  if (out.label != null) out.label = String(out.label).slice(0, 200);
+  if (typeof o.cardExtra === 'string' && SAFE_EXTRA.test(o.cardExtra)) out.cardExtra = o.cardExtra;
+  // A second GM's client (not the leader) may still whisper its rolls or keep On a Roll / Off Your Game.
+  if (game.users?.get?.(userId)?.isGM) { if (Array.isArray(o.whisper)) out.whisper = o.whisper.map(String); if (o.consumeState === false) out.consumeState = false; }
+  out.requestedBy = userId;
+  return out;
+}
+/** Tell the player (not the GM's screen) when their Hustle won't cover the roll. */
+function checkHustle(actor, stat, options) {
+  const need = prepareRoll(actor, stat, options).hustle;
+  const have = Number(actor.system.resources?.hustle?.value ?? 0);
+  if (need > have) throw new Error(`${actor.name} has only ${have} Hustle.`);
+}
 registerHandler('dice.stat', async ({actorUuid, stat, options={}, userId}) => {
-  const actor = await authorizedActor(actorUuid,userId);
-  return rollReply(await rollStat(actor,stat,{...options,requestedBy:userId}));
+  const actor = await authorizedActor(actorUuid,userId), opts = remoteRollOptions(options, userId);
+  checkHustle(actor, stat, opts);
+  return rollReply(await rollStat(actor,stat,opts));
 });
 registerHandler('dice.attack', async ({actorUuid, weaponId, targetUuid, options={}, userId}) => {
   const actor = await authorizedActor(actorUuid,userId), weapon = weaponId ? actor.items.get(weaponId) : null;
   if (weaponId && weapon?.type !== 'weapon') throw new Error('Weapon not found on this character.');
   const target = targetUuid ? await fromUuid(targetUuid) : null;
-  return rollReply(await rollAttack(actor,weapon,target,{...options,requestedBy:userId}));
+  return rollReply(await rollAttack(actor,weapon,target,remoteRollOptions(options, userId)));
 });
 
 /** Roll dialog: band or TN, Hustle, Perk, modifier. Returns the rollStat promise or null. */

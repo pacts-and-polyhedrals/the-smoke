@@ -1,7 +1,7 @@
 // The GM Screen: one window for everything the GM throws at the players. Pick who it's for on the left; post quick
 // checks, teamwork and opposed checks, hazards (harm applied automatically), street and police events with their
 // automations; set Heat, report crimes, hand out cash, XP and kit; make up NPCs; see the party's real odds; open every tool.
-import {NS, STATS, STAT_KEYS, HEAT, CRIMES} from '../config.mjs';
+import {NS, STATS, STAT_KEYS, HEAT, CRIMES, crimeHeatText} from '../config.mjs';
 import {clampHeat} from '../rules/core.mjs';
 import {partyLadder} from '../rules/difficulty.mjs';
 import {QUICK_GROUPS, QUICK_CHECKS, TEAMWORK, HAZARD_GROUPS, HAZARDS, STREET_EVENTS, POLICE_EVENTS, NPC_ROLES} from '../gm/catalogue.mjs';
@@ -65,14 +65,15 @@ export class SmokeGMScreen extends HandlebarsApplicationMixin(ApplicationV2) {
         lines: [['Just About', h.narrow], ['Bad Luck', h.costly], ['Proper Mess', h.severe]].filter(([, c]) => c).map(([label, c]) => ({label, text: describeConsequence(c) + (h.armoured && c.damage ? ' (armour helps)' : '')}))}))})),
       streetEvents: STREET_EVENTS, lastEvent: this.lastEvent, policeEvents: POLICE_EVENTS.map(p => ({...p, bandLabel: BAND[p.band], stats: stats(p.responses)})),
       heatRows: chars.filter(c => c.checked).map(c => ({...c, stars: [0, 1, 2, 3, 4, 5].map(n => ({n, on: n <= c.heat && n > 0, now: n === c.heat}))})), heatNames: HEAT.map(h => h.name),
-      crimes: Object.entries(CRIMES).map(([key, c]) => ({key, label: `${c.label} (+${c.heat})`})),
+      crimes: Object.entries(CRIMES).map(([key, c]) => ({key, label: `${c.label} (${crimeHeatText(c)})`})),
       itemGroups: Object.entries(types).map(([type, label]) => ({label, items: (lib.items || []).filter(i => i.type === type).map(i => i.name)})),
       npcRoles: NPC_ROLES.map(r => ({...r, selected: r.key === this.npcRole})), npc: this.npc ? {...this.npc, line: npcLine(this.npc)} : null,
       odds: STAT_KEYS.map(k => ({abbr: STATS[k].abbr, label: STATS[k].label, cells: partyLadder(party, k).map(b => ({label: b.label, tn: b.tn, pct: Math.round(b.chance * 100)}))})),
       oddsFor: subjects.length ? subjects.map(a => a.name).join(', ') : 'all characters',
       statOptions: STAT_KEYS.map(k => ({key: k, label: STATS[k].label})),
       npcTokens: (canvas?.scene?.tokens ?? []).filter(t => t.actor && t.actor.type === 'npc').map(t => ({id: t.id, name: t.name})),
-      tools: GM_TOOLS, isGM: game.user.isGM
+      tools: GM_TOOLS, isGM: game.user.isGM, selfPlay: (() => { try { return game.settings.get(NS, 'playMode') === 'self'; } catch (_e) { return false; } })(),
+      highs: ['Blazed', 'Wired', 'Loved Up', 'Numb', 'Giggling', 'Pumped', 'Foggy', 'Crashing', 'Wrung Out', 'Jittery', 'Roid Rage', 'Mullered']
     };
   }
 
@@ -135,6 +136,8 @@ export class SmokeGMScreen extends HandlebarsApplicationMixin(ApplicationV2) {
     on('[data-spawn]', n => { const k = n.dataset.spawn; if (k === 'fill') return request('traffic.populate', {sceneId: canvas.scene.id}); if (k === 'clear') return request('traffic.clear', {sceneId: canvas.scene.id}); return runAuto(k, {scene: canvas.scene, actorIds: []}); });
     // tools
     on('[data-tool]', n => openTool(n.dataset.tool, [...this.selected].find(id => game.actors.get(id))));
+    on('[data-play-mode]', n => game.smoke.missions.setMode(n.dataset.playMode));
+    on('[data-preview-high]', n => game.smoke.drugFX.preview(n.dataset.previewHigh, 10));
   }
 }
 

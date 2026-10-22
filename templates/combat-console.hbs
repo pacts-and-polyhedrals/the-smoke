@@ -1,19 +1,23 @@
 <div class="smoke-cc">
   {{#if combat}}
+  {{#if chase}}<div class="cc-chase"><i class="fa-solid fa-car-on"></i> <b>{{chase.reason}}</b> · turn-based · <b>{{chase.mode}}</b>
+    {{#if canManage}}<span class="cc-chase-gm"><button type="button" data-chase-mode="full" title="NPCs advance themselves, while waiting for player decisions" {{#if chase.full}}disabled{{/if}}>Full Auto</button><button type="button" data-chase-mode="assisted" {{#if chase.assisted}}disabled{{/if}}>Assisted</button><button type="button" data-chase-mode="manual" {{#if chase.manual}}disabled{{/if}}>Manual</button>{{#if isGM}}<button type="button" data-end-chase title="Call off the chase"><i class="fa-solid fa-flag-checkered"></i></button>{{/if}}</span>{{/if}}</div>{{/if}}
+  {{#if chase.error}}<div class="cc-tip cc-waiting" role="status"><b>Automation paused after a failed transition:</b> {{chase.error}}. GM: inspect the outcome; switch to Manual to advance safely or choose Full Auto to retry.</div>{{/if}}
   <header class="cc-head">
-    <div><span class="kicker">ROUND {{round}}</span><h2>{{phaseLabel}}</h2></div>
-    {{#if isGM}}<div class="cc-gm">
+    <div><span class="kicker">{{#if chase}}CHASE · {{/if}}ROUND {{round}}</span><h2>{{phaseLabel}}</h2></div>
+    {{#if canManage}}<div class="cc-gm">
       {{#if (eq phase "idle")}}<button type="button" class="hot" data-begin><i class="fa-solid fa-play"></i> Begin round</button>{{/if}}
-      {{#if (eq phase "intent")}}<button type="button" data-npc-roll><i class="fa-solid fa-dice"></i> Roll for NPCs</button><button type="button" class="hot" data-reveal><i class="fa-solid fa-eye"></i> Reveal</button><button type="button" data-reveal="force" title="Reveal without waiting"><i class="fa-solid fa-forward"></i></button>{{/if}}
-      <button type="button" data-end-fight title="End the fight"><i class="fa-solid fa-flag"></i></button>
+      {{#if (eq phase "intent")}}<button type="button" data-npc-roll><i class="fa-solid fa-dice"></i> Roll for NPCs</button><button type="button" class="hot" data-reveal><i class="fa-solid fa-eye"></i> Reveal</button>{{#if isGM}}<button type="button" data-reveal="force" title="Reveal without waiting"><i class="fa-solid fa-forward"></i></button>{{/if}}{{/if}}
+      {{#if isGM}}<button type="button" data-end-fight title="End the fight"><i class="fa-solid fa-flag"></i></button>{{/if}}
     </div>{{/if}}
   </header>
   {{#if (eq phase "intent")}}<p class="cc-tip">{{#if waiting}}Waiting on: <b>{{waiting}}</b>. {{/if}}Your dice stay private until the GM reveals them. Each die is one action; highest goes first.</p>{{/if}}
   <div class="cc-body">
+    {{#if hasPending}}<div class="cc-tip cc-waiting" role="status"><b>Waiting for an encounter action</b>{{#each pendingDetails}}<p>{{text}}{{#if canReview}} <button type="button" data-review-prompt="{{tokenId}}:{{pid}}">GM: certify saved result</button>{{else}}{{#if canCancel}} <button type="button" data-cancel-prompt="{{tokenId}}:{{pid}}">GM: cancel obsolete unrolled check</button>{{/if}}{{/if}}</p>{{/each}}</div>{{/if}}
     <ul class="cc-roster">{{#each rows}}
-      <li class="{{#if current}}current{{/if}} {{#if pc}}pc{{else}}npc{{/if}}"><img src="{{img}}" alt="" data-ping="{{id}}">
-        <div class="cc-who"><b>{{name}}</b><small>{{#if hpMax}}{{hp}}/{{hpMax}} HP{{/if}}{{#if heat}} · {{heat}}★{{/if}}{{#if cover}} · {{cover}}{{/if}}{{#if aiming}} · aiming{{/if}}{{#if dodging}} · dodging{{/if}}</small>{{#if conditions}}<small class="cc-cond">{{conditions}}</small>{{/if}}</div>
-        <div class="cc-dice">{{#if out}}<span class="cc-out">OUT</span>{{else}}{{#if canRoll}}<button type="button" class="hot" data-roll-speed="{{id}}"><i class="fa-solid fa-dice"></i> Roll {{count}}d6</button>{{else}}{{#if hidden}}<span class="cc-secret">◈ LOCKED</span>{{else}}{{#each dice}}<span class="smoke-die {{#if spent}}spent{{/if}}">{{v}}</span>{{else}}<span class="cc-wait">{{count}}d6</span>{{/each}}{{/if}}{{/if}}{{/if}}</div>
+      <li class="{{#if current}}current{{/if}} {{#if pc}}pc{{else}}npc{{/if}} {{kind}}"><img src="{{img}}" alt="" data-ping="{{id}}">
+        <div class="cc-who"><b>{{#if kind}}<i class="fa-solid {{#if (eq kind "police")}}fa-car-on{{else}}{{#if (eq kind "traffic")}}fa-car-side{{else}}fa-shield-halved{{/if}}{{/if}}"></i> {{/if}}{{name}}{{#if burning}} <i class="fa-solid fa-fire cc-fire" title="On fire"></i>{{/if}}</b><small>{{#if hpMax}}{{hp}}/{{hpMax}} {{#if vehicle}}Body{{else}}HP{{/if}}{{/if}}{{#if driving}} · in {{driving}}{{/if}}{{#if heat}} · {{heat}}★{{/if}}{{#if cover}} · {{cover}}{{/if}}{{#if aiming}} · aiming{{/if}}{{#if dodging}} · dodging{{/if}}</small>{{#if conditions}}<small class="cc-cond">{{conditions}}</small>{{/if}}</div>
+        <div class="cc-dice">{{#if out}}<span class="cc-out" title="{{outTitle}}">{{outLabel}}</span>{{else}}{{#if canRoll}}<button type="button" class="hot" data-roll-speed="{{id}}"><i class="fa-solid fa-dice"></i> Roll {{count}}d6</button>{{else}}{{#if hidden}}<span class="cc-secret">◈ LOCKED</span>{{else}}{{#each dice}}<span class="smoke-die {{#if spent}}spent{{/if}} {{#if lost}}lost{{/if}}" {{#if lost}}title="Lost to Stunned"{{/if}}>{{v}}</span>{{else}}<span class="cc-wait">{{count}}d6</span>{{/each}}{{/if}}{{/if}}{{/if}}</div>
       </li>{{/each}}</ul>
 
     {{#if queue.length}}<h3>The order</h3>
@@ -22,7 +26,27 @@
     {{#if current}}
     <section class="cc-turn {{#if current.mine}}mine{{/if}}">
       <header><span class="kicker">UP NOW · DIE {{current.value}}</span><h2>{{current.name}}</h2></header>
+      {{#if gauge}}
+      <div class="cc-gauge band-{{gauge.band}}{{#if gauge.stopped}} stopped{{/if}}">
+        <div class="cc-gauge-head"><b>{{gauge.name}}</b><span>{{gauge.moved}} / {{gauge.red}} squares · <b class="lbl">{{gauge.label}}</b>{{#if gauge.evasive}} · evasive{{/if}}{{#if gauge.burning}} · <i class="fa-solid fa-fire"></i> ON FIRE{{/if}}</span></div>
+        <div class="cc-gauge-bar"><span class="g" style="width:{{gauge.pg}}%"></span><span class="y" style="width:{{gauge.py}}%"></span><span class="r" style="width:{{gauge.pr}}%"></span><i class="mark" style="left:{{gauge.at}}%"></i></div>
+        <div class="cc-gauge-key"><span class="g">Green to {{gauge.green}} · safe</span><span class="y">Yellow to {{gauge.yellow}} · Handling −1, Medium check</span><span class="r">Red to {{gauge.red}} · −2, Hard check</span></div>
+        {{#if gauge.stopped}}<p class="cc-tip">Lost it: no more driving this action.</p>{{else}}<p class="cc-tip">{{gauge.left}} squares left this action. Drag the vehicle; the rings on the map show how far each band reaches.</p>{{/if}}
+      </div>{{/if}}
+      {{#if current.npc}}
+      {{#if busy}}<p class="cc-tip" role="status">One action is running. Please wait…</p>
+      {{else}}{{#if review}}<p class="cc-tip">Read the outcome, answer any card, then continue.</p>{{#if canManage}}<button type="button" class="cc-done" data-next {{#if hasPending}}disabled{{/if}}>Continue — next turn</button>{{/if}}
+      {{else}}{{#if canRunNPC}}<button type="button" class="ai hot" data-npc-turn>{{#if current.traffic}}Move all civilian traffic{{else}}Run one police / NPC action{{/if}}</button>{{/if}}
+      {{#if chase.auto}}<p class="cc-tip">{{#if chase.full}}Full Auto will move on when its action is safely resolved.{{else}}Assistance waits a few seconds, then pauses for GM review.{{/if}}</p>{{else}}{{#if canManage}}<button type="button" data-next {{#if hasPending}}disabled{{/if}}>Done manually — next turn</button>{{/if}}{{/if}}
+      {{/if}}{{/if}}
+      {{else}}
       {{#if current.mine}}
+      {{#if current.driving}}<div class="cc-actions cc-drive">
+        <button type="button" data-act="evasive" title="+2 Guard against rams, PITs and shots until the end of the round"><i class="fa-solid fa-arrows-left-right"></i> Evasive</button>
+        <button type="button" data-act="ram"><i class="fa-solid fa-car-burst"></i> Ram</button>
+        <button type="button" data-act="pit" title="Clip their back wheel: they hold it (Hard) or spin and lose a die"><i class="fa-solid fa-rotate-right"></i> PIT</button>
+        <button type="button" data-act="vsheet"><i class="fa-solid fa-gauge-high"></i> Vehicle</button>
+      </div>{{/if}}
       <div class="cc-actions">
         <button type="button" class="hot" data-act="attack"><i class="fa-solid fa-crosshairs"></i> Attack</button>
         <button type="button" data-act="grab"><i class="fa-solid fa-hand"></i> Grab</button>
@@ -30,24 +54,26 @@
         {{#if current.grabbed}}<button type="button" data-act="free"><i class="fa-solid fa-person-running"></i> Break free</button>{{/if}}
         <button type="button" data-act="aim"><i class="fa-solid fa-bullseye"></i> Aim</button>
         <button type="button" data-act="dodge"><i class="fa-solid fa-person-falling"></i> Dodge (+2 Guard)</button>
-        {{#if current.driving}}<button type="button" data-act="ram"><i class="fa-solid fa-car-burst"></i> Ram</button>{{/if}}
+        {{#if current.seated}}<button type="button" data-act="bail"><i class="fa-solid fa-person-walking-arrow-right"></i> Bail out</button>{{/if}}
         <button type="button" data-act="sheet"><i class="fa-solid fa-suitcase"></i> Use kit</button>
         <button type="button" data-act="surrender"><i class="fa-solid fa-hands"></i> Surrender</button>
         {{#if current.police}}{{#if isGM}}<button type="button" class="ai" data-act="police"><i class="fa-solid fa-robot"></i> Police AI</button>{{/if}}{{/if}}
       </div>
       <div class="cc-row"><span>Cover:</span>{{#each current.cover}}<button type="button" data-cover="{{key}}">{{label}}</button>{{/each}}</div>
       {{#if current.weapons.length}}<div class="cc-row"><span>Reload:</span>{{#each current.weapons}}<button type="button" data-reload="{{id}}"><i class="fa-solid fa-rotate"></i> {{name}}</button>{{/each}}</div>{{/if}}
-      <p class="cc-tip">Moving is free with any action: drag your token up to 6 squares (more if you leg it with this die). When you are done:</p>
-      <button type="button" class="cc-done" data-next><i class="fa-solid fa-check"></i> Done — next</button>
-      {{else}}<p class="cc-tip">Not your go. Watch your back.</p>{{/if}}
+      <p class="cc-tip">{{#if current.driving}}Driving is your move this action: drag the vehicle along the road.{{else}}Moving is free with any action: drag your token up to 6 squares (more if you leg it with this die).{{/if}} When you are done:</p>
+      <button type="button" class="cc-done" data-next {{#if hasPending}}disabled{{/if}}><i class="fa-solid fa-check"></i> Done — next</button>
+      {{else}}<p class="cc-tip">{{#if current.npc}}{{#if chase.auto}}The AI is taking this one…{{else}}Not your go. Watch your back.{{/if}}{{else}}Not your go. Watch your back.{{/if}}</p>{{/if}}
+      {{/if}}
     </section>
     {{/if}}
-    {{#if (eq phase "idle")}}<p class="cc-tip">{{#if isGM}}Begin the next round when everyone has moved their tokens.{{else}}Waiting for the GM to begin the round.{{/if}}</p>{{/if}}
+    {{#if (eq phase "idle")}}<p class="cc-tip">Round complete. {{#if canManage}}Press Begin round when everyone is ready.{{else}}Waiting for the next round.{{/if}} {{#if chase.full}}Full Auto begins the next round after all responses are clear.{{else}}Begin the next round when everyone is ready.{{/if}}</p>{{/if}}
   </div>
   {{else}}
   <div class="cc-empty"><i class="fa-solid fa-crosshairs"></i>
-    {{#if isGM}}<p>No fight on this map. Select the tokens in it (and/or target them), then:</p><button type="button" class="hot" data-start><i class="fa-solid fa-hand-fist"></i> Start a fight ({{selected}} selected)</button>
-    <p class="cc-tip">From a police stop, use "They fight" on the stop card: officers get out and the fight starts.</p>
+    {{#if canStart}}{{#if isGM}}<p>No fight on this map. Select the tokens in it (and/or target them), then:</p><button type="button" class="hot" data-start><i class="fa-solid fa-hand-fist"></i> Start a fight ({{selected}} selected)</button>{{/if}}
+    <button type="button" data-start-chase title="Everyone wanted on this map, the police units after them and the nearest traffic"><i class="fa-solid fa-car-on"></i> Start a police chase</button>
+    <p class="cc-tip">Chases run in Full Auto by default. The GM can switch to Assisted or Manual at any point.</p>
     {{else}}<p>No fight on. Long may it last.</p>{{/if}}
   </div>
   {{/if}}

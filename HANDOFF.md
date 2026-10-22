@@ -1,32 +1,106 @@
-# The Smoke · v0.4.0 handoff
+# The Smoke v0.5.24 — handoff note (player right-click)
 
-Inputs: the v0.2.0 build (GM Screen, Combat Console, shops, missions, Character Creator and levelling, 133-item library, the books) and the uploaded v0.1.3 (live pirate radio, local services, first aid, rest, advances, the hardened leader request channel, job/vehicle/heat/transit fixes, the numbered guides, the 0.1.2 kit and NPC notes). Both are combined here; CHANGELOG.md lists what came from where and the few overlaps that were unified (one rest rule, one set of service prices, one chat-button handler, one sheet per document type).
+- `installPlayerInteractions()` must run at **init**. Foundry's interaction manager holds a token's `_canHUD` and `_onClickRight` from the moment the token is drawn, and the first map is drawn before `ready`.
+  - It patches `foundry.canvas.placeables.Token`, a replacement in `CONFIG.Token.objectClass`, and (in tests) a plain global `Token`.
+  - It re-arms already-drawn tokens' `mouseInteractionManager.permissions/callbacks.clickRight` on install and on every `canvasReady`.
+- `theft.mjs`:
+  - `carjackable(vt)` = moving traffic, or a Street Life NPC (ambient crew) at the wheel of a non-police motor.
+  - The Carjack action, the carjack handler, the nick handler and the boarding gate all use it.
 
-Implemented and checked against Foundry stand-ins: 15 automated suites, template compile/render checks, a full compendium audit and interface previews (see VALIDATION.md).
+---
 
-Still needs a real environment: a licensed live Foundry 14 / Forge acceptance run (VALIDATION.md) and the GitHub release upload (INSTALL.md). No verified compatibility claim is made.
+# The Smoke v0.5.23 — handoff note (sat nav, graffiti choices, sweep)
 
-## Sat nav (0.2.4)
+- **Sat nav** (`map/satnav.mjs`):
+  - `missionTarget` handles cargo through `cargoTarget` (parcel token, else pickup; handover once held) and graffiti through `paintSiteTarget` (surface token, else the `missionPaintPosition` kerb).
+  - When nothing open has a place, it walks back to the last placed objective before the first open one.
+  - `zonePlace` resolves a block on a street map, venue or interior.
+  - `tests/satnav-missions.test.mjs` checks every mission; run it after changing mission data.
+- **Paint choices** (`graffiti/paint-choices.mjs`, pure):
+  - `paintChoices` picks Tag Studio's surface, commission, tag and hint.
+  - `paintShortfall` explains a paint that didn't count; `graffiti.paint` returns it as `note`.
+- **Missions** (`world/missions.mjs`):
+  - `mission.crew` changes `actorIds` of an active mission (runner permission).
+  - `crewWhereabouts` ticks map objectives at start; a `createToken` hook ticks them for directly placed characters (transit already fires `smokeTransit`).
+- **Objective wording:** tagging objective texts are player-facing; the `auto` rules are unchanged.
 
-`module/map/satnav-core.mjs` (pure, tested in `tests/satnav.test.mjs`) builds one road network from the traced road lines each street map stores: the 20 maps are tiles of one London (global position = col × 4200 + x, row × 2700 + y; the overview is the same city at 0.32), shared road pieces are merged, crossings become junctions, a road end that stops within reach of another road's drawn edge joins it, and two stray pieces are bridged (Broadway Market, Westfield Ave). Routes use Dijkstra (drivers favour A/B roads and keep off footpaths). `module/map/satnav.mjs` is the client-side HUD (a fixed element in `#interface`, left of the sidebar), the job-target rules, the PIXI route on the canvas (v7 `lineStyle` or v8 `stroke`) and the Blower hooks. `assets/maps/satnav/london-satnav.webp` is the overview's map area (0,0 → 6720×3456) at half size; regenerate it if the overview art changes. Client settings: distances (miles/yards or metric), draw the route on the map; the current route survives a reload.
+---
 
-## Sandbox Campaign (0.3.0)
+# The Smoke v0.5.22 — handoff note (Heat ladder, lag guards, mission buses)
 
-Source: the user's *The Smoke — Sandbox Campaign Plan* (Word) and *NEED MAP Register* (text), kept in `build/ref/campaign/` with the pandoc HTML of the plan. The build is:
-- `london_campaign.py` parses the plan HTML into chapters, 12 faction profiles, 96 commissions, 20 local cases, 160 venue cards (with their street-map anchor zones, all checked against the atlas) and the mapped interiors and street scenes; every internal link becomes a `data-ref` code.
-- `campaign_missions.py` is the authored layer: each new mission's giver, hook (in the opening missions' voice) and 4–5 objectives, with the district that ticks an objective on arrival.
-- `london_missions.py` assembles `data/london-missions.json`: the 12 opening missions (CH1–CH3 = Missions 1–3, gaining Chainring Renown, gates and the plan's scenes) plus 113 campaign missions with offer gates, Renown/Influence awards, crew fees, places and sat-nav stops; `factions`, `ranks`, `groups` and `refs` (code → journal page) for the board.
-- `london_campaign_books.py` writes the 15 GM journals; plan links become `@UUID` content links. `faction_emblems.py` draws the 13 emblems in `assets/emblems/factions/`.
-Runtime: `module/world/missions.mjs` keeps the `factions` world setting (Renown, Influence, stance) beside the mission state; a faction mission is available when its requirements are met and the crew's Renown with the faction reaches its gate; passing pays the crew fee split, XP and Renown (local cases: the GM picks one of two factions), restores Influence up to the rank cap. The Mission Board groups the opening, careers and cases, has a Factions & Renown panel, opens plan links, and gives Directions via the sat nav. Per-interior access states (Known/Entered/Trusted/Claimed) are still recorded by the GM in the Venue Register, not as data.
+- **Heat:** `CRIMES` entries carry `heat`, optional `min` (floor) and `cap` (ceiling). `heatAfterCrime` raises Heat to at least `min`, adds the police +1 (not for crimes with `min ≥ 4`), clamps to `cap`, and never lowers it. Show crimes with `crimeHeatText(c)`. Add a crime there, not in the guides by hand: `scripts/journals/rules.mjs` builds the table from it (`CRIME_LADDER`, `policeSent()`).
+- **Killings:** `reportKill(attacker, targetToken, {before, lethal, seen, byPolice})` in combat.mjs. Call it after any damage path that can take a person to 0 (auto damage in `combat.hit`; `combat.resolve` in gameplay.mjs).
+- **Response:** `policeResponse(stars)` gives the per-star wish list. `respondNow` stops at the `policeMaxUnits` setting (ground units only). `scaleBack(scene)` runs after Heat changes and sends home unseen, free, unparked extras.
+- **Loops:** wrap any new per-second loop with `slowGuard.resting(name)` / `slowGuard.took(name, ms, intervalMs)`. Write vehicle moves with `withMeters(scene, updates, source)` in one batch, never a second write per vehicle. Crew bar hooks must ignore tokens that are not PCs or carrying PCs.
+- **Mission buses:** `parkMissionBus` in graffiti/runtime.mjs; the bus token carries the site's `tagSpot` flags plus `missionProp`. `parkedAlong` (mission-placements.mjs) puts a vehicle at the kerb, along the road.
+- **Guides:** `refreshShippedPages(pick)` in content.mjs refreshes chosen pages between guide editions without touching GM edits. Old fingerprints go into `data/guide-history.json`. Migration 4 uses it for the Heat pages.
 
-## Campaign maps and cast (0.4.0)
+---
 
-Build order (all in `build/tools/`, writing into the system folder):
-1. `london_register.py` parses `ref/campaign/The-Smoke-NEED-MAP-Register.txt` (160 venues: rooms, connections, brief size, host anchor, contact, approach; 51 approaches: anchor, serves, scope).
-2. `london_venue_maps.py OUT SYSTEM` builds everything map-side: `london_venues.py` lays out and draws each interior (`venue_layout.py`: every slicing floorplan of six rooms whose linked rooms share a wall is enumerated once into `out/venue-topologies.json`, then each venue picks a good one for its room sizes, deterministically by code; `venue_rooms.py`: room kinds from the room names, sizes and one furnisher per kind; `venue_furniture.py`: the extra pieces and the placement helper that keeps doors, lanes and plaques clear); `london_approaches.py` draws the 51 approaches from eleven templates (park, churchyard, street, square, plaza, market, depot, yard, arches, stadium, canal/riverside — the table `APPROACH` picks one per code); pins are placed on each street map's traced roads near the anchor (off-road only on the Marshes and once in Stratford) and drawn as transparent overlays. It writes `data/london-venues.json` and adds the `venue: true` door links to `data/london-street-atlas.json` (re-runnable: old venue doors are replaced first). Keep `out/streets-base/` (the street maps without pins): the overlays are composited onto those copies.
-3. Render: `node render-many.cjs out/venues-svg out/venues-png 2` (about 3 s a map on two cores; `SKIP_EXISTING=1` resumes), then webp at quality 74 into `assets/maps/venues/` and 640-px thumbnails into `assets/maps/thumbs/venues/`; `out/street-pins-svg` → PNG → composited over `out/streets-base/*.webp` into `assets/maps/streets/` (refresh the street thumbnails too).
-4. `london_cast.py out/cast-svg SYSTEM` gathers the cast (faction people listed in `FACTION_PEOPLE`, extra givers, every register contact; names are merged by key, nicknames and titles dropped) and writes `data/london-cast.json` and token SVGs (render at 512, save 256 webp as `assets/tokens/people/cast-<key>.webp`).
-5. `node dump_rules.mjs SYSTEM out/rules.json` then `python3 london_books.py SYSTEM out/rules.json` (missions: stops gain `placeId`/`approach`, objectives `auto.mapIds`, missions `cast`, giver portraits; journals: the Venue Register figures, MAPPED text).
-6. `node guide-history.mjs SYSTEM release/*.zip` (fingerprints of earlier releases' pages), then `node build-packs.mjs SYSTEM VERSION` (new packs `london-venues` (Scene) and `campaign-cast` (Actor); guide pages carry `textHash`).
+# The Smoke v0.5.18 — handoff note (escape move)
 
-Runtime: `map-transit.mjs` loads `london-venues.json` beside the atlas and places, imports venues on demand (`findOrImportScene`, `importVenueMaps`), files them by `place.kind`/`districtCode`, and `streetDoorOf` finds a venue's street door through its approach; `satnav.mjs` `doorOf` follows the same chain; `world/cast.mjs` brings cast members in; `content.mjs` `updateGuide` refreshes untouched pages (`module/text-hash.mjs`). Not done: per-venue access state as data, and placing the cast's tokens on the venue maps automatically (the GM drags them in).
+- `pursuit.mjs`: `finishEscape(t, s, combat)` ends an escape move (one place for the card, search and chase-end check). `chase.respond` *finish* refuses players who haven't moved; `chase.footMove` lets the escaper move whatever the dice say, clamps an over-long drag to whole squares, and finishes when under one square is left. `finishEscapeWhenSettled(pilot)` does the same for a vehicle once its move has settled (called from `watch` in incidents.mjs); the vehicle gate clamps the escape drive like the red line.
+- `drive-gauge.mjs`: `footReach(scene)` returns the escape (or on-foot current die) ring to draw; it takes priority over the vehicle rings while an escape is open.
+
+---
+
+# The Smoke v0.5.17 — developer handoff (speed dice & scrolling)
+
+- **Speed dice:** `speedFor(combatant)` (combat.mjs) returns `{count, why}`; `beginRound` stores both on `flags.the-smoke.speed` with every key reset (`results`, `lost`, `stunned`, …) so nothing survives Foundry's flag merge. The Console's `outLabel` shows the `why`.
+- **Surrender is per fight:** `combat.surrender` also writes `flags.the-smoke.surrenderedIn = combat.id`; `surrenderedIn(actor, combat)` is what costs dice. It is cleared on `deleteCombat`/`deleteCombatant` (gameplay.mjs), rest, Busted and Wasted, and by `clearStaleSurrenders()` when the GM loads the world. Code that reads the raw `system.states.surrendered` (cuffing, police choices, chase wanted lists) relies on that clean-up.
+- **Late joiners / Stunned:** hooks in `installCombat()` queue `combat.dealIn` (createCombatant) and `combat.stunned` (a Stunned condition item created) through the world queue, so they never race a Done or a reveal. `R.stunnedDrop` picks the die to lose.
+- **Scrolling:** the 0.5.17 block at the end of `styles/the-smoke.css` (window content always scrollable; Street Control, Tag Studio, rails; dialogs scoped by `body.smoke-system`, which the system adds at init). `module/apps/fit-menus.mjs` groups Smoke Token HUD buttons into `.smoke-hud-group` (display: contents until it must scroll), slides overhanging columns onto the screen, and `keepOnScreen` for pop-ups. New HUD buttons only need a `control-icon smoke-…` class to be included.
+
+---
+
+# The Smoke v0.5.16 — developer handoff (audit release)
+
+Read **AUDIT-v0.5.16.md** first: it lists every finding, the fix, and what was left alone on purpose. Code-level notes for whoever works on it next:
+
+- **Mission state:** never `game.settings.set(NS,'missions',…)` directly. Use `withMissionState(st => …)` from `module/world/missions.mjs` (one queue, fresh read; return `NO_WRITE` to skip the write). `missionEvent`, the mission handlers and `mission-props` all go through it. Don't call `missionEvent` or another `withMissionState` from inside a mutator (it would wait on itself).
+- **Request queue:** `dispatch` in `module/world/net.mjs` lets the next action through if one stalls past `QUEUE_STALL_MS` (45 s; `setQueueStallMs` for tests). Handlers must still never `await request()` for work that runs on the leader.
+- **Tokens in play:** use `actorToken(actor, {userId})` from `module/world/spawn.mjs` instead of "first token with this actorId".
+- **Chases:** `huntingUnits(scene)` (heat.mjs) decides which police drive in real time (0.5.19: none hunting anyone in a fight or chase on that map); `joinReinforcements(combat)` (chase.mjs) puts them on the tracker — from `beginRound`, at chase round end, and from `enlistDispatched` when Heat sends more units. `inChase(combat, token)` (pursuit.mjs) decides whose moves are held to the chase. `blockingPrompts(vt)` (incidents.mjs) decides which driving cards stop a vehicle — only cards of the chase now running. `chaseRelevantFlags(changes)` filters token updates worth waking the console/autopilot for.
+- **Remote rolls:** `remoteRollOptions` (dice/roll.mjs) is the allowlist of options a player's client may send; add new roll options there if a player-side caller needs them.
+- **Driven vehicles:** `removeOrphanDedicatedActor` (vehicle-boarding.mjs) deletes a driven vehicle's own actor when no token uses it (not on `acTransit`, not while folded and carried).
+- New suites: `tests/audit-world.test.mjs`, `tests/audit-chase.test.mjs`. Journals/packs untouched; content edition stays 0.5.3.
+
+---
+
+# The Smoke v0.5.3 — driving-response hotfix
+
+All driving prompt kinds now explicitly remove their completed token flag. The old whole-object update merged an empty map into the existing flags, retaining the answered prompt and blocking both movement and the Combat Console. Tests previously replaced those objects wholesale and missed the live Foundry behaviour; chase tests now merge them as Foundry does.
+
+A result is recorded before its outcome is applied. Concurrent duplicate resolutions share one task; an already-applied result can finish deletion without reapplying damage. Errors during outcome application remain gated for GM review. Failed token deletion is not caught as a failed automatic roll and does not offer fresh dice. Completed chat buttons stay disabled.
+
+On active GM login, recoverCompletedPrompts checks saved prompt/roll IDs, vehicle UUID, kind, stat and actor, or an existing completion marker. It only releases completed legacy locks, without rerolling, moving tokens or repeating damage. Unanswered checks and new outcomes requiring GM review remain pending. The same utility is available as game.smoke.incidents.recoverCompletedPrompts() for the active GM.
+
+The regression suite checks 36 chase outcome cases, actual chat-hook completion, both movement and Done gates, independent pending prompts, actor matching, repeated damage, final-write failure, completed-button clicks and safe legacy recovery. See VALIDATION.md and tests/TEST-RESULTS.txt.
+
+The system release is 0.5.3; the existing journal edition stays 0.5.2 so a code hotfix does not archive/rewrite the GM's new journal edits. Both JSON sources and the Guides compendium retain their 270 matching pages. GitHub distribution requires release tag v0.5.3 with both system.json and the-smoke-v0.5.3.zip attached.
+
+---
+
+# The Smoke v0.5.2
+
+This release includes the v0.5.1 chase fixes and a complete journal refresh. All **27 journals / 270 pages** use the same dark panels, mono text, accent colours, readable tables and phone cards as the missions and Blower. Pages have previous/next navigation, a rules index and an edition footer. Existing journal and page IDs are retained; the five new pages have deterministic IDs.
+
+## Current rules
+
+Sixty-three rule chapters have been rewritten against the implementation. The guides cover creation, dice and teamwork, combat, reactions and cover, all 31 conditions, Down and first aid, service prices and restrictions, item use and drugs, the 33-level Rep ladder, missions and faction standing, every shift, vehicle movement/collisions/fire, and the Blower/radio/sat nav/crew bar/watch.
+
+The obsolete three-job starter's fixed bonuses and five-stage Rep awards are replaced by the actual opening Mission Board jobs. All 125 missions have a current mechanical summary generated from their gates, objectives and reward definitions. Crew fees are distinguished from per-head awards. Fictional favours, access rights and pressure fronts are explicitly GM decisions.
+
+The police-shift gap mini-game is documented separately from wanted-player Console chases. The latter have opt-in automation, a shared civilian traffic phase, separate police/PC turns, and gates for every decision and round. A successful stop roll removes one star and permits one finite vehicle/foot opening; failure leads to custody or an answerable armed response when the recorded crime warrants it. See CHASES.md.
+
+## Sources and world upgrades
+
+`data/content.json`, `data/london-guides.json` and `packs/guides` contain identical current HTML. The prebuilt Guides compendium has been rebuilt as a real LevelDB database, closed, reopened and compared record by record.
+
+`updateGuide` refreshes styling even when the words have not changed. A new edition backs up edited shipped pages into GM-only journals before overwriting those original pages. If creating a backup fails, those originals are not touched. Extra user-created pages survive; running setup again in the same edition preserves subsequent local edits. Original world page IDs and renamed-page aliases prevent duplicate imports.
+
+## Build and checks
+
+Runtime tests: `node tests/run-all.mjs`. Journal build and verification: see `scripts/journals/README.md`. Build dependencies are development-only; do not copy node_modules into the release. The system runs without them.
+
+See VALIDATION.md for checks performed and the remaining live Foundry acceptance run. The ZIP must have its root `system.json`, pass a full CRC read and extract successfully before distribution. A saved/downloaded copy must be checked too; a previous delivery was truncated and is superseded by this release.

@@ -1,6 +1,7 @@
 // Realistic render contexts for every template, built from the system's own data. Used by the build's template check
 // (compile + render + balanced tags) so a broken template fails before Foundry ever loads it.
 import {repInfo, levelUpPlan, levelInfo} from '../module/rules/advancement.mjs';
+import {BANANA_SVG} from '../module/apps/banana-watch.mjs';
 import {BACKGROUNDS, CREATION_STEPS, STARTER_EXTRAS, STORY_IDEAS, ENDS, blankDraft} from '../module/rules/creation.mjs';
 import {QUICK_GROUPS, QUICK_CHECKS, TEAMWORK, HAZARD_GROUPS, HAZARDS, STREET_EVENTS, POLICE_EVENTS, NPC_ROLES} from '../module/gm/catalogue.mjs';
 const STATS = {mus: 'Muscle', grt: 'Grit', mov: 'Moves', whl: 'Wheels', aim: 'Aim', grf: 'Graft', sav: 'Savvy', frt: 'Front', btl: 'Bottle'};
@@ -114,7 +115,7 @@ export default function ({add, J}) {
   add('phone.hbs', {actor, actors: [actor], heat: 0, heatInfo: {name: 'Clean', response: 'x'}, stars: [false, false, false, false, false], location: 'Bethnal Green', radio, radioLabel: 'Rude FM', radioOpen: false,
     satnav: {label: "The Arches · Pat's Cycles", remaining: '1.1 mi'}, shift: null, startable: [], offers: [],
     active: [{id: 'c3', label: 'Taxi', stage: 'dropoff', title: 'Fare: Hackney Central Stn → Ridley Rd Market', instruction: 'Take them to Ridley Rd Market (Dalston).', left: '2:00', deadline: 999, total: 1000, pct: 70}], paused: false, missions: []});
-  add('street-control.hbs', {scene: {name: 'Hackney'}, isGM: true, setUp: false, traffic: 3, units: 1,
+  add('street-control.hbs', {scene: {name: 'Hackney'}, street: true, moving: 2, isGM: true, setUp: false, traffic: 3, units: 1,
     settings: [{key: 'streetLife', label: 'Street Life', icon: 'fa-car-side', on: true}, {key: 'jobsPaused', label: 'Pause job clocks', icon: 'fa-pause', on: false}],
     shifts: [{id: 's', actor: 'Jaz', label: 'Taxi', earned: 40}], crimes: [{key: 'nick', label: 'Nick a bike', heat: 1}], jobs: [{key: 'taxi', label: 'Taxi'}],
     characters: [{id: 'a', name: 'Jaz', heat: 1, cash: 40, advances: 1, xp: 12, stage: 2, heatOptions: [0, 1, 2].map(n => ({n, name: `h${n}`, selected: n === 1}))}]});
@@ -130,4 +131,40 @@ export default function ({add, J}) {
   add('radio-directory.hbs', {stations: [{id: 'rude-fm', name: 'Rude FM', genre: 'DnB', stream: 'https://x/y.mp3', website: 'https://x', directory: '', chatUrl: 'https://chatroll.com/embed/chat/rudefm', sms: '+447501442882', number: 1, hasContact: true}]});
   add('studio-chat.hbs', {station: 'Rude FM', genre: 'Drum & bass', src: 'https://chatroll.com/embed/chat/rudefm?a=1&b=2', host: 'chatroll.com', draft: 'Big up the Chainring <3 & Auntie Pat', site: 'https://rudefm.com/#shoutbox'});
   add('studio-chat.hbs', {station: 'Vision Radio UK', genre: 'Garage', src: 'https://minnit.chat/VRUKchatbox?embed', host: 'minnit.chat', draft: '', site: 'https://minnit.chat/VRUKchatbox'});
+  // 0.5: chases and the gauge, the vehicle sheet, story / self-play, the Banana Blower, the 33-level ladder
+  const gauge = {name: 'Ford Fiesta', moved: 11.5, green: 8, yellow: 12, red: 16, band: 'yellow', label: 'Pushing it', pg: 50, py: 25, pr: 25, at: 72, left: 4.5, stopped: false, burning: false, evasive: true};
+  const chaseRows = [row({current: true, driving: 'Ford Fiesta'}), row({id: 'p', name: 'Area Car', pc: false, mine: false, kind: 'police', vehicle: true, hp: 10, hpMax: 12, burning: true}), row({id: 't', name: 'Toyota Prius', pc: false, mine: false, kind: 'traffic', vehicle: true})];
+  add('combat-console.hbs', {...cc, chase: {auto: true, reason: 'Police pursuit'}, rows: chaseRows, gauge, current: {...cc.current, seated: true, isVehicle: false, person: true}});
+  add('combat-console.hbs', {...cc, chase: {auto: false, reason: 'Police chase'}, rows: chaseRows, gauge: {...gauge, stopped: true, band: 'red'}, current: {name: 'Area Car', value: 4, mine: true, npc: true, police: true, isVehicle: true, driving: false, seated: false}});
+  add('combat-console.hbs', {...cc, chase: {auto: true, reason: 'Police chase'}, rows: chaseRows, gauge, current: {name: 'Area Car', value: 4, mine: false, npc: true, police: true, isVehicle: true}});
+  add('combat-console.hbs', {...cc, isGM: false, chase: {auto: true, reason: 'Police chase'}, phase: 'idle', current: null, gauge: null});
+  const vv = J('london-vehicles.json').vehicles[7];
+  const vs = {actor: {name: vv.name, img: vv.img, system: {biography: ''}}, v: {...vv.system.vehicle, body: {value: 5, max: 12}, fuel: {value: 6, max: 10}, crewDie: 0, flats: 1}, isGM: true, owner: true,
+    dice: [4, 6, 8, 10, 12, 20], crewDice: [{v: 0, l: 'auto (d6)'}, {v: 8, l: 'd8'}], locks: {easy: 'Easy', medium: 'Medium'}, status: 'SMOKING', statusHint: 'Below half Body.', statusKey: 'smoking', fire: false, burnt: false,
+    tokenOnMap: true, plate: 'LV23 KXP', bands: {green: 8, yellow: 12, red: 16}, chaseDice: 2, crew: 6, perf: 8, guard: 10, evasive: false, gaugePct: {g: 50, y: 25, r: 25},
+    driver: {name: 'Jaz Kaur', mine: true, pc: true, whl: 8}, moves: [{key: 'drive', abbr: 'DRV', label: 'Drive', hint: 'x'}, {key: 'hotwire', abbr: 'HOT', label: 'Hotwire', hint: 'y', disabled: true}],
+    incidents: [{kind: 'collision', label: 'Hit it: Toyota Prius', body: 4, when: '2 min ago', driver: 'Jaz Kaur', scene: 'Hackney', icon: 'fa-car-burst'}, {kind: 'fire', label: 'Caught fire', when: 'just now', icon: 'fa-fire'}], incidentCount: 2,
+    lights: true, mineInside: [{uuid: 'Scene.x.Token.y', name: 'Jaz Kaur'}], riders: 2, abilities: [{label: 'Police kit', text: 'x', icon: 'fa-solid fa-tower-broadcast', seats: ''}],
+    seats: [{label: 'Driver', occupant: 'Jaz Kaur'}, {label: 'Front passenger', occupant: ''}], jobs: [], jobChoices: [{key: 'taxi', label: 'Taxi', on: false}], bodyPct: 42, fuelPct: 60, biographyHTML: '', systemsHTML: ''};
+  add('vehicle-sheet.hbs', vs);
+  add('vehicle-sheet.hbs', {...vs, stuckChecks: 2, stuckPlural: true});   // 0.5.16: the GM's stuck-check button
+  add('vehicle-sheet.hbs', {...vs, isGM: false, driver: null, status: 'ON FIRE', statusKey: 'fire', fire: true, mineInside: [], incidents: [], incidentCount: 0});
+  add('vehicle-sheet.hbs', {...vs, status: 'BURNT OUT', statusKey: 'burnt', burnt: true, tokenOnMap: false, driver: {name: 'PC', mine: false, pc: false, whl: 6}});
+  add('mission-board.hbs', {...mb, mode: 'story', canRun: true, selfPlay: false});
+  add('mission-board.hbs', {...mb, isGM: false, canRun: true, mode: 'self', selfPlay: true, m: {...mb.m, status: 'locked', lock: 'Renown 5'}});
+  add('mission-board.hbs', {...mb, isGM: false, canRun: true, mode: 'self', selfPlay: true});
+  add('mission-board.hbs', {...mb, isGM: false, canRun: false, mode: 'story', storyLocked: true});
+  add('mission-board.hbs', {isGM: false, canRun: false, mode: 'story', storyLocked: true, empty: true, groups: [], list: [], m: null,
+    sideWork: Object.entries({taxi: 'Taxi', bus: 'Bus', crew: 'The Chainring'}).map(([key, label]) => ({key, label, icon: 'fa-solid fa-taxi', hint: 'x'}))});
+  add('phone.hbs', {actor, actors: [actor], heat: 0, heatInfo: {name: 'Clean', response: ''}, stars: [false, false, false, false, false], missions: [], offers: [], active: [], banana: '<svg class="banana-logo"></svg>', clock: '21:47', boot: true});
+  add('phone.hbs', {actor, actors: [actor], heat: 1, heatInfo: {name: 'Clocked', response: ''}, stars: [true, false, false, false, false], location: 'Hackney Central', missions: [], offers: [], active: [], banana: BANANA_SVG, clock: '21:47', boot: false});
+  for (const level of [1, 2, 3, 4, 18, 26, 32]) {
+    const plan = levelUpPlan(level);
+    add('levelup.hbs', {...lvl, info: repInfo({stage: level, rep: {xp: 5000}}), plan, steps: {stat: plan.statUpgrade ? 1 : 0, perk: plan.perk ? 1 : 0, growth: plan.growthRoll ? 2 : 0}, nextTitle: levelInfo(level + 1).title, growth: plan.growthRoll ? lvl.growth : null, maxRep: 33});
+  }
+  add('levelup.hbs', {...lvl, info: repInfo({stage: 33, rep: {xp: 9999}}), top: true, maxRep: 33});
+  add('actor-sheet.hbs', {...sheet, rep: repInfo({stage: 19, rep: {xp: 470, crew: 3}})});
+  add('street-control.hbs', {scene: {name: 'Hackney'}, street: true, isGM: true, setUp: true, selfPlay: true, settings: [], shifts: [], crimes: [], jobs: [], characters: []});
+  add('gm-screen.hbs', {...gm, tab: 'tools', selfPlay: true, highs: ['Blazed', 'Wired']});
 }
+

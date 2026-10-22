@@ -1,12 +1,12 @@
 import {NS,STAT_KEYS,STATS,DIE_LADDER} from './config.mjs';
-import {isSuccess} from './rules/core.mjs';
 import {CONDITION_EFFECTS,cannotDrive} from './rules/conditions.mjs';
 import {request,registerHandler,isLeader,card,esc} from './world/net.mjs';
 import {BOARD_GATES} from './vehicles/vehicle-boarding.mjs';
-import {zonesOf,tokenRect,mapIdOf} from './world/spawn.mjs';
+import {zonesOf, tokenRect} from './world/spawn.mjs';
 import {arrivedAt} from './rules/jobs-core.mjs';
 import {distanceSquares} from './world/spawn.mjs';
 import {wasted} from './world/heat.mjs';
+import {statCap} from './rules/advancement.mjs';
 const {DialogV2}=foundry.applications.api;
 // Plain initiative (the core tracker without the Combat Console): exploding d6 plus Moves, or Handling for a vehicle.
 export class SmokeCombatant extends (globalThis.Combatant ?? class {}){
@@ -52,7 +52,7 @@ function safeHere(token){
 const policeInSight=token=>Boolean(token?.parent?.tokens.some(u=>u.getFlag(NS,'police')&&distanceSquares(u,token)<=14));
 // Short-term trouble a night in clears. Broken needs A&E and a week; cuffs and holds need someone else.
 const REST_KEEPS=['Broken','Cuffed','Restrained','Grabbed'];
-export const REST_RULES='A safe night restores Health and Hustle and clears short-term conditions (Bruised, Hurt, Knackered, Shaken, Mullered, Gassed, Prone, Stunned, In Pain, highs and comedowns). Heat of two stars or less dies down overnight. You cannot rest while Bleeding, with three or more stars, or with police in sight. Broken needs A&E and a week of recovery.';
+export const REST_RULES='A safe night takes eight hours on the Banana Watch, restores Health and Hustle and clears short-term conditions (Bruised, Hurt, Knackered, Shaken, Mullered, Gassed, Prone, Stunned, In Pain, highs and comedowns). Heat of two stars or less dies down overnight. You cannot rest while Bleeding, with three or more stars, or with police in sight. Broken needs A&E and a week of recovery.';
 /** Why this person cannot rest here, or null. */
 export function restProblem(actor,token,{isGM=false}={}){
   if(!isGM&&!safeHere(token))return 'Get to the flat or a safehouse before resting.';
@@ -69,12 +69,18 @@ export async function rest(actor){
   return request('recovery.rest',{actorUuid:actor.uuid,sceneId:t?.parent.id,tokenId:t?.id});
 }
 /** The night itself. Runs on the leader. */
+export const REST_WATCH_SECONDS = 8 * 60 * 60;
 export async function restNow(actor){
+  if(typeof game.time?.advance !== 'function')throw new Error('The Banana Watch cannot advance; rest was not applied. Ask the GM to check the world clock.');
   const heat=Number(actor.system.heat?.value||0);
-  await actor.update({'system.resources.health.value':actor.system.resources.health.max,'system.resources.hustle.value':actor.system.resources.hustle.max,'system.states.down':false,'system.states.downRounds':0,'system.states.reactionUsed':false,'system.states.offGame':false,'system.states.onARoll':false});
+  await actor.update({'system.resources.health.value':actor.system.resources.health.max,'system.resources.hustle.value':actor.system.resources.hustle.max,'system.states.down':false,'system.states.downRounds':0,'system.states.reactionUsed':false,'system.states.surrendered':false,'system.states.offGame':false,'system.states.onARoll':false});
   await actor.deleteEmbeddedDocuments('Item',actor.items.filter(i=>i.type==='condition'&&!REST_KEEPS.includes(i.name)).map(i=>i.id));
   if(heat)await actor.setHeat(0,'A night indoors: the heat dies down.');
-  await card('OFF THE CLOCK',actor.name,`<p>A shower, a proper meal, a few hours with the phone on silent. Health and Hustle restored${heat?'; Heat cleared':''}.</p>`,'win');return {rested:true};
+  // All rest entry points (sheet, shop, GM screen) use this leader-only routine.
+  // World seconds, not real minutes; watch-based conditions move with the same clock.
+  await game.time.advance(REST_WATCH_SECONDS);
+  await card('OFF THE CLOCK',actor.name,`<p>Eight hours gone on the Banana Watch. A shower, a proper meal and a few hours with the phone on silent. Health and Hustle restored${heat?'; Heat cleared':''}.</p>`,'win');
+  return {rested:true,watchSeconds:REST_WATCH_SECONDS};
 }
 registerHandler('recovery.rest',async({actorUuid,sceneId,tokenId,userId})=>{
   const actor=await fromUuid(actorUuid),user=game.users.get(userId);if(!actor?.isPerson||!owns(actor,user))throw new Error('Not your character.');
@@ -86,7 +92,7 @@ registerHandler('recovery.rest',async({actorUuid,sceneId,tokenId,userId})=>{
 export async function advance(actor){
   if(!owns(actor))throw new Error('Not your character.');
   const points=Number(actor.system.advancement.available||0);if(points<1)throw new Error('No advances available. The GM awards them after missions.');
-  const cap=[0,8,10,12,12,20][actor.system.stage]??8;
+  const cap=statCap(actor.system.stage);
   const opts=STAT_KEYS.filter(k=>actor.system.stats[k].die<cap).map(k=>{const d=actor.system.stats[k].die,next=DIE_LADDER[DIE_LADDER.indexOf(d)+1];return `<option value="${k}">${STATS[k].label}: d${d} → d${next}</option>`;});
   if(!opts.length)throw new Error('Your stats have reached this Rep stage’s cap. Raise your Rep stage at a milestone.');
   const f=await DialogV2.input({window:{title:`Advance · ${actor.name}`},content:`<p>${points} advance(s) available. Spend one to raise a stat one step. Rep ${actor.system.stage} cap: d${cap}.</p><select name="stat">${opts.join('')}</select>`,ok:{label:'Spend one advance'}});if(!f)return;
@@ -95,7 +101,7 @@ export async function advance(actor){
 }
 registerHandler('progression.advance',async({actorUuid,stat,fromDie,userId})=>{
  const actor=await fromUuid(actorUuid),user=game.users.get(userId);if(!actor?.isPerson||!owns(actor,user))throw new Error('Not your character.');
- const points=Number(actor.system.advancement.available),die=Number(actor.system.stats[stat]?.die),cap=[0,8,10,12,12,20][actor.system.stage]??8,next=DIE_LADDER[DIE_LADDER.indexOf(die)+1];
+ const points=Number(actor.system.advancement.available),die=Number(actor.system.stats[stat]?.die),cap=statCap(actor.system.stage),next=DIE_LADDER[DIE_LADDER.indexOf(die)+1];
  if(points<1||die!==Number(fromDie)||!next||next>cap)throw new Error('That advancement is no longer available. Reopen the dialog.');
  await actor.update({[`system.stats.${stat}.die`]:next,'system.advancement.available':points-1,'system.advancement.spent':Number(actor.system.advancement.spent||0)+1});
  await card('MOVING UP',actor.name,`<p>${esc(STATS[stat].label)} d${die} → d${next}.</p>`,'win');return {stat,die:next};
@@ -114,7 +120,9 @@ registerHandler('combat.resolve',async({messageId,dodge=false,userId})=>{
     const out=await target.rollStat('mov',{tn:attack.total,label:`Dodge ${attack.attackerName}'s attack`,sceneId:doc?.parent?.id,tokenId:doc?.id,requestedBy:userId});
     if(out?.result.success){await msg.update({[`flags.${NS}.resolved`]:true,[`flags.${NS}.resolution`]:'dodged'});await card('DODGED',target.name,'<p>The attack misses. Reaction spent until your next turn.</p>','win');return;}
   }
-  await msg.update({[`flags.${NS}.resolved`]:true,[`flags.${NS}.resolution`]:'hit'});await target.applyDamage(attack.damage);
+  await msg.update({[`flags.${NS}.resolved`]:true,[`flags.${NS}.resolution`]:'hit'});
+  const before=Number(target.system?.resources?.health?.value??0);await target.applyDamage(attack.damage);
+  if(attack.lethal&&attack.attacker){const attacker=await fromUuid(attack.attacker);if(attacker){const {reportKill}=await import('./combat/combat.mjs');await reportKill(attacker,doc??target,{before,lethal:true,seen:attack.seen,byPolice:attack.byPolice});}}
   if(target.isPerson)for(const c of attack.effects??[])await target.addCondition(c);
   return card('HIT',target.name,`<p>${attack.damage} damage applied${dodge?' after a failed Dodge':''}. ${attack.severity?esc(attack.severity):''}</p>`,'cost');
 });
@@ -158,6 +166,9 @@ export async function processCombatTurn(combat,changes){
  if(count>=3){await card('WASTED',actor.name,'<p>Three rounds Down without aid. The ambulance takes you to A&E.</p>','wasted');await finishWasted(actor);return;}
  await card('DOWN',actor.name,`<p>Round ${count}/3 without aid. Roll Grit to stay conscious.</p><button type="button" data-smoke-roll="${esc(actor.uuid)}" data-stat="grt" data-band="medium" data-label="Stay Conscious" data-context='${esc(JSON.stringify({kind:'stayUp'}))}'>Stay conscious</button>`,'down');
 }
+/** A surrender belongs to one fight. Up to 0.5.16 it outlived the fight and left the character with no speed dice. */
+const STAND_DOWN={'system.states.surrendered':false,[`flags.${NS}.surrenderedIn`]:null};
+const standsDown=(actor,combatId)=>Boolean(actor?.system?.states?.surrendered)&&[combatId,null,undefined].includes(actor.getFlag?.(NS,'surrenderedIn'));
 export function installGameplay(){
   Hooks.on('updateActor',async(actor,changes)=>{
     if(!isLeader()||!actor.isPerson||!(Object.hasOwn(changes,'system.resources.health.value')||foundry.utils.hasProperty(changes,'system.resources.health.value')))return;
@@ -172,6 +183,26 @@ export function installGameplay(){
     const actor=await fromUuid(r.actorUuid);if(actor?.system.states.down){await msg.setFlag(NS,'outcomeResolved',true);await finishWasted(actor);}
   });
   Hooks.on('deleteCombat',async combat=>{
-    if(!isLeader())return;for(const c of combat.combatants){if(c.actor?.isPerson)await c.actor.update({'system.states.reactionUsed':false});}
+    if(!isLeader())return;
+    // However the fight ends (End Fight, a chase called off, the core tracker), its surrenders end with it.
+    for(const c of combat.combatants){const a=c.actor;if(!a?.isPerson)continue;await a.update({'system.states.reactionUsed':false,...(standsDown(a,combat.id)?STAND_DOWN:{})});}
   });
+  Hooks.on('deleteCombatant',async c=>{
+    const a=c.actor;if(!isLeader()||!a?.isPerson||!c.parent?.id||!standsDown(a,c.parent.id))return;
+    await a.update(STAND_DOWN);
+  });
+  if(isLeader()&&game.user?.isGM)void clearStaleSurrenders().catch(error=>console.warn('The Smoke | stale surrenders',error));
+}
+/** On load: anyone still marked as surrendered without being in that fight any more stands back up. Runs on the leader. */
+export async function clearStaleSurrenders(){
+  const live=new Set();
+  for(const combat of game.combats??[])for(const c of combat.combatants??[])if(c.actor?.uuid)live.add(`${c.actor.uuid}|${combat.id}`);
+  const fixed=[];
+  for(const a of game.actors??[]){
+    if(!a.isPerson||!a.system?.states?.surrendered)continue;
+    const fight=a.getFlag?.(NS,'surrenderedIn');if(fight&&live.has(`${a.uuid}|${fight}`))continue;
+    await a.update(STAND_DOWN);fixed.push(a.name);
+  }
+  if(fixed.length)console.log(`The Smoke | ${fixed.join(', ')}: no longer marked as surrendered from an earlier fight (speed dice restored).`);
+  return fixed;
 }

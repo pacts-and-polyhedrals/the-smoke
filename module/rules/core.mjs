@@ -8,7 +8,7 @@ export function statModifier(die) {
 }
 export const isValidDie = die => DIE_LADDER.includes(Number(die));
 
-/** Step a die up the ladder. Past d12 (below Rep 5) each extra step becomes +2 instead. */
+/** Step a die up the ladder. Past d12 (below the Empire tier, stage 5) each extra step becomes +2 instead. `stage` is the Rep tier (1–5). */
 export function stepDie(die, steps = 1, {stage = 1, allowLegendary = false} = {}) {
   let current = Number(die);
   if (!isValidDie(current)) throw new Error(`Unsupported die: d${die}`);
@@ -113,19 +113,25 @@ export const clampHeat = v => Math.max(0, Math.min(5, Math.round(Number(v) || 0)
 export function heatInfo(stars) { return HEAT[clampHeat(stars)]; }
 /** Heat after a crime. Unseen crimes add nothing; a witnessed one adds its weight; cops seeing it add one more. */
 export function heatAfterCrime(current, crimeKey, {witnessed = true, byPolice = false} = {}) {
-  const crime = CRIMES[crimeKey];
-  if (!crime || !witnessed) return clampHeat(current);
-  return clampHeat(Number(current) + crime.heat + (byPolice ? 1 : 0));
+  const crime = CRIMES[crimeKey], now = clampHeat(current);
+  if (!crime || !witnessed) return now;
+  // A crime raises Heat up to its own ceiling (a police witness adds one, still within it), never lowers it, and a
+  // serious one sets a floor: a killing is four stars however clean you were.
+  // (A police witness doesn't add to a killing: four stars is already armed response; five is a second killing or a cop.)
+  const bonus = byPolice && Number(crime.min || 0) < 4 ? 1 : 0;
+  const raised = Math.min(Math.max(now + Number(crime.heat || 1), Number(crime.min || 0)) + bonus, Number(crime.cap ?? 5));
+  return clampHeat(Math.max(now, raised));
 }
 /** Police response for a Heat level: how many units, which, and what they bring. */
 export function policeResponse(stars) {
   const s = clampHeat(stars);
   return {
     stars: s,
-    cars: [0, 1, 2, 2, 3, 4][s],
-    bikes: [0, 0, 1, 1, 1, 2][s],
-    vans: [0, 0, 0, 1, 1, 1][s],
-    arv: [0, 0, 0, 0, 2, 3][s],
+    // 0.5.22: a response you can play against (it used to be up to 11 units, plus their crews, at five stars).
+    cars: [0, 1, 2, 2, 2, 3][s],
+    bikes: [0, 0, 0, 0, 0, 0][s],
+    vans: [0, 0, 0, 0, 0, 1][s],
+    arv: [0, 0, 0, 0, 1, 2][s],
     helicopter: s >= 3,
     roadblocks: s >= 5,
     armed: s >= 4

@@ -46,6 +46,11 @@ assert.equal(sal.system.resources.health.value, 10, 'a second answer is ignored'
 await postRequest({kind: 'hazard', title: 'Dipped', band: 'medium', actorIds: [sal.id], responses: [{label: 'x', stat: 'sav'}], hazard: {costly: {cashPct: 10, heat: 1}}});
 await recordResponse(posted, {stat: 'sav', total: 7, tn: 9, outcomeKey: 'costlyFailure', context: {kind: 'request', actorId: sal.id}});
 assert.equal(sal.system.cash, 90, 'lost 10%'); assert.equal(sal.system.heat.value, 1, '+1 Heat');
+// 0.5.22: a mishap's Heat stops at two stars (only crimes go higher) and never lowers it.
+const {applyConsequence} = await import('../module/gm/requests.mjs');
+await applyConsequence(sal, {heat: 2}, {reason: 'Recognised'}); assert.equal(sal.system.heat.value, 2, 'severe recognition: 2★, not 3');
+await applyConsequence(sal, {heat: 2}, {reason: 'Recognised'}); assert.equal(sal.system.heat.value, 2, 'and again: still 2★');
+sal.system.heat.value = 4; await applyConsequence(sal, {heat: 1}, {reason: 'Tip-off'}); assert.equal(sal.system.heat.value, 4, 'never lowers Heat'); sal.system.heat.value = 1;
 
 // Teamwork: the card shows the average once both have rolled.
 await postRequest(teamSpec('push-van', {actorIds: [jaz.id, sal.id], tn: 10}));

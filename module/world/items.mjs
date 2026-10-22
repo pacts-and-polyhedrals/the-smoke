@@ -4,12 +4,13 @@ import {NS, STATS} from '../config.mjs';
 import {clampHeat, isSuccess} from '../rules/core.mjs';
 import {CONDITION_LIBRARY} from '../rules/conditions.mjs';
 import {isLeader, registerHandler, request, card, esc, ownersOf} from './net.mjs';
-import {distanceSquares, mapIdOf} from './spawn.mjs';
+import {distanceSquares, mapIdOf, actorToken} from './spawn.mjs';
+import {watchSeconds, watchDeadline, legacyDeadlineToWatch} from '../rules/watch-clock.mjs';
 
 const {DialogV2} = foundry.applications.api;
 const whisperTo = actor => [...ownersOf(actor), ...game.users.filter(u => u.isGM).map(u => u.id)];
 const listOf = s => String(s || '').split(',').map(x => x.trim()).filter(Boolean);
-export const tokenOf = actor => canvas?.scene?.tokens?.find(t => t.actorId === actor.id) ?? game.scenes.find(s => s.tokens.some(t => t.actorId === actor.id))?.tokens.find(t => t.actorId === actor.id) ?? null;
+export const tokenOf = actor => actorToken(actor);
 
 /* ------------------------------------------------------------------ street prices by district */
 // What a wrap is worth depends on who is buying: the posh end pays more, the estates less.
@@ -22,35 +23,70 @@ export const DISTRICT_PRICE = Object.freeze({
 export const priceHere = (base, scene) => Math.max(1, Math.round(Number(base) * (DISTRICT_PRICE[mapIdOf(scene)] ?? 1)));
 
 /* ------------------------------------------------------------------ timed Conditions */
-/** Add a Condition that wears off after `minutes` (real time), optionally turning into `then` for `thenMinutes`. */
-export async function addTimedCondition(actor, name, minutes, {then = '', thenMinutes = 60} = {}) {
+/**
+ * Temporary effects last a number of *Banana Watch game minutes*, not wall-clock minutes.
+ * A high may turn into a comedown. Persistent injuries/restraint do not acquire timers.
+ * `beginsAtWorldTime` is for overdue transitions after a GM fast-forwards the watch.
+ */
+export async function addTimedCondition(actor, name, minutes, {then = '', thenMinutes = 60, beginsAtWorldTime = null} = {}) {
   const old = actor.items.find(i => i.type === 'condition' && i.name === name);
-  const flags = {[NS]: {expiresAt: Date.now() + Math.max(1, Number(minutes) || 1) * 60000, then, thenMinutes}};
-  if (old) return old.update({flags});
+  const duration = Math.max(1, Number(minutes) || 1);
+  const expiresWorldTime = watchDeadline(duration, Number.isFinite(beginsAtWorldTime) ? beginsAtWorldTime : watchSeconds());
+  const timer = {expiresWorldTime, timerClock: 'banana-watch', durationWatchMinutes: duration, then, thenMinutes};
+  if (old) return old.update(Object.fromEntries(Object.entries(timer).map(([k,v]) => [`flags.${NS}.${k}`, v])));
   const def = CONDITION_LIBRARY.find(c => c.name === name) ?? {name, category: 'boost', severity: 1, description: '', removal: 'Wears off.'};
-  const [item] = await actor.createEmbeddedDocuments('Item', [{name, type: 'condition', img: 'icons/svg/aura.svg', flags,
+  const [item] = await actor.createEmbeddedDocuments('Item', [{name, type: 'condition', img: 'icons/svg/aura.svg', flags: {[NS]: timer},
     system: {category: def.category, severity: def.severity, description: `<p>${def.description}</p>`, removal: def.removal}}]);
   return item;
 }
-/** The leader's clock: anything past its time wears off, and highs turn into comedowns. */
-export async function tickTimedConditions(now = Date.now(), actors = null) {
-  for (const actor of actors ?? game.actors.filter(a => a.type === 'character' || a.type === 'npc')) {
-    const due = actor.items.filter(i => i.type === 'condition' && Number(i.getFlag(NS, 'expiresAt') || 0) > 0 && i.getFlag(NS, 'expiresAt') <= now);
-    for (const c of due) {
-      const then = c.getFlag(NS, 'then'), mins = c.getFlag(NS, 'thenMinutes') || 60;
-      await c.delete();
-      if (then) await addTimedCondition(actor, then, mins);
-      if (actor.type === 'character') await card('WEARS OFF', `${actor.name}: ${c.name} wears off`, then ? `<p>And here comes the comedown: <b>${esc(then)}</b> for about ${mins} minutes.</p>` : '<p>Back to normal.</p>', '', {whisper: whisperTo(actor)});
+
+/** Convert a v0.5.5 wall-clock condition only once; the new deadline is persisted. */
+async function expiryOf(item, nowWorld, nowRealMs) {
+  const v = item.getFlag(NS, 'expiresWorldTime');
+  if (v !== undefined && v !== null && Number.isFinite(Number(v))) return Number(v);
+  const upgraded = legacyDeadlineToWatch(item.getFlag(NS, 'expiresAt'), nowWorld, nowRealMs);
+  if (upgraded === null) return null; // A permanent condition, or not timed at all.
+  await item.update({[`flags.${NS}.expiresWorldTime`]: upgraded, [`flags.${NS}.timerClock`]: 'banana-watch'});
+  return upgraded;
+}
+
+// The watch may advance by hours in one operation. Process high -> comedown against
+// the ORIGINAL expiry, so skipping an entire evening also finishes the comedown.
+let ticking = false;
+export async function tickTimedConditions(now = watchSeconds(), actors = null, {realNowMs = Date.now()} = {}) {
+  if (ticking) return; // Only the active GM writes; ignore overlapping heartbeat/hook ticks.
+  ticking = true;
+  try {
+    const worldNow = Number(now);
+    if (!Number.isFinite(worldNow)) throw new Error('Invalid Banana Watch time.');
+    for (const actor of actors ?? game.actors.filter(a => a.type === 'character' || a.type === 'npc')) {
+      // Future-proof against chains of statuses, without allowing a malformed condition to loop forever.
+      for (let step = 0; step < 12; step++) {
+        let due = null;
+        for (const condition of actor.items.filter(i => i.type === 'condition')) {
+          const expires = await expiryOf(condition, worldNow, realNowMs);
+          if (expires !== null && expires <= worldNow && (!due || expires < due.expires)) due = {condition, expires};
+        }
+        if (!due) break;
+        const c = due.condition, then = c.getFlag(NS, 'then'), mins = Number(c.getFlag(NS, 'thenMinutes')) || 60;
+        await c.delete();
+        if (then && then !== c.name) await addTimedCondition(actor, then, mins, {beginsAtWorldTime: due.expires});
+        if (actor.type === 'character') await card('WEARS OFF', `${actor.name}: ${c.name} wears off`,
+          then ? `<p>The next stage is <b>${esc(then)}</b> for about ${mins} Banana Watch minutes.</p>` : '<p>Back to normal.</p>', '', {whisper: whisperTo(actor)});
+      }
     }
-  }
+  } finally { ticking = false; }
 }
 
 /* ------------------------------------------------------------------ drugs */
 export async function takeDrug(actor, item) {
   const s = item.system; if (Number(s.quantity || 0) < 1) throw new Error(`No ${item.name} left.`);
+  // another hit while coming down off the same thing: the comedown lifts (for now) and the high starts again
+  const chasing = s.comedown && actor.items.find(i => i.type === 'condition' && i.name === s.comedown);
+  if (chasing) await chasing.delete();
   await addTimedCondition(actor, s.high, s.minutes, {then: s.comedown, thenMinutes: Math.max(30, s.minutes * 2)});
   await spendOne(item);
-  await card('TAKEN', `${actor.name} takes the ${esc(item.name)}`, `<p><b>${esc(s.high)}</b> for about ${s.minutes} minutes${s.comedown ? `, then ${esc(s.comedown)}` : ''}.</p>`, 'crew', {whisper: whisperTo(actor)});
+  await card('TAKEN', `${actor.name} takes the ${esc(item.name)}`, `<p><b>${esc(s.high)}</b> for about ${s.minutes} Banana Watch minutes${s.comedown ? `, then ${esc(s.comedown)}` : ''}.${chasing ? ` Chasing it: the ${esc(s.comedown)} lifts — for now. The next one will be worse.` : ''}</p>`, 'crew', {whisper: whisperTo(actor)});
 }
 export async function sellOnStreet(actor, item) {
   const s = item.system, have = Number(s.quantity || 0); if (have < 1) throw new Error(`No ${item.name} to sell.`);
@@ -142,11 +178,12 @@ async function pickVehicle(actor, title) {
   return list.find(v => v.id === form?.v) ?? null;
 }
 async function useGear(actor, item) {
+  if(item.name==='Spray Paint')return game.smoke.openTagStudio(actor);
   switch (item.name) {
     case 'Toolkit': {
       const vt = await pickVehicle(actor, 'Patch up which motor?'); if (!vt) return;
-      const out = await actor.rollDialog('grf', {band: 'medium', label: `Patch up the ${vt.name}`}); if (!out?.result) return;
-      return request('items.repair', {sceneId: vt.parent.id, vehicleTokenId: vt.id, actorId: actor.id, outcomeKey: out.result.outcomeKey});
+      const out = await actor.rollDialog('grf', {band: 'medium', label: `Patch up the ${vt.name}`, fixedTarget: true, context: {kind: 'repair', vehicleTokenId: vt.id, sceneId: vt.parent.id}}); if (!out?.result) return;
+      return request('items.repair', {sceneId: vt.parent.id, vehicleTokenId: vt.id, actorId: actor.id, messageId: out.message?.id});
     }
     case 'Spare Plates': {
       const vt = await pickVehicle(actor, 'Swap the plates on which motor?'); if (!vt) return;
@@ -161,7 +198,7 @@ async function useGear(actor, item) {
       const target = [...(game.user.targets ?? [])][0]?.document; if (!target?.actor) throw new Error('Target the person to tie up (T).');
       const conds = new Set(target.actor.items.filter(i => i.type === 'condition').map(i => i.name));
       if (!['Grabbed', 'Down', 'Restrained'].some(c => conds.has(c)) && !target.actor.system.states?.surrendered) throw new Error(`${target.name} has to be Grabbed, Down or surrendered first.`);
-      await request('items.cuff', {actorUuid: target.actor.uuid}); return spendOne(item);
+      await request('items.cuff', {actorUuid: target.actor.uuid, targetTokenUuid: target.uuid, actorId: actor.id}); return spendOne(item);
     }
   }
   if (item.system.stat) return actor.rollDialog(item.system.stat, {label: item.name, modifier: Number(item.system.bonus || 0)});
@@ -195,9 +232,17 @@ export async function useItem(item) {
 
 /* ------------------------------------------------------------------ leader handlers */
 const okFor = (u, actor) => u?.isGM || actor?.testUserPermission?.(u, 'OWNER');
-registerHandler('items.repair', async ({sceneId, vehicleTokenId, actorId, outcomeKey, userId}) => {
+registerHandler('items.repair', async ({sceneId, vehicleTokenId, actorId, messageId, outcomeKey = null, userId}) => {
   const vt = game.scenes.get(sceneId)?.tokens.get(vehicleTokenId), actor = game.actors.get(actorId), u = game.users.get(userId);
   if (!vt || !okFor(u, actor)) throw new Error('Not allowed.');
+  // The result comes from the roll's own chat message (made by the leader), once — not from what a client says it rolled.
+  const msg = messageId && game.messages.get(messageId), r = msg?.getFlag?.(NS, 'roll');
+  if (r) {
+    if (r.stat !== 'grf' || r.actorUuid !== actor.uuid || r.context?.kind !== 'repair' || r.context?.vehicleTokenId !== vt.id) throw new Error('That roll does not match this repair.');
+    if (msg.getFlag(NS, 'consumed')) throw new Error('That repair roll has already been used.');
+    await msg.setFlag(NS, 'consumed', true); outcomeKey = r.outcomeKey;
+  } else if (!u?.isGM) throw new Error('Roll the repair first.');
+  if (!u?.isGM) { const t = tokenOf(actor); if (!t || t.parent?.id !== vt.parent?.id || distanceSquares(t, vt) > Math.max(vt.width, vt.height) + 2) throw new Error('Stand next to the vehicle first.'); }
   const v = vt.actor.system.vehicle, add = {narrowSuccess: 1, fullSuccess: 2, strongSuccess: 4, exceptionalSuccess: 99}[outcomeKey] ?? 0;
   if (!add) return card('REPAIR', `${vt.name}: no joy`, '<p>Skinned knuckles and a spare bolt. No better.</p>', 'lose');
   const flats = Number(v.flats || 0);
@@ -231,15 +276,30 @@ registerHandler('items.changedClothes', async ({actorUuid, itemId, userId}) => {
   if (item.system.disguise === 'police' && watched) { line += '<p class="smoke-bad">A real officer clocks the uniform. Impersonating a police officer.</p>'; await actor.setHeat(Math.max(heat, 2) + 1, 'Impersonating a police officer.'); }
   return card('CLOBBER', `${actor.name} gets changed`, line, 'crew', {whisper: whisperTo(actor)});
 });
-registerHandler('items.cuff', async ({actorUuid, userId}) => {
-  if (!game.users.get(userId)) return; const a = await fromUuid(actorUuid); if (!a) return;
+registerHandler('items.cuff', async ({actorUuid, targetTokenUuid = null, actorId = null, userId}) => {
+  const u = game.users.get(userId); if (!u) return; const a = await fromUuid(actorUuid); if (!a) return;
+  if (!u.isGM) {
+    // the same rules the Blower checks, enforced here: your character, holding cable ties, beside someone who can't resist
+    const tier = game.actors.get(actorId);
+    if (!tier || !okFor(u, tier) || !tier.items.some(i => i.name === 'Cable Ties' && Number(i.system.quantity ?? 1) > 0)) throw new Error('Use cable ties your own character is carrying.');
+    const conds = new Set(a.items.filter(i => i.type === 'condition').map(i => i.name));
+    if (!['Grabbed', 'Down', 'Restrained'].some(c => conds.has(c)) && !a.system.states?.surrendered) throw new Error(`${a.name} has to be Grabbed, Down or surrendered first.`);
+    const tt = targetTokenUuid ? await fromUuid(targetTokenUuid) : null, me = tokenOf(tier);
+    if (!tt || !me || tt.parent?.id !== me.parent?.id || distanceSquares(me, tt) > 2.2) throw new Error('Get right next to them first.');
+  }
   await a.addCondition('Cuffed'); await a.removeCondition('Grabbed');
   return card('TIED UP', `${a.name} is restrained`, '<p>Cable ties round the wrists. Cuffed until someone cuts them.</p>', '');
 });
 
-let timer = null;
+let timer = null, watchHookInstalled = false;
 export function installItems() {
+  const refresh = () => { if (isLeader()) void tickTimedConditions().catch(error => console.warn('The Smoke | timed conditions', error)); };
+  if (!watchHookInstalled) {
+    Hooks.on('updateWorldTime', refresh); // manual jumps and game-clock ticking process effects immediately
+    watchHookInstalled = true;
+  }
   if (timer) clearInterval(timer);
-  timer = setInterval(() => { if (isLeader()) tickTimedConditions().catch(error => console.warn('The Smoke | timed conditions', error)); }, 15000);
+  timer = setInterval(refresh, 15000); // migration / recovery if the GM reconnects or a hook was missed
+  refresh();
 }
 export const itemsAPI = {useItem, takeDrug, sellOnStreet, consume, wearOutfit, reload, addTimedCondition, tickTimedConditions, priceHere, ammoFor};

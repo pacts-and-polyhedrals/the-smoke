@@ -3,7 +3,7 @@
 import {NS, STATS} from '../config.mjs';
 import {clampHeat} from '../rules/core.mjs';
 import {pick, kerbside} from '../rules/jobs-core.mjs';
-import {isLeader, registerHandler, request, card, esc, ownersOf} from '../world/net.mjs';
+import {registerHandler, request, card, esc, ownersOf} from '../world/net.mjs';
 import {ensurePersonActor, ensureVehicleActor, placeToken, zonesOf, tokenCentre, isStreetScene} from '../world/spawn.mjs';
 import {roadSpawn} from '../world/traffic.mjs';
 import {QUICK_CHECKS, HAZARDS, STREET_EVENTS, POLICE_EVENTS, TEAMWORK, FIRST_NAMES, SURNAMES, NPC_ROLES} from './catalogue.mjs';

@@ -25,9 +25,18 @@ const controlMode=vt=>String(vt?.actor?.system?.vehicle?.control||'driver');
 export {seatLayout,vehicleFootprint};
 /** Async checks run (on the leader GM) before anyone takes a seat; throw to refuse. Theft, carjacking and job rules add theirs. */
 export const BOARD_GATES=[];
-/** Extra buttons on a vehicle's right-click (HUD for owners, the boarding popover for everyone else): fn(vehicleToken) → [{icon,title,fn}]. */
+/** Extra buttons for vehicles. New handlers must opt in explicitly to be shown to non-owning players.
+ * For the GM/owner's HUD all registered actions are available as before; the action's handler still
+ * validates its own permissions. fn(vehicleToken) -> [{icon,title,fn,playerAllowed:true}]. */
 export const VEHICLE_ACTIONS=[];
-function extraActions(vt){const out=[];for(const f of VEHICLE_ACTIONS){try{out.push(...(f(vt)||[]));}catch(error){console.warn('The Smoke | vehicle action',error);}}return out;}
+export function vehicleActions(vt,{playerOnly=false}={}){
+  const out=[];
+  for(const provider of VEHICLE_ACTIONS){
+    try{for(const a of provider(vt)||[])if(!playerOnly||a?.playerAllowed===true)out.push(a);}
+    catch(error){console.warn('The Smoke | vehicle action',error);}
+  }
+  return out;
+}
 
 /* ------------------------------------------------------------------ requests */
 async function request(type,data){
@@ -38,6 +47,9 @@ async function request(type,data){
 }
 export function boardVehicle(vehicleToken,occupantToken,seatId){return request('board',{sceneId:vehicleToken.parent.id,vehicleTokenId:vehicleToken.id,tokenId:occupantToken.id,seatId});}
 export function exitVehicle(occupantToken){return request('exit',{sceneId:occupantToken.parent.id,tokenId:occupantToken.id});}
+/** Internal leader entry points retain the requesting player's reach, locks and seat permissions. */
+export function boardAsUser(vt,ot,seatId,userId){if(!isLeader())throw new Error('Leader only.');return runQueued('board',{sceneId:vt.parent.id,vehicleTokenId:vt.id,tokenId:ot.id,seatId,userId});}
+export function exitAsUser(ot,userId){if(!isLeader())throw new Error('Leader only.');return runQueued('exit',{sceneId:ot.parent.id,tokenId:ot.id,userId});}
 export function exitAllFromVehicle(vehicleToken,{keepDriver=true}={}){return request('exitAll',{sceneId:vehicleToken.parent.id,vehicleTokenId:vehicleToken.id,keepDriver});}
 export function releaseFromCage(vehicleToken,prisonerToken){return request('release',{sceneId:vehicleToken.parent.id,vehicleTokenId:vehicleToken.id,tokenId:prisonerToken.id});}
 export function setVehicleControl(vehicleToken,{control,aiPilot}={}){return request('control',{sceneId:vehicleToken.parent.id,vehicleTokenId:vehicleToken.id,control,aiPilot});}
@@ -55,9 +67,18 @@ function serialVehicleMove(key,job){
   return pending;
 }
 
-export function moveVehicle(vehicleToken,transform,{animate=true}={}){
-  return request('move',{sceneId:vehicleToken.parent.id,vehicleTokenId:vehicleToken.id,transform:pickVehicleTransform(transform),animate});
+export function moveVehicle(vehicleToken,transform,{animate=true,free=false}={}){
+  return request('move',{sceneId:vehicleToken.parent.id,vehicleTokenId:vehicleToken.id,transform:pickVehicleTransform(transform),animate,free:Boolean(free)});
 }
+/** Checks run (on the leader) before an occupied vehicle moves: fn({vt,scene,user,transform,passengers,free}) → the
+ *  transform to use (maybe shortened), or throw to refuse. The chase gauge and turn order add theirs. */
+export const MOVE_GATES=[];
+/** Run after an occupied vehicle has moved: fn({vt,scene,user,from,to,passengers,free}); centres in px. Collisions and
+ *  driving checks watch here. They run outside the scene queue, so they may move the vehicle again. */
+export const MOVE_WATCHERS=[];
+// Watchers may reposition after a crash, so they run outside the scene queue. Keep a lock until they finish:
+// a second drag and the Combat Console's Done must not overtake a gauge check or collision roll.
+export const settlingMoves=new Set();
 
 function requireUserCanMove(user,token){
   if(!user)throw new Error('Unknown user.');
@@ -82,10 +103,12 @@ function driverUsers(occupants,scene){
 // Give the driver's players OWNER on the vehicle Actor so they can drag the token; remember
 // what each had before so leaving the seat restores it exactly.
 export async function applyDriverControl(vt,occupants){
-  if(occupants.pilot && !vt.getFlag(NS,'dedicatedVehicle')){
+  if(occupants.pilot && driverUsers(occupants,vt.parent).length && !vt.getFlag(NS,'dedicatedVehicle')){
     const source=vt.actor?.toObject();
     if(source){delete source._id;source.name=vt.name;source.ownership={default:0};
       foundry.utils.setProperty(source,`flags.${NS}.streetLife`,false);foundry.utils.setProperty(source,`flags.${NS}.dedicatedFor`,vt.id);
+      // Driven motors get their own actor; keep them together in one folder instead of loose in the Actors directory.
+      const folder=await drivenFolder();if(folder)source.folder=folder.id;
       const dedicated=await Actor.implementation.create(source);
       await vt.update({actorId:dedicated.id,actorLink:false,[`flags.${NS}.dedicatedVehicle`]:true,[`flags.${NS}.${GRANT}`]:[]},{acVehicleCarry:true});}
   }
@@ -105,6 +128,20 @@ export async function applyDriverControl(vt,occupants){
   }
   if(Object.keys(update).length)await base.update(update);
   await vt.update({[`flags.${NS}.${GRANT}`]:Object.entries(nextGrant).map(([userId,before])=>({userId,before}))},{acVehicleCarry:true});
+}
+
+const DRIVEN_FOLDER='The Smoke — Driven Vehicles';
+async function drivenFolder(){
+  try{const found=game.folders?.find?.(f=>f.type==='Actor'&&f.name===DRIVEN_FOLDER);if(found)return found;
+    return await Folder.implementation.create({name:DRIVEN_FOLDER,type:'Actor',color:'#5b6470',sorting:'a'});}catch(_e){return null;}
+}
+/** A driven vehicle's own actor goes when its last token does (a despawned or deleted motor), never on a map change. */
+export async function removeOrphanDedicatedActor(actorId){
+  const actor=game.actors?.get?.(actorId);if(!actor?.getFlag?.(NS,'dedicatedFor'))return false;
+  const inUse=[...(game.scenes??[])].some(s=>s.tokens?.some?.(t=>t.actorId===actorId))
+    ||[...(game.actors??[])].some(a=>(a.getFlag?.(NS,'foldedVehicles')||[]).some(f=>f?.data?.actorId===actorId));   // folded up and carried
+  if(inUse)return false;
+  try{await actor.delete();return true;}catch(error){console.warn('The Smoke | tidy driven vehicle actor',error);return false;}
 }
 
 /* ------------------------------------------------------------------ handlers (leader GM) */
@@ -230,14 +267,16 @@ const HANDLERS={
     await announce(vt,`The cage opens: <strong>${esc(ot.name)}</strong> is let out.`);
     return true;
   },
-  async move({sceneId,vehicleTokenId,transform,userId,animate=true}){
+  async move({sceneId,vehicleTokenId,transform,userId,animate=true,free=false}){
     const user=game.users.get(userId);
     if(!user)throw new Error('Unknown user requested vehicle movement.');
     // The socket sender is not trusted to update arbitrary token properties.
-    const validated=pickVehicleTransform(transform);
+    let validated=pickVehicleTransform(transform);
+    free=Boolean(free&&user.isGM);   // only the GM can make a free move (Alt-drag): no gauge, no incidents
     return (async()=>{
       const scene=game.scenes.get(sceneId),vt=scene?.tokens.get(vehicleTokenId);
       if(!vt||!isVehicleToken(vt))throw new Error('Vehicle token not found on this scene.');
+      if(!free&&settlingMoves.has(vt.uuid))throw new Error('Wait for the previous driving manoeuvre to finish.');
       if(!user.isGM&&vt.actor.system.vehicle.destroyed)throw new Error('This vehicle is written off.');
       const passengers=await reconcileOccupants(vt);
       if(!user.isGM){
@@ -246,8 +285,17 @@ const HANDLERS={
         const pilot=passengers.pilot,driver=pilot&&scene.tokens.get(pilot.tokenId);
         if(!driver?.actor?.testUserPermission?.(user,'OWNER'))throw new Error('Only the seated driver or the GM can move an occupied vehicle.');
       }
-      const changes=planVehicleMove(vt,validated,passengers,scene.grid.size);
-      await scene.updateEmbeddedDocuments('Token',changes,{acVehicleCarry:true,animate:animate!==false});
+      for(const gate of MOVE_GATES){const out=await gate({vt,scene,user,transform:validated,passengers,free});if(out)validated=pickVehicleTransform(out);}
+      const g=scene.grid.size,centre=()=>[Number(vt.x)+Number(vt.width)*g/2,Number(vt.y)+Number(vt.height)*g/2],from=centre();
+      const changes=planVehicleMove(vt,validated,passengers,g);
+      if(!free)settlingMoves.add(vt.uuid);
+      try{await scene.updateEmbeddedDocuments('Token',changes,{acVehicleCarry:true,animate:animate!==false});}
+      catch(error){if(!free)settlingMoves.delete(vt.uuid);throw error;}
+      // Use the committed transform rather than a potentially stale TokenDocument instance.
+      const to=[Number(validated.x??vt.x)+Number(validated.width??vt.width)*g/2,Number(validated.y??vt.y)+Number(validated.height??vt.height)*g/2];
+      void Promise.resolve().then(async()=>{for(const w of MOVE_WATCHERS){await w({vt:scene.tokens.get(vt.id)??vt,scene,user,from,to,passengers,free});}})
+        .catch(error=>{console.warn('The Smoke | after a vehicle move',error);ui.notifications.warn(error.message);})
+        .finally(()=>{if(!free)settlingMoves.delete(vt.uuid);});
       return true;
     })();
   },
@@ -340,6 +388,8 @@ export function installVehicleBoarding(){
     const type=payload.type.slice(10);if(!HANDLERS[type])return;
     try{await runQueued(type,payload.data||{});}catch(error){console.warn('The Smoke | vehicle request refused',error);
       const user=game.users.get(payload.data?.userId);
+      // a refused drag (not your go, past the red line) is a quick note to that player, not a chat message
+      if(type==='move'&&user){game.socket.emit(SOCKET,{type:'smokeWorld.notify',data:{text:error.message,userIds:[user.id],level:'warn'}});return;}
       try{await ChatMessage.implementation.create({speaker:{alias:'Vehicle'},whisper:user?[user.id]:[],content:`<p>${esc(error.message)}</p>`});}catch(_e){}
     }
   });
@@ -353,8 +403,10 @@ export function installVehicleBoarding(){
     if(!Object.keys(occupantsOf(doc)).length)return; // empty vehicles move natively
     try{
       const transform=pickVehicleTransform(changes);
+      // The GM can hold Alt while dropping to reposition a vehicle freely: no movement gauge, no incidents.
+      let free=false;try{free=Boolean(game.user.isGM&&game.keyboard?.isModifierActive?.('Alt'));}catch(_e){}
       // Never call a new document update reentrantly from a preUpdate hook.
-      void Promise.resolve().then(()=>moveVehicle(doc,transform,{animate:options?.animate!==false})).catch(error=>ui.notifications.error(`Vehicle movement failed: ${error.message}`));
+      void Promise.resolve().then(()=>moveVehicle(doc,transform,{animate:options?.animate!==false,free})).catch(error=>ui.notifications.warn(error.message));
     }catch(error){ui.notifications.warn(`Vehicle movement rejected: ${error.message}`);}
     return false; // don't make the vehicle move one server message ahead of its passengers
   });
@@ -383,6 +435,9 @@ export function installVehicleBoarding(){
   });
   // Clean up when a vehicle or occupant token is deleted.
   Hooks.on('deleteToken',(doc,options)=>{
+    // A vehicle with its own (dedicated) actor: once no token anywhere uses that actor, delete it. Map-to-map transit
+    // recreates the token first and deletes with acTransit, so a crossing never loses the motor's actor.
+    if(isLeader()&&!options?.acTransit&&doc.getFlag?.(NS,'dedicatedVehicle')){const id=doc.actorId;setTimeout(()=>{void removeOrphanDedicatedActor(id);},1500);}
     if(options?.smokeDespawn)return;
     // A map-to-map transit recreates the vehicle and riders on the next scene: leave seats and driver grants alone.
     if(!isLeader()||options?.acTransit)return;const scene=doc.parent;
@@ -393,9 +448,8 @@ export function installVehicleBoarding(){
       return;}
     const seat=seatOf(doc);if(seat){const vt=scene.tokens.get(seat.vehicleTokenId);if(vt){const occ=occupantsOf(vt);delete occ[seat.seatId];saveOccupants(vt,occ).then(()=>syncCrew(vt,occ)).then(()=>applyDriverControl(vt,occ));}}
   });
-  // The stock HUD belongs to the token owner. For a player who doesn't own
-  // the vehicle, provide a safe, boarding-only control on vehicle right-click.
-  installUnownedVehicleBoarding();
+  // Non-owner player right-clicks are installed by module/interaction/player-context.mjs.
+  // They do not grant token ownership or open the editable Foundry HUD.
   // Native v14 Token HUD (right click). V14 uses a real HTMLElement, not jQuery.
   // Register both hooks for compatibility with HUD implementations, and dedupe.
   Hooks.on('renderTokenHUD',renderVehicleHUD);
@@ -404,66 +458,6 @@ export function installVehicleBoarding(){
     if(hudType?app instanceof hudType:app?.constructor?.name==='TokenHUD')renderVehicleHUD(app,html);
   });
 
-}
-
-// The stock Foundry HUD does not open on tokens a player does not own.
-// We must not grant ownership of every parked car just to make it boardable.
-// Instead show a very small boarding-only icon on right-click, leaving every
-// other vehicle control and all Actor permissions unchanged.
-let unownedBoardPopup=null;
-function dismissUnownedBoardPopup(){
-  const popup=unownedBoardPopup;
-  if(!popup)return;
-  unownedBoardPopup=null;
-  popup.cleanup();
-}
-function showUnownedVehicleBoardButton(vehicleToken,event){
-  if(typeof document==='undefined'||!document.body)return;
-  dismissUnownedBoardPopup();
-  const nativeEvent=event?.nativeEvent??event?.data?.originalEvent??event;
-  const rect=canvas?.app?.view?.getBoundingClientRect?.();
-  const rawX=nativeEvent?.clientX??(rect?rect.left+(event?.global?.x??0):100);
-  const rawY=nativeEvent?.clientY??(rect?rect.top+(event?.global?.y??0):100);
-  const win=globalThis.window;
-  const x=Math.max(8,Math.min(Number(rawX)||100,(win?.innerWidth||1440)-175));
-  const y=Math.max(8,Math.min((Number(rawY)||100)-20,(win?.innerHeight||900)-65));
-  const host=document.createElement('div');
-  host.className='smoke-vehicle-boarding-popover';
-  host.style.left=`${x}px`;host.style.top=`${y}px`;
-  host.setAttribute('role','toolbar');
-  host.setAttribute('aria-label',`Board ${vehicleToken.name}`);
-  const button=hudButton('fa-solid fa-car-side',`Board ${vehicleToken.name} / choose seat`,()=>{
-    dismissUnownedBoardPopup();return openVehicleBoardDialog(vehicleToken);
-  });
-  button.classList.add('smoke-vehicle-boarding-action');
-  const label=document.createElement('span');label.textContent='Board / Choose Seat';button.append(label);
-  host.append(button);
-  for(const a of extraActions(vehicleToken)){const b=hudButton(a.icon,a.title,()=>{dismissUnownedBoardPopup();return a.fn();});b.classList.add('smoke-vehicle-boarding-action');const l=document.createElement('span');l.textContent=a.title;b.append(l);host.append(b);}
-  document.body.append(host);
-  const closeOutside=ev=>{if(!host.contains(ev.target))dismissUnownedBoardPopup();};
-  const closeEsc=ev=>{if(ev.key==='Escape')dismissUnownedBoardPopup();};
-  document.addEventListener('pointerdown',closeOutside,true);
-  document.addEventListener('keydown',closeEsc,true);
-  unownedBoardPopup={cleanup:()=>{document.removeEventListener('pointerdown',closeOutside,true);document.removeEventListener('keydown',closeEsc,true);host.remove();}};
-}
-function installUnownedVehicleBoarding(){
-  const klass=globalThis.Token??foundry.canvas?.placeables?.Token;
-  const proto=klass?.prototype;
-  const key=Symbol.for('the-smoke.vehicle-board-unowned');
-  if(!proto||proto[key])return;
-  const original=proto._onClickRight;
-  if(typeof original!=='function'){
-    console.warn('The Smoke | Could not attach unowned-vehicle context action; use the character token HUD instead.');
-    return;
-  }
-  Object.defineProperty(proto,key,{value:true,configurable:false});
-  proto._onClickRight=function(...args){
-    const result=original.apply(this,args);
-    if(!game.user?.isGM&&!this.isOwner&&isVehicleToken(this.document)){
-      showUnownedVehicleBoardButton(this.document,args[0]);
-    }else dismissUnownedBoardPopup();
-    return result;
-  };
 }
 
 async function openReleaseDialog(vt,caged){
@@ -485,7 +479,7 @@ function renderVehicleHUD(hud,html){
       // Always render this action. A non-GM player may have lost character
       // selection when they right-clicked the vehicle.
       col.append(hudButton('fa-solid fa-car-side','Board vehicle / choose seat',()=>openVehicleBoardDialog(doc)));
-      for(const a of extraActions(doc))col.append(hudButton(a.icon,a.title,()=>a.fn(doc)));
+      for(const a of vehicleActions(doc))col.append(hudButton(a.icon,a.title,()=>a.fn(doc)));
       if(game.user.isGM)col.append(hudButton('fa-solid fa-users','Who is inside / control',()=>openVehicleControl(doc)));
       const occNow=occupantsOf(doc),riders=Object.keys(occNow).filter(k=>k!=='pilot').length;
       if(riders&&(game.user.isGM||doc.actor?.isOwner||doc.parent.tokens.get(occNow.pilot?.tokenId)?.actor?.isOwner))col.append(hudButton('fa-solid fa-people-arrows','Everyone out (the driver stays)',()=>exitAllFromVehicle(doc)));

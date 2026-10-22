@@ -1,0 +1,76 @@
+import {p,h,box,table,steps,esc} from './rules.mjs';
+
+/** Replace rule chapters in place: the shipped IDs and campaign fiction survive. */
+export function chapters(r, link) {
+  const out = new Map();
+  const put=(key,name,html)=>out.set(`${key}|${name}`,html);
+  const refs=(names)=>box('Keep it to hand', names.map(([k,n,t])=>link(k,n,t)).join(' · '));
+  const quick=[['rules-reference','Core checks','Rolls'],['rules-reference','Combat and harm','Combat'],['rules-reference','Vehicles and chases','Chases'],['rules-reference','Heat and losses','Heat'],['rules-reference','Growth and recovery','Recovery']];
+  const welcome = p('Hackney. Rent is due, your phone is cracked, and Auntie Pat wants bikes. You live in the gap between the next job and the next payday. The Chainring is your crew; London is full of work, grudges and a better angle.') + h('Before the first night',p('Agree the tone and boundaries together: comic capers, grounded crime or something between. Talk about police violence, injury, addiction, debt and bystanders. Anyone can pause the fiction. The opening does not require cruelty to uninvolved people.')) + h('Your first five clicks',steps(['Open your assigned character or finish the creation wizard.','Click a stat on the sheet and choose the agreed difficulty.','Open the Blower with <b>Alt+B</b> and read the current job.','Right-click a motor, board the driver seat, then move the motor.','Use a map exit’s travel button; use <b>Alt+N</b> for the route.'])) + box('When it kicks off','Read each chat card and answer it. Chase assistance is off by default. If the table enables it, NPC actions still wait for Continue and each new round waits for Begin round.') + refs(quick) + p('People, crews and businesses are fictional. Metro Police, Capital Ambulance and City Fire & Rescue are parody services; the London streets are real.');
+  const sheet=p('The top strip shows <b>Health, Hustle, cash and Heat</b>. On the Street holds the nine stat dice, Guard and ready weapons. Target someone with Foundry’s T control, then click the weapon. First aid posts a treatment card for the patient or GM; Heal/Damage are direct bookkeeping controls for agreed effects.') + p('<b>Kit & Perks</b> holds weapons, protection, tools, outfits and consumables. Drag items from the compendium or buy them at a shop. Wear/equip an item to activate its protection; use the item’s Use or Reload control for its action. One worn armour item applies at a time.') + p('<b>Rep & Conditions</b> holds XP, level-up and condition controls. The sheet calculates modifiers and lists the sources. Stash is stored property, separate from carried cash. The identity fields tell the table who you are; they do not automatically create an NPC crew or property income.') + refs([['players-handbook','Harm and Conditions','Conditions'],['players-handbook','Kit','Kit reference'],['players-handbook','Rep and Levelling','Rep ladder']]);
+  const growthShort=p('A job pays cash and XP to its recorded driver; mission rewards use the registered mission crew. Spend XP through the Level up wizard: odd levels raise a stat, even levels add a perk, every third level adds Growth, and each new tier adds Hustle. The full ladder runs to 33.') + refs([['players-handbook','Rep and Levelling','All Rep levels'],['jobs-handbook','Start and finish a shift','Work the Borough'],['players-handbook','Missions and Faction Standing','Mission rewards']]);
+  put('player-guide','Welcome to the ends',welcome);
+  put('player-guide','Read your character sheet',sheet);
+  put('player-guide','Make a new face',r.creation);
+  put('player-guide','The roll',r.roll);
+  put('player-guide','Outcomes and combat',r.damage+r.combat);
+  put('player-guide','Vehicles and London',r.driving+r.chase+refs([['players-handbook','Motors','Vehicle damage and fire'],['players-handbook','Blower, Radio and Sat Nav','Your tools']]));
+  put('player-guide','Heat, cash and consequences',r.heat);
+  put('player-guide','Work, recovery and growth',r.jobs+r.recovery+growthShort);
+  put('player-guide','Live pirate radio',r.tools);
+  put('player-guide','Services, recovery and advancement',r.recovery+growthShort);
+  put('player-guide','When a fight goes wrong',r.down+refs([['players-handbook','Harm and Conditions','All conditions'],['rules-reference','Heat and losses','Custody and hospital']]));
+  put('rules-reference','Core checks',r.roll);
+  put('rules-reference','Combat and harm',r.damage+r.combat+r.down);
+  put('rules-reference','Vehicles and chases',r.driving+r.chase+r.vehicleHarm);
+  put('rules-reference','Heat and losses',r.heat);
+  put('rules-reference','Growth and recovery',r.recovery+growthShort);
+  put('players-handbook','Welcome to The Smoke',welcome);
+  put('players-handbook','Making a Character',r.creation);
+  put('players-handbook','Your Stats',r.stats+sheet);
+  put('players-handbook','Rolling the Dice',r.roll);
+  put('players-handbook','Harm and Conditions',r.damage+r.down+h('Every condition',r.conditions));
+  put('players-handbook','Heat and the Police',r.heat);
+  put('players-handbook','Fighting',r.combat+r.damage+refs([['players-handbook','Harm and Conditions','Down and first aid']]));
+  put('players-handbook','Motors',r.driving+r.vehicleHarm+h('Vehicle library',r.motors));
+  put('players-handbook','Jobs',r.jobs+refs([['jobs-handbook','Police · Pursuit and disturbance','Police callouts'],['jobs-handbook','Paramedic','Treating a patient'],['jobs-handbook','Fire and bus','Fire and bus']]));
+  put('players-handbook','Money and Shops',r.shops+r.recovery);
+  put('players-handbook','Kit',r.kit);
+  put('players-handbook','Rep and Levelling',r.rep);
+  put('players-handbook','Chases and Police Stops',r.chase);
+  put('players-handbook','Blower, Radio and Sat Nav',r.tools);
+  put('players-handbook','Missions and Faction Standing',r.missions);
+  put('gear-reference','What you can carry',sheet+r.shops);
+  put('gear-reference','Weapons, protection and a way out',r.damage+r.recovery+refs([['players-handbook','Kit','All equipment and perks'],['players-handbook','Harm and Conditions','Conditions']]));
+  put('gear-reference','Getting paid',r.shops+growthShort);
+  put('jobs-handbook','Start and finish a shift',r.jobs);
+  put('jobs-handbook','Taxi and courier',h('Taxi',steps(['Take the driver seat of a taxi/minicab and start a shift. Accept the fare on the Blower.','Drive to the pickup and leave a free passenger seat. Follow the arrival prompt; the passenger must board before the drop-off leg.','Take the passenger to the destination. The system pays the driver’s fare and tip according to route, time left and the ride/chat result.']))+h('Courier',steps(['Start a courier shift on a suitable bike or motor. Accept the pickup.','Collect the parcel, then follow the route to the delivery.','Arrive before the deadline. Damage and time affect the payment.']))+p('Each completed call gives 1 XP. Decline an offer you cannot service; end the shift if you are done. The Blower always shows the current stage and deadline.'));
+  put('jobs-handbook','Police · ANPR sweep',r.policeJob);
+  put('jobs-handbook','Police · Pursuit and disturbance',r.policeJob+refs([['players-handbook','Chases and Police Stops','Wanted-player chases and stops']]));
+  put('jobs-handbook','Paramedic',r.patient);
+  put('jobs-handbook','Fire and bus',h('Fire & rescue',p('Arrive at the fire and use the linked <b>Grit Hard</b> hose rolls. The incident is a challenge: <b>4 progress before 3 consequences</b>, within <b>240 job-clock seconds</b> once on scene. Crew can contribute; their rolls add to the same tracks. Proper Mess adds two consequences. A completed fire pays the driver and awards 1 XP.'))+h('Bus route',p('Accept the route, then serve all <b>four stops</b> in order, including the district crossing. Arrival pays each stop’s amount; the complete route adds a <b>£10 bonus and 1 XP</b>. Follow the next-stop route rather than returning to an old ping.')));
+  put('jobs-handbook','The Chainring',p('Open the Blower or ask Pat for an order. She names the models and count she will accept; a tip-off is a lead, not ownership. Nick the specified motor, mark it stolen through the theft action and bring it to the right buyer. The sat nav looks for an eligible target until you are driving one Pat wants, then routes to the handover.')+p('A sale pays the quoted fence money; completing the order adds the order’s bonus, <b>2 XP</b> and Chainring standing. Bigger orders unlock with Rep; car work needs Rep 9. An order is side work, separate from the On Your Bike story mission. The same qualifying sale can satisfy an active mission objective if its rule matches.')+refs([['players-handbook','Money and Shops','Theft and selling'],['players-handbook','Missions and Faction Standing','Story mission rewards']]));
+  put('jobs-handbook','Two crews, map crossings and paused shifts',p('Each vehicle/shift keeps its own driver, active call and deadline. Check which character the Blower is displaying before responding. Accepted job rolls are available to the authorised crew; <b>shift cash and XP go to the recorded driver</b>, not automatically to every nearby PC.')+p('Use the map exit button to carry the vehicle and its riders over a boundary. The job controller remaps its token references and continues the same stage; a second crew’s call stays with that crew. Pausing a shift or the world clock adjusts deadlines on resume, including patient worsening and offer timers. The Banana Watch calendar is a separate world clock.')+box('Take a moment','Pause to read a call or settle a scene. In a chase, answer all pending chat choices before the map exit or next turn.'));
+  const setup=steps(['Install the complete system folder as <b>Data/systems/the-smoke</b> and restart Foundry. Choose The Smoke for the world.','As active GM, open <b>Street Control → Set up the world</b> or the welcome card. Import London, kit, cast, pregens and guides. Assign a PC to each player.','Check the scene and your players’ ownership. Start in Your Flat or Hackney Central, then open the Blower and the Mission Board.','Choose Story or Self-play. Leave automatic chase start and assistance off until the table wants them.'])+p('Setup adds missing content. A version upgrade refreshes shipped journal pages and preserves user-created pages. If a shipped page was edited, its original text is copied into a GM-only backup before the current rule page is restored. IDs and campaign links remain stable; do not reimport duplicate guides over the world’s copies.');
+  const pace=p('Present one immediate problem and ask what the crew does. Resolve the chosen action, show the consequence and offer the next meaningful decision. Let a quiet job end cleanly. Use the job clock pause for discussion and the Console’s response gates for fights.')+r.gmAutomation+refs([['players-handbook','Chases and Police Stops','One-star police-stop flow'],['jobs-handbook','Police · Pursuit and disturbance','Police-shift gap flow']]);
+  put('gm-guide','Start the world',setup);
+  put('gm-guide','Adjudicate the streets',r.roll+r.damage+r.recovery);
+  put('gm-guide','Control the pace',pace);
+  put('gm-guide','Upgrading and running The Smoke',setup+r.gmAutomation);
+  put('gms-book','Running The Smoke',p('Give London a face and a demand. Pat wants bikes, Mo wants rent, Vale wants a name, the crew wants an opening. Set the stakes before the dice, show the price of the result and keep the next choice legible.')+setup+pace);
+  put('gms-book','The GM Screen',p('Open <b>Street Control / GM Screen</b> from the scene controls. The screen brings together setup, the Mission Board, faction standing, the atlas, jobs, cast, shops and street life. Select the relevant actor/token before applying an effect. The active GM processes authoritative world requests.')+r.gmAutomation);
+  put('gms-book','Quick Checks',r.roll+r.stats);
+  put('gms-book','Hazards',r.damage+r.down+r.vehicleHarm+box('Fictional hazards','For a fall, fire, crushing door or environmental threat, agree the difficulty and harm before rolling. Use the same damage and condition controls; a fictional hazard is not automatically a weapon attack.'));
+  put('gms-book','Police Response',r.heat+r.chase);
+  put('gms-book','Running Combat',r.combat+r.damage+r.down+r.gmAutomation);
+  put('gms-book','Rewards and XP',r.rep+r.missions);
+  put('gms-book','Maps and Places',r.map);
+  put('gms-book','Automation and Table Pace',r.gmAutomation+r.chase);
+  put('missions-guide','How the Missions Work',r.missions+box('The twelve opening jobs','These pages keep the campaign scenes and hooks. Each mission’s current Board rules strip gives the actual gates, objective ticks and reward split. Hand the players the brief; keep GM twists in this book.'));
+  // The campaign's lore stays intact, with a compact implemented-rules section
+  // replacing old claims that the scenario notes were an automatic story engine.
+  put('sandbox-campaign','Renown, Influence and Interior Access',r.missions+h('Keys, access and fiction',p('Faction favours and rank permissions are offers for the GM to adjudicate: choose the contact, price, room, risk and expiry. Edit Influence after a favour is agreed. A map’s existence does not make its private rooms publicly accessible. Use the Venue Register to prepare the relevant interior and reveal only what the characters have learned.')));
+  put('sandbox-campaign','Running the Open City',r.map+r.gmAutomation+p('Tick the consequences of the crew’s choices: who remembers, what debt is owed and which front moved. The Mission Board tracks its objectives and rewards; the GM carries motives, unresolved clues and changing allegiances between sessions.'));
+  put('sandbox-campaign','Map Production and Approach Insets',r.map+p('Approach maps show entrances, cover and the street context for a venue; interiors show its rooms. Use the venue’s own key and register link. Prepare maps ahead of play so an entrance does not interrupt a decision.'));
+  return out;
+}

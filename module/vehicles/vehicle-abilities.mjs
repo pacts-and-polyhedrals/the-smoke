@@ -10,6 +10,8 @@
 //   flying      helicopter: ignores roads
 import {NS, SOCKET} from '../config.mjs';
 import {ukPlate} from '../rules/jobs-core.mjs';
+import {chaseOf, actionKey, tallyOf} from '../world/chase-state.mjs';
+import {bandPenalty, BAND_INFO} from '../rules/driving.mjs';
 const esc = v => foundry.utils.escapeHTML(String(v ?? ''));
 const leaderGM = () => game.users.activeGM ?? game.users.filter(u => u.active && u.isGM).sort((a, b) => a.id.localeCompare(b.id))[0] ?? null;
 const isLeader = () => leaderGM()?.id === game.user.id;
@@ -81,7 +83,10 @@ export function driverContext(actor, {sceneId = null, tokenId = null} = {}) {
     const flats = Math.max(0, Number(v.flats || 0)), ladder = [4, 6, 8, 10, 12, 20];
     const perf = ladder[Math.max(0, ladder.indexOf(Number(v.perfDie || 6)) - flats)] ?? 4;
     const notes = [...p.notes, ...(flats ? [`${flats} flat tyre${flats > 1 ? 's' : ''}: Performance d${perf}, Handling −${2 * flats}`] : [])];
-    return {vehicleName: info.vehicle.name, vehicleToken: info.vt, perfDie: perf, handling: Number(v.handling || 0) - 2 * flats, modifier: p.modifier, notes, destroyed: Boolean(v.destroyed), wrecked: Number(v.body.value) <= 0};
+    // In a chase, pushing into yellow or red costs Handling for the rest of that action.
+    let modifier = p.modifier; const key = actionKey(chaseOf(info.vt?.parent)), band = key ? tallyOf(info.vt, key).band : 'green', pen = bandPenalty(band);
+    if (pen) { modifier += pen; notes.push(`${BAND_INFO[band].label} on the gauge: Handling ${pen}`); }
+    return {vehicleName: info.vehicle.name, vehicleToken: info.vt, perfDie: perf, handling: Number(v.handling || 0) - 2 * flats, modifier, notes, destroyed: Boolean(v.destroyed), wrecked: Number(v.body.value) <= 0, band};
   } catch (error) { console.warn('The Smoke | driver context', error); return null; }
 }
 

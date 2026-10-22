@@ -50,7 +50,7 @@ export function validateStations(rows){
   if(!/^[a-z0-9][a-z0-9-]{0,47}$/.test(id)||ids.has(id))throw new Error(`Preset ${i+1} needs a unique ID (lower-case letters, numbers and dashes).`);
   if(!name||name.length>64||genre.length>100)throw new Error(`Preset ${i+1} needs a name of up to 64 characters and genres of up to 100 characters.`);
   ids.add(id);
-  return {id,name,genre,stream:httpsURL(row.stream,{required:true,stream:true}),website:httpsURL(row.website,{required:true}),directory:httpsURL(row.directory),...contactsOf(row,i)};
+  return {id,name,genre,stream:httpsURL(row.stream,{required:false,stream:true}),playerUrl:httpsURL(row.playerUrl),website:httpsURL(row.website,{required:true}),directory:httpsURL(row.directory),...contactsOf(row,i)};
  });
 }
 export function steppedStation(stations,current,delta){

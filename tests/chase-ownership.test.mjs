@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {NS,scene,jt,makeCombat,combats,settings} from './chase-harness.mjs';
+import {startChaseNow,endChase} from '../module/world/chase.mjs';
+import {chaseOf} from '../module/world/chase-state.mjs';
+import '../module/combat/combat.mjs';
+settings.chaseMode='manual';settings.chaseAuto=false;
+// An ordinary scene fight must retain its state and not be converted to the chase.
+const ordinary=makeCombat();
+await ordinary.setFlag(NS,'state',{phase:'resolve',round:3,cursor:0,queue:[]});
+const [a,b]=await Promise.all([startChaseNow(scene,{targetId:jt.id}),startChaseNow(scene,{targetId:jt.id})]);
+assert.ok(a);assert.equal(a,b,'racing detections must share one created chase document');
+assert.notEqual(a.id,ordinary.id,'ordinary encounters may not be mutated into a chase');
+assert.equal(ordinary.getFlag(NS,'chase'),undefined);
+assert.equal(chaseOf(scene),a,'registered chase owns its own canvas');
+assert.equal(scene.getFlag(NS,'chaseCombatId'),a.id,'scene records its chase owner');
+await endChase(a,{why:'Test clean-up'});
+assert.equal(chaseOf(scene),null);
+assert.equal(scene.getFlag(NS,'chaseCombatId'),undefined);
+assert.equal(combats.get(ordinary.id),ordinary,'original fight survives pursuit clean-up');
+console.log('chase ownership: concurrent sightings create one chase, existing fight remains intact, scene binding cleans up — ok');
+process.exit(0);

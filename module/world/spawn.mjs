@@ -72,6 +72,23 @@ export const isStreetScene = scene => Boolean(scene?.getFlag?.(NS, 'streetAtlas'
 export function tokenCentre(t) { const g = t.parent?.grid?.size || 100; return [Number(t.x) + Number(t.width || 1) * g / 2, Number(t.y) + Number(t.height || 1) * g / 2]; }
 export function tokenRect(t) { const g = t.parent?.grid?.size || 100; return [Number(t.x), Number(t.y), Number(t.width || 1) * g, Number(t.height || 1) * g]; }
 export function distanceSquares(a, b) { const g = a.parent?.grid?.size || 100; const [ax, ay] = tokenCentre(a), [bx, by] = tokenCentre(b); return Math.hypot(ax - bx, ay - by) / g; }
+/**
+ * The token that stands for an actor in play. A character often has stale tokens left on other maps, so prefer:
+ * the actor's own (unlinked) token, then a map an active owner (or the requesting user) is viewing, then the map the
+ * leader is looking at, then the active scene, then any visible token. Null when it has none.
+ */
+export function actorToken(actor, {userId = null} = {}) {
+  if (!actor) return null;
+  if (actor.token) return actor.token;
+  const scenes = [...(game.scenes ?? [])];
+  const tokensOn = s => (s?.tokens ? (s.tokens.filter?.(t => t.actorId === actor.id) ?? []) : []);
+  const viewers = [game.users?.get?.(userId), ...(game.users?.filter?.(u => u.active && !u.isGM && actor.testUserPermission?.(u, 'OWNER')) ?? [])].filter(Boolean);
+  for (const u of viewers) { const s = scenes.find(x => x.id === u.viewedScene); const t = tokensOn(s)[0]; if (t) return t; }
+  const canvasScene = globalThis.canvas?.scene, active = scenes.find(s => s.active);
+  for (const s of [canvasScene, active]) { const t = tokensOn(s)[0]; if (t) return t; }
+  for (const s of scenes) { const t = tokensOn(s).find(x => !x.hidden); if (t) return t; }
+  return null;
+}
 export function zoneOfToken(t) { const [x, y] = tokenCentre(t); return zoneAtPoint(zonesOf(t.parent), x, y); }
 
 /** Lane placement on a road zone: the UK drives on the left. Returns {x, y, rotation, dir}. */

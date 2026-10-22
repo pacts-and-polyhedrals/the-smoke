@@ -1,11 +1,12 @@
 // Nicking things: cut a lock, hotwire a car, carjack a driver, then sell it — bikes to Auntie Pat at The Arches,
 // motors to Bow Breakers Yard. All writes happen on the leader GM; rolls happen on the player's own client.
-import {NS, CRIMES} from '../config.mjs';
+import {NS} from '../config.mjs';
 import {fencePrice, isSuccess} from '../rules/core.mjs';
 import {lockBandWithTool, theftResult, arrivedAt} from '../rules/jobs-core.mjs';
 import {BOARD_GATES, VEHICLE_ACTIONS, boardingCandidates, boardVehicle, exitAllFromVehicle} from '../vehicles/vehicle-boarding.mjs';
+import {ejectAmbientCrew} from './traffic-crew.mjs';
 import {hasAbility} from '../vehicles/vehicle-abilities.mjs';
-import {request, registerHandler, isLeader, card, esc, ownersOf, notify} from './net.mjs';
+import {request, registerHandler, isLeader, card, esc, ownersOf} from './net.mjs';
 import {zonesOf, tokenRect, placeToken, ensurePersonActor, randomPedKey, distanceSquares} from './spawn.mjs';
 
 const BIKE_CLASSES = new Set(['bike']);
@@ -13,6 +14,10 @@ const PEDAL = v => Number(v?.system?.vehicle?.size ?? 1) === 0;          // bicy
 export const isLocked = vt => Boolean(vt?.getFlag?.(NS, 'locked'));
 export const isTraffic = vt => vt?.getFlag?.(NS, 'traffic')?.kind === 'moving';
 export const isStolen = vt => Boolean(vt?.getFlag?.(NS, 'stolen'));
+/** A Londoner at the wheel (Street Life crew), on a motor that isn't a police unit: one you carjack, not nick. */
+export const npcAtWheel = vt => !vt?.getFlag?.(NS, 'police') && (vt?.getFlag?.(NS, 'vehicleOccupants') || []).some(o => o?.seatId === 'pilot' && o.ambient === true && vt.parent?.tokens?.get?.(o.tokenId));
+/** Somebody else is driving it: moving traffic, or a motor the GM placed with an NPC driver (0.5.23). */
+export const carjackable = vt => isTraffic(vt) || npcAtWheel(vt);
 const occupants = vt => { const o = vt?.getFlag?.(NS, 'vehicleOccupants'); return Array.isArray(o) ? o : []; };
 const TOOLS = ['angle grinder', 'relay box', 'bolt cutters', 'slim jim', 'screwdriver'];
 /** The best tool this character carries for this lock (a gear Item whose `tool` names it). */
@@ -43,7 +48,7 @@ export async function nickIt(vt) {
 }
 export async function carjack(vt) {
   const who = await myCharacterNear(vt, {reach: 1.5}); if (!who) return;
-  const choice = await foundry.applications.api.DialogV2.wait({window: {title: `Carjack the ${vt.name}`}, content: '<p>Drag the driver out (Muscle) or scare them out (Front)? Either way, it is a witnessed carjacking: <b>+2 Heat</b>.</p>',
+  const choice = await foundry.applications.api.DialogV2.wait({window: {title: `Carjack the ${vt.name}`}, content: '<p>Drag the driver out (Muscle) or scare them out (Front)? Either way, it is a witnessed carjacking: <b>1★ Heat</b> if you had none (it never takes you higher).</p>',
     buttons: [{action: 'mus', label: 'Drag them out (Muscle)', icon: 'fa-solid fa-hand-fist'}, {action: 'frt', label: 'Scare them out (Front)', icon: 'fa-solid fa-face-angry'}]});
   if (!choice || !['mus', 'frt'].includes(choice)) return;
   const out = await who.actor.rollStat(choice, {band: 'medium', label: `Carjack: ${vt.name}`, context: {kind: 'carjack', vehicleTokenId: vt.id}});
@@ -51,6 +56,69 @@ export async function carjack(vt) {
   return request('theft.carjack', {sceneId: vt.parent.id, vehicleTokenId: vt.id, tokenId: who.id, messageId: out.message.id});
 }
 export const sellVehicle = vt => request('theft.sell', {sceneId: vt.parent.id, vehicleTokenId: vt.id});
+
+/* ------------------------------------------------------------------ player-initiated street interactions */
+/** Choose a player's nearby character to attempt a pickpocket or speak to a non-owned NPC.
+ * This never grants the player ownership of the NPC actor. */
+async function myCharacterByNpc(target) {
+  if (!target?.parent || target.actor?.type !== 'npc' || target.hidden) throw new Error('Choose a visible person.');
+  const all = Array.from(target.parent.tokens?.contents || target.parent.tokens || []);
+  const candidates = all.filter(t => t.actor?.type === 'character' &&
+    (game.user.isGM || t.actor.testUserPermission?.(game.user,'OWNER')) &&
+    distanceSquares(t,target) <= 2.2);
+  if (!candidates.length) throw new Error('Get your character alongside the person first.');
+  if (candidates.length === 1) return candidates[0];
+  const form = await foundry.applications.api.DialogV2.input({window:{title:`${target.name}: choose your character`},
+    content:`<label>Your character<select name="t">${candidates.map(t => `<option value="${esc(t.id)}">${esc(t.name)}</option>`).join('')}</select></label>`});
+  return candidates.find(t => t.id === form?.t) ?? null;
+}
+export async function pickpocket(target) {
+  const who = await myCharacterByNpc(target); if (!who) return null;
+  const context = {kind:'pickpocket',sceneId:target.parent.id,targetTokenId:target.id};
+  const out = await who.actor.rollDialog('grf',{band:'medium',label:`Pickpocket: ${target.name}`,context});
+  if (!out?.message) return null;
+  return request('theft.pickpocket',{sceneId:target.parent.id,targetTokenId:target.id,tokenId:who.id,messageId:out.message.id});
+}
+export async function talkTo(target) {
+  const who = await myCharacterByNpc(target); if (!who) return null;
+  return request('theft.talk',{sceneId:target.parent.id,targetTokenId:target.id,tokenId:who.id});
+}
+function requireNpcInteraction({sceneId,targetTokenId,tokenId,userId}) {
+  const scene = game.scenes.get(sceneId), target = scene?.tokens.get(targetTokenId), who = scene?.tokens.get(tokenId), user = game.users.get(userId);
+  if (!scene || !user || !target || target.actor?.type !== 'npc' || target.hidden) throw new Error('That person is not available.');
+  if (!who || who.actor?.type !== 'character' || !user.isGM && !who.actor.testUserPermission?.(user,'OWNER')) throw new Error('Not your character.');
+  if (!user.isGM && distanceSquares(who,target) > 2.2) throw new Error('Get closer before interacting.');
+  return {scene,target,who,user};
+}
+registerHandler('theft.talk', async data => {
+  const {target,who} = requireNpcInteraction(data);
+  const to = [...new Set([...ownersOf(who.actor),...game.users.filter(u=>u.isGM).map(u=>u.id)])];
+  await card('STREET CHAT',`${who.name} approaches ${target.name}`,`<p>${esc(who.name)} wants to talk. The GM can respond for this person.</p>`,'crew',{whisper:to});
+  return true;
+});
+registerHandler('theft.pickpocket', async data => {
+  const {target,who,scene} = requireNpcInteraction(data);
+  const {m,r} = readStreetRoll(data.messageId,'pickpocket',target.id,scene.id);
+  if (r.actorUuid !== who.actor.uuid || r.stat !== 'grf') throw new Error('That is not this character’s Graft roll.');
+  // Consume the exact roll once. All game-world outcomes (including Heat) are applied by the leader.
+  await m.setFlag(NS,'consumed',true);
+  const success = isSuccess(r.outcomeKey);
+  const noticed = !success || r.outcomeKey === 'narrowSuccess';
+  const byPolice = noticed && policeNear(scene,who);
+  const owners = [...new Set([...ownersOf(who.actor),...game.users.filter(u=>u.isGM).map(u=>u.id)])];
+  await card('PICKPOCKET',`${who.name} · ${target.name}`,
+    `<p>${success ? (noticed ? 'You lift something, but someone clocks you.' : 'A clean lift. They have not noticed yet.') : 'No luck: you did not get anything, and your attempt is noticed.'}</p><p><b>GM:</b> ${success ? 'Decide what the NPC was carrying and award it to this character if appropriate.' : 'Adjudicate the NPC reaction.'} No inventory or money has been transferred automatically.</p>`,
+    success?'win':'lose',{whisper:owners});
+  if (noticed) await who.actor.reportCrime('pickpocket',{witnessed:true,byPolice});
+  return {success,noticed};
+});
+function readStreetRoll(messageId,kind,targetTokenId,sceneId) {
+  const m = game.messages.get(messageId),r = m?.getFlag(NS,'roll');
+  if (!m || !r || r.context?.kind !== kind || r.context?.targetTokenId !== targetTokenId || r.context?.sceneId !== sceneId)
+    throw new Error('That roll does not match this target.');
+  if (m.getFlag(NS,'consumed')) throw new Error('That attempt has already been resolved.');
+  return {m,r};
+}
 
 /* ------------------------------------------------------------------ fences: who buys what, and where */
 // Auntie Pat buys anything on two wheels (pedal bikes, scooters, mopeds, scramblers, motorbikes) at The Arches on
@@ -77,7 +145,7 @@ export function fenceHere(vt) {
 /** What the fence will pay right now. */
 export function quoteFor(vt, service = buyerFor(vt.actor), seller = null) {
   const v = vt.actor.system.vehicle, hot = Number(vt.getFlag(NS, 'hotUntil') || 0) > Date.now();
-  const bonus = Number(seller?.system?.stage || 1) >= 3 ? 1.1 : 1;
+  const bonus = Number(seller?.system?.stage || 1) >= 6 ? 1.1 : 1;   // Rep 6: a known supplier
   return {price: Math.round(fencePrice({value: v.value, body: v.body.value, bodyMax: v.body.max, share: FENCES[service].share, hot}) * bonus / 5) * 5, hot, bonus: bonus > 1};
 }
 /** Why a fence won't touch this vehicle, or '' if it is sellable. */
@@ -118,6 +186,8 @@ registerHandler('theft.resolve', async ({sceneId, vehicleTokenId, tokenId, messa
   const scene = game.scenes.get(sceneId), vt = scene?.tokens.get(vehicleTokenId), who = scene?.tokens.get(tokenId), user = game.users.get(userId);
   if (!vt || !who) throw new Error('Vehicle or character not found.');
   if (!user?.isGM && !who.actor?.testUserPermission(user, 'OWNER')) throw new Error('Not your character.');
+  if (!isLocked(vt)) throw new Error(`${vt.name} is not locked. Get in instead of hotwiring it.`);
+  if (carjackable(vt)) throw new Error(`${vt.name} has a driver. Try carjacking instead.`);
   if (vt.getFlag(NS, 'jammed')) throw new Error(`The lock on the ${vt.name} is jammed solid.`);
   const {m, r} = readRoll(messageId, 'theft', vt.id);
   if(r.actorUuid!==who.actor.uuid)throw new Error('That is not this character’s roll.');
@@ -143,7 +213,7 @@ registerHandler('theft.carjack', async ({sceneId, vehicleTokenId, tokenId, messa
   const scene = game.scenes.get(sceneId), vt = scene?.tokens.get(vehicleTokenId), who = scene?.tokens.get(tokenId), user = game.users.get(userId);
   if (!vt || !who) throw new Error('Vehicle or character not found.');
   if (!user?.isGM && !who.actor?.testUserPermission(user, 'OWNER')) throw new Error('Not your character.');
-  if (!isTraffic(vt)) throw new Error('Nobody is driving that one — nick it instead.');
+  if (!carjackable(vt)) throw new Error('Nobody is driving that one — nick it instead.');
   const {m, r} = readRoll(messageId, 'carjack', vt.id);
   if(r.actorUuid!==who.actor.uuid)throw new Error('That is not this character’s roll.');
   if(distanceSquares(who,vt)>Math.max(vt.width,vt.height)+2&&!user.isGM)throw new Error('Get beside the vehicle.');
@@ -158,7 +228,7 @@ registerHandler('theft.carjack', async ({sceneId, vehicleTokenId, tokenId, messa
   const g = scene.grid.size, plate = vt.getFlag(NS, 'plate');
   await vt.update({[`flags.${NS}.traffic`]: null, [`flags.${NS}.locked`]: false, [`flags.${NS}.stolen`]: true, [`flags.${NS}.thief`]: who.actor.id,
     ...(plate ? {[`flags.${NS}.marker`]: {kind: 'stolen', label: 'CARJACKED — VIOLENT ROBBERY', since: 'just now', note: 'Driver dragged from the vehicle. Approach with caution.'}} : {})}, {acVehicleCarry: true});
-  try { const ped = await ensurePersonActor(await randomPedKey()); await placeToken(scene, ped, vt.x + (vt.width + 1.5) * g, vt.y + g, {flags: {traffic: {kind: 'ped', flee: who.id}}}); } catch (_e) {}
+  await ejectAmbientCrew(vt,{fleeTokenId:who.id}); // actual taxi/bus/road driver, not a newly invented random witness
   await card('CARJACK', `${who.name} takes the ${vt.name}`, `<p>The driver is out on the tarmac shouting into their phone.</p>`, 'win');
   await who.actor.reportCrime('carjack', {witnessed: true, byPolice});
   await boardVehicle(vt, who, 'pilot');
@@ -196,7 +266,7 @@ export function installTheft() {
     if (user?.isGM) return;
     const aboard = ot.getFlag(NS, 'vehicleSeat')?.vehicleTokenId === vt.id;
     if (aboard) return;
-    if (isTraffic(vt) && seat.role === 'pilot') throw new Error(`Someone is driving the ${vt.name}. Carjack them (right-click the vehicle).`);
+    if (carjackable(vt) && seat.role === 'pilot') throw new Error(`Someone is driving the ${vt.name}. Carjack them (right-click the vehicle).`);
     if (isTraffic(vt)) throw new Error(`The ${vt.name} is someone else's ride.`);
     if (vt.getFlag(NS, 'jammed')) throw new Error(`The lock on the ${vt.name} is jammed.`);
     if (isLocked(vt) && !vt.actor?.testUserPermission?.(user, 'OWNER')) throw new Error(`The ${vt.name} is locked. Right-click it → Nick it.`);
@@ -224,10 +294,10 @@ export function installTheft() {
   });
   VEHICLE_ACTIONS.push(vt => {
     const out = [];
-    if (isTraffic(vt)) out.push({icon: 'fa-solid fa-hand-fist', title: 'Carjack', fn: () => carjack(vt)});
-    else if (isLocked(vt) && !vt.getFlag(NS, 'jammed')) out.push({icon: 'fa-solid fa-key', title: PEDAL(vt.actor) ? 'Nick it (cut the lock)' : 'Nick it (break in & hotwire)', fn: () => nickIt(vt)});
+    if (carjackable(vt)) out.push({icon: 'fa-solid fa-hand-fist', title: 'Carjack', playerAllowed: true, fn: () => carjack(vt)});
+    else if (isLocked(vt) && !vt.getFlag(NS, 'jammed')) out.push({icon: 'fa-solid fa-key', title: PEDAL(vt.actor) ? 'Nick it (cut the lock)' : 'Nick it (break in & hotwire)', playerAllowed: true, fn: () => nickIt(vt)});
     const here = isStolen(vt) && !unsellable(vt) && fenceHere(vt);
-    if (here) out.push({icon: 'fa-solid fa-sterling-sign', title: `Sell to ${FENCES[here.service].who} (£${quoteFor(vt, here.service, riderOf(vt)?.actor).price})`, fn: () => sellVehicle(vt)});
+    if (here && (game.user.isGM || riderOf(vt)?.actor?.isOwner || game.actors.get(vt.getFlag(NS,'thief'))?.isOwner)) out.push({icon: 'fa-solid fa-sterling-sign', title: `Sell to ${FENCES[here.service].who} (£${quoteFor(vt, here.service, riderOf(vt)?.actor).price})`, playerAllowed: true, fn: () => sellVehicle(vt)});
     return out;
   });
 }

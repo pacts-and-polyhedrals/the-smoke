@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "classic-level": "^3.0.0",
+    "linkedom": "^0.18.13"
+  },
+  "name": "the-smoke-journal-build",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "verify": "node verify.mjs"
+  }
+}

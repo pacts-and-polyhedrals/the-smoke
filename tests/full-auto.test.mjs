@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import {NS,scene,makeCombat,vt,jt,ut,jaz,settings} from './chase-harness.mjs';
+import {installChase} from '../module/world/chase.mjs';
+import '../module/combat/combat.mjs'; // Registers authoritative round/next handlers, as the Foundry entrypoint does.
+import {stateOf,chaseMode,pendingResponses} from '../module/world/chase-state.mjs';
+const nap = ms => new Promise(r=>setTimeout(r,ms));
+const until=async(pred,ms=7000)=>{const start=Date.now();while(Date.now()-start<ms){if(pred())return;await nap(20);}throw new Error('Timed out waiting for automatic chase turn to advance');};
+settings.chaseDelay=0;settings.chaseMode='full';settings.chaseAuto=true;settings.autoEvade=true;
+const c=makeCombat();const [cop,pc]=await c.createEmbeddedDocuments('Combatant',[{tokenId:ut.id,sceneId:scene.id,actorId:ut.actor.id},{tokenId:jt.id,sceneId:scene.id,actorId:jaz.id}]);
+await c.setFlag(NS,'chase',{mode:'full',auto:true,reason:'Autopilot test',since:Date.now(),lastSeen:{[jaz.id]:{at:Date.now(),point:[vt.x+100,vt.y+150]}}});
+await c.update({[`flags.${NS}.state`]:{phase:'resolve',round:1,cursor:0,queue:[{cid:cop.id,kind:'action',die:0,value:6,name:cop.name},{cid:pc.id,kind:'action',die:0,value:4,name:pc.name}]}});
+installChase();
+Hooks.callAll('updateCombat',c,{[`flags.${NS}.state`]:{phase:'resolve'}});
+await until(()=>stateOf(c).cursor===1);
+assert.equal(stateOf(c).cursor,1,'Full Auto performs NPC turn and advances itself');
+await nap(180);
+assert.equal(stateOf(c).cursor,1,'Full Auto never skips the player turn');
+assert.equal(chaseMode(c),'full');
+assert.deepEqual(pendingResponses(c),[]);
+console.log('full auto: NPC action progresses without Continue while the next player die remains available — ok');
+process.exit(0);

@@ -1,5 +1,7 @@
-// Public live endpoints, checked 15 October 2026. Audio stays with the broadcaster.
-// The directory links identify stations from the user's radio.net pirate-radio list.
+// Only broadcasters with a supported direct feed ship as default tuner presets.
+// CodeSouth and Esencia Urbana have official web players, but no verified direct media URLs.
+// Neither may appear as a dead/Retry preset. A GM may re-add one with their own stream.
+// The directory links identify the supplied six stations.
 export const RADIO_DIRECTORY='https://uk.radio.net/topic/interests/pirate-radio';
 // Studio contacts as each station publishes them, checked 15 October 2026 (the GM can change them in Edit presets).
 // chatUrl is the station's own chat or message box, shown inside Foundry: Rude FM's Chatroll room and Vision Radio UK's
@@ -24,5 +26,9 @@ export const DEFAULT_STATIONS=[
  {id:'supreme-fm',name:'Supreme FM',genre:'Soul · R&B · reggae',stream:'https://supremefmwebsite-friskydj.radioca.st/stream',website:'https://supremefm.com/',directory:'https://uk.radio.net/s/supremefm',
   chatUrl:'',whatsapp:'',sms:'',phone:'+442035989656',email:'info@supremefm.com',messageUrl:'https://supremefm.com/'},
  {id:'radio-caroline',name:'Radio Caroline UK',genre:'Rock · pop · album tracks',stream:'https://stream.radiocaroline.net/rc128/;',website:'https://www.radiocaroline.co.uk/',directory:'https://uk.radio.net/s/radiocaroline',
-  chatUrl:'',whatsapp:'',sms:'',phone:'',email:'studio@radiocaroline.co.uk',messageUrl:'https://www.radiocaroline.co.uk/contact.html'}
+  chatUrl:'',whatsapp:'',sms:'',phone:'',email:'studio@radiocaroline.co.uk',messageUrl:'https://www.radiocaroline.co.uk/contact.html'},
+
 ];
+
+/** Keep newer presets available in worlds which customised the six original presets before this release. */
+export const NEW_RADIO_PRESETS = Object.freeze([]);

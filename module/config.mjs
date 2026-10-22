@@ -27,24 +27,38 @@ export const HEAT = Object.freeze([
   {stars: 1, name: 'Clocked', response: 'A patrol has your description. Cops who see you will stop you.'},
   {stars: 2, name: 'Wanted', response: 'Area cars hunt you and give chase on sight.'},
   {stars: 3, name: 'India 99', response: 'The NPAS helicopter is up: it spots you anywhere outdoors on this map.'},
-  {stars: 4, name: 'Trojans', response: 'Armed Response Vehicles join the hunt. They will shoot.'},
-  {stars: 5, name: 'Lockdown', response: 'Roadblocks on every exit of the map. Every unit in the borough.'}
+  {stars: 4, name: 'Trojans', response: 'An Armed Response Vehicle joins the hunt. Its officers will shoot.'},
+  {stars: 5, name: 'Lockdown', response: 'Roadblocks on the exits of the map. Every spare unit joins in, up to the map\'s police limit.'}
 ]);
 
-/** What a crime adds to Heat when someone sees it. */
+/**
+ * What a witnessed crime does to Heat (0.5.22). Each crime adds `heat` (+1 more if the police saw it) but can never take
+ * you past its `cap` on its own; `min` is the least it leaves you on. So thieving and carjacking stay at one star
+ * however often you do it, a fight or a punch at a copper tops out at two, gunfire at three, and only taking a life
+ * brings the armed units: four stars for a killing, five for a second killing or a dead police officer.
+ */
 export const CRIMES = Object.freeze({
-  nickBike: {label: 'Nicking a bike', heat: 1},
-  nickCar: {label: 'Nicking a car', heat: 1},
-  carjack: {label: 'Carjacking', heat: 2},
-  assault: {label: 'Assault', heat: 1},
-  assaultCop: {label: 'Assaulting a police officer', heat: 2},
-  shooting: {label: 'Firing a gun', heat: 2},
-  murder: {label: 'Killing someone', heat: 3},
-  copKiller: {label: 'Killing a police officer', heat: 4},
-  evading: {label: 'Failing to stop for police', heat: 1},
-  dangerousDriving: {label: 'Dangerous driving', heat: 1},
-  stealCopCar: {label: 'Stealing a police vehicle', heat: 3}
+  pickpocket: {label: 'Pickpocketing', heat: 1, cap: 1},
+  nickBike: {label: 'Nicking a bike', heat: 1, cap: 1},
+  nickCar: {label: 'Nicking a car', heat: 1, cap: 1},
+  carjack: {label: 'Carjacking', heat: 1, cap: 1},
+  graffiti: {label: 'Witnessed illegal graffiti', heat: 1, cap: 1},
+  dangerousDriving: {label: 'Dangerous driving', heat: 1, cap: 1},
+  evading: {label: 'Failing to stop for police', heat: 1, cap: 2},
+  assault: {label: 'Assault', heat: 1, cap: 2},
+  assaultCop: {label: 'Assaulting a police officer', heat: 1, min: 2, cap: 2},
+  stealCopCar: {label: 'Stealing a police vehicle', heat: 1, min: 2, cap: 2},
+  shooting: {label: 'Firing a gun', heat: 1, min: 2, cap: 3},
+  murder: {label: 'Killing someone', heat: 1, min: 4, cap: 5},
+  copKiller: {label: 'Killing a police officer', heat: 1, min: 5, cap: 5}
 });
+/** "+1★ (one star at most)" — how a crime moves Heat, for tables and pickers. */
+export function crimeHeatText(c) {
+  if (!c) return '';
+  if (c.min && c.min >= c.cap) return `${c.cap}★`;
+  if (c.min) return `at least ${c.min}★, up to ${c.cap}★`;
+  return c.cap <= 1 ? '1★ at most' : `+${c.heat}★, up to ${c.cap}★`;
+}
 
 export const CASH = '£';
 export const VEHICLE_LOCK_BANDS = Object.freeze({easy: 'Easy', medium: 'Medium', hard: 'Hard', miracle: 'Long Shot'});

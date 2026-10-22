@@ -22,6 +22,7 @@ function combatant(t, pc) { return {id: uid(), name: t.name, actor: t.actor, tok
 const cs = [combatant(tj, true), combatant(tc, false), combatant(ts, true)];
 const combat = {id: 'c1', scene, round: 0, flags: {}, combatants: Object.assign(cs, {get: id => cs.find(c => c.id === id)}),
   getFlag(ns, k) { return this.flags[ns]?.[k]; }, async update(u) { for (const [k, v] of Object.entries(u)) { if (k.startsWith(`flags.${NS}.`)) (this.flags[NS] ??= {})[k.slice(NS.length + 7)] = v; else this[k] = v; } }};
+for (const c of cs) c.parent = combat;   // as in Foundry: a combatant knows its fight (a surrender is scoped to it)
 game.combats = Object.assign([combat], {get: id => id === 'c1' ? combat : null});
 const msgs = new Map(); game.messages = {get: id => msgs.get(id)};
 const net = await import('../module/world/net.mjs');

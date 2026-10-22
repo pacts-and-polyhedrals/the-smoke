@@ -1,7 +1,11 @@
 <div class="smoke-gm">
   <header class="gm-hero">
-    <div><span class="kicker">THE SMOKE · GM SCREEN</span><h1>Run London</h1><p>Tick who it's for, then throw something at them. Results land back on the card in chat.</p></div>
+    <div><span class="gm-brand-row"><img class="smoke-brand-symbol" src="systems/the-smoke/assets/branding/logos/symbol.png" alt="The Smoke symbol"><span class="kicker">THE SMOKE · GM SCREEN</span></span><h1>Run London</h1><p>Tick who it's for, then throw something at them. Results land back on the card in chat.</p></div>
     <div class="gm-hero-stats"><span><b>{{sceneName}}</b>this map</span><span><b>{{characters.length}}</b>characters</span><span><b>{{wanted}}</b>wanted</span></div>
+    <div class="gm-hero-actions">
+      <button type="button" class="hot" data-tool="missions"><i class="fa-solid fa-flag-checkered"></i> Mission Board</button>
+      <span class="gm-mode"><button type="button" data-play-mode="story" class="{{#unless selfPlay}}on{{/unless}}" title="You run the storyline; players get side work and the missions you start">Story mode</button><button type="button" data-play-mode="self" class="{{#if selfPlay}}on{{/if}}" title="Players run any mission themselves">Self-play</button></span>
+    </div>
   </header>
   <div class="gm-layout">
     <aside class="gm-rail">
@@ -127,6 +131,9 @@
 
       {{#if (eq tab "tools")}}
       <div class="gm-tools">{{#each tools}}<button type="button" data-tool="{{key}}"><i class="{{icon}}"></i><b>{{label}}</b><small>{{hint}}</small></button>{{/each}}</div>
+      <h3>See what they see: the screen effects</h3>
+      <p class="gm-tip">Players see these on their own screen while their character is high, coming down or mullered. Preview one for ten seconds:</p>
+      <div class="gm-row">{{#each highs}}<button type="button" data-preview-high="{{this}}">{{this}}</button>{{/each}}</div>
       {{/if}}
     </main>
   </div>

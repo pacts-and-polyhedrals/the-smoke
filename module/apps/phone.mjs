@@ -1,16 +1,17 @@
 // The Blower (your phone): cash, Heat, live pirate radio, shifts and callouts with live countdowns and the roll each
 // stage needs, directions, Pat's orders, a nicked ride's price, your missions, travel and the guide.
 // Street Control (GM): set up the world, Street Life, police, Heat, advances, job vehicles, clocks and shifts.
-import {NS, HEAT, JOB_TYPES, CRIMES, STATS, STAT_KEYS} from '../config.mjs';
-import {jobsAPI, state as jobState, canWorkCall} from '../world/jobs.mjs';
+import {NS, HEAT, JOB_TYPES, CRIMES, STATS, STAT_KEYS, crimeHeatText} from '../config.mjs';
+import {jobsAPI, canWorkCall} from '../world/jobs.mjs';
 import {request, esc} from '../world/net.mjs';
 import {ridingNicked, sellVehicle} from '../world/theft.mjs';
 import {missionData, missionState, needed} from '../world/missions.mjs';
-import {mapIdOf, zonesOf} from '../world/spawn.mjs';
+import {mapIdOf, zonesOf, isStreetScene} from '../world/spawn.mjs';
 import {findOrImportScene, loadAtlas, openTravelDialog} from '../map/map-transit.mjs';
 import {zoneCentre, mapGraph} from '../rules/jobs-core.mjs';
 import {radioMarkup, radioView, bindRadio, selectRadioActor} from '../radio/radio.mjs';
 import {startCallNav, openSatnavPicker, satnavSummary, stopSatNav, toggleSatNav} from '../map/satnav.mjs';
+import {BANANA_SVG, clockNow} from './banana-watch.mjs';
 
 const {ApplicationV2, HandlebarsApplicationMixin, DialogV2} = foundry.applications.api;
 const fmt = ms => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
@@ -39,7 +40,7 @@ export function callAction(call) {
 }
 
 export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
-  static DEFAULT_OPTIONS = {id: 'smoke-phone', classes: ['smoke', 'smoke-phone'], tag: 'div', position: {width: 360, height: 680}, window: {title: 'The Blower', icon: 'fa-solid fa-mobile-screen', resizable: true}};
+  static DEFAULT_OPTIONS = {id: 'smoke-phone', classes: ['smoke', 'smoke-phone'], tag: 'div', position: {width: 360, height: 680}, window: {title: 'The Blower · Banana', icon: 'fa-solid fa-mobile-screen', resizable: true}};
   static PARTS = {main: {template: `systems/${NS}/templates/phone.hbs`, scrollable: ['.phone-screen']}};
   actorId = null; _radioOpen = null;
   async _prepareContext() {
@@ -52,7 +53,7 @@ export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
     let riding = null; try { const r = ridingNicked(actor); if (r) riding = {uuid: r.vt.uuid, name: r.vt.name, why: r.why, here: Boolean(r.here), price: r.price, hot: r.hot, who: r.fence.who, where: r.fence.where,
       order: r.order ? (r.order.counts ? `Counts toward Pat's order: ${r.order.delivered + 1} of ${r.order.want}.` : 'Not what Pat ordered — she will still buy it.') : ''}; } catch (_e) {}
     let missions = []; try { const md = await missionData(), ms = missionState();
-      missions = md.missions.filter(m => ms[m.id]?.status === 'active' && (!ms[m.id].actorIds?.length || ms[m.id].actorIds.includes(actor?.id))).map(m => ({id: m.id, n: m.code ?? `MISSION ${m.n}`, title: m.title, giver: m.giver, route: Boolean(m.stops?.length),
+      missions = md.missions.filter(m => ms[m.id]?.status === 'active' && (!ms[m.id].actorIds?.length || ms[m.id].actorIds.includes(actor?.id))).map(m => ({id: m.id, n: m.code ?? `MISSION ${m.n}`, title: m.title, giver: m.giver, route: Boolean(m.stops?.length) || m.group === 'opening',
         objectives: m.objectives.map(o => { const have = Math.min(needed(o), Number(ms[m.id].ticks?.[o.id] || 0)); return {text: o.text, done: have >= needed(o), count: needed(o) > 1 ? `${have}/${needed(o)}` : ''}; })})); } catch (_e) {}
     // shifts this character could start from the driver's seat
     const token = currentToken(actor), seat = token?.getFlag?.(NS, 'vehicleSeat'), vt = seat && token.parent.tokens.get(seat.vehicleTokenId);
@@ -66,10 +67,12 @@ export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
         pct: c.total ? Math.max(0, Math.min(100, Math.round(100 * (c.deadline - now) / c.total))) : 0, label: JOB_TYPES[c.type]?.label,
         extra: c.type === 'ambulance' ? `Patient: ${c.patient}` : c.type === 'fire' ? `Progress ${c.fire?.progress ?? 0}/4 · Fire ${c.fire?.consequences ?? 0}/3` : c.type === 'police' && c.stage === 'pursuit' ? `Gap ${c.gap}/5` : c.type === 'crew' ? `Delivered ${c.data?.delivered ?? 0}/${c.data?.order?.want ?? 0}` : ''})),
       satnav: (() => { const s = satnavSummary(); return s && (!actor || s.actorId === actor.id) ? s : null; })(),
-      paused: game.settings.get(NS, 'jobsPaused'), isGM: game.user.isGM};
+      paused: game.settings.get(NS, 'jobsPaused'), isGM: game.user.isGM,
+      banana: BANANA_SVG, clock: (() => { try { const c = clockNow(); return `${String(c.hours).padStart(2, '0')}:${String(c.minutes).padStart(2, '0')}`; } catch (_e) { return ''; } })(), boot: !this._booted};
   }
   async _onRender(context, options) {
     await super._onRender(context, options);
+    this._booted = true;
     const el = this.element, actor = () => game.actors.get(this.actorId);
     const on = (sel, fn) => el.querySelectorAll(sel).forEach(n => n.addEventListener('click', ev => { ev.preventDefault(); Promise.resolve(fn(n)).catch(e => ui.notifications.warn(e.message)); }));
     el.querySelector('[name=actor]')?.addEventListener('change', ev => { this.actorId = ev.currentTarget.value; try { selectRadioActor(actor()); } catch (_e) {} this.render(); });
@@ -157,7 +160,7 @@ async function listRoute(actor, call) {
 export async function spawnJobVehicle(type) {
   const scene = canvas?.scene; if (!scene || !scene.getFlag(NS, 'streetAtlas')) throw new Error('Open a London street map.');
   const {ensureVehicleActor, placeToken, lanePoint} = await import('../world/spawn.mjs');
-  const id = {taxi: 'LV12', police: 'LV23', ambulance: 'LV26', fire: 'LV27', courier: 'LV05', bus: 'LV28'}[type];
+  const id = {taxi: 'LV12', police: 'LV23', ambulance: 'LV26', fire: 'LV27', courier: 'LV06', bus: 'LV28'}[type];   // 0.5.23: courier was the Zap E-Scooter, which can't do courier work
   const actor = await ensureVehicleActor(id), road = zonesOf(scene).find(z => z.kind === 'road');
   const selected = canvas.tokens.controlled.find(t => t.actor?.type === 'character')?.document;
   const p = selected ? {x: selected.x + scene.grid.size * 3, y: selected.y, rotation: 0} : lanePoint(road, Math.random, null, scene);
@@ -180,25 +183,31 @@ export class StreetControl extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {id: 'smoke-street-control', classes: ['smoke', 'smoke-control'], tag: 'div', position: {width: 560, height: 760}, window: {title: 'Street Control', icon: 'fa-solid fa-city', resizable: true}};
   static PARTS = {main: {template: `systems/${NS}/templates/street-control.hbs`, scrollable: ['.smoke-control-inner']}};
   async _prepareContext() {
-    const scene = canvas?.scene; const st = jobsAPI.state();
+    // each part on its own, so one odd actor or setting can't stop the window opening
+    const part = (label, fn, fallback) => { try { return fn(); } catch (error) { console.warn(`The Smoke | Street Control: ${label}`, error); return fallback; } };
+    const scene = canvas?.scene ?? null, st = part('jobs', () => jobsAPI.state(), {shifts: {}, calls: {}});
     const settings = [['streetLife', 'Street Life', 'fa-car-side'], ['policeResponse', 'Police respond automatically', 'fa-shield-halved'], ['policeChase', 'Police drive themselves', 'fa-car-burst'], ['heatCooling', 'Heat cools out of sight', 'fa-snowflake'], ['jobsPaused', 'Pause job clocks', 'fa-pause']]
-      .map(([key, label, icon]) => ({key, label, icon, on: Boolean(game.settings.get(NS, key))}));
-    return {scene, isGM: game.user.isGM, settings, setUp: Boolean(game.settings.get(NS, 'worldSetup')),
-      traffic: scene ? scene.tokens.filter(t => t.getFlag(NS, 'traffic')).length : 0, units: scene ? scene.tokens.filter(t => t.getFlag(NS, 'police')).length : 0,
-      shifts: Object.values(st.shifts).map(s => ({...s, actor: game.actors.get(s.actorId)?.name, label: JOB_TYPES[s.type]?.label})),
-      crimes: Object.entries(CRIMES).map(([key, c]) => ({key, ...c})),
+      .map(([key, label, icon]) => ({key, label, icon, on: part(key, () => Boolean(game.settings.get(NS, key)), false)}));
+    const tokens = scene ? part('tokens', () => [...scene.tokens], []) : [];
+    return {scene, isGM: game.user.isGM, settings, setUp: part('setup', () => Boolean(game.settings.get(NS, 'worldSetup')), false), street: part('street', () => isStreetScene(scene), false),
+      selfPlay: part('playMode', () => game.settings.get(NS, 'playMode') === 'self', false), chaseOn: part('chase', () => Boolean(game.settings.get(NS, 'autoChase')), true),
+      traffic: tokens.filter(t => t.getFlag?.(NS, 'traffic')).length, moving: tokens.filter(t => t.getFlag?.(NS, 'traffic')?.kind === 'moving').length, units: tokens.filter(t => t.getFlag?.(NS, 'police')).length,
+      shifts: part('shifts', () => Object.values(st.shifts || {}).map(s => ({...s, actor: game.actors.get(s.actorId)?.name, label: JOB_TYPES[s.type]?.label})), []),
+      crimes: Object.entries(CRIMES).map(([key, c]) => ({key, ...c, heatText: crimeHeatText(c)})),
       jobs: ['taxi', 'police', 'ambulance', 'fire', 'courier', 'bus'].map(k => ({key: k, label: JOB_TYPES[k]?.label ?? k})),
-      characters: game.actors.filter(a => a.type === 'character').map(a => ({id: a.id, name: a.name, heat: Number(a.system.heat?.value || 0), cash: a.system.cash, advances: Number(a.system.advancement?.available || 0), xp: Number(a.system.rep?.xp || 0), stage: a.system.stage,
-        heatOptions: [0, 1, 2, 3, 4, 5].map(n => ({n, name: HEAT[n]?.name ?? n, selected: n === Number(a.system.heat?.value || 0)}))}))};
+      characters: part('characters', () => game.actors.filter(a => a.type === 'character').map(a => ({id: a.id, name: a.name, heat: Number(a.system?.heat?.value || 0), cash: a.system?.cash ?? 0, advances: Number(a.system?.advancement?.available || 0), xp: Number(a.system?.rep?.xp || 0), stage: a.system?.stage ?? 1,
+        heatOptions: [0, 1, 2, 3, 4, 5].map(n => ({n, name: HEAT[n]?.name ?? n, selected: n === Number(a.system?.heat?.value || 0)}))})), [])};
   }
   async _onRender(context, options) {
     await super._onRender(context, options);
     const el = this.element;
     const on = (sel, fn) => el.querySelectorAll(sel).forEach(n => n.addEventListener('click', ev => { ev.preventDefault(); Promise.resolve(fn(n)).then(() => this.render()).catch(e => ui.notifications.warn(e.message)); }));
     const scene = () => { if (!canvas?.scene) throw new Error('View a London street scene first.'); return canvas.scene; };
+    const street = () => { const s = scene(); if (!isStreetScene(s)) throw new Error(`${s.name} isn't a street map: Street Life runs on the twenty London street maps.`); return s; };
     on('[data-toggle]', n => n.dataset.toggle === 'jobsPaused' ? jobsAPI.pause(!game.settings.get(NS, 'jobsPaused')) : game.settings.set(NS, n.dataset.toggle, !game.settings.get(NS, n.dataset.toggle)));
-    on('[data-populate]', () => request('traffic.populate', {sceneId: scene().id}));
-    on('[data-clear]', () => request('traffic.clear', {sceneId: scene().id}));
+    on('[data-populate]', async () => { const s = street(), made = Number(await request('traffic.populate', {sceneId: s.id})) || 0;
+      ui.notifications.info(made ? `Street Life: ${made} more on ${s.name}.` : `Street Life: ${s.name} is already full. Clear it to start afresh, or raise the numbers in Settings.`); });
+    on('[data-clear]', async () => { const s = scene(), gone = Number(await request('traffic.clear', {sceneId: s.id})) || 0; ui.notifications.info(`Street Life: cleared ${gone} from ${s.name}.`); });
     on('[data-respond]', () => request('heat.respond', {sceneId: scene().id}));
     on('[data-standdown]', () => request('heat.standDown', {sceneId: scene().id}));
     on('[data-endshift]', n => jobsAPI.endShift(n.dataset.endshift));
@@ -212,5 +221,9 @@ export class StreetControl extends HandlebarsApplicationMixin(ApplicationV2) {
     on('[data-guide]', n => game.smoke.openGuide(n.dataset.guide || 'gm-guide'));
     on('[data-overview]', async () => (await findOrImportScene('LDN-OVERVIEW'))?.view());
     on('[data-gm-screen]', () => game.smoke.openGMScreen());
+    on('[data-missions]', () => game.smoke.openMissions());
+    on('[data-play-mode]', n => game.smoke.missions.setMode(n.dataset.playMode));
+    on('[data-start-chase]', () => game.smoke.chase.start(canvas.scene));
+    on('[data-set-clock]', () => game.smoke.clock.set());
   }
 }

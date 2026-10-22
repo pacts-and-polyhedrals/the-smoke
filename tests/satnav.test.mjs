@@ -181,4 +181,47 @@ await game.settings.set('the-smoke', 'missions', {ch4: {status: 'active', ticks:
 assert.equal(S.satnavState().tgt.label, 'Hackney Marshes Centre', 'on to the next place once the lock-up is done');
 await game.settings.set('the-smoke', 'missions', {ch4: {status: 'done'}}); await S.refresh();
 assert.equal(S.satnavState().target, null, 'mission passed, route over');
-console.log('sat nav: one road network, routes and steps, destinations, job targets, live re-routing, map drawing (PIXI 7 and 8) — ok');
+// The right motor: the sat nav only heads for the buyer when what you're driving is what they want.
+const vehicle = (id, catalogId, klass, name, at, over = {}) => {
+  const f = {catalogId}; const actor = {type: 'vehicle', name, system: {vehicle: {klass, jobs: [], value: 900, body: {value: 10, max: 10}}}, getFlag: (ns, k) => f[k] ?? null};
+  const flagsOf = {...over}; return {id, actorId: `act-${id}`, name, actor, x: at[0], y: at[1], width: 1, height: 2, rotation: 0, getFlag: (ns, k) => flagsOf[k] ?? null, _flags: flagsOf};
+};
+me.parent = bgScene; if (!bgScene.tokens.includes(me)) bgScene.tokens.push(me);
+const ride = (v) => { v.parent = bgScene; v._flags.stolen = true; v._flags.vehicleOccupants = [{seatId: 'pilot', tokenId: 'jaz'}]; bgScene.tokens.push(v); me._flags = {vehicleSeat: {vehicleTokenId: v.id, seatId: 'pilot'}}; me.getFlag = (ns, k) => me._flags[k] ?? null; };
+const getOff = v => { bgScene.tokens.splice(bgScene.tokens.indexOf(v), 1); me._flags = {}; };
+const here = C.toGlobal(atlas, 'LDN-BETHNAL-GREEN', 2000, 1500);
+// Pat's order wants a Whippet: on a BMX the sat nav keeps you looking; on a Whippet it's back to Pat's
+const order = {id: 'k2', type: 'crew', status: 'active', data: {order: {want: 1, ids: ['LV03']}, delivered: 0, spots: [{mapId: 'LDN-BETHNAL-GREEN', zoneId: C.tileOf(atlas, 'LDN-BETHNAL-GREEN').zones.find(z => z.kind === 'land').id, label: 'Coffee rack'}]}};
+const bmx = vehicle('bmx', 'LV01', 'bike', 'Grit Kid BMX', [1990, 1450]); ride(bmx);
+let ct = S.callTarget(d, order, here, actor);
+assert.notEqual(ct.label, "The Arches · Pat's Cycles", 'a BMX is not on a Whippet order'); assert.match(ct.label, /^Tip-off/); assert.match(ct.sub, /Grit Kid BMX isn't on Pat's order · Pat's order: 0\/1/);
+getOff(bmx);
+const whippet = vehicle('whip', 'LV03', 'bike', 'Carbon Whippet Road Bike', [1990, 1450]); ride(whippet);
+ct = S.callTarget(d, order, here, actor);
+assert.equal(ct.label, "The Arches · Pat's Cycles", 'on the Whippet: back to Pat'); assert.equal(ct.sub, 'Carbon Whippet Road Bike for Pat');
+getOff(whippet);
+// a nicked car is no good to Pat either (she takes bikes)
+const hatch = vehicle('hatch', 'LV14', 'car', 'Vexa Hatch', [1990, 1450]); ride(hatch);
+assert.notEqual(S.callTarget(d, {...order, data: {...order.data, order: {want: 2, ids: null}}}, here, actor).label, "The Arches · Pat's Cycles", 'a car is not a bike');
+// and a tipped-off bike Kez left for this order is where it sends you
+getOff(hatch);
+const tip = vehicle('tip', 'LV03', 'bike', 'Carbon Whippet Road Bike', [600, 600], {locked: true, parked: true, orderFor: 'k2'}); tip.parent = hkScene; hkScene.tokens.push(tip);
+const seeded = {...order, data: {...order.data, spots: order.data.spots.map(x => ({...x, seeded: true}))}};
+ct = S.callTarget(d, seeded, here, actor); assert.equal(ct.tokenId, 'tip'); assert.equal(ct.label, 'Tip-off: Carbon Whippet Road Bike');
+// missions do the same: Mission 2 wants a Whippet sold to Pat
+const m02 = d.missions.find(m => m.id === 'm02'), m02st = {status: 'active', ticks: {market: 1, bait: 1}};
+let mt = S.missionTarget(d, m02, m02st, null, {actor, here});
+assert.equal(mt.tokenId, 'tip', 'not on one yet: the nearest Whippet to nick');
+ride(bmx); mt = S.missionTarget(d, m02, m02st, null, {actor, here});
+assert.equal(mt.tokenId, 'tip', 'on a BMX: still the Whippet'); assert.match(mt.sub, /Grit Kid BMX won't do/); getOff(bmx);
+ride(whippet); mt = S.missionTarget(d, m02, m02st, null, {actor, here});
+assert.equal(mt.label, "The Arches · Pat's Cycles", 'on the Whippet: to Pat'); getOff(whippet);
+// Mission 1 starts by sending you to The Arches; Mission 5 wants a car at Bow Breakers, not the bike you're on
+assert.equal(S.missionTarget(d, d.missions.find(m => m.id === 'm01'), {status: 'active', ticks: {}}, null, {actor, here}).label, "The Arches · Pat's Cycles");
+const m05 = d.missions.find(m => m.id === 'm05'); ride(hatch);
+assert.equal(S.missionTarget(d, m05, {status: 'active', ticks: {}}, null, {actor, here}).label, 'Bow Breakers Yard', 'in a nicked car: the crusher'); getOff(hatch);
+ride(whippet); assert.notEqual(S.missionTarget(d, m05, {status: 'active', ticks: {}}, null, {actor, here}).label, 'Bow Breakers Yard', 'on a bike: not the crusher'); getOff(whippet);
+// Mission 7: the respray only once you're in a nicked motor
+const m07 = d.missions.find(m => m.id === 'm07'); ride(hatch);
+assert.match(S.missionTarget(d, m07, {status: 'active', ticks: {}}, null, {actor, here}).label, /Kwik Spray|Lea Valley Motors/); getOff(hatch);
+console.log('sat nav: one road network, routes and steps, destinations, job targets (to the buyer only in the right vehicle), live re-routing, map drawing (PIXI 7 and 8) — ok');

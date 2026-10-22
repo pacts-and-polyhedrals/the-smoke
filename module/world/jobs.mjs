@@ -4,10 +4,10 @@
 // fires on a progress track. Auntie Pat's bike orders run the same way without a vehicle.
 // All state lives in one world setting written only by the leader GM; every client renders from it.
 import {NS, JOB_TYPES} from '../config.mjs';
-import {isSuccess, challengeContribution} from '../rules/core.mjs';
+import {isSuccess} from '../rules/core.mjs';
 import * as J from '../rules/jobs-core.mjs';
 import {isLeader, registerHandler, request, dispatch, card, esc, ownersOf, notify} from './net.mjs';
-import {ensureVehicleActor, ensurePersonActor, randomPedKey, placeToken, zonesOf, mapIdOf, isStreetScene, tokenCentre, tokenRect, distanceSquares, lanePoint, loadCatalogs} from './spawn.mjs';
+import {ensureVehicleActor, ensurePersonActor, randomPedKey, placeToken, zonesOf, mapIdOf, isStreetScene, tokenRect, distanceSquares, lanePoint, loadCatalogs} from './spawn.mjs';
 import {loadAtlas} from '../map/map-transit.mjs';
 import {boardVehicle, exitVehicle, VEHICLE_ACTIONS, seatLayout} from '../vehicles/vehicle-boarding.mjs';
 import {lightsOn, hasAbility, isCagedSeat} from '../vehicles/vehicle-abilities.mjs';
@@ -433,7 +433,7 @@ GEN.police = {
       if(!vt||!cageSeat){await whisperOwners(sh,'ARREST','No free cage seat','<p>Make room in a caged police vehicle before booking an arrest.</p>','lose');return;}
       let suspectTok;
       if (call.data.kind === 'disturbance') suspectTok = target;
-      else { const sus = await ensurePersonActor('suspect'); const g = scene.grid.size; suspectTok = await placeToken(scene, sus, target.x + (target.width + .8) * g, target.y + g, {name: 'Suspect'}); await updateCall(call.id, c => ({cleanup: [...(c.cleanup || []), suspectTok.id]}));
+      else { if (!target) return failCall(call.id, 'The car has gone — nobody to arrest.'); const sus = await ensurePersonActor('suspect'); const g = scene.grid.size; suspectTok = await placeToken(scene, sus, target.x + (target.width + .8) * g, target.y + g, {name: 'Suspect'}); await updateCall(call.id, c => ({cleanup: [...(c.cleanup || []), suspectTok.id]}));
         await target.setFlag(NS, 'traffic', null); await target.setFlag(NS, 'locked', false); }
       const seat = cageSeat;
       if (!suspectTok || vt.parent.id!==suspectTok.parent.id)throw new Error('Bring the police vehicle to the suspect.');
@@ -559,7 +559,10 @@ registerHandler('job.roll',async({messageId})=>{
 let timer = null;
 export function installJobs() {
   if (timer) clearInterval(timer);
-  timer = setInterval(()=>{if(isLeader())void dispatch('job.tick',{userId:game.user.id}).catch(e=>console.warn('The Smoke | jobs',e));}, 2000);
+  // One job clock tick at a time: a slow tick (placing fares, offers) must not stack up behind itself in the world queue.
+  let ticking = false;
+  timer = setInterval(()=>{ if(!isLeader()||ticking)return; ticking=true;
+    void dispatch('job.tick',{userId:game.user.id}).catch(e=>console.warn('The Smoke | jobs',e)).finally(()=>{ticking=false;}); }, 2000);
   // Rolls made from job buttons come back here (on the leader) through their chat message.
   Hooks.on('createChatMessage', msg => {
     if(!isLeader()||!msg.getFlag(NS,'roll')?.context?.callId)return;
@@ -572,12 +575,19 @@ export function installJobs() {
   });
   Hooks.on('smokeVehicleSold', async ({seller, catalogId, service}) => {
     if (!isLeader() || service !== 'gang') return;
-    const call = Object.values(state().calls).find(c => c.type === 'crew' && c.actorId === seller.id); if (!call) return;
-    const o = call.data.order; if (o.ids && !o.ids.includes(catalogId)) return;
-    const delivered = call.data.delivered + 1;
-    if (delivered >= o.want) return completeCall(call.id, o.bonus, `Auntie Pat: "Lovely. That's the order done." Order bonus.`, {repKey: 'crew'});
-    await updateCall(call.id, {data: {...call.data, delivered}});
-    notify(`Pat's order: ${delivered}/${o.want}`, {userIds: call.userIds});
+    // Count the bike in the same write that reads the order (0.5.23: two sales close together both read "0 delivered"
+    // and the order never completed), and finish it once.
+    let hit = null;
+    await mutate(s => {
+      const call = Object.values(s.calls).find(c => c.type === 'crew' && c.actorId === seller?.id && !c.completing); if (!call) return;
+      const o = call.data.order; if (o.ids && !o.ids.includes(catalogId)) return;
+      call.data.delivered = Number(call.data.delivered || 0) + 1;
+      if (call.data.delivered >= o.want) call.completing = true;
+      hit = {id: call.id, delivered: call.data.delivered, want: o.want, bonus: o.bonus, done: Boolean(call.completing), userIds: call.userIds};
+    });
+    if (!hit) return;
+    if (hit.done) return completeCall(hit.id, hit.bonus, `Auntie Pat: "Lovely. That's the order done." Order bonus.`, {repKey: 'crew'});
+    notify(`Pat's order: ${hit.delivered}/${hit.want}`, {userIds: hit.userIds});
   });
   Hooks.on('canvasReady', () => { if (isLeader()) seedCrewBikes(canvas.scene).catch(() => null); });
   Hooks.on('smokeTransit', ({target}) => { if(isLeader())void seedCrewBikes(target).catch(e=>console.warn('The Smoke | job transit',e)); });
@@ -590,8 +600,8 @@ export function installJobs() {
     const pilot = occupants(vt).find(o => o.seatId === 'pilot'); const driver = pilot && vt.parent.tokens.get(pilot.tokenId);
     if (!driver?.actor || !(game.user.isGM || driver.actor.isOwner)) return [];
     const sid = vt.getFlag(NS, 'shiftId');
-    if (sid && state().shifts[sid]) return [{icon: 'fa-solid fa-flag-checkered', title: 'End shift', fn: () => endShift(sid)}];
-    return jobs.filter(j => JOB_TYPES[j]).map(j => ({icon: JOB_TYPES[j].icon, title: `Start ${JOB_TYPES[j].verb}`, fn: () => startShift(vt, j)}));
+    if (sid && state().shifts[sid]) return [{icon: 'fa-solid fa-flag-checkered', title: 'End shift', playerAllowed: true, fn: () => endShift(sid)}];
+    return jobs.filter(j => JOB_TYPES[j]).map(j => ({icon: JOB_TYPES[j].icon, title: `Start ${JOB_TYPES[j].verb}`, playerAllowed: true, fn: () => startShift(vt, j)}));
   });
 }
 export const jobsAPI = {state, startShift, endShift, acceptCall, declineCall, askPat, pause: p => request('job.pause', {paused: p}), GEN};

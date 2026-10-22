@@ -1,0 +1,80 @@
+import assert from 'node:assert/strict';
+import {NS,scene,token,vehicle,gm,jaz,jt,vt,tt,ut,makeCombat,batches} from './chase-harness.mjs';
+import {fakeActor} from './fakes.mjs';
+import {crewPlanFor,ensureAmbientCrew,carryCrewInBatch,isBackgroundTraffic,ejectAmbientCrew,deployPoliceCrew} from '../module/world/traffic-crew.mjs';
+import {civilianTraffic} from '../module/world/chase-state.mjs';
+const car=tt;
+car.actor.getFlag=(ns,key)=>key==='catalogId'?'LV12':null;
+car.actor.system.vehicle.passengers=5;
+const generated=[];
+const create=async (spec,x,y)=>{
+ const person=fakeActor({name:spec.name,type:'npc'});person.system.role=spec.role;
+ const o=token(person,{x,y,name:spec.name});generated.push(o);return o;
+};
+const plan=crewPlanFor(car);
+assert.equal(plan[0].key,'cabbie');assert.equal(plan[0].seatId,'pilot');
+assert.equal(plan[1].name,'Cab fare');
+let crew=await ensureAmbientCrew(car,{createPerson:create});
+assert.equal(crew.length,2,'a moving black cab has a cabbie and fare, not random plot NPCs');
+assert.equal(car.getFlag(NS,'vehicleOccupants').length,2);
+assert.ok(isBackgroundTraffic(car),'the cabbie does not take this vehicle out of background traffic');
+assert.ok(civilianTraffic(scene).some(t=>t.id===car.id),'a car with autonomous NPCs remains in the shared traffic phase');
+assert.equal((await ensureAmbientCrew(car,{createPerson:create})).length,0,'no duplicate riders on repeated populate');
+const old=generated.map(t=>[t.x,t.y]);
+const batch=carryCrewInBatch(scene,[{_id:car.id,x:car.x+220,y:car.y+110,rotation:180}]);
+assert.equal(batch.length,3,'car and both seats move in one Scene embedded batch');
+assert.equal(batch[1].width,0.5);
+assert.ok(batch.every((b,i)=>i===0 || b.x!==old[i-1][0]||b.y!==old[i-1][1]));
+await scene.updateEmbeddedDocuments('Token',batch,{acVehicleCarry:true});
+for(const b of batch){const t=scene.tokens.get(b._id);assert.equal(t.x,b.x);assert.equal(t.y,b.y);}
+await car.update({[`flags.${NS}.vehicleOccupants`]:[...crew,{seatId:'passenger-2',tokenId:jt.id,actorId:jaz.id,name:'Jaz'}]},{acVehicleCarry:true});
+assert.equal(isBackgroundTraffic(car),false,'a REAL player passenger halts background automation');
+await car.update({[`flags.${NS}.vehicleOccupants`]:crew},{acVehicleCarry:true});
+const ejected=await ejectAmbientCrew(car,{fleeTokenId:jt.id});
+assert.equal(ejected.length,2,'carjack ejects the actual cabbie and fare');
+assert.equal(car.getFlag(NS,'vehicleOccupants').length,0);
+assert.ok(ejected.every(t=>!t.getFlag(NS,'vehicleSeat')&&t.getFlag(NS,'traffic')?.flee===jt.id));
+assert.equal(isBackgroundTraffic(car),true,'empty vehicle still has normal empty traffic handling');
+assert.equal((await ensureAmbientCrew(car,{createPerson:create})).length,0,'a carjacked vehicle cannot spontaneously regrow its driver');
+
+const police=ut;police.actor.system.vehicle.passengers=3;
+let c=await ensureAmbientCrew(police,{createPerson:create});
+assert.equal(c.length,2,'police car has response driver plus response officer');
+assert.equal(crewPlanFor(police)[0].key,'pc');
+assert.equal(isBackgroundTraffic(police),true);
+const deployed=await deployPoliceCrew(police,jt,2);
+assert.equal(deployed.length,2,'officers get out of the actual unit');
+assert.equal(police.getFlag(NS,'police').parked,true);
+assert.ok(deployed.every(t=>t.getFlag(NS,'police')?.unit==='officer' && !t.getFlag(NS,'vehicleSeat')));
+assert.equal((await ensureAmbientCrew(police,{createPerson:create})).length,0,'a parked response vehicle does not respawn its exited crew');
+const service=token(vehicle('Bus',{size:4}),{x:5400,y:3400,w:4,h:5});service.actor.getFlag=(_ns,key)=>key==='catalogId'?'LV28':null;
+service.actor.system.vehicle.passengers=12;
+assert.deepEqual(crewPlanFor(service).map(c=>c.name),['Bus driver','Bus passenger','Bus passenger','Bus passenger']);
+const ambulance=token(vehicle('Ambulance',{size:3}),{x:6500,y:3500,w:3,h:4});ambulance.actor.getFlag=(_ns,key)=>key==='catalogId'?'LV26':null;
+ambulance.actor.system.vehicle.crewFull=2;ambulance.actor.system.vehicle.passengers=2;
+assert.equal(crewPlanFor(ambulance)[1].seatId,'operator-1');
+// Concurrent scene hooks must not duplicate an NPC vehicle crew or exceed its seat capacity.
+const racer=token(vehicle('Private hire car',{size:2}),{x:7400,y:3600,w:2,h:3});
+racer.actor.getFlag=(_ns,key)=>key==='catalogId'?'LV13':null;
+racer.actor.system.vehicle.passengers=4;
+const beforeRace=generated.length;
+const slowCreate=async(spec,x,y)=>{await Promise.resolve();return create(spec,x,y);};
+const [crewA,crewB]=await Promise.all([ensureAmbientCrew(racer,{createPerson:slowCreate}),ensureAmbientCrew(racer,{createPerson:slowCreate})]);
+assert.equal(crewA.length,2);assert.deepEqual(crewB,crewA);
+assert.equal(generated.length-beforeRace,2,'two simultaneous setup requests create one driver and one fare only');
+
+// A police helicopter must also carry its two real occupants atomically during its combat-phase movement.
+const helicopter=token(vehicle('NPAS helicopter',{size:3}),{x:2400,y:1000,w:3,h:3,flags:{police:{unit:'heli',hunting:jaz.id}}});
+helicopter.actor.system.vehicle.crewFull=2;helicopter.actor.system.vehicle.passengers=2;
+const aircrew=await ensureAmbientCrew(helicopter,{createPerson:create});
+assert.equal(aircrew.length,2,'aircraft have pilot and observer');
+const beforeAir=batches.length;
+const {helicopterPhase}=await import('../module/world/heat.mjs');
+const flight=await helicopterPhase(makeCombat());
+assert.equal(flight,1,'helicopter tracks a wanted character inside visual range');
+const motion=batches.slice(beforeAir).find(b=>b.ups.some(u=>u._id===helicopter.id));
+assert.ok(motion,'aircraft movement uses a single scene token batch');
+for(const o of aircrew)assert.ok(motion.ups.some(u=>u._id===o.tokenId),'the pilot and observer move within the helicopter update, never behind');
+
+console.log('ambient vehicle crew: live cabbies/fare, police officers, bus/ambulance, helicopter aircrew, atomic movement, player seats, real carjack victims — ok');
+process.exit(0);

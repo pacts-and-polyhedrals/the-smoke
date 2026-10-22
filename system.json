@@ -1,8 +1,8 @@
 {
   "id": "the-smoke",
   "title": "The Smoke",
-  "description": "A GTA-inspired London crime sandbox, starting in Hackney: Covenant-style exploding dice with nine street stats, Hustle and five-star Heat; Altered Carbon-style vehicles, boarding and chases across a linked atlas of 20 traced North and East London street maps; live pirate radio in cars and on the Blower, with Message the studio to send shout-outs to the real stations; Street Life, emergency-service shifts and Auntie Pat's bike orders; speed-dice combat with ranges, cover, ammo, Take hit or Dodge, and police who fight back; a GM Screen of roll requests, hazards and street events; 171 items with their own art, shops, local services and safehouses; first aid, rest and advances; a Character Creator and levelling wizard; and The Chainring campaign with a twelve-mission Mission Board, documented in twelve styled guides.",
-  "version": "0.4.0",
+  "description": "<p><img src=\"https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/logos/The-Smoke-Full-Logo-Horizontal-Dark.png\" alt=\"The Smoke — Pacts &amp; Polyhedrals\" width=\"460\" style=\"max-width:100%;height:auto;\" loading=\"lazy\"></p><p>You're in Hackney, mate. Morning Lane, E8. Rent's due, your Blower's buzzing, and Auntie Pat's got a little favour to ask. You've got a bike, a few quid if you're lucky, and a crew to look after. No one's handing you a fortune. You've got to graft for it.</p><p>Work the borough your way. Run deliveries, shift nicked motors, take a taxi or bus shift, chase a payday, or do a job for someone whose hands are best kept clean. Twenty linked street maps, 160 mapped venues, proper traffic, pirate radio and a whole lot of wrong 'uns make London feel like it carries on without you. And when things get loud, the filth turn up. Five stars of Heat ain't a badge of honour if you can't shake 'em.</p><p>Make your name. Spray the crew's mark on walls, bridges and buses, build territory, earn Renown across twelve rival factions, and find out who's got your back when it all goes sideways. Your jobs, money, favours and trouble follow you across the city; the Banana Watch keeps the hours, and the Mission Board keeps the score.</p><p>Start beneath the arches on Morning Lane. Take the long way round or put your foot down. London won't wait for you.</p><p><img src=\"https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/01-The-City-Is-The-Board-Landscape.png\" alt=\"The City Is The Board — a schematic Hackney and London street artwork\" width=\"630\" style=\"max-width:100%;height:auto;\" loading=\"lazy\"></p><p>The Smoke is a street-level London crime tabletop roleplaying system for Foundry VTT, made by Pacts &amp; Polyhedrals.</p><p><small>Independent radio streams are linked for listening only. Their operators are not affiliated with or endorsing The Smoke. All fictional station contacts, messages and radio-war activity are game roleplay; no real station receives in-game requests.</small></p>",
+  "version": "0.5.24",
   "compatibility": {
     "minimum": "14"
   },
@@ -13,13 +13,12 @@
     }
   ],
   "url": "https://github.com/pacts-and-polyhedrals/the-smoke",
-  "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
-  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.4.0/the-smoke-v0.4.0.zip",
   "esmodules": [
     "the-smoke.mjs"
   ],
   "styles": [
-    "styles/the-smoke.css"
+    "styles/the-smoke.css",
+    "styles/journals.css"
   ],
   "languages": [
     {
@@ -213,11 +212,49 @@
   },
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.hustle",
-  "background": "systems/the-smoke/assets/maps/streets/ls00-london-overview.webp",
+  "background": "systems/the-smoke/assets/branding/graphics/city-is-the-board.png",
   "media": [
     {
       "type": "setup",
-      "url": "systems/the-smoke/assets/maps/streets/ls00-london-overview.webp"
+      "url": "systems/the-smoke/assets/branding/graphics/city-is-the-board.png",
+      "thumbnail": "systems/the-smoke/assets/branding/graphics/city-is-the-board.png",
+      "caption": "The Smoke: your city, your crew, your borough."
+    },
+    {
+      "type": "icon",
+      "url": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/logos/The-Smoke-Corrected-Favicon.png",
+      "thumbnail": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/logos/The-Smoke-Corrected-Favicon.png",
+      "caption": "The Smoke — corrected original website icon"
+    },
+    {
+      "type": "cover",
+      "url": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/01-The-City-Is-The-Board-Landscape.png",
+      "thumbnail": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/01-The-City-Is-The-Board-Landscape.png",
+      "caption": "THE SMOKE — The City Is The Board"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/logos/The-Smoke-Full-Logo-Horizontal-Dark.png",
+      "thumbnail": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/logos/The-Smoke-Full-Logo-Horizontal-Dark.png",
+      "caption": "The Smoke — original logo by Pacts & Polyhedrals"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/01-The-City-Is-The-Board-Landscape.png",
+      "thumbnail": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/01-The-City-Is-The-Board-Landscape.png",
+      "caption": "Twenty linked street maps — The City Is The Board"
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/02-The-Chainring-Cycle-Poster.png",
+      "thumbnail": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/02-The-Chainring-Cycle-Poster.png",
+      "caption": "The Chainring — Nick a bike. Make a name."
+    },
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/03-The-Blower-Social-Square.png",
+      "thumbnail": "https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/03-The-Blower-Social-Square.png",
+      "caption": "The Blower — your city, your crew, your phone."
     }
   ],
   "license": "LICENSE",
@@ -225,5 +262,8 @@
   "initiative": "1d6x + @statMods.mov",
   "relationships": {
     "requires": []
-  }
+  },
+  "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
+  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.24/the-smoke-v0.5.24.zip",
+  "persistentStorage": true
 }

@@ -1,12 +1,13 @@
 import {NS} from '../config.mjs';
 import {registerHandler,request,esc} from '../world/net.mjs';
 import {VEHICLE_ACTIONS,serialScene} from '../vehicles/vehicle-boarding.mjs';
-import {DEFAULT_STATIONS,RADIO_DIRECTORY} from './stations.mjs';
-import {validateStations,steppedStation,clampVolume,studioLinks,CONTACT_FIELDS} from './core.mjs';
+import {DEFAULT_STATIONS,NEW_RADIO_PRESETS,RADIO_DIRECTORY} from './stations.mjs';
+import {validateStations, steppedStation, studioLinks, CONTACT_FIELDS} from './core.mjs';
 import {RadioReceiver} from './receiver.mjs';
+import {studioSubmit,studioModerate,studioInboxMarkup,installStudioInbox,RETIRED_STATIONS} from './studio.mjs';
 const {ApplicationV2,HandlebarsApplicationMixin}=foundry.applications.api;
-const FLAG='radio',PREFS='radioPreferences';
-let selectedActorId=null,vehicleRef=null,radioApp=null,refreshQueued=false;
+const FLAG='radio',PREFS='radioPreferences', PRESET_UPGRADE=515, RADIO_NEW_PRESETS_VERSION=512;
+let selectedActorId=null,vehicleRef=null,radioApp=null,webRadioApp=null,refreshQueued=false;
 // What you are typing to the studio survives the panel redrawing (station changes, someone boarding).
 const studio={draft:'',open:false,share:false};
 const changed=()=>Hooks.callAll('smokeRadioChanged');
@@ -14,10 +15,41 @@ export const receiver=new RadioReceiver({changed});
 const owns=a=>Boolean(a&&(game.user.isGM||a.isOwner));
 const people=()=>game.actors.filter(a=>a.type==='character'&&owns(a));
 const preferences=()=>game.settings.get(NS,PREFS)??{};
+/** Merge newly introduced presets into pre-update customised directories only once. */
+export function withNewRadioPresets(rows){
+ const out=(Array.isArray(rows)?rows:[]).map(s=>({...s})),have=new Set(out.map(s=>s.id));
+ for(const s of NEW_RADIO_PRESETS)if(!have.has(s.id))out.push({...s});
+ return out;
+}
+/* v0.5.15: Both unverified broadcasters are retired from the tuner, including old custom presets. */
+export function repairRadioPresets(rows){
+ // Retired feeds are removed even from old migrated custom presets. This is a beta safety decision.
+ return (Array.isArray(rows)?rows:[]).filter(s=>!RETIRED_STATIONS.has(s?.id)).map(s=>({...s}));
+}
 export function stations(){
  const custom=game.settings.get(NS,'radioStations');
- if(custom){try{return validateStations(withDefaultContacts(JSON.parse(custom)));}catch(error){console.warn('The Smoke | Invalid custom radio directory; using presets.',error);}}
+ if(custom){try{
+   const old=JSON.parse(custom),version=Number(game.settings.get(NS,'radioPresetVersion')??0);
+   const added=version<RADIO_NEW_PRESETS_VERSION?withNewRadioPresets(old):old;
+   const repaired=repairRadioPresets(added);
+   return validateStations(withDefaultContacts(repaired));
+  }catch(error){console.warn('The Smoke | Invalid custom radio directory; using presets.',error);}}
  return DEFAULT_STATIONS.map(s=>({...s}));
+}
+/** Preserve the GM's existing presets and intentional deletions when upgrading. */
+export async function migrateRadioPresets(){
+ if(!game.user?.isGM||Number(game.settings.get(NS,'radioPresetVersion')??0)>=PRESET_UPGRADE)return false;
+ const oldVersion=Number(game.settings.get(NS,'radioPresetVersion')??0);
+ const custom=game.settings.get(NS,'radioStations');
+ if(custom){
+   let old;try{old=JSON.parse(custom);}catch(_e){return false;}
+   const withNew=oldVersion<RADIO_NEW_PRESETS_VERSION?withNewRadioPresets(old):old;
+   const repaired=repairRadioPresets(withNew);
+   validateStations(withDefaultContacts(repaired));
+   if(JSON.stringify(repaired)!==JSON.stringify(old))await game.settings.set(NS,'radioStations',JSON.stringify(repaired));
+ }
+ await game.settings.set(NS,'radioPresetVersion',PRESET_UPGRADE);
+ return true;
 }
 /** Presets saved before studio contacts existed keep the supplied stations' contacts. */
 export function withDefaultContacts(rows){
@@ -26,6 +58,7 @@ export function withDefaultContacts(rows){
 export function registerRadioSettings(){
  game.settings.register(NS,'radioEnabled',{name:'Live pirate radio',hint:'Allow players to listen to live stations through the Blower and vehicle radios.',scope:'world',config:true,type:Boolean,default:true});
  game.settings.register(NS,'radioStations',{scope:'world',config:false,type:String,default:''});
+ game.settings.register(NS,'radioPresetVersion',{scope:'world',config:false,type:Number,default:0});
  game.settings.register(NS,PREFS,{scope:'client',config:false,type:Object,default:{volume:.25,muted:false,phones:{}}});
  game.settings.registerMenu(NS,'radioDirectory',{name:'Live radio presets',label:'Edit radio stations',hint:'Change presets or add a direct HTTPS MP3/AAC stream.',icon:'fa-solid fa-radio',type:RadioDirectory,restricted:true});
 }
@@ -56,6 +89,9 @@ const currentContext=()=>radioContext(game.actors.get(selectedActorId),vehicleRe
 function syncPreferences(){const p=preferences();receiver.setVolume(p.volume??.25);receiver.muted=Boolean(p.muted);if(receiver.audio)receiver.audio.muted=receiver.muted;}
 export function refreshRadio({retry=false}={}){
  syncPreferences();const c=currentContext();
+ if(webRadioApp&&(!c.station||webRadioApp.station.id!==c.station.id||!game.settings.get(NS,'radioEnabled')||!c.power)){
+  closeLivePage().catch(error=>console.warn('The Smoke | Unable to close old live player',error));
+ }
  if(c.kind==='none'){receiver.stop();return;}
  receiver.follow(c.station,{power:c.power,allowed:game.settings.get(NS,'radioEnabled'),retry});changed();
 }
@@ -71,34 +107,40 @@ function selectTarget(actor,ref){
 function isCurrent(actor,ref){return ref?vehicleRef?.sceneId===ref.sceneId&&vehicleRef?.vehicleTokenId===ref.vehicleTokenId:!vehicleRef&&selectedActorId===actor?.id;}
 export function radioView(actor=null,ref=null){
  const c=radioContext(actor,ref),active=isCurrent(actor,ref),enabled=active&&receiver.enabled;
- const status=active?receiver.status:'off',available=game.settings.get(NS,'radioEnabled');
- const messages={off:'Tap Listen to connect.',connecting:'Connecting to the live broadcast…',buffering:'Buffering the live broadcast…',playing:receiver.muted?'Playing · muted on your device':'Live broadcast',blocked:'Your browser paused playback. Press Resume.',unavailable:'Stream unavailable here. Retry, tune elsewhere or open the station.',disabled:'The GM has disabled live radio.','car-off':'The car radio is switched off.','no-station':'Choose a station.'};
- return {...c,available,active,enabled,status,statusText:messages[status]??messages.off,live:enabled&&status==='playing',needsRetry:enabled&&['blocked','unavailable'].includes(status),canListen:available&&c.kind!=='none'&&c.power,
+ const webOpen=active&&Boolean(c.station?.playerUrl&&webRadioApp?.station?.id===c.station.id);
+ const available=game.settings.get(NS,'radioEnabled');
+ const status=active?(!available?'disabled':!c.power?'car-off':webOpen?'web-open':c.station&&!c.station.stream?'web-ready':receiver.status):'off';
+ const messages={off:'Tap Listen to connect.',connecting:'Connecting to the live broadcast…',buffering:'Buffering the live broadcast…',playing:receiver.muted?'Playing · muted on your device':'Live broadcast',blocked:'Your browser paused playback. Press Resume.',unavailable:'Audio stream failed. Retry or open the station’s live player.',disabled:'The GM has disabled live radio.','car-off':'The car radio is switched off.','no-station':'Choose a station.',external:'The station uses its own live player.','web-ready':'This broadcaster requires its own live player. Press Open live player.','web-open':'Broadcaster page opened. Press Play in its player; use Open in browser if the frame is blocked.'};
+ return {...c,available,active,enabled:enabled||webOpen,webOpen,status,statusText:messages[status]??messages.off,live:enabled&&status==='playing',needsRetry:enabled&&['blocked','unavailable'].includes(status),canListen:available&&c.kind!=='none'&&c.power&&Boolean(c.station?.stream||(game.user.isGM&&c.station?.playerUrl)),
   volume:Math.round(receiver.volume*100),muted:receiver.muted,isVehicle:c.kind==='vehicle',presets:stations().map((s,i)=>({...s,number:String(i+1).padStart(2,'0'),selected:s.id===c.station?.id})),directory:RADIO_DIRECTORY};
 }
-export function radioMarkup(actor=null,ref=null){
+export function radioMarkup(actor=null,ref=null,{gmInbox=false}={}){
  const v=radioView(actor,ref),disabled=!v.canTune||!v.available||v.kind==='none';
  return `<section class="smoke-radio ${v.isVehicle?'in-car':'on-phone'}" aria-label="Live radio">
- <div class="smoke-radio-top"><span class="smoke-kicker"><i class="fa-solid ${v.isVehicle?'fa-car':'fa-headphones'}" aria-hidden="true"></i> ${v.isVehicle?'CAR RADIO':'PIRATE RADIO'}</span><span class="smoke-radio-badge ${v.live?'live':''}">${v.live?'● LIVE':v.enabled?'TUNED IN':'OFF'}</span></div>
+ <div class="smoke-radio-top"><span class="smoke-kicker"><i class="fa-solid ${v.isVehicle?'fa-car':'fa-headphones'}" aria-hidden="true"></i> ${v.isVehicle?'CAR RADIO':'PIRATE RADIO'}</span><span class="smoke-radio-badge ${v.live?'live':''}">${v.live?'● LIVE':v.webOpen?'PLAYER OPEN':v.enabled?'TUNED IN':'OFF'}</span></div>
  <div class="smoke-radio-display"><small>${esc(v.label)}</small><h2>${esc(v.station?.name??'The ends are on air.')}</h2><p>${esc(v.station?.genre??'Live stations from London and beyond')}</p><div class="smoke-radio-bars ${v.live?'playing':''}" aria-hidden="true">${[3,6,4,8,5,9,6,4,7,3,5,8,4,6,3,7].map(h=>`<i style="--bar:${h}"></i>`).join('')}</div><p class="smoke-radio-status" role="status">${esc(v.available?v.statusText:'The GM has disabled live radio.')}</p></div>
  <div class="smoke-radio-dial"><button type="button" data-radio-step="-1" aria-label="Previous station" ${disabled?'disabled':''}>‹</button><select data-radio-station aria-label="Radio station" ${disabled?'disabled':''}>${v.presets.map(s=>`<option value="${s.id}" ${s.selected?'selected':''}>${s.number} · ${esc(s.name)}</option>`).join('')}</select><button type="button" data-radio-step="1" aria-label="Next station" ${disabled?'disabled':''}>›</button></div>
  <div class="smoke-radio-presets" aria-label="Station presets">${v.presets.map(s=>`<button type="button" data-radio-preset="${s.id}" class="${s.selected?'selected':''}" aria-pressed="${s.selected}" title="${esc(s.name)} · ${esc(s.genre)}" ${disabled?'disabled':''}><b>${s.number}</b><span>${esc(s.name)}</span></button>`).join('')}</div>
- <div class="smoke-radio-play"><button type="button" class="primary" data-radio-listen ${!v.canListen&&!v.enabled?'disabled':''}><i class="fa-solid ${v.enabled&&!v.needsRetry?'fa-stop':'fa-play'}" aria-hidden="true"></i> ${v.needsRetry?(v.status==='blocked'?'Resume':'Retry'):v.enabled?'Stop listening':'Listen'}</button>${v.isVehicle?`<button type="button" data-radio-power ${!v.canTune||!v.available?'disabled':''}>${v.power?'Switch car radio off':'Switch car radio on'}</button>`:''}<button type="button" data-radio-mute aria-label="${v.muted?'Unmute radio':'Mute radio'}" aria-pressed="${v.muted}"><i class="fa-solid ${v.muted?'fa-volume-xmark':'fa-volume-high'}" aria-hidden="true"></i> ${v.muted?'Unmute':'Mute'}</button></div>
- <label class="smoke-radio-volume">Volume <input type="range" data-radio-volume min="0" max="100" step="1" value="${v.volume}" aria-label="Your radio volume"><output>${v.volume}%</output></label>
+ <div class="smoke-radio-play"><button type="button" class="primary" data-radio-listen ${!v.canListen&&!v.enabled?'disabled':''}><i class="fa-solid ${v.enabled&&!v.needsRetry?'fa-stop':'fa-play'}" aria-hidden="true"></i> ${v.webOpen?'Close live player':v.station?.playerUrl&&!v.station.stream?'Open live player':v.needsRetry?(v.status==='blocked'?'Resume':'Retry'):v.enabled?'Stop listening':'Listen'}</button>${game.user.isGM&&v.station?.playerUrl?`<a class="smoke-radio-open" href="${esc(v.station.playerUrl)}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open in browser</a>`:''}${v.isVehicle?`<button type="button" data-radio-power ${!v.canTune||!v.available?'disabled':''}>${v.power?'Switch car radio off':'Switch car radio on'}</button>`:''}<button type="button" data-radio-mute aria-label="${v.muted?'Unmute radio':'Mute radio'}" aria-pressed="${v.muted}"><i class="fa-solid ${v.muted?'fa-volume-xmark':'fa-volume-high'}" aria-hidden="true"></i> ${v.muted?'Unmute':'Mute'}</button></div>
+ ${v.station?.playerUrl&&!v.station.stream?'<p class="smoke-radio-hint">Use the station’s own player controls for Play and volume.</p>':`<label class="smoke-radio-volume">Volume <input type="range" data-radio-volume min="0" max="100" step="1" value="${v.volume}" aria-label="Your radio volume"><output>${v.volume}%</output></label>`}
  ${studioMarkup(v)}
- <p class="smoke-radio-hint">${esc(v.hint)}</p><div class="smoke-radio-links">${v.station?`<a href="${esc(v.station.website)}" target="_blank" rel="noopener noreferrer">Station website ↗</a>${v.station.directory?`<a href="${esc(v.station.directory)}" target="_blank" rel="noopener noreferrer">Listen on radio.net ↗</a>`:''}`:''}<a href="${RADIO_DIRECTORY}" target="_blank" rel="noopener noreferrer">More pirate stations ↗</a>${game.user.isGM?'<button type="button" data-radio-edit>Edit presets</button>':''}</div></section>`;
+ <p class="smoke-radio-hint">${esc(v.hint)}</p><div class="smoke-radio-links">${game.user.isGM&&v.station?`<a href="${esc(v.station.website)}" target="_blank" rel="noopener noreferrer">Station website ↗</a>${v.station.directory?`<a href="${esc(v.station.directory)}" target="_blank" rel="noopener noreferrer">Listen on radio.net ↗</a>`:''}`:''}${game.user.isGM?`<a href="${RADIO_DIRECTORY}" target="_blank" rel="noopener noreferrer">More pirate stations ↗</a>`:''}${game.user.isGM?'<button type="button" data-radio-edit>Edit presets</button>':''}</div>${gmInbox&&game.user.isGM?studioInboxMarkup():''}<p class="smoke-radio-hint">Independent live audio; all station messages and broadcasts inside The Smoke are fictional, GM-moderated roleplay.</p></section>`;
 }
-/** Message the studio: the station's own channels, filled in with your message where they can be. */
+/** The player's radio is fictional messaging only; the GM keeps the full real contact editor. */
 function studioMarkup(v){
  if(!v.station||v.kind==='none')return '';
+ if(!game.user.isGM)return `<details class="smoke-radio-message" data-radio-studio ${studio.open?'open':''}><summary><i class="fa-solid fa-paper-plane"></i> Message the studio <small>${esc(v.station.name)}</small></summary>
+ <p class="smoke-radio-hint">This goes privately to your GM, playing the station's producer. It never contacts the real broadcaster.</p>
+ <textarea data-radio-draft maxlength="500" rows="3" placeholder="Big up the crew at the arches…" aria-label="Fictional studio message">${esc(studio.draft)}</textarea>
+ <div class="smoke-radio-send"><button type="button" data-radio-internal="message">Message studio (GM only)</button><button type="button" data-radio-internal="announcement">Request airtime</button></div>
+ <p class="smoke-radio-hint">Your GM can reply privately, approve a live announcement or queue a prerecorded spot for the Banana Watch.</p></details>`;
  const links=studioLinks(v.station,studio.draft);
- return `<details class="smoke-radio-message" data-radio-studio ${studio.open?'open':''}><summary><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Message the studio <small>${esc(v.station.name)}</small></summary>
- <p class="smoke-radio-hint">This reaches the real station, live. Studio chat opens the station's own chat inside Foundry; WhatsApp, text and email open your own apps with the message filled in — you press send there. Keep it friendly: shout-outs, requests, big ups.</p>
- <textarea data-radio-draft maxlength="500" rows="3" placeholder="Big up everyone in Hackney tonight…" aria-label="Message for ${esc(v.station.name)}">${esc(studio.draft)}</textarea>
- <label class="smoke-radio-share"><input type="checkbox" data-radio-share ${studio.share?'checked':''}> Show the table what you sent</label>
- ${links.length?`<div class="smoke-radio-send">${links.map(l=>`<button type="button" data-radio-send="${l.type}" title="${esc(l.inFoundry?`Opens ${l.detail} in a Foundry window; your message is copied to paste in`:l.prefilled?`${l.label}: ${l.detail} (your message is filled in)`:l.type==='call'?`Call ${l.detail}`:`Opens ${l.detail}; your message is copied to paste in`)}"><i class="${l.icon}" aria-hidden="true"></i> ${esc(l.label)}</button>`).join('')}</div>
- <p class="smoke-radio-hint smoke-radio-ways">${links.map(l=>`${esc(l.label)}: ${esc(l.detail)}`).join(' · ')}</p>`:`<p class="smoke-radio-hint">No studio contact for this preset yet.${game.user.isGM?' Add one in Edit presets.':' The GM can add one in Edit presets.'}</p>`}
- </details>`;
+ return `<details class="smoke-radio-message" data-radio-studio ${studio.open?'open':''}><summary><i class="fa-solid fa-paper-plane"></i> Real station contacts <small>GM ONLY · ${esc(v.station.name)}</small></summary>
+ <p class="smoke-radio-hint">Only the GM can reach these independent real broadcasters. These links never send automatically; message requests from players are in the GM Studio Inbox.</p>
+ <textarea data-radio-draft maxlength="500" rows="3" placeholder="A polite enquiry to a real studio…" aria-label="Draft for GM">${esc(studio.draft)}</textarea>
+ ${links.length?`<div class="smoke-radio-send">${links.map(l=>`<button type="button" data-radio-send="${l.type}" title="${esc(l.detail)}"><i class="${l.icon}"></i> ${esc(l.label)}</button>`).join('')}</div>
+ <p class="smoke-radio-hint smoke-radio-ways">${links.map(l=>`${esc(l.label)}: ${esc(l.detail)}`).join(' · ')}</p>`:
+ '<p class="smoke-radio-hint">No external studio contacts listed for this preset. The GM can add one in Edit presets.</p>'}</details>`;
 }
 /** Copy for pasting: Foundry's helper also works where the browser's clipboard needs HTTPS (a game served over the LAN). */
 async function copyText(text){
@@ -107,7 +149,8 @@ async function copyText(text){
  return false;
 }
 /** Open one of the station's channels: a link the browser hands to WhatsApp, Messages or Mail, or the station's page. */
-export async function messageStudio(type,{actor=null,ref=null,text=studio.draft,share=studio.share}={}){
+export async function messageStudio(type,{actor=null,ref=null,text=studio.draft,share=false}={}){
+ if(!game.user?.isGM)throw new Error('Real station contacts are GM-only. Use Message studio for fictional requests.');
  const v=radioView(actor,ref),station=v.station;if(!station)throw new Error('Choose a station first.');
  const link=studioLinks(station,text).find(l=>l.type===type);if(!link)throw new Error(`${station.name} has no ${type} contact in the presets.`);
  const message=String(text??'').trim();
@@ -124,6 +167,38 @@ export async function messageStudio(type,{actor=null,ref=null,text=studio.draft,
  const who=actor??game.actors.get(selectedActorId);
  if(share&&message&&link.type!=='call')await ChatMessage.implementation.create({speaker:ChatMessage.getSpeaker(who?{actor:who}:{}),content:`<section class="smoke-card radio"><header><span class="kicker">PIRATE RADIO · ${esc(link.label.toUpperCase())}</span><strong>${esc(who?.name??game.user.name)} → ${esc(station.name)}</strong></header><p>“${esc(message)}”</p></section>`});
  return link;
+}
+/** External broadcasters without a verifiable raw MP3 feed: play through their own live page.
+ * Because browser framing policies are set by the broadcaster, the player always includes
+ * an explicit browser fallback. We never claim a cross-origin iframe has started playing. */
+export class RadioLivePage extends HandlebarsApplicationMixin(ApplicationV2){
+ static DEFAULT_OPTIONS={classes:['the-smoke','smoke-live-page-app'],position:{width:900,height:700},window:{title:'The Smoke · Live station',icon:'fa-solid fa-radio',resizable:true}};
+ static PARTS={main:{template:`systems/${NS}/templates/radio-live-page.hbs`}};
+ constructor(station,options={}){
+  if(!station?.playerUrl)throw new Error('No broadcaster live-player URL is configured.');
+  super({...options,id:`smoke-live-${station.id}`,window:{title:`${station.name} · Live radio`}});
+  this.station={id:station.id,name:station.name,playerUrl:station.playerUrl,website:station.website};
+ }
+ async _prepareContext(options){return {...await super._prepareContext(options),station:this.station};}
+ async _onRender(ctx,opts){
+  await super._onRender(ctx,opts);
+  this.element.querySelector('[data-live-page-reload]')?.addEventListener('click',e=>{
+   e.preventDefault();const frame=this.element.querySelector('iframe[data-live-page-frame]');
+   if(frame)frame.src=this.station.playerUrl;
+  });
+ }
+ async close(options){if(webRadioApp===this)webRadioApp=null;changed();return super.close(options);}
+}
+export function openLivePage(station){
+ if(!game.user?.isGM)throw new Error('External broadcaster websites are GM-only.');
+ if(!station?.playerUrl)throw new Error('This station has no in-game live player.');
+ if(webRadioApp?.station?.id===station.id){webRadioApp.bringToFront?.();return webRadioApp;}
+ if(webRadioApp){const old=webRadioApp;webRadioApp=null;Promise.resolve(old.close()).catch(console.warn);}
+ receiver.stop();
+ webRadioApp=new RadioLivePage(station);webRadioApp.render(true);changed();return webRadioApp;
+}
+export async function closeLivePage(){
+ if(webRadioApp){const app=webRadioApp;webRadioApp=null;await app.close();changed();}
 }
 /** What the studio chat window shows: the station's own chat or message box, and the player's message to paste in. */
 export function studioChatContext(station,link,draft=''){
@@ -153,6 +228,7 @@ export class StudioChat extends HandlebarsApplicationMixin(ApplicationV2){
  }
 }
 export function openStudioChat(station,link,draft=''){
+ if(!game.user?.isGM)throw new Error('Real station chats are GM-only.');
  const open=foundry.applications.instances?.get(`smoke-studio-chat-${station.id}`);
  if(open){open.setDraft(draft);if(open.minimized)open.maximize();open.bringToFront?.();return open;}
  const app=new StudioChat({station,link,draft});app.render(true);return app;
@@ -184,10 +260,14 @@ registerHandler('radio.tune',data=>serialScene(data.sceneId,async()=>{
 }));
 export function bindRadio(root,{actor=null,ref=null}={}){
  const run=fn=>async event=>{event.preventDefault();event.stopPropagation();try{await fn(event);}catch(error){ui.notifications.warn(error.message);}};
- root.querySelector('[data-radio-listen]')?.addEventListener('click',run(()=>{
-  const v=radioView(actor,ref);if(v.enabled&&!v.needsRetry)return receiver.stop();
+ root.querySelector('[data-radio-listen]')?.addEventListener('click',run(async()=>{
+  const v=radioView(actor,ref);
   if(!v.canListen)throw new Error(v.isVehicle&&!v.power?'The driver has switched off the car radio.':'Live radio is unavailable.');
-  selectTarget(actor,ref);const c=currentContext();receiver.listen(c.station,{power:c.power,allowed:game.settings.get(NS,'radioEnabled')});
+  if(v.webOpen){await closeLivePage();return;}
+  if(v.enabled&&!v.needsRetry){receiver.stop();return;}
+  selectTarget(actor,ref);const c=currentContext();
+  if(c.station?.playerUrl&&!c.station.stream){openLivePage(c.station);return;}
+  receiver.listen(c.station,{power:c.power,allowed:game.settings.get(NS,'radioEnabled')});
  }));
  root.querySelector('[data-radio-station]')?.addEventListener('change',run(e=>tuneRadio(e.currentTarget.value,{actor,ref})));
  root.querySelectorAll('[data-radio-step]').forEach(b=>b.addEventListener('click',run(()=>tuneRadio(steppedStation(stations(),radioContext(actor,ref).station?.id,Number(b.dataset.radioStep)),{actor,ref}))));
@@ -200,7 +280,25 @@ export function bindRadio(root,{actor=null,ref=null}={}){
  root.querySelector('[data-radio-edit]')?.addEventListener('click',run(()=>new RadioDirectory().render(true)));
  root.querySelector('[data-radio-studio]')?.addEventListener('toggle',e=>{studio.open=e.currentTarget.open;});
  root.querySelector('[data-radio-draft]')?.addEventListener('input',e=>{studio.draft=e.currentTarget.value.slice(0,500);});
- root.querySelector('[data-radio-share]')?.addEventListener('change',e=>{studio.share=e.currentTarget.checked;});
+ // No player sharing to public chat before the GM approves a broadcast.
+ root.querySelectorAll('[data-radio-internal]').forEach(button=>button.addEventListener('click',run(async()=>{
+  const text=String(root.querySelector('[data-radio-draft]')?.value??studio.draft).trim();
+  const target=radioContext(actor,ref),who=target.actor;
+  if(!who)throw new Error('Select your own character before messaging the studio.');
+  const kind=button.dataset.radioInternal;
+  const submissionId=foundry.utils.randomID(20);
+  await studioSubmit({stationId:target.station.id,actorId:who.id,kind,text,submissionId});
+  studio.draft='';const box=root.querySelector('[data-radio-draft]');if(box)box.value='';
+  ui.notifications.info(kind==='announcement'?'Airtime request delivered privately to the GM.':'Studio message delivered privately to the GM.');
+ })));
+ root.querySelectorAll('[data-studio-action]').forEach(button=>button.addEventListener('click',run(async()=>{
+  if(!game.user.isGM)throw new Error('GM only.');
+  const id=button.dataset.studioId,action=button.dataset.studioAction;
+  const reply=root.querySelector(`[data-studio-reply="${id}"]`)?.value||'';
+  const minutes=Number(root.querySelector(`[data-studio-minutes="${id}"]`)?.value||60);
+  await studioModerate(id,action,{reply,minutes});
+  ui.notifications.info(action==='schedule'?'Prerecorded announcement queued on the Banana Watch.':'Studio request processed.');
+ })));
  root.querySelectorAll('[data-radio-send]').forEach(b=>b.addEventListener('click',run(async()=>{
   const box=root.querySelector('[data-radio-draft]');if(box)studio.draft=box.value.slice(0,500);
   await messageStudio(b.dataset.radioSend,{actor,ref});
@@ -209,11 +307,11 @@ export function bindRadio(root,{actor=null,ref=null}={}){
 export class RadioApp extends HandlebarsApplicationMixin(ApplicationV2){
  static DEFAULT_OPTIONS={id:'smoke-radio',classes:['the-smoke','smoke-radio-app'],position:{width:460,height:680},window:{title:'The Smoke · Pirate Radio',resizable:true}};
  static PARTS={main:{template:`systems/${NS}/templates/radio.hbs`,scrollable:['.smoke-radio-body']}};
- _actorId=null;_ref=null;_hook=null;
+ _actorId=null;_ref=null;_hook=null;_inboxHook=null;
  constructor(options={}){super(options);this._actorId=options.actorId??game.user.character?.id??people()[0]?.id;this._ref=options.vehicleRef??null;}
- async _prepareContext(options){const ctx=await super._prepareContext(options);return {...ctx,radio:radioMarkup(game.actors.get(this._actorId),this._ref),characters:this._ref?[]:people().map(a=>({id:a.id,name:a.name,selected:a.id===this._actorId}))};}
- async _onRender(ctx,opts){await super._onRender(ctx,opts);bindRadio(this.element,{actor:game.actors.get(this._actorId),ref:this._ref});this.element.querySelector('[data-radio-character]')?.addEventListener('change',e=>{this._actorId=e.currentTarget.value;selectRadioActor(game.actors.get(this._actorId));this.render(false);});if(!this._hook)this._hook=Hooks.on('smokeRadioChanged',()=>{const v=radioView(game.actors.get(this._actorId),this._ref),key=[v.kind,v.status,v.station?.id,v.power,v.muted,v.enabled,v.canTune,v.available].join('|');if(key===this._key)return;this._key=key;this.render(false);});}
- async close(options){if(this._hook)Hooks.off('smokeRadioChanged',this._hook);this._hook=null;return super.close(options);}
+ async _prepareContext(options){const ctx=await super._prepareContext(options);return {...ctx,radio:radioMarkup(game.actors.get(this._actorId),this._ref,{gmInbox:true}),characters:this._ref?[]:people().map(a=>({id:a.id,name:a.name,selected:a.id===this._actorId}))};}
+ async _onRender(ctx,opts){await super._onRender(ctx,opts);bindRadio(this.element,{actor:game.actors.get(this._actorId),ref:this._ref});this.element.querySelector('[data-radio-character]')?.addEventListener('change',e=>{this._actorId=e.currentTarget.value;selectRadioActor(game.actors.get(this._actorId));this.render(false);});if(!this._hook)this._hook=Hooks.on('smokeRadioChanged',()=>{const v=radioView(game.actors.get(this._actorId),this._ref),key=[v.kind,v.status,v.station?.id,v.power,v.muted,v.enabled,v.canTune,v.available].join('|');if(key===this._key)return;this._key=key;this.render(false);});if(!this._inboxHook)this._inboxHook=Hooks.on('smokeStudioInboxChanged',()=>{if(game.user.isGM)this.render(false);});}
+ async close(options){if(this._hook)Hooks.off('smokeRadioChanged',this._hook);if(this._inboxHook)Hooks.off('smokeStudioInboxChanged',this._inboxHook);this._hook=null;this._inboxHook=null;return super.close(options);}
 }
 export function openRadio(actor=null){
  actor??=game.user.character??people()[0]??null;selectTarget(actor,null);
@@ -233,15 +331,15 @@ export class RadioDirectory extends HandlebarsApplicationMixin(ApplicationV2){
  static PARTS={main:{template:`systems/${NS}/templates/radio-directory.hbs`,scrollable:['.smoke-radio-editor-rows']}};
  _rows=null;
  async _prepareContext(options){if(!game.user.isGM)throw new Error('GM only.');this._rows??=stations();return {...await super._prepareContext(options),stations:this._rows.map((s,i)=>({...s,number:i+1,hasContact:CONTACT_FIELDS.some(k=>s[k])}))};}
- _read(){return [...this.element.querySelectorAll('[data-radio-row]')].map(row=>Object.fromEntries(['id','name','genre','stream','website','directory',...CONTACT_FIELDS].map(k=>[k,row.querySelector(`[data-field="${k}"]`)?.value??''])));}
+ _read(){return [...this.element.querySelectorAll('[data-radio-row]')].map(row=>Object.fromEntries(['id','name','genre','stream','playerUrl','website','directory',...CONTACT_FIELDS].map(k=>[k,row.querySelector(`[data-field="${k}"]`)?.value??''])));}
  async _onRender(ctx,opts){
   await super._onRender(ctx,opts);this.element.querySelectorAll('[data-radio-editor]').forEach(b=>b.addEventListener('click',async()=>{
    try{
     if(!game.user.isGM)throw new Error('GM only.');const action=b.dataset.radioEditor;this._rows=this._read();
-    if(action==='add'){this._rows.push({id:'custom-'+foundry.utils.randomID(8).toLowerCase(),name:'',genre:'',stream:'',website:'',directory:'',...Object.fromEntries(CONTACT_FIELDS.map(k=>[k,'']))});return this.render(false);}
+    if(action==='add'){this._rows.push({id:'custom-'+foundry.utils.randomID(8).toLowerCase(),name:'',genre:'',stream:'',playerUrl:'',website:'',directory:'',...Object.fromEntries(CONTACT_FIELDS.map(k=>[k,'']))});return this.render(false);}
     if(action==='remove'){this._rows.splice(Number(b.dataset.index),1);return this.render(false);}
     if(action==='reset'){if(!await foundry.applications.api.DialogV2.confirm({window:{title:'Restore original presets?'},content:'<p>This replaces your edited list with the supplied pirate-radio stations.</p>'}))return;this._rows=stationsFromDefaults();return this.render(false);}
-    if(action==='save'){const rows=validateStations(this._rows);await game.settings.set(NS,'radioStations',JSON.stringify(rows));ui.notifications.info(`${rows.length} radio presets saved.`);return this.close();}
+    if(action==='save'){if(this._rows.some(s=>RETIRED_STATIONS.has(s.id)))throw new Error('CodeSouth and Esencia Urbana were retired from the beta tuner.');const rows=validateStations(this._rows);await game.settings.set(NS,'radioStations',JSON.stringify(rows));ui.notifications.info(`${rows.length} radio presets saved.`);return this.close();}
    }catch(error){ui.notifications.warn(error.message);}
   }));
  }
@@ -254,7 +352,8 @@ export function installRadio(){
  Hooks.on('updateToken',(_doc,changes)=>{if(changes.flags||changes.actorId||Object.keys(changes).some(k=>k.startsWith(`flags.${NS}.`)))queueRefresh();});
  Hooks.on('updateSetting',setting=>{if(['radioStations','radioEnabled',PREFS].some(k=>setting.key===`${NS}.${k}`))queueRefresh();});
  Hooks.on('updateUser',user=>{if(user.id===game.user.id)queueRefresh();});
- VEHICLE_ACTIONS.push(vt=>game.user.isGM||(vt.getFlag(NS,'vehicleOccupants')??[]).some(o=>owns(vt.parent.tokens.get(o.tokenId)?.actor))?[{icon:'fa-solid fa-radio',title:'Car radio',fn:()=>openVehicleRadio(vt)}]:[]);
- globalThis.addEventListener?.('beforeunload',()=>receiver.stop());
+ VEHICLE_ACTIONS.push(vt=>game.user.isGM||(vt.getFlag(NS,'vehicleOccupants')??[]).some(o=>owns(vt.parent.tokens.get(o.tokenId)?.actor))?[{icon:'fa-solid fa-radio',title:'Car radio',playerAllowed:true,fn:()=>openVehicleRadio(vt)}]:[]);
+ installStudioInbox();
+ globalThis.addEventListener?.('beforeunload',()=>{receiver.stop();void closeLivePage();});
 }
-export const radioAPI={open:openRadio,vehicle:openVehicleRadio,stop:()=>receiver.stop(),stations,refresh:refreshRadio,message:messageStudio,studioChat:(station,draft=studio.draft)=>{const link=studioLinks(station,draft).find(l=>l.type==='chat');if(!link)throw new Error(`${station?.name??'This station'} has no studio chat in the presets.`);return openStudioChat(station,link,draft);},studioLinks:station=>studioLinks(station,studio.draft)};
+export const radioAPI={open:openRadio,tune:tuneRadio,vehicle:openVehicleRadio,livePage:openLivePage,stop:()=>{receiver.stop();return closeLivePage();},stations,refresh:refreshRadio,message:messageStudio,studioChat:(station,draft=studio.draft)=>{if(!game.user.isGM)throw new Error('GM only.');const link=studioLinks(station,draft).find(l=>l.type==='chat');if(!link)throw new Error(`${station?.name??'This station'} has no studio chat in the presets.`);return openStudioChat(station,link,draft);},studioLinks:station=>{if(!game.user.isGM)throw new Error('GM only.');return studioLinks(station,studio.draft);},inbox:studioInboxMarkup,submit:studioSubmit,moderate:studioModerate};
