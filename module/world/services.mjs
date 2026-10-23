@@ -93,7 +93,7 @@ export async function performService(actor,kind,c){
   await c.vehicle.update({[`flags.${NS}.patched`]:false,...(c.vehicle.getFlag(NS,'fire')?{[`flags.${NS}.fire`]:null,light:{dim:0,bright:0}}:{})},{acVehicleCarry:true});}
  await actor.update(patch);
  await card('LOCAL SERVICE',c.label,`<p>${esc(actor.name)} pays £${c.price} at ${esc(c.zone.name)}. ${kind==='repair'?'Body restored, tyres changed.':kind==='respray'?`Heat cleared; new plates fitted: <b class="smoke-plate">${esc(c.vehicle.getFlag(NS,'plate')??'')}</b>.`:'One Heat star removed.'}</p>`,'cash');
- Hooks.callAll('smokeService',{actor,service:kind,shop:c.zone.service,vehicle:c.vehicle??null});
+ Hooks.callAll('smokeService',{actor,service:kind,shop:c.zone.service,vehicle:c.vehicle??null,targetToken:c.vehicle??null,actorToken:c.token,sceneId:c.token.parent.id,zoneId:c.zone.id,proofId:foundry.utils.randomID(16)});
  return {kind,price:c.price,heat:actor.system.heat.value};
 }
 registerHandler('service.use',async({actorUuid,kind,quote,sceneId,tokenId,userId})=>{

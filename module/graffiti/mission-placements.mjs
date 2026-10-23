@@ -40,6 +40,8 @@ export function missionPaintPosition(map,site,stop,venues=[],places=[],occupied=
   let anchor=venue?.anchor?zones.find(z=>z.id===venue.anchor):null;
   let anchored=!!anchor,via=anchor?'venue':null;
   if(!anchor&&doorway){anchor={id:`door-${placeId}`,rect:doorway.rect,kind:'door'};anchored=true;via='door';}
+  // A surface with no venue can name the zone it belongs to (0.5.27: the Bow Flyover column is under the flyover).
+  if(!anchor&&site?.anchorZone){anchor=zones.find(z=>z.id===site.anchorZone)||null;if(anchor){anchored=true;via='zone';}}
   if(!anchor){
     const terms=meaningful(site.label);
     const ranked=zones.map(z=>{

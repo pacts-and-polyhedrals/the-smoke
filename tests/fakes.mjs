@@ -16,6 +16,7 @@ const fakes = new Map();
 function makeItem(parent, data) {
   const item = {id: data._id ?? uid(), name: data.name, type: data.type, img: data.img, parent, system: JSON.parse(JSON.stringify(data.system ?? {})), flags: JSON.parse(JSON.stringify(data.flags ?? {})),
     getFlag(ns, k) { return this.flags?.[ns]?.[k]; },
+    toObject() { return {_id: this.id, name: this.name, type: this.type, img: this.img, system: JSON.parse(JSON.stringify(this.system)), flags: JSON.parse(JSON.stringify(this.flags))}; },
     async update(u) { for (const [k, v] of Object.entries(u)) { if (k === 'flags') { this.flags = {...this.flags, ...v}; continue; } setPath(this, k, v); } return this; },
     async delete() { parent._items.delete(this.id); return this; },
     async use() { const {useItem} = await import('../module/world/items.mjs'); return useItem(this); }};

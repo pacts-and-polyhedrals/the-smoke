@@ -5,6 +5,9 @@ import {clampHeat, isSuccess} from '../rules/core.mjs';
 import {CONDITION_LIBRARY} from '../rules/conditions.mjs';
 import {isLeader, registerHandler, request, card, esc, ownersOf} from './net.mjs';
 import {distanceSquares, mapIdOf, actorToken} from './spawn.mjs';
+import {installWeaponAreas} from './weapon-areas.mjs';
+import {itemActionsReady,itemActionUI,installItemActions} from './item-actions.mjs';
+import {isSprayCan} from '../graffiti/core.mjs';
 import {watchSeconds, watchDeadline, legacyDeadlineToWatch} from '../rules/watch-clock.mjs';
 
 const {DialogV2} = foundry.applications.api;
@@ -80,6 +83,7 @@ export async function tickTimedConditions(now = watchSeconds(), actors = null, {
 
 /* ------------------------------------------------------------------ drugs */
 export async function takeDrug(actor, item) {
+  if(itemActionsReady())return itemActionUI(actor,item,'takeDrug');
   const s = item.system; if (Number(s.quantity || 0) < 1) throw new Error(`No ${item.name} left.`);
   // another hit while coming down off the same thing: the comedown lifts (for now) and the high starts again
   const chasing = s.comedown && actor.items.find(i => i.type === 'condition' && i.name === s.comedown);
@@ -89,6 +93,7 @@ export async function takeDrug(actor, item) {
   await card('TAKEN', `${actor.name} takes the ${esc(item.name)}`, `<p><b>${esc(s.high)}</b> for about ${s.minutes} Banana Watch minutes${s.comedown ? `, then ${esc(s.comedown)}` : ''}.${chasing ? ` Chasing it: the ${esc(s.comedown)} lifts — for now. The next one will be worse.` : ''}</p>`, 'crew', {whisper: whisperTo(actor)});
 }
 export async function sellOnStreet(actor, item) {
+  if(itemActionsReady())return itemActionUI(actor,item,'streetSale');
   const s = item.system, have = Number(s.quantity || 0); if (have < 1) throw new Error(`No ${item.name} to sell.`);
   const t = tokenOf(actor), scene = t?.parent ?? canvas?.scene, each = priceHere(s.street || s.value, scene);
   const heat = clampHeat(actor.system.heat?.value);
@@ -108,6 +113,7 @@ export async function sellOnStreet(actor, item) {
 
 /* ------------------------------------------------------------------ food, drink and medicine */
 export async function consume(actor, item) {
+  if(itemActionsReady())return itemActionUI(actor,item,'consume');
   const s = item.system; if (Number(s.quantity || 0) < 1) throw new Error(`No ${item.name} left.`);
   const notes = [];
   if (item.name === 'First Aid Kit') {   // a roll, then the patch-up
@@ -132,6 +138,7 @@ async function spendOne(item, n = 1) {
 /* ------------------------------------------------------------------ outfits */
 /** Put on an outfit. Out of sight of the police with 1-2 stars, a change of clothes loses Heat (the description no longer fits). */
 export async function wearOutfit(actor, item) {
+  if(itemActionsReady())return itemActionUI(actor,item,'wear');
   const others = actor.items.filter(i => i.type === 'outfit' && i.id !== item.id && i.system.worn).map(i => ({_id: i.id, 'system.worn': false}));
   if (others.length) await actor.updateEmbeddedDocuments('Item', others);
   await item.update({'system.worn': true});
@@ -178,7 +185,8 @@ async function pickVehicle(actor, title) {
   return list.find(v => v.id === form?.v) ?? null;
 }
 async function useGear(actor, item) {
-  if(item.name==='Spray Paint')return game.smoke.openTagStudio(actor);
+  if(itemActionsReady()){const {ITEM_ACTIONS}=await import('./item-actions.mjs');if(ITEM_ACTIONS[item.name])return itemActionUI(actor,item);if(['Burner Phone','Cheap Smartphone'].includes(item.name))return game.smoke.openPhone(actor);}
+  if(isSprayCan(item))return game.smoke.openTagStudio(actor);
   switch (item.name) {
     case 'Toolkit': {
       const vt = await pickVehicle(actor, 'Patch up which motor?'); if (!vt) return;
@@ -293,6 +301,7 @@ registerHandler('items.cuff', async ({actorUuid, targetTokenUuid = null, actorId
 
 let timer = null, watchHookInstalled = false;
 export function installItems() {
+  installItemActions();installWeaponAreas();
   const refresh = () => { if (isLeader()) void tickTimedConditions().catch(error => console.warn('The Smoke | timed conditions', error)); };
   if (!watchHookInstalled) {
     Hooks.on('updateWorldTime', refresh); // manual jumps and game-clock ticking process effects immediately

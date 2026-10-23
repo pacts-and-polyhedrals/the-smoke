@@ -14,7 +14,7 @@
       <div class="stars">{{#each stars}}<i class="fa-{{#if on}}solid{{else}}regular{{/if}} fa-star" data-heat="{{n}}"></i>{{/each}}</div>
       <div class="heat-name">{{heatInfo.name}}</div>
     </div>
-    <div class="smoke-head-actions"><button type="button" data-phone title="The Blower"><i class="fa-solid fa-mobile-screen"></i></button><button type="button" data-radio title="Live pirate radio"><i class="fa-solid fa-radio"></i></button><button type="button" data-guide title="Player guide"><i class="fa-solid fa-book-open"></i></button></div>
+    <div class="smoke-head-actions"><button type="button" data-phone title="The Blower"><i class="fa-solid fa-mobile-screen"></i> Blower</button><button type="button" data-radio title="Live pirate radio"><i class="fa-solid fa-radio"></i></button><button type="button" data-guide title="Player guide"><i class="fa-solid fa-book-open"></i></button>{{#if owner}}<button type="button" data-token-build title="{{#if hasToken}}Edit token{{else}}Build token{{/if}}: the Token Builder"><i class="fa-solid fa-user-pen"></i></button><button type="button" data-token-random title="Randomise token: a random new look, saved now (edit it after)"><i class="fa-solid fa-dice"></i></button>{{/if}}</div>
   </header>
 
   <section class="smoke-bars">
@@ -22,8 +22,7 @@
       <button type="button" data-hurt title="Take 1"><i class="fa-solid fa-minus"></i></button><button type="button" data-heal title="Heal 1"><i class="fa-solid fa-plus"></i></button></div>
     <div class="bar hustle"><span>HUSTLE</span><input type="number" name="system.resources.hustle.value" value="{{system.resources.hustle.value}}"> / <input type="number" name="system.resources.hustle.max" value="{{system.resources.hustle.max}}"></div>
     <div class="bar cash"><span>CASH £</span><input type="number" name="system.cash" value="{{system.cash}}"></div>
-    <div class="bar guard"><span>GUARD</span><b>{{system.guard.value}}</b><small>armour {{system.armour}}</small></div>
-    <button type="button" class="smoke-phone-btn" data-phone><i class="fa-solid fa-mobile-screen"></i> Phone</button>
+    <div class="bar guard" title="Guard = 3 + base Guard + the better of your Moves or Grit modifier + armour, less any condition penalties."><span>GUARD</span><b>{{system.guard.value}}</b><small>armour {{system.armour}}</small>{{#if isGM}}<label class="guard-base" title="Base Guard (4 for everyone by default). GM only: raise it for a hardened NPC, lower it for a soft target.">base <input type="number" name="system.guard.base" value="{{system.guard.base}}" min="0" max="12"></label>{{/if}}</div>
   </section>
   <section class="smoke-quick-actions">
     <button type="button" data-unarmed title="Target someone (T) first"><i class="fa-solid fa-hand-fist"></i> Unarmed</button>
@@ -39,6 +38,10 @@
 
   <div class="smoke-body">
     <section class="smoke-tab" data-tab="street">
+      <div class="smoke-roll-states" aria-label="Next roll state">
+        <label><input type="checkbox" name="system.states.onARoll" {{#if system.states.onARoll}}checked{{/if}}> On a Roll (next roll explodes on its top two faces)</label>
+        <label><input type="checkbox" name="system.states.offGame" {{#if system.states.offGame}}checked{{/if}}> Off Your Game (next roll does not explode)</label>
+      </div>
       <div class="smoke-stats">
         {{#each stats}}
         <div class="smoke-stat" title="{{hint}}&#10;{{ladder}}">
@@ -89,8 +92,6 @@
         {{#each conditionLibrary}}<button type="button" class="cond {{#if active}}on{{/if}}" data-condition="{{name}}" title="{{description}}&#10;Removed by: {{removal}}{{#if gameEnds}}&#10;Banana Watch: {{timeLeft}} (until {{gameEnds}}){{/if}}">{{name}}{{#if stacks}} ×{{stacks}}{{/if}}{{#if timeLeft}} <small class="cond-time" data-smoke-condition-expiry="{{expiresWorldTime}}">{{timeLeft}}</small>{{/if}}</button>{{/each}}
       </div>
       <div class="smoke-states">
-        <label><input type="checkbox" name="system.states.onARoll" {{#if system.states.onARoll}}checked{{/if}}> On a Roll (next roll explodes on its top two faces)</label>
-        <label><input type="checkbox" name="system.states.offGame" {{#if system.states.offGame}}checked{{/if}}> Off Your Game (next roll does not explode)</label>
       </div>
       <h3>Rep</h3>
       <div class="smoke-rep">

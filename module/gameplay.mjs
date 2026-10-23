@@ -44,7 +44,7 @@ registerHandler('aid.apply',async({messageId,userId})=>{
   await msg.setFlag(NS,'resolved',true);await a.setFlag(NS,'aidRevision',aid.revision);await a.heal(2);await a.removeCondition('Bleeding');await a.removeCondition('Hurt');
 });
 /** Somewhere safe to sleep: inside a safehouse zone, or anywhere in Your Flat. */
-function safeHere(token){
+export function safeHere(token){
   if(!token)return null;
   if(token.parent?.getFlag?.(NS,'place')?.id==='LDP-FLAT')return {name:'Your Flat'};
   const zones=zonesOf(token.parent);return zones.find(z=>z.service==='safehouse'&&arrivedAt(zones,z.id,tokenRect(token)))??null;

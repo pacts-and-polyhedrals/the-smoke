@@ -21,12 +21,12 @@
         },
         {
           "id": "nick",
-          "text": "Nick two bikes (Graft against the lock)",
+          "text": "Nick the assigned bikes (Graft against each lock)",
           "auto": null
         },
         {
           "id": "sell",
-          "text": "Sell two bikes to Auntie Pat",
+          "text": "Sell the assigned bikes to Auntie Pat",
           "auto": {
             "on": "sold",
             "service": "gang",
@@ -829,9 +829,9 @@
       "props": [
         {
           "id": "p1",
-          "name": "Stolen Westfield electronics",
+          "name": "Stolen Westfield trainers",
           "quantity": 1,
-          "pickup": "LDN-STRATFORD",
+          "pickup": "LDV-ST1",
           "delivery": "LDP-FLAT",
           "pickupObjective": "grab",
           "deliveryObjective": "stash",
@@ -840,8 +840,8 @@
       ],
       "playGuide": [
         "Your job: A sports shop in Westfield takes delivery of a limited trainer drop on Thursday. Uncle has buyers for every pair. Smash, grab, mopeds, gone.",
-        "Find 1 × Stolen Westfield electronics at map LDN-STRATFORD. Once on the scene, look for named mission-property tokens. You must stand close enough to physically collect each item. Do not just tick a checkbox.",
-        "Deliver every Stolen Westfield electronics to map LDP-FLAT. Hand it over from the carrier's inventory or Mission Board. A real delivery updates its objective; visiting the location alone does not count.",
+        "Find 1 × Stolen Westfield trainers at Westfield Stratford City (map LDV-ST1), on the concourse. Once on the scene, look for named mission-property tokens. You must stand close enough to physically collect each item. Do not just tick a checkbox.",
+        "Deliver every Stolen Westfield trainers to map LDP-FLAT. Hand it over from the carrier's inventory or Mission Board. A real delivery updates its objective; visiting the location alone does not count.",
         "To collect: target the parcel (T), press Alt+I, choose Collect; or right-click its token and select Collect. The item appears in the character gear. Open the item or Mission Board to Drop it on the ground. Other party members can recover dropped goods.",
         "Follow the remaining listed objectives and the original mission call. In self-play, non-physical story decisions still require the players to mark them when genuinely completed; physical collection and delivery tick only on a real item event."
       ]
@@ -991,7 +991,7 @@
       "title": "Big Night",
       "giver": "Auntie Pat",
       "portrait": "npc-pat",
-      "where": "The Lea Boys' lock-up, Leyton",
+      "where": "The Lea Boys' lock-up behind the Leyton Orient ground, Leyton",
       "minRep": 6,
       "requires": [
         "m10",
@@ -1029,7 +1029,7 @@
         },
         {
           "id": "physical-p1-collect",
-          "text": "Physically collect 1 × Stretch's stock crate at map LDN-LEYTON",
+          "text": "Physically collect 1 × Stretch's stock crate at the lock-up behind Leyton Orient stadium (map LDV-LY1)",
           "auto": {
             "on": "cargoCollected",
             "propId": "p1",
@@ -1038,7 +1038,7 @@
         },
         {
           "id": "physical-p1-deliver",
-          "text": "Deliver 1 × Stretch's stock crate at map LDP-ARCHES",
+          "text": "Deliver 1 × Stretch's stock crate at The Arches (map LDP-ARCHES)",
           "auto": {
             "on": "cargoDelivered",
             "propId": "p1",
@@ -1067,7 +1067,7 @@
           "id": "p1",
           "name": "Stretch's stock crate",
           "quantity": 1,
-          "pickup": "LDN-LEYTON",
+          "pickup": "LDV-LY1",
           "delivery": "LDP-ARCHES",
           "pickupObjective": "take",
           "deliveryObjective": null,
@@ -1076,7 +1076,7 @@
       ],
       "playGuide": [
         "Your job: Pat has found where Stretch keeps his stock: a lock-up behind the Leyton Orient ground. Two hundred bikes, a van of parts, and Stretch's cash box. Tonight it ends.",
-        "Find 1 × Stretch's stock crate at map LDN-LEYTON. Once on the scene, look for named mission-property tokens. You must stand close enough to physically collect each item. Do not just tick a checkbox.",
+        "Find 1 × Stretch's stock crate at the lock-up behind Leyton Orient stadium (map LDV-LY1, the Loading Apron). Once on the scene, look for named mission-property tokens. You must stand close enough to physically collect each item. Do not just tick a checkbox.",
         "Deliver every Stretch's stock crate to map LDP-ARCHES. Hand it over from the carrier's inventory or Mission Board. A real delivery updates its objective; visiting the location alone does not count.",
         "To collect: target the parcel (T), press Alt+I, choose Collect; or right-click its token and select Collect. The item appears in the character gear. Open the item or Mission Board to Drop it on the ground. Other party members can recover dropped goods.",
         "Follow the remaining listed objectives and the original mission call. In self-play, non-physical story decisions still require the players to mark them when genuinely completed; physical collection and delivery tick only on a real item event."
@@ -21174,7 +21174,7 @@
         },
         {
           "id": "physical-p2-collect",
-          "text": "Find and physically collect Missing fundraiser cash tin at New Spitalfields Market produce hall (LDV-HM2)",
+          "text": "Find Ellis and physically collect the Missing fundraiser cash tin in the Leyton Jubilee Park pavilion club room (LDV-HM6)",
           "auto": {
             "on": "cargoCollected",
             "propId": "p2",
@@ -21183,7 +21183,7 @@
         },
         {
           "id": "physical-p2-deliver",
-          "text": "Bring Missing fundraiser cash tin back to Leyton Jubilee Park pavilion (LDV-HM6)",
+          "text": "Hand the Missing fundraiser cash tin back to the organiser in the Leyton Jubilee Park pavilion foyer (LDV-HM6)",
           "auto": {
             "on": "cargoDelivered",
             "propId": "p2",
@@ -21274,9 +21274,9 @@
           "id": "p2",
           "name": "Missing fundraiser cash tin",
           "quantity": 1,
-          "pickup": 2,
+          "pickup": 1,
           "delivery": 1,
-          "description": "The heavy fundraiser cash tin recovered at the New Spitalfields produce hall. Hand it back at the Leyton Jubilee Park pavilion."
+          "description": "The heavy fundraiser cash tin. Ellis has been hiding it in the Leyton Jubilee Park pavilion club room; hand it back to the organiser in the pavilion foyer."
         }
       ],
       "playGuide": [

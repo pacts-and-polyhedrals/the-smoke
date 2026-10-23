@@ -47,6 +47,18 @@
     <button type="button" data-start-chase title="Everyone wanted on this map, the units after them and the nearest traffic, turn-based in the Combat Console"><i class="fa-solid fa-car-on"></i> Start a chase</button>
   </div>
 
+  {{#if chaseControls}}<h3>Chases &amp; driving</h3>
+  <div class="row switches smoke-chase-switches">
+    <button type="button" data-chase-switch="autoChase" class="{{#if chaseControls.autoChase}}on{{/if}}" title="When ground police clock a wanted driver (or anyone at two stars or more), the chase goes turn-based in the Combat Console"><i class="fa-solid fa-car-on"></i> Turn-based police chases: {{#if chaseControls.autoChase}}ON{{else}}OFF{{/if}}</button>
+    <button type="button" data-chase-switch="autoEvade" class="{{#if chaseControls.autoEvade}}on{{/if}}" title="Driving over another vehicle rolls the swerve (Wheels) for the driver at once"><i class="fa-solid fa-car-burst"></i> Evasive rolls itself: {{#if chaseControls.autoEvade}}ON{{else}}OFF{{/if}}</button>
+    <button type="button" data-chase-switch="autoDriveChecks" class="{{#if chaseControls.autoDriveChecks}}on{{/if}}" title="Pushing into yellow or red, or holding it straight after a PIT, rolls Wheels for the driver at once"><i class="fa-solid fa-gauge-high"></i> Yellow / red checks roll themselves: {{#if chaseControls.autoDriveChecks}}ON{{else}}OFF{{/if}}</button>
+  </div>
+  <div class="row switches smoke-chase-switches"><span class="smoke-hint">New chases start in</span>
+    {{#each chaseControls.modes}}<button type="button" data-chase-default-mode="{{key}}" class="{{#if on}}on{{/if}}" title="{{hint}}">{{label}}</button>{{/each}}
+    <span class="smoke-hint">· traffic</span>{{#each chaseControls.traffic}}<button type="button" data-chase-traffic="{{key}}" class="{{#if on}}on{{/if}}">{{label}}</button>{{/each}}
+  </div>
+  <ul class="smoke-hint smoke-chase-summary">{{#each chaseControls.summary}}<li>{{{this}}}</li>{{/each}}</ul>{{/if}}
+
   <h3>The crew</h3>
   <table class="smoke-table">
     {{#each characters}}<tr><td><b>{{name}}</b><br><small>Rep {{stage}} · {{xp}} XP · £{{cash}}</small></td>

@@ -7,7 +7,7 @@ const A = await import('../module/rules/advancement.mjs');
 const {validateStartingSpread} = await import('../module/rules/core.mjs');
 
 // Backgrounds: legal spreads, real perks and kit.
-assert.equal(C.BACKGROUNDS.length, 10);
+assert.equal(C.BACKGROUNDS.length, 12);
 for (const b of C.BACKGROUNDS) {
   assert.ok(validateStartingSpread(b.stats).valid, `${b.name}: a legal spread`);
   for (const p of b.perks) assert.ok(LIB.some(i => i.type === 'perk' && i.name === p), `${b.name}: perk ${p}`);
@@ -73,4 +73,4 @@ assert.match(A.validateLevelUp({fromLevel: 33, xp: 99999}).message, /Already Rep
 assert.deepEqual(A.OLD_REP, {1: 1, 2: 3, 3: 6, 4: 9, 5: 14});
 assert.equal(A.healthGrowth(1), 1); assert.equal(A.healthGrowth(7), 4);
 assert.equal(A.guardGrowth(2, 8), 0); assert.equal(A.guardGrowth(5, 8), 1); assert.equal(A.guardGrowth(8, 8), 2);
-console.log('advancement: 10 backgrounds, the creation steps (18+), Rep levels, caps, unlocks, level-up checks, growth — ok');
+console.log('advancement: 12 backgrounds, the creation steps (18+), Rep levels, caps, unlocks, level-up checks, growth — ok');

@@ -1,0 +1,2144 @@
+[
+  {
+    "name": "Fists",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Knuckle Duster",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bike Chain",
+    "type": "weapon",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Broken Bottle",
+    "type": "weapon",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Snooker Cue",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "\"Snaps easily\" has no break check. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Claw Hammer",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "\"Cheap door Graft one band easier\" not represented in door/lock interact handler. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cricket Bat",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Baseball Bat",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Crowbar",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No context-specific door/shutter bypass action. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Golf Club",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Kitchen Knife",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Lock Knife",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Zombie Knife",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Being visibly carried/drawn does not automatically call the police by this item identity. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Machete",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Drawing attention on visible brandish is narrative rather than witnessed police trigger. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Fire Axe",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "\"Through a door in one swing\" does not activate a door destruction mechanic. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pocket .22",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Converted Pistol",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Polymer Nine",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Service Revolver",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hand Cannon",
+    "type": "weapon",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Machine Pistol",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Micro SMG",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Police SMG",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Sawn-off Shotgun",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pump Shotgun",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Farmer's Double",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Air Rifle",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hunting Rifle",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Kalash",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Police Carbine",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Brick",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Firework Rocket",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Narrative distraction/ambient crowd response not automatic. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Petrol Bomb",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Misses never create a fire surface; no burning-area timer/spread from explosion. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Smoke Grenade",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No visible timed smoke cloud/expiry or auto-cover cleanup; cover may persist. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Frag Grenade",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Area is centred on struck token rather than a selected ground impact point.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Flashbang",
+    "type": "weapon",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Taser",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "CS Spray",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Extendable Baton",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Rocket Launcher",
+    "type": "weapon",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No explicit possession/GM-only restriction once player has launcher; point-target blast unsupported. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": ".22 Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "9mm Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": ".38 Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": ".50 Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "12-Gauge Shells",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "7.62 Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": ".308 Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Air Rifle Pellets",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Taser Cartridges",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "CS Canister",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "5.56 Rounds",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Rocket",
+    "type": "ammo",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Never-sale police-only types must remain restricted; quantity and gun matching require tests.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Puffer Jacket",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Leather Jacket",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Motorbike Leathers",
+    "type": "armour",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Stab Vest",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bulletproof Vest",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Police Body Armour",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Riot Shield",
+    "type": "armour",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bolt Cutters",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Door and cheap padlock interactions are not supported by item action. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Angle Grinder",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Relay Box",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Key Programmer",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Description promises clean start/no hotwire, but shares same combined theft/hotwire interaction. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Slim Jim",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Screwdriver Set",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Lock Picks",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Carried tool not consumed by lock-target logic; no map door/padlock action giving promised one-band silent bonus. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hacksaw",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Padlock/chain sawing is not an interactive door/prop action. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Toolkit",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Jerry Can",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Spare Plates",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Spray Paint",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Bike frame painting is not the same as graffiti target painting; wording could mislead.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Burner Phone",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No equipment/alias number identity, blocking or disposable contact profile. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Police Scanner",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "Promised police-detection die upgrade and helicopter alert are not connected to police sighting. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Binoculars",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "\"Casing job one band easier\" not applied to investigation/mission check TN. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Torch",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cable Ties",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Duct Tape",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No restraint/tie-up action even though Cable Ties separately do this.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Fake ID",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No persistent ID disguise/one-step-up police ID check modifier. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Oyster Card",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No transit fare/tap check or ticket requirement. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Balaclava",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bike Lock",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Skunk",
+    "type": "drug",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Use/sale retained; possession-specific police-search Heat remains open.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Charlie",
+    "type": "drug",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Use/sale retained; possession-specific police-search Heat remains open.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pills",
+    "type": "drug",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Use/sale retained; possession-specific police-search Heat remains open.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Benzos",
+    "type": "drug",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Use/sale retained; possession-specific police-search Heat remains open.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Nitrous",
+    "type": "drug",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Use/sale retained; possession-specific police-search Heat remains open.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Roids",
+    "type": "drug",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Use/sale retained; possession-specific police-search Heat remains open.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "First Aid Kit",
+    "type": "consumable",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bandages",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Painkillers",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Energy Drink",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cans of Lager",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bottle of Water",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cigarettes",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Meal Deal",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Chicken & Chips",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Kebab",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Full English",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pie & Mash",
+    "type": "consumable",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Most apply to self when used from inventory; verify resource timing and intended team targeting.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Tracksuit",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Black Hoodie & Mask",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hi-Vis & Hard Hat",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Delivery Rider Jacket",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Smart Suit",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Football Shirt",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Paramedic Uniform",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Police Uniform",
+    "type": "outfit",
+    "status": "PARTIAL",
+    "implemented": "Common outfit Heat exploit fixed; worn and contextual bonus paths added.",
+    "remaining": "Full advertised disguise/access/police-specific behaviour needs context producers and live acceptance.",
+    "originalAuditPriority": "P0",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bike Thief",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Getaway Driver",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Local Knowledge",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Silver Tongue",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Parkour",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Brawler",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cabbie",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Medic",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Wheelie King",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Grease Monkey",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Steady Hand",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Spray and Pray",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Dirty Fighter",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Leg It",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hard as Nails",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Night Owl",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Grass Radar",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Blag Merchant",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Wide Boy",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Proper Nutter",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cool Head",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Ghost",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Courier",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Blue Light Runner",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Ex-Old Bill",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Fixer",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Police Baton",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Compact Pistol",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "ARV Carbine",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Conducted-Energy Device",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Thrown Brick",
+    "type": "weapon",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No item-specific discrepancy verified beyond any separate exception.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Ballistic Vest",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Heavy Work Jacket",
+    "type": "armour",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Only last equipped armour applies; confirm intended equipment slot restriction in UI.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cordless Angle Grinder",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Screwdriver",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": " Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Paramedic Bag",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No kit check for patient gameplay; advertised job use not verified. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Firefighter Kit",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No protection flag or gear prerequisite wired to fire-job interaction. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cheap Smartphone",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "Inventory phone does not alter capabilities or data plan.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Service Radio",
+    "type": "gear",
+    "status": "PARTIAL / OPEN INTEGRATION",
+    "implemented": "Existing functionality preserved; selected action/effect paths added where supported.",
+    "remaining": "No radio-required session/dispatcher action. Some new code addresses this gap, but the whole advertised workflow is not certified.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "D-Lock",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hi-Vis Vest",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No disguise/worn state; situational benefits remain GM adjudication per description.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cycle Helmet",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Courier Backpack",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "No carrying-capacity/proof bonus; no explicit promise of one.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Handcuffs",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Vehicle Repair Kit",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P1",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Spare Clothes",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pocket Torch",
+    "type": "gear",
+    "status": "IMPLEMENTED / TARGETED CODE OR TEST COVERAGE",
+    "implemented": "New item-specific rule/action path, using authoritative receipts where applicable.",
+    "remaining": "Live Foundry acceptance remains required; see related audit issue for any wider integration limits.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Fictional Show Plates",
+    "type": "gear",
+    "status": "PRESERVED / EXISTING COVERAGE",
+    "implemented": "Original catalogue identity/asset and core implementation retained.",
+    "remaining": "",
+    "originalAuditPriority": "P3",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bike Messenger",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hard to Shift",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Estate Runner",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Locksmith",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Street Reader",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Steady Hands",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Stare Them Down",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Door Staff",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "First Responder",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "The Knowledge",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Local Face",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Rally Driver",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Crowd Work",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Iron Stomach",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Quiet Feet",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Dead Calm",
+    "type": "perk",
+    "status": "CONTEXT-GATED / FULL TRIGGER ACCEPTANCE OPEN",
+    "implemented": "Perk selection is context-filtered; GM can record a scoped approval for unmodelled fiction.",
+    "remaining": "Validate each when-clause in actual gameplay; generic tag matching is not a full situational rules implementation.",
+    "originalAuditPriority": "P2",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Access Permit",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Antique Lot",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Appointment Slip",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Appraisal Slip",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Art Postcard",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Art Print",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Auction Catalogue",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Auction Lot",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Band Merch",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Bet Receipt",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Brewery Tour Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 120 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cinema Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Cloakroom Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Club Scarf",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Club Wristband",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 360 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Collector Coin",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Delivery Manifest",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Donation Receipt",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Equipment Hire Voucher",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: hire. <p>A named equipment-hire checkout contract. Use the counter Hire action: the deposit, exact issued asset and due time are recorded. This blank catalogue voucher is not a free item or vehicle.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Event Entry Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Event Programme",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Evidence Folder",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Facility Day Pass",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 720 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Faction Supply Voucher",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Farm Entry Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Flyer Bundle",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Gig Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 360 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Heritage Entry Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hot Meal",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 2 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Hotel Room Booking",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: booking. <p>Paid reservation for this named venue and character. Activate at reception for 720 minutes of access. Hotel/room bookings enable a timed rest at this venue; a studio pass admits to the studio, not a free rest.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Library Card",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Loading Docket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "London Street Guide",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Match Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Medical Referral",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Meeting Invitation",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Mooring Event Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Museum Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Notebook",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Packing Materials",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Paperback",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pastry",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 1 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pawn Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Photocopy Credit",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: copy. <p>One prepaid photocopy. At the issuing counter, choose an owned document. The copy preserves its source and is labelled a copy; it does not duplicate a unique mission hand-in, key or ticket.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Popcorn",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 0 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Poster Run",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Produce Crate",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Programme",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Property Dossier",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Pub Meal",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 2 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Recording Media",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Records Request",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Repair Parts",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: repairParts. <p>One set of vehicle-repair parts. Used by the repair-item action for 2 Body on a successful Graft check at a safe location. Consumed once; no restoration of destroyed vehicles.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Room Booking",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: booking. <p>Paid reservation for this named venue and character. Activate at reception for 720 minutes of access. Hotel/room bookings enable a timed rest at this venue; a studio pass admits to the studio, not a free rest.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Safehouse Key",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Sandwich",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 1 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Shoes",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: merchandise. <p>Physical merchandise with no automatic stat, access or mission-completion bonus.</p>",
+    "remaining": "Intentional physical merchandise; no automatic stat or mission bonus.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Shopping Receipt",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Show Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 240 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Single Fare Ticket",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: fare. <p>One prepaid fare, valid for this character and departure station. Redeem at the station counter for a fare receipt; does not teleport the character or bypass travel rules.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Soft Drink",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 0 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Spare Inner Tube",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: innerTube. <p>One bicycle inner tube. Fit to an adjacent bicycle with a flat: a successful Graft check and ten Watch minutes remove one flat. Consumed once.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Studio Session Pass",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: booking. <p>Paid reservation for this named venue and character. Activate at reception for 120 minutes of access. Hotel/room bookings enable a timed rest at this venue; a studio pass admits to the studio, not a free rest.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Tea or Coffee",
+    "type": "consumable",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: consume. <p>One serving. Use once; restores 0 Health, capped at your maximum. Does not clear police Heat.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Travel Credit",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: travelCredit. <p>Ten pounds of prepaid transit balance. Activate at the issuing station to add GBP 10 to your character transit balance once. This does not provide unrestricted fast travel.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Venue Wristband",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: admission. <p>Issued to this character for this venue. Present at the venue counter to start 360 minutes of front-of-house admission. Does not grant backstage, staff or mission access. One admission; non-transferable.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  },
+  {
+    "name": "Visitor Pass",
+    "type": "gear",
+    "status": "NEW CATALOGUE ITEM / SERVICE CONTRACT",
+    "implemented": "Action class: issued. <p>Issued by a validated venue service, authorised GM or mission action, not for ordinary sale. Its recorded issuer, owner, source and mission/run (when relevant) determine its meaning. The item name alone never completes a job or grants entry.</p>",
+    "remaining": "Native compendium and live service acceptance; admission/fare/issued-document contracts do not by themselves enforce barriers, routes or mission evidence.",
+    "originalAuditPriority": "NEW",
+    "source": "data/london-items.json; module/world/item-actions.mjs; module/world/venue-services.mjs; module/rules/item-context.mjs; module/combat/combat.mjs"
+  }
+]

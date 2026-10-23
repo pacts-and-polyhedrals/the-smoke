@@ -2,6 +2,7 @@
 // the GM's call: in STORY MODE the GM starts missions, ticks objectives, passes or fails them and keeps each faction's
 // Renown, Influence and stance, and players see only the side work (shifts, Pat's orders, hustles) and the missions the
 // GM has put them on. In SELF-PLAY players can open any mission and run it themselves. Directions work in both.
+import {checkpointReady,checkpointDone,branchState,contributionMissing} from '../rules/mission-contract.mjs';
 import {NS, JOB_TYPES} from '../config.mjs';
 import {missionsAPI, statusOf, needed, lockReason, standing, rankOf, RANKS, STANCES, visibleToPlayers} from '../world/missions.mjs';
 import {findOrImportScene, importVenueMaps} from '../map/map-transit.mjs';
@@ -28,7 +29,7 @@ export function groupMissions(data, group) {
 }
 /** The place the crew should head for next: the stop of the first unticked objective that has one, else the first stop. */
 export function nextStop(m, s) {
-  const o = m.objectives.find(x => x.stop != null && Number(s?.ticks?.[x.id] || 0) < needed(x));
+  const o = m.objectives.find(x => x.stop != null && !checkpointDone(x,s));
   if (m.group === 'opening' && !o) return null;   // the opening's own places come from its objectives (the sat nav works them out)
   return m.stops?.[o?.stop ?? 0] ?? null;
 }
@@ -90,7 +91,13 @@ export class SmokeMissionBoard extends HandlebarsApplicationMixin(ApplicationV2)
       m: m ? {...m, taggingSpots: m.tagging ? m.tagging.sites.map(siteId=>({siteId,label:m.stops?.find(t=>t.code===siteId)?.name||siteId,sceneMapId:m.stops?.find(t=>t.code===siteId)?.mapId||'',placed: game.scenes.some(scene=>scene.tokens.some(t=>!t.hidden && t.getFlag?.(NS,'tagSpot')?.siteId===siteId)),
         done: m.objectives.some(o=>o.stop!=null&&m.stops?.[o.stop]?.code===siteId&&Number(s.ticks?.[o.id]||0)>=needed(o))})) : [], cargo:cargoRows, routable: routable(m), status: status(m), label: LABEL[status(m)], fcClass: m.group === 'local' ? 'fc-local' : m.faction && m.group !== 'opening' ? `fc-${m.faction.toLowerCase()}` : '', kicker: m.code ? `${m.code} · ${(faction(m.faction)?.name ?? (m.group === 'local' ? 'Local case' : '')).toUpperCase()} · ${m.giver.toUpperCase()}` : `MISSION ${m.n} · ${m.giver.toUpperCase()}`,
         lock: status(m) === 'locked' ? lockReason(m, st, data, fac) : '', pays,
-        objectives: m.objectives.map(o => { const have = Math.min(needed(o), Number(s.ticks?.[o.id] || 0)); return {...o, have, need: needed(o), done: have >= needed(o), multi: needed(o) > 1, autoCargo: ['cargoCollected','cargoDelivered','tagPlaced','radioWar'].includes(o.auto?.on) && !isGM}; }),
+        objectives: m.objectives.map(o => {const have=Math.min(needed(o,s),Number(s.ticks?.[o.id]||0)),done=checkpointDone(o,s);return {...o,have,need:needed(o,s),done,multi:needed(o,s)>1,
+          strict:Boolean(m.automation),excluded:branchState(o,s)==='excluded',ready:checkpointReady(m,o,s),canAct:!done&&checkpointReady(m,o,s),canMark:!done&&checkpointReady(m,o,s)&&!isGM&&mode==='self'&&(s.actorIds||[]).some(id=>game.actors.get(id)?.isOwner),
+          location:o.checkpoint?.locations?.map(a=>a.name).join(' / '),proof:(s.receipts?.[o.id]||[]).map(r=>`${game.actors.get(r.actorId)?.name||r.actorId}: ${r.on} at ${r.zoneId||r.mapId}`).join('; '),
+          autoCargo:['cargoCollected','cargoDelivered','tagPlaced','radioWar'].includes(o.auto?.on)&&!isGM};}),
+        automated:Boolean(m.automation),preflightError:s.preflightError,
+        missingContributions:contributionMissing(s).map(id=>game.actors.get(id)?.name||id).join(', '),
+        support:(m.automation?.support||[]).map(x=>({...x,done:Boolean(s.supportProof?.[x.id]),location:x.locations.map(a=>a.name).join(' / ')})),
         places: (m.locations || []).map(l => ({...l, ref: data.refs?.[l.code] ? l.code : '', placeId: (m.stops || []).find(x => x.code === l.code)?.placeId ?? ''})),
         mapIds: [...new Set((m.stops || []).map(x => x.placeId).filter(Boolean))],
         cast: (m.cast || []).map(c => ({...c, here: Boolean(castActor(c.key, cast))})),
@@ -102,7 +109,7 @@ export class SmokeMissionBoard extends HandlebarsApplicationMixin(ApplicationV2)
         return {...f, ...x, territoryPoints, rank: r.name, cap: r.cap, stances: STANCES.map(k => ({key: k, label: STANCE[k], selected: k === x.stance})), stanceLabel: STANCE[x.stance],
           done: groupMissions(data, f.code).filter(q => status(q) === 'done').length, next: next ? `${next.code ?? next.n} ${next.title}${status(next) === 'locked' ? ` (Renown ${next.gate})` : ''}` : 'Career complete'}; }),
       ranks: RANKS.map(r => `${r.at} ${r.name}`).join(' · '),
-      pcs: pcs.map(a => ({id: a.id, name: a.name, checked: (s.actorIds || pcs.filter(p => p.hasPlayerOwner).map(p => p.id)).includes(a.id)})),
+      pcs: pcs.map(a => ({id: a.id, name: a.name, editable:isGM||a.testUserPermission?.(game.user,'OWNER'), checked: (s.actorIds || pcs.filter(p => p.hasPlayerOwner).map(p => p.id)).includes(a.id)})),
       counts: Object.fromEntries(Object.keys(LABEL).map(k => [k, list.filter(x => x.status === k).length]))};
   }
   async _onRender(context, options) {
@@ -115,8 +122,20 @@ export class SmokeMissionBoard extends HandlebarsApplicationMixin(ApplicationV2)
     on('[data-open-tags]',()=>{game.smoke.openTagStudio();return false;});
     on('[data-group]', n => { this.group = n.value; this.selected = null; this.view = 'mission'; }, 'change');
     on('[data-view]', n => { this.view = n.dataset.view; });
-    on('[data-start]', () => missionsAPI.start(this.selected, [...el.querySelectorAll('[name=mbActor]:checked')].map(x => x.value)));
-    on('[data-tick]', n => missionsAPI.tick(this.selected, n.dataset.tick, Number(n.dataset.delta || 1)));
+    on('[data-start]',async()=>{const data=await missionsAPI.data(),m=data.missions.find(m=>m.id===this.selected),ids=[...el.querySelectorAll('[name=mbActor]:checked')].map(x=>x.value);let reason='';
+      if(game.user.isGM&&(statusOf(m,missionsAPI.state(),missionsAPI.factions())!=='available'||ids.some(id=>Number(game.actors.get(id)?.system.stage||1)<Number(m.minRep||1)))){
+        const f=await foundry.applications.api.DialogV2.input({window:{title:'Override mission prerequisites'},content:'<label>Reason (at least eight characters)<textarea name="reason" required></textarea></label>'});if(!f)return false;reason=f.reason;}
+      return missionsAPI.start(this.selected,ids,reason);});
+    on('[data-tick]',async n=>{const m=(await missionsAPI.data()).missions.find(m=>m.id===this.selected),complete=n.dataset.complete==='1',delta=Number(n.dataset.delta||1);
+      // 0.5.27: one click marks the whole step; a short note is optional (it goes in the mission's log either way)
+      if(m.automation){const o=m.objectives.find(x=>x.id===n.dataset.tick);
+        const f=await foundry.applications.api.DialogV2.input({window:{title:complete?'Mark this step done':'Reopen this step'},content:`<p><b>${foundry.utils.escapeHTML(o?.text||'')}</b></p><p>${complete?'Use this when it happened in play but the automatic check missed it.':'The step goes back to not done.'} It's noted in the mission's log${game.user.isGM?'':' for the GM'}.</p><label>Note (optional)<input type="text" name="reason" placeholder="${complete?'e.g. we all got in Jaz\'s car':'why'}"></label>`});
+        if(!f)return false;return missionsAPI.tick(this.selected,n.dataset.tick,complete?1:delta,f.reason||'',{complete});}
+      return missionsAPI.tick(this.selected,n.dataset.tick,delta,'');});
+    on('[data-mission-action]',n=>game.smoke.missionActions.open(this.selected,n.dataset.missionAction));
+    on('[data-repair-mission]',async()=>{let reason='',acceptProgress=false;const s=missionsAPI.state()[this.selected];
+      if(s.migrationReview){const f=await foundry.applications.api.DialogV2.input({window:{title:'Review old mission progress'},content:'<p>Existing ticks are retained, not silently treated as new verified proofs. Confirm the recorded progress before continuing.</p><textarea name="reason" required></textarea>'});if(!f)return false;reason=f.reason;acceptProgress=true;}
+      return game.smoke.missionActions.repair(this.selected,{acceptProgress,reason});});
     on('[data-cargo-action]', async n => {
       const m=(await missionsAPI.data()).missions.find(x=>x.id===this.selected);
       if(!m)throw new Error('Choose an active mission.');

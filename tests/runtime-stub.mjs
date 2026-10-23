@@ -23,7 +23,7 @@ globalThis.game = {
   socket: {on: () => null, emit: () => null}, keybindings: {register: () => null}, journal: [], system: {packs: []}, scenes: [], actors: Object.assign([], {get: () => null}), items: [], folders: [], messages: {get: () => null}, packs: {get: () => null}, combats: []
 };
 globalThis.ui = {notifications: {info: console.log, warn: console.warn, error: console.error}};
-globalThis.fetch = async url => { const fs = await import('fs'); const p = String(url).replace(/^systems\/the-smoke\//, new URL('..', import.meta.url).pathname); return {ok: fs.existsSync(p), json: async () => JSON.parse(fs.readFileSync(p, 'utf8'))}; };
+globalThis.fetch = async url => { const fs = await import('fs'); const p = String(url).replace(/\?.*$/, '').replace(/^systems\/the-smoke\//, new URL('..', import.meta.url).pathname); return {ok: fs.existsSync(p), status: fs.existsSync(p) ? 200 : 404, json: async () => JSON.parse(fs.readFileSync(p, 'utf8')), text: async () => fs.readFileSync(p, 'utf8')}; };
 globalThis.document = undefined;
 globalThis.ChatMessage = {implementation: {create: async d => d}, getSpeaker: () => ({})};
 globalThis.Folder = {implementation: {create: async d => d}};

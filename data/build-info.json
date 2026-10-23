@@ -1,6 +1,11 @@
 {
-  "version": "0.5.24",
+  "version": "0.5.27-rc.3",
   "sources": [
+    "0.5.27-rc.3: cash and kit the GM adds on a character's token now count (unlinked token copies folded into the character and every character token linked), any can called spray paint works, Self-play players' money and kit come through play while the GM always has full control (GM Screen gives and takes kit), and Banana Basket on the Blower orders high-street stock to Your Flat (2026-10-23); see RELEASE-v0.5.27-rc.3.md",
+    "0.5.27-rc.2: every mission plays through by itself again (shared cars count for everyone in them, nicked motors count wherever they were nicked, sales outside Pat's, set-up never blocks a job, jobs frozen by rc.1 carry on), the sat nav goes to the job's motor, wall or radio contact and finishes what's at the place you're in first, players (Self-play) and the GM can mark steps done, and checkpoints sit where their objectives say; all 179 jobs played through at 1–6 players (2026-10-23); see RELEASE-v0.5.27-rc.2.md",
+    "0.5.27-rc.1: three-way merge of uploaded 0.5.26 and audit implementation 0.5.25-rc.1 against approved 0.5.24; not a production-approved release.",
+    "0.5.26: graffiti pieces in the Tag Studio — sixteen piece styles (tags, throw-ups, bubbles, old skool, blockbusters, 3D, new skool, burners, wildstyle, semi-wild, spikes, stencils, drips, fat cap, straight letters) drawn as vector art from open-licensed letter outlines, twenty-three graffiti characters, and 90 presets: ASMO and 2CB in every style, every faction's pieces with its own character, shout-outs for the six stations and the Static Kings, and street pieces (2026-10-22); see RELEASE-v0.5.26.md",
+    "0.5.25: capability guard (nothing an upgrade drops goes unnoticed), lost controls restored (chase and driving switches, automatic driving checks, GM base Guard), the Rep unlocks made real (Pat's bigger orders and car jobs, hired hands from Rep 13, police who know your face), a Token Builder in character creation and on the sheet, twelve backgrounds and nine new perks so every stat matters, every venue used by missions and jobs, a GM file for all 179 missions, and the creation, stats and Rep guides rewritten from the live rules (2026-10-22); see RELEASE-v0.5.25.md",
     "0.5.24: players can right-click every vehicle that was on the map when the world loaded (Pat's order bikes, parked cars) — the right-click menu is installed before the first map is drawn; motors with an NPC at the wheel offer Carjack (2026-10-21); see RELEASE-v0.5.24.md",
     "0.5.23: sat nav fixed on every mission (cargo, graffiti sites without a door, GM-ticked steps no longer send it back to the start), graffiti commissions explain why a paint didn't count and pick the right surface/commission/tag, crew can be changed mid-mission, 'get to X' ticks for anyone already there, jobs end-to-end tested, courier spawn vehicle fixed (2026-10-21); see RELEASE-v0.5.23.md",
     "0.5.22: Heat that fits the game (crime ceilings: thieving/carjacking 1★, fights 2★, guns 3★, killings 4–5★, now detected), a smaller capped police response that stands down as the stars drop, lag guards for the background loops, and real parked buses for bus tagging sites (2026-10-21); see RELEASE-v0.5.22.md",
@@ -31,8 +36,8 @@
       "embedded": 0
     },
     "london-people": {
-      "documents": 39,
-      "embedded": 19
+      "documents": 40,
+      "embedded": 20
     },
     "campaign-cast": {
       "documents": 108,
@@ -43,7 +48,7 @@
       "embedded": 26
     },
     "london-items": {
-      "documents": 171,
+      "documents": 247,
       "embedded": 0
     },
     "conditions": {
@@ -51,18 +56,36 @@
       "embedded": 0
     },
     "guides": {
-      "documents": 27,
-      "embedded": 265
+      "documents": 29,
+      "embedded": 328
     }
   },
   "candidate": {
-    "type": "manifest-ready-github-release",
-    "basedOn": "v0.5.23 package; all existing user-authored changes retained",
-    "publisher": "Two GitHub release assets prepared; not uploaded by this build",
-    "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
-    "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.24/the-smoke-v0.5.24.zip",
+    "type": "merged-test-candidate",
+    "basedOn": "Approved 0.5.24 plus audit 0.5.25-rc.1 and uploaded 0.5.26",
+    "approvedBaseline": "0.5.24",
+    "published": false,
     "liveFoundryVerified": false,
-    "audit": "59-suite automated regression, including a player right-click on tokens drawn before the system loaded, plus every 0.5.23 check",
-    "work": "Foundry fixes a token's right-click handlers when it draws the token. The system installed its player right-click menu at 'ready', after the first map was drawn, so every token already on that map kept Foundry's owner-only right-click: the GM could right-click them, players could not, until the map was reloaded. The menu is now installed at 'init', and tokens already drawn are re-armed. Vehicles with a Street Life NPC at the wheel (not only moving traffic) offer Carjack."
-  }
+    "nativePackLoadVerified": false,
+    "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.27-rc.3/the-smoke-v0.5.27-rc.3.zip",
+    "openWork": "Inherited audit partial/open items remain; see IMPLEMENTATION-STATUS.md and MERGE-REPORT.md.",
+    "baselinePromotion": "NOT PERFORMED"
+  },
+  "mergeInputs": [
+    {
+      "file": "the-smoke-v0.5.24.zip",
+      "sha256": "eb9af5ecff5f8fc8a5b1b6194fa7adcf09944bc153e58ff8a4bce673a43f91fe",
+      "bytes": 83512826
+    },
+    {
+      "file": "the-smoke-v0.5.25-rc.1.zip",
+      "sha256": "16cb49073c9abbb13e38f7c833d32d00e3d577d26dac5bd4406f5b0d68a14bc9",
+      "bytes": 83705422
+    },
+    {
+      "file": "the-smoke-v0.5.26.zip",
+      "sha256": "f1e94917d3f0c72b04c9c99b88780e0c40eb37012274d41d6be7d8744a326ec5",
+      "bytes": 87070904
+    }
+  ]
 }

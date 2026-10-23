@@ -95,7 +95,7 @@ registerHandler('gm.placeNPC', async ({sceneId, npc, x, y, userId}) => {
     prototypeToken: {name: npc.name, displayName: 20, actorLink: false, disposition: 0}}]);
   return placeToken(scene, actor, x ?? scene.width / 2, y ?? scene.height / 2);
 });
-registerHandler('gm.reward', async ({actorIds, cash = 0, xp = 0, hustle = false, heal = false, rep = null, clearHeat = false, advance = false, itemName = null, qty = 1, userId}) => {
+registerHandler('gm.reward', async ({actorIds, cash = 0, xp = 0, hustle = false, heal = false, rep = null, clearHeat = false, advance = false, itemName = null, qty = 1, take = false, userId}) => {
   requireGM(userId); const items = itemName ? (await (await fetch(`systems/${NS}/data/london-items.json`)).json()).items : [];
   const lib = items.find(i => i.name === itemName);
   for (const id of actorIds || []) {
@@ -109,7 +109,12 @@ registerHandler('gm.reward', async ({actorIds, cash = 0, xp = 0, hustle = false,
     if (heal) for (const c of a.items.filter(i => i.type === 'condition')) await c.delete();
     if (clearHeat && clampHeat(a.system.heat?.value)) { await a.setHeat(0, 'The GM wipes the slate.'); notes.push('Heat cleared'); }
     if (Number(cash)) await a.changeCash(Number(cash), Number(cash) > 0 ? 'From the GM.' : 'Taken by the GM.');
-    if (lib) { const have = a.items.find(i => i.name === lib.name && ['ammo', 'drug', 'consumable'].includes(i.type));
+    if (lib && take) {   // the GM takes kit away (0.5.27): from stacks first, then whole items, up to the amount asked
+      let left = Math.max(1, Number(qty) || 1), gone = 0;
+      for (const it of a.items.filter(i => i.name === lib.name)) { if (left <= 0) break; const q = Number(it.system.quantity ?? 1);
+        if (q > left) { await it.update({'system.quantity': q - left}); gone += left; left = 0; } else { await it.delete(); gone += q; left -= q; } }
+      notes.push(gone ? `${lib.name} ×${gone} taken` : `no ${lib.name} to take`);
+    } else if (lib) { const have = a.items.find(i => i.name === lib.name && ['ammo', 'drug', 'consumable'].includes(i.type));
       if (have) await have.update({'system.quantity': Number(have.system.quantity || 0) + Number(qty || 1) * (lib.type === 'ammo' ? Number(lib.system.perBox || 1) : 1)});
       else await a.createEmbeddedDocuments('Item', [{...lib, system: {...lib.system, ...(Number(qty) > 1 && lib.type !== 'ammo' ? {quantity: Number(qty)} : {})}}]);
       notes.push(`${lib.name}${Number(qty) > 1 ? ` ×${qty}` : ''}`); }

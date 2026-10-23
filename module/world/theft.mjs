@@ -150,6 +150,8 @@ export function quoteFor(vt, service = buyerFor(vt.actor), seller = null) {
 }
 /** Why a fence won't touch this vehicle, or '' if it is sellable. */
 export function unsellable(vt) {
+  if(vt.getFlag?.(NS,'rental'))return 'Hired vehicles must be returned to the hire counter, not sold.';
+  if(vt.getFlag?.(NS,'missionLoan'))return 'This is loaned mission transport, not stock for a fence.';
   if (!isStolen(vt)) return `The ${vt.name} is not nicked.`;
   if (hasAbility(vt.actor, 'docked')) return 'A docking-station bike? Every one is tracked. Nobody will touch it.';
   if (['police', 'ambulance', 'fire', 'bus'].some(j => (vt.actor.system.vehicle.jobs || []).includes(j))) return 'Nobody in their right mind buys an emergency vehicle. Dump it somewhere.';
@@ -160,7 +162,10 @@ export function unsellable(vt) {
 export function patOrderNote(actor, vt) {
   let st = null; try { st = game.settings.get(NS, 'jobState'); } catch (_e) {}
   const call = Object.values(st?.calls || {}).find(c => c.type === 'crew' && c.actorId === actor?.id && c.status === 'active'); if (!call) return null;
-  const o = call.data?.order || {}, id = vt.actor?.getFlag?.(NS, 'catalogId'), counts = !o.ids || o.ids.includes(id);
+  const o = call.data?.order || {}, id = vt.actor?.getFlag?.(NS, 'catalogId');
+  // Car jobs (Rep 9) are sold at Bow Breakers Yard; bike orders at The Arches.
+  if (Boolean(o.car) !== (buyerFor(vt.actor) === 'chop')) return null;
+  const counts = !o.ids || o.ids.includes(id);
   return {counts, delivered: Number(call.data?.delivered || 0), want: Number(o.want || 1), bonus: Number(o.bonus || 0)};
 }
 const riderOf = vt => { const p = occupants(vt).find(o => o.seatId === 'pilot'); return p ? vt.parent.tokens.get(p.tokenId) : null; };
@@ -169,7 +174,7 @@ export function ridingNicked(actor, scene = canvas?.scene) {
   if (!actor || !scene) return null;
   const vt = scene.tokens.find(t => t.actor?.type === 'vehicle' && isStolen(t) && riderOf(t)?.actorId === actor.id); if (!vt) return null;
   const service = buyerFor(vt.actor), here = fenceHere(vt), why = unsellable(vt);
-  return {vt, service, here, why, fence: FENCES[service], ...quoteFor(vt, service, actor), order: service === 'gang' ? patOrderNote(actor, vt) : null};
+  return {vt, service, here, why, fence: FENCES[service], ...quoteFor(vt, service, actor), order: patOrderNote(actor, vt)};
 }
 
 /* ------------------------------------------------------------------ leader handlers */
@@ -232,6 +237,7 @@ registerHandler('theft.carjack', async ({sceneId, vehicleTokenId, tokenId, messa
   await card('CARJACK', `${who.name} takes the ${vt.name}`, `<p>The driver is out on the tarmac shouting into their phone.</p>`, 'win');
   await who.actor.reportCrime('carjack', {witnessed: true, byPolice});
   await boardVehicle(vt, who, 'pilot');
+  Hooks.callAll('smokeVehicleNicked',{vt,who,unlocked:true,carjack:true});
   return true;
 });
 
@@ -251,7 +257,7 @@ registerHandler('theft.sell', async ({sceneId, vehicleTokenId, userId}) => {
   await seller.changeCash(price, `${FENCES[here.service].who} takes the ${vt.name}${hot ? ' (still hot — a bit knocked off)' : ''}.`);
   if (here.service === 'gang') await seller.update({'system.rep.crew': Number(seller.system.rep?.crew || 0) + 1});
   if (price >= 500 && seller.type === 'character') { const {awardXP} = await import('./jobs.mjs'); await awardXP(seller, 1, `Sold the ${vt.name}`); }
-  Hooks.callAll('smokeVehicleSold', {seller, vehicleName: vt.name, catalogId: vt.actor.getFlag(NS, 'catalogId'), price, service: here.service, vehicle: vt.actor});
+  Hooks.callAll('smokeVehicleSold', {seller, targetToken:vt, sellerToken:rider??scene.tokens.find(t=>t.actorId===seller.id), proofId:`sale:${scene.id}:${vt.id}`, vehicleName: vt.name, catalogId: vt.actor.getFlag(NS, 'catalogId'), price, service: here.service, vehicle: vt.actor});
   return price;
 });
 async function exitRider(scene, vt) {
@@ -311,9 +317,10 @@ export async function offerAtFence(vt) {
   await vt.update({[`flags.${NS}.atFence`]: true}, {acVehicleCarry: true});
   const f = FENCES[here.service], why = unsellable(vt), to = [...ownersOf(rider.actor), ...game.users.filter(u => u.isGM).map(u => u.id)];
   if (why) { await card(f.who.toUpperCase(), `${f.who} won't touch it`, `<p>${esc(why)}</p>`, 'lose', {whisper: to}); return false; }
-  const {price, hot} = quoteFor(vt, here.service, rider.actor), order = here.service === 'gang' ? patOrderNote(rider.actor, vt) : null;
+  const {price, hot} = quoteFor(vt, here.service, rider.actor), order = patOrderNote(rider.actor, vt);
   const orderLine = !order ? '' : order.counts
     ? `<p><b>Pat's order:</b> this makes ${order.delivered + 1} of ${order.want}.${order.delivered + 1 >= order.want ? ` That finishes it: +£${order.bonus} bonus.` : ''}</p>`
+    : here.service === 'chop' ? `<p><b>Pat's car job:</b> not the motor she asked for. Bow Breakers will still buy it; it doesn't count toward the job.</p>`
     : `<p><b>Pat's order:</b> "Lovely, but that's not what I asked for." She'll still buy it; it doesn't count toward the order.</p>`;
   await card(f.who.toUpperCase(), `${f.who} looks over the ${vt.name}`, `<p>"I'll give you <b>£${price}</b> for it${hot ? ' — it\'s still hot, mind' : ''}."</p>${orderLine}
     <div class="smoke-buttons"><button type="button" data-smoke-sell="${esc(vt.uuid)}"><i class="fa-solid fa-sterling-sign"></i> Sell for £${price}${order?.counts ? ' · deliver the order' : ''}</button></div>

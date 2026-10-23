@@ -1,15 +1,18 @@
-// The Character Creator: seven short steps from a name to a finished Rep 1 character with stats, a perk, kit, cash
+// The Character Creator: eight short steps (0.5.25 added the Token step) from a name to a finished Rep 1 character with stats, a perk, kit, cash
 // and a story. The GM can make a new character from scratch; a player can finish their own blank one.
 import {NS, STATS, STAT_KEYS} from '../config.mjs';
 import {statModifier} from '../rules/core.mjs';
-import {BACKGROUNDS, STARTER_EXTRAS, ENDS, STORY_IDEAS, CREATION_STEPS, blankDraft, stepProblem, draftProblems, applyPlan, startingHealth} from '../rules/creation.mjs';
+import {BACKGROUNDS, BACKGROUND_LOOKS, STARTER_EXTRAS, ENDS, STORY_IDEAS, CREATION_STEPS, blankDraft, stepProblem, draftProblems, applyPlan, startingHealth} from '../rules/creation.mjs';
 import {card, esc} from '../world/net.mjs';
+import {loadKit, recipeOf, saveToken} from '../tokens/kit.mjs';
+import {newPanelState, panelHTML, wirePanel} from '../tokens/panel.mjs';
+import {applyPreset} from '../tokens/compose.mjs';
 
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 const strip = html => String(html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 
 export class SmokeCreator extends HandlebarsApplicationMixin(ApplicationV2) {
-  static DEFAULT_OPTIONS = {classes: ['smoke', 'smoke-creator'], tag: 'div', position: {width: 860, height: 700}, window: {title: 'Character Creator', icon: 'fa-solid fa-user-plus', resizable: true}};
+  static DEFAULT_OPTIONS = {classes: ['smoke', 'smoke-creator'], tag: 'div', position: {width: 980, height: 760}, window: {title: 'Character Creator', icon: 'fa-solid fa-user-plus', resizable: true}};
   static PARTS = {main: {template: `systems/${NS}/templates/creator.hbs`, scrollable: ['.cr-main']}};
   constructor(actor = null) {
     super({id: `smoke-creator-${actor?.id ?? 'new'}`}); this.actor = actor; this.step = 'who';
@@ -21,8 +24,19 @@ export class SmokeCreator extends HandlebarsApplicationMixin(ApplicationV2) {
     const find = n => lib.find(i => i.name === n);
     const counts = {8: 0, 6: 0, 4: 0}; for (const k of STAT_KEYS) counts[d.stats[k]] = (counts[d.stats[k]] || 0) + 1;
     const idx = CREATION_STEPS.findIndex(s => s.key === this.step);
+    // The Token step: the builder's controls, starting from a look that suits the background (until the player changes it).
+    let tokenPanel = '';
+    if (this.step === 'token') {
+      try {
+        const kit = await loadKit();
+        if (!this.tokenState) this.tokenState = newPanelState(kit, recipeOf(this.actor, kit.catalogue));
+        const look = kit.catalogue.presets.find(p => p.id === BACKGROUND_LOOKS[d.background]);
+        if (look && this.tokenLook !== look.id && !this.tokenTouched) { this.tokenState.recipe = applyPreset(this.tokenState.recipe, look, kit.catalogue); this.tokenState.start = structuredClone(this.tokenState.recipe); this.tokenLook = look.id; }
+        tokenPanel = panelHTML(this.tokenState, {idPrefix: 'cr'});
+      } catch (error) { console.warn('The Smoke | token builder', error); tokenPanel = `<p class="cr-problem">The token parts didn't load (${esc(error.message)}). Skip this step; build the token later from the sheet.</p>`; }
+    }
     return {
-      draft: d, step: this.step, isNew: !this.actor,
+      draft: d, step: this.step, isNew: !this.actor, tokenPanel, tokenOn: this.tokenOn !== false,
       steps: CREATION_STEPS.map((s, i) => ({...s, n: i + 1, active: s.key === this.step, done: i < idx && !stepProblem(s.key, d), bad: i < idx && Boolean(stepProblem(s.key, d))})),
       problem: stepProblem(this.step, d), first: idx === 0, last: this.step === 'review',
       ends: ENDS.map(e => ({name: e, selected: e === d.ends})),
@@ -55,6 +69,8 @@ export class SmokeCreator extends HandlebarsApplicationMixin(ApplicationV2) {
     on('[data-extra]', n => { d.extra = d.extra === n.dataset.extra ? '' : n.dataset.extra; this.render(); });
     on('[data-idea]', n => { d[n.dataset.idea] = n.value; this.render(); }, 'change');
     on('[data-finish]', () => this.finish());
+    on('[data-token-skip]', n => { this.tokenOn = !n.checked; }, 'change');
+    if (this.step === 'token' && this.tokenState) wirePanel(el, this.tokenState, () => { this.tokenTouched = true; this.render(); });
   }
   async finish() {
     const problems = draftProblems(this.draft); if (problems.length) throw new Error(problems[0].problem);
@@ -72,6 +88,8 @@ export class SmokeCreator extends HandlebarsApplicationMixin(ApplicationV2) {
     const docs = plan.items.map(n => lib.find(i => i.name === n)).filter(Boolean).map(i => foundry.utils.deepClone(i));
     const firstOutfit = docs.find(i => i.type === 'outfit'); if (firstOutfit) firstOutfit.system.worn = true;
     await actor.update(plan.update); await actor.createEmbeddedDocuments('Item', docs);
+    // The token from step 7 (unless they ticked "keep the token I have"). A failed save never loses the character.
+    if (this.tokenState && this.tokenOn !== false) await saveToken(actor, this.tokenState.recipe, {portrait: !actor.img || actor.img === 'icons/svg/mystery-man.svg', quiet: true}).catch(error => ui.notifications.warn(`${actor.name} is made, but the token didn't save: ${error.message}. Use Build token on the sheet.`));
     await card('NEW FACE', actor.name, `<p>${esc(plan.summary)}</p><p class="smoke-dim">Rep 1 — Nobody. Pat will be in touch.</p>`, 'crew');
     ui.notifications.info(`${actor.name} is ready.`); this.close(); actor.sheet.render(true);
     return actor;

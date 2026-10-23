@@ -49,6 +49,13 @@ export function tallyOf(vt, key) {
 }
 
 /** Players may run a chase in Self-play, for a character they actually own. */
+/** Who may switch the chase and driving automation on and off (0.5.1's Blower card, restored in 0.5.25): the GM; in
+ * Self-play, any player who owns a character. */
+export function canSetChases(user = game.user) {
+  if (!user) return false; if (user.isGM) return true;
+  let self = false; try { self = game.settings.get(NS, 'playMode') === 'self'; } catch (_e) {}
+  return self && (game.actors?.some?.(a => a.type === 'character' && a.testUserPermission?.(user, 'OWNER')) ?? false);
+}
 export function canManageChase(combat, user = game.user) {
   if (user?.isGM) return true;
   if (!user || !combat?.getFlag?.(NS, 'chase')) return false;

@@ -25,7 +25,8 @@ class PersonData extends foundry.abstract.TypeDataModel {
       guard: new SchemaField({base: N({min: 0, initial: 4}), armour: N(), value: N({min: 0, initial: 9})}),
       armour: N({min: 0}),
       states: new SchemaField({onARoll: B(), offGame: B(), down: B(), surrendered: B(), reactionUsed:B(), downRounds:N({min:0})}),
-      identity: new SchemaField({alias: S(), ends: S('Hackney'), crew: S('The Chainring'), look: S(), hustle: S(), vice: S(), bond: S(), ambition: S(), pronouns: S(), age: S()}),
+      identity: new SchemaField({alias: S(), ends: S('Hackney'), crew: S('The Chainring'), look: S(), hustle: S(), vice: S(), bond: S(), ambition: S(), pronouns: S(), age: S(),
+        tokenParts: new ObjectField({required: true, initial: {}})}),   // 0.5.25: the Token Builder recipe (body, skin, hair, top, outerwear, …)
       role: S('civilian'),           // pc, crew, gang, police, paramedic, fire, civilian, suspect
       disposition: S('neutral'),
       movement: S('1 zone'),
@@ -74,7 +75,7 @@ export class VehicleData extends foundry.abstract.TypeDataModel {
 }
 
 class ItemBase extends foundry.abstract.TypeDataModel {
-  static defineSchema() { return {description: H(), value: N({min: 0}), quantity: N({min: 0, initial: 1})}; }
+  static defineSchema() { return {description: H(), value: N({min: 0}), quantity: N({min: 0, initial: 1}), restricted: B()}; }
 }
 export class WeaponData extends ItemBase {
   static defineSchema() {

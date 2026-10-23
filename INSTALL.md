@@ -1,3 +1,9 @@
+> **CURRENT COMBINED CANDIDATE: 0.5.27-rc.3.** Read `RELEASE-v0.5.27-rc.3.md` (cash and kit, Banana Basket) and `RELEASE-v0.5.27-rc.2.md` (the mission fixes), then `MERGE-REPORT.md` and `INSTALL-CANDIDATE.md`. The following earlier release notes are preserved history, not instructions to publish or install this candidate as Latest. Approved full-build baseline remains v0.5.24.
+
+**v0.5.26 update:** Back up the world. Upload `the-smoke-v0.5.26.zip` and `system.json` as two separate assets on GitHub release `v0.5.26`, mark Latest, and update Forge via the existing manifest. Players should reload their page. Saved tags and painted decals are unchanged. On the first GM login, the Street Commissions journal gains a note on the new styles (pages you have edited are left alone). See `RELEASE-v0.5.26.md`.
+
+**v0.5.25 update:** Back up the world. Upload `the-smoke-v0.5.25.zip` and `system.json` as two separate assets on GitHub release `v0.5.25`, mark Latest, and update Forge via the existing manifest. Players should reload their page. On the first GM login the guides upgrade. The two mission-file journals and nine new perks are added. Edited pages in the Player's Handbook, Player Guide and GM's Book are copied to a GM-only "Backup · … · before 0.5.25" journal before they are replaced. See `RELEASE-v0.5.25.md`.
+
 **v0.5.24 update:** Back up the world. Upload `the-smoke-v0.5.24.zip` and `system.json` as two separate assets on GitHub release `v0.5.24`, mark Latest, and update Forge via the existing manifest. Players should reload their page after the update. See `RELEASE-v0.5.24.md`.
 
 **v0.5.23 update:** Back up the world. Upload `the-smoke-v0.5.23.zip` and `system.json` as two separate assets on GitHub release `v0.5.23`, mark Latest, and update Forge via the existing manifest. Nothing in the world needs migrating: running missions keep their progress, and the sat nav picks up the new routing at once. See `RELEASE-v0.5.23.md`.

@@ -3,8 +3,10 @@
 // play (reaching a map, selling to a fence, a respray, a finished job, a purchase); the GM ticks the rest. When every
 // objective is done: MISSION PASSED, and the rewards go to everyone on it.
 import {NS} from '../config.mjs';
+import {withActionLocks} from './action-locks.mjs';
 import {isLeader, registerHandler, request, card, esc, ownersOf} from './net.mjs';
 import {canCreditPaintObjective} from '../graffiti/core.mjs';
+import {compileMission,validateContract,requirementsFor,checkpointNeeded,checkpointDone,checkpointReady,allCheckpointsDone,canAcceptReceipt,recordReceipt} from '../rules/mission-contract.mjs';
 
 const KEY = 'missions', FACTIONS = 'factions';
 /** Renown ranks (the Sandbox Campaign): the Influence cap rises with rank. */
@@ -14,7 +16,15 @@ export const rankOf = renown => [...RANKS].reverse().find(r => Number(renown) >=
 /** Each faction's standing with the crew: Renown, Influence (spent on favours, capped by rank) and stance. */
 export const factionState = () => { try { return game.settings.get(NS, FACTIONS) || {}; } catch (_e) { return {}; } };
 export const standing = (fac, code) => ({renown: 0, influence: 0, stance: 'open', ...(fac?.[code] || {})});
-let DATA=null,DATA_LOADING=null;
+let DATA=null,DATA_LOADING=null,CONTRACTS=null;
+/** Installed by the mandatory ready-time mission automation bootstrap. Legacy library callers
+ * remain usable; production startup refuses new jobs when contract loading fails. */
+export async function configureMissionContracts(contracts) {
+  const data=await missionData();
+  for(const m of data.missions){const errors=validateContract(m,contracts?.missions?.[m.id]);if(errors.length)throw new Error(`${m.id}: ${errors.join('; ')}`);}
+  if(game.smoke)game.smoke.missionCodes=Object.fromEntries(data.missions.map(m=>[m.id,m.code]));
+  CONTRACTS=contracts;DATA={...data,missions:data.missions.map(m=>compileMission(m,contracts.missions[m.id]))};return DATA;
+}
 export async function missionData(){
   if(DATA)return DATA;
   if(DATA_LOADING)return DATA_LOADING;
@@ -37,7 +47,7 @@ export const missionState = () => { try { return game.settings.get(NS, KEY) || {
 export function registerMissionSettings() {
   game.settings.register(NS, KEY, {scope: 'world', config: false, type: Object, default: {}, onChange: () => Hooks.callAll('smokeMissionsChanged')});
   game.settings.register(NS, FACTIONS, {scope: 'world', config: false, type: Object, default: {}, onChange: () => Hooks.callAll('smokeMissionsChanged')});
-  game.settings.register(NS, 'playMode', {name: 'How the missions are played', hint: 'Story mode: the GM runs the storyline; players only get the side work (shifts, Pat\'s orders, hustles) and the missions the GM starts. Self-play: players can open any mission, start it, tick it off and finish it themselves, whenever they like (a GM account still has to be logged in somewhere, even idle).',
+  game.settings.register(NS, 'playMode', {name: 'How the missions are played', hint: 'Story mode: the GM runs the storyline; players only get the side work (shifts, Pat\'s orders, hustles) and the missions the GM starts. Self-play: players can open any mission, start it and complete verified actions themselves, whenever they like (a GM account still has to be logged in somewhere, even idle).',
     scope: 'world', config: true, type: String, default: 'story', choices: {story: 'Story mode (the GM runs the missions)', self: 'Self-play (players run the missions)'}, onChange: () => Hooks.callAll('smokeMissionsChanged')});
 }
 /** The play mode: 'story' (the GM runs the storyline) or 'self' (players run missions themselves). */
@@ -87,13 +97,15 @@ export function applyStanding(fac, m, pick = null) {
 export const shareOf = (m, n) => Number(m.rewards?.cash || 0) + (m.rewards?.fee ? Math.floor(Number(m.rewards.fee) / Math.max(1, n)) : 0);
 export const label = m => m.code ? `${m.code} ${m.title}` : `${m.n}. ${m.title}`;
 /** How many times an objective needs ticking (an auto rule's count, else 1). */
-export const needed = o => Math.max(1, Number(o.auto?.count || 1));
-export const objectiveDone = (o, s) => Number(s?.ticks?.[o.id] || 0) >= needed(o);
-export const allDone = (m, s) => m.objectives.every(o => objectiveDone(o, s));
+export const needed = checkpointNeeded;
+export const objectiveDone = checkpointDone;
+export const allDone = allCheckpointsDone;
 /** Does a game event satisfy an objective's auto rule? */
 export function matches(auto, ev) {
   if (!auto || auto.on !== ev.on) return false;
   switch (auto.on) {
+    case 'checkpoint': case 'checkpointArrival': return auto.stepId===ev.stepId;
+    case 'vehicleNicked': case 'vehicleReturned': case 'boarded': case 'heatClear': case 'safeCargoReturn': case 'safeExit': case 'vehicleRetained': case 'escortArrived': case 'encounterResolved': case 'crewHome': return true;
     case 'sold': return auto.service === ev.service && (!auto.ids || auto.ids.includes(ev.catalogId));
     case 'map': return auto.mapId === ev.mapId || (auto.mapIds || []).includes(ev.mapId);
     case 'service': return auto.service === ev.service;
@@ -112,6 +124,11 @@ export function applyEvent(missions, state, ev) {
   for(const m of missions){
     const s=state[m.id];if(s?.status!=='active')continue;
     if(ev.actorId && s.actorIds?.length && !s.actorIds.includes(ev.actorId))continue;
+    if (['cargoCollected','cargoDelivered'].includes(ev.on)) {
+      if (m.id !== ev.missionId || !ev.missionRunId || s.runId !== ev.missionRunId || !ev.serial) continue;
+      // One parcel is one work unit. Dropping/recollecting it must not manufacture progress.
+      if (ev.status !== (ev.on === 'cargoCollected' ? 'held' : 'delivered')) continue;
+    }
     if(ev.on==='radioWar'){
       if(!m.radioWar||m.id!==ev.missionId||!ev.attemptId||!ev.missionRunId||s.runId!==ev.missionRunId)continue;
       if((s.radioProof||[]).includes(ev.attemptId))continue;
@@ -123,13 +140,20 @@ export function applyEvent(missions, state, ev) {
       // Only a validated, durable mark emitted by the GM graffiti handler can reach this API.
       s.paintMarks=[...(s.paintMarks||[]),ev.markId].slice(-200);
     }
+    const oldTicks={...(s.ticks||{})};
     for(const o of m.objectives){
-      if(objectiveDone(o,s)||!matches(o.auto,ev))continue;
+      if(objectiveDone(o,s)||!matches(o.auto,ev)||!canAcceptReceipt(m,o,s,ev,oldTicks))continue;
       if(ev.on==='tagPlaced'){
         const seen=s.tagProof?.[o.id]||[];
         if(seen.includes(ev.siteId))continue; // repeated attempts at a site do not multiply progress
         s.tagProof={...(s.tagProof||{}),[o.id]:[...seen,ev.siteId]};
       }
+      if (['cargoCollected','cargoDelivered'].includes(ev.on)) {
+        const seen = s.cargoProof?.[o.id] || [];
+        if (seen.includes(ev.serial)) continue;
+        s.cargoProof = {...(s.cargoProof || {}), [o.id]: [...seen, ev.serial]};
+      }
+      if(s.automationVersion===1)recordReceipt(o,s,ev);
       s.ticks={...(s.ticks||{}),[o.id]:Number(s.ticks?.[o.id]||0)+1}; moved.push(m.id);
     }
   }
@@ -161,30 +185,46 @@ const runner = userId => { if (!canRunMissions(game.users.get(userId))) throw ne
 const toAll = actorIds => [...new Set([...actorIds.flatMap(id => ownersOf(game.actors.get(id))), ...game.users.filter(u => u.isGM).map(u => u.id)])];
 
 async function passMission(m, st, pick = null) {
-  const s = st[m.id]; s.status = 'done'; s.doneAt = Date.now();
-  const {awardXP} = await import('./jobs.mjs'); const names = [], ids = (s.actorIds || []).filter(id => game.actors.get(id)), share = shareOf(m, ids.length);
-  for (const id of ids) {
-    const a = game.actors.get(id); names.push(a.name);
-    if (share) await a.changeCash(share, `${label(m)}.`);
-    const up = {}; for (const [k, v] of Object.entries(m.rewards.rep || {})) up[`system.rep.${k}`] = Number(a.system.rep?.[k] || 0) + Number(v);
-    if (Object.keys(up).length) await a.update(up);
-    if (m.rewards.xp) await awardXP(a, m.rewards.xp, label(m));
+  const s=st[m.id];if(s.status==='done')return;
+  const run=s.runId||`legacy-${s.startedAt||m.id}`,receiptId=`${m.id}-${run}`;
+  const ids=(s.actorIds||[]).filter(id=>game.actors.get(id)),names=[],share=shareOf(m,ids.length);
+  // Each actor's payout and its receipt share ONE document update. A retry after a
+  // connection failure cannot add cash/XP a second time, even before mission state saves.
+  for(const id of ids)await withActionLocks([`actor:${id}`],async()=>{
+    const a=game.actors.get(id);names.push(a.name);
+    if(a.getFlag(NS,'missionRewards')?.[receiptId])return;
+    const up={'system.cash':Number(a.system.cash||0)+share,'system.rep.xp':Number(a.system.rep?.xp||0)+Number(m.rewards.xp||0),
+      [`flags.${NS}.missionRewards.${receiptId}`]:{missionId:m.id,runId:run,cash:share,xp:Number(m.rewards.xp||0),at:Number(game.time?.worldTime||0)}};
+    for(const [k,v]of Object.entries(m.rewards.rep||{}))up[`system.rep.${k}`]=Number(a.system.rep?.[k]||0)+Number(v);
+    await a.update(up);
+  });
+  const data=await missionData(),oldFac=factionState();let factions=oldFac,changes=[];
+  if(!oldFac.__missionRewards?.[receiptId]){
+    ({factions,changes}=applyStanding(oldFac,m,pick??s.renownTo));
+    factions.__missionRewards={...(oldFac.__missionRewards||{}),[receiptId]:{at:Number(game.time?.worldTime||0)}};
+    await game.settings.set(NS,FACTIONS,factions);
   }
-  const data = await missionData();
-  const oldFac = factionState(), {factions, changes} = applyStanding(oldFac, m, pick ?? s.renownTo);
-  const before = {...st, [m.id]: {...s, status: 'active'}};
-  const opened = data.missions.filter(x => x.id !== m.id && statusOf(x, before, oldFac) === 'locked' && statusOf(x, st, factions) === 'available');
-  if (changes.length) await game.settings.set(NS, FACTIONS, factions);
-  const fee = m.rewards.fee ? ` (crew fee £${m.rewards.fee})` : '';
-  const renown = changes.map(c => `+${c.renown} Renown with ${esc(data.factions?.[c.code]?.name ?? c.code)} (${c.total}, ${c.rank}${c.ranked ? ' — new rank!' : ''})`).join('; ');
-  await card('MISSION PASSED', label(m), `<p class="smoke-passed">MISSION PASSED</p><p>${esc(names.join(', ') || 'Nobody')}: £${share} each${fee}, ${m.rewards.xp} XP${Object.keys(m.rewards.rep || {}).length ? ', and Rep' : ''}.</p>
-    ${renown ? `<p>${renown}.</p>` : ''}${opened.length ? `<p>Now open: ${opened.map(x => `<b>${esc(label(x))}</b>`).join(', ')}.</p>` : ''}`, 'mission');
+  s.status='done';s.doneAt=Date.now();s.rewardReceipt=receiptId;
+  const before={...st,[m.id]:{...s,status:'active'}};
+  const opened=data.missions.filter(x=>x.id!==m.id&&statusOf(x,before,oldFac)==='locked'&&statusOf(x,st,factions)==='available');
+  const renown=changes.map(c=>`+${c.renown} Renown with ${esc(data.factions?.[c.code]?.name??c.code)} (${c.total}, ${c.rank})`).join('; ');
+  try{await card('MISSION PASSED',label(m),`<p class="smoke-passed">MISSION PASSED</p><p>${esc(names.join(', '))}: £${share} each, ${m.rewards.xp||0} XP.</p>${renown?`<p>${renown}.</p>`:''}${opened.length?`<p>Now open: ${opened.map(x=>`<b>${esc(label(x))}</b>`).join(', ')}.</p>`:''}`,'mission');}
+  catch(e){console.warn('The Smoke | payout saved; announcement failed',e);}
 }
-registerHandler('mission.start', async ({id, actorIds = [], userId}) => {
+registerHandler('mission.start', async ({id, actorIds = [], userId, overrideReason = ''}) => {
   runner(userId); const data = await missionData(); const m = data.missions.find(x => x.id === id); if (!m) throw new Error('No such mission.');
   if (!game.users.get(userId)?.isGM && statusOf(m, missionState(), factionState()) !== 'available') throw new Error(`Not open yet: ${lockReason(m, missionState(), data, factionState()) || 'already on or done'}.`);
-  const ids = actorIds.length ? actorIds : game.actors.filter(a => a.type === 'character' && a.hasPlayerOwner).map(a => a.id);
-  await save(st => { if(st[id]?.status==='active') throw new Error('This mission is already active. Reset it from Mission Board before starting a new run.'); st[id] = {status: 'active', ticks: {}, actorIds: ids, startedAt: Date.now(), runId: foundry.utils.randomID(12)}; });
+  if(game.smoke?.missionAutomationError)throw new Error(game.smoke.missionAutomationError);
+  const user=game.users.get(userId);
+  const ids = [...new Set(actorIds.length ? actorIds : game.actors.filter(a => a.type === 'character' && (user?.isGM?a.hasPlayerOwner:a.testUserPermission?.(user,'OWNER'))).map(a => a.id))];
+  if(m.automation){
+    if(!ids.length||ids.length>6||ids.some(x=>game.actors.get(x)?.type!=='character'))throw new Error('Choose one to six distinct player characters.');
+    if(!user?.isGM && ids.some(x=>!game.actors.get(x)?.testUserPermission?.(user,'OWNER')))throw new Error('Start with your own characters; teammates can join the running mission themselves.');
+    const blocked=statusOf(m,missionState(),factionState())!=='available'||ids.some(x=>Number(game.actors.get(x)?.system.stage||1)<Number(m.minRep||1));
+    if(blocked && (!user?.isGM || String(overrideReason).trim().length<8))throw new Error(`Mission prerequisites or Rep ${m.minRep||1} not met. A GM override needs a reason of at least eight characters.`);
+  }
+  await save(st => { if(st[id]?.status==='active') throw new Error('This mission is already active. Reset it from Mission Board before starting a new run.'); st[id] = {status: 'active', ticks: {}, actorIds: ids, startedAt: Date.now(), runId: foundry.utils.randomID(12), ...(m.automation?{automationVersion:1,requirements:requirementsFor(m,ids),contributions:{},receipts:{},choices:{},crewSnapshot:ids,overrideReason:String(overrideReason||''),preflightError:'Preparing mission resources.'}:{})}; });
+  if(m.automation)await (await import('./mission-automation.mjs')).prepareMission(m);
   if (m.props?.length) await (await import('./mission-props.mjs')).ensureMissionProps(m);
   if (m.tagging) await (await import('../graffiti/runtime.mjs')).ensureMissionPaintSpotsForMission(m);
   // 0.5.23: "get to X" ticks for anyone already standing there (before, they had to leave the map and come back)
@@ -194,31 +234,63 @@ registerHandler('mission.start', async ({id, actorIds = [], userId}) => {
   return card(`${m.code ?? `MISSION ${m.n}`} · ${m.giver.toUpperCase()}`, m.title, `<p><i>${esc(m.where)}</i></p>${m.call?.length ? `<div class="smoke-call">${m.call.map(t => `<p class="sj-text in">${esc(t)}</p>`).join('')}</div>` : `<p>${esc(m.hook)}</p>`}<ol>${m.objectives.map(o => `<li>${esc(o.text)}</li>`).join('')}</ol>
     ${propNote}<p class="smoke-dim">Pays ${pays} and ${m.rewards.xp} XP. Objectives are on your phone${m.stops?.length ? '; Directions puts the sat nav on the next place' : ''}.</p>`, 'mission', {whisper: toAll(ids)});
 });
-registerHandler('mission.tick', async ({id, objId, delta = 1, userId}) => {
+/**
+ * Tick an objective by hand. 0.5.27: when the automatic check doesn't catch something that happened in play, the GM
+ * marks the step done in one go (`complete`), and in Self-play so can a player whose character is on the job, once the
+ * earlier steps are done. Either way it is logged on the mission with who did it. A hand-marked step also counts as
+ * taking part for the character who marked it (the GM's counts for anyone on the job who hasn't yet), so a job can
+ * always be finished from the Mission Board. Before, only the GM could tick, one point at a time, with a written reason.
+ */
+registerHandler('mission.tick', async ({id, objId, delta = 1, complete = false, userId, reason = ''}) => {
   runner(userId); const data = await missionData(); const m = data.missions.find(x => x.id === id); if (!m) return;
+  const user = game.users.get(userId), isGM = Boolean(user?.isGM);
   return save(async st => {
     const s = st[id]; if (s?.status !== 'active') throw new Error('Start the mission first.');
     const o = m.objectives.find(x => x.id === objId); if (!o) throw new Error('Unknown objective.');
-    if (!game.users.get(userId)?.isGM && ['cargoCollected','cargoDelivered','tagPlaced','radioWar'].includes(o.auto?.on)) throw new Error('This requires verified cargo, graffiti or radio-war activity. Use the actual map contact instead of ticking it by hand.');
-    s.ticks = {...(s.ticks || {}), [objId]: Math.max(0, Math.min(needed(o), Number(s.ticks?.[objId] || 0) + Number(delta)))};
+    const mine = (s.actorIds || []).filter(a => game.actors.get(a)?.testUserPermission?.(user, 'OWNER'));
+    if(m.automation){
+      if(!isGM){
+        if(!mine.length)throw new Error('Only a character on this job can mark its steps.');
+        if(Number(delta) < 0)throw new Error('Ask the GM to reopen a step.');
+        if(!checkpointReady(m,o,s))throw new Error('Finish the earlier steps first.');
+      }
+      const how=complete?'marked done':Number(delta)<0?'reopened':'advanced';
+      s.recoveryLog=[...(s.recoveryLog||[]),{stepId:objId,delta:complete?'complete':Number(delta),reason:String(reason).trim()||`${isGM?'GM':'Player'} ${how} by hand`,userId,at:Date.now()}];
+      if(Number(delta)>0||complete){
+        s.contributions??={};
+        for(const a of (isGM?(s.actorIds||[]).filter(x=>!Object.keys(s.contributions[x]||{}).length):mine.slice(0,1)))s.contributions[a]={...(s.contributions[a]||{}),[`manual:${objId}`]:{stepId:objId,worldTime:Number(game.time?.worldTime||0)}};
+      }
+    } else if (!isGM && ['cargoCollected','cargoDelivered','tagPlaced','radioWar'].includes(o.auto?.on)) throw new Error('This requires verified cargo, graffiti or radio-war activity. Use the actual map contact instead of ticking it by hand.');
+    const want = complete ? needed(o,s) : Number(s.ticks?.[objId] || 0) + Number(delta);
+    s.ticks = {...(s.ticks || {}), [objId]: Math.max(0, Math.min(needed(o,s), want))};
     if (allDone(m, s)) await passMission(m, st);
   });
 });
 /** Change who is on a running mission (0.5.23: a character added to the table after the start could never get credit). */
 registerHandler('mission.crew', async ({id, actorIds = [], userId}) => {
-  runner(userId);
+  const user=game.users.get(userId);if(!user)throw new Error('Unknown user.');
   const ids = [...new Set(actorIds)].filter(x => game.actors.get(x)?.type === 'character');
   if (!ids.length) throw new Error('Tick at least one character.');
-  return save(st => { const s = st[id]; if (s?.status !== 'active') throw new Error('Start the mission first.'); s.actorIds = ids; return ids; });
+  const data=await missionData(),m=data.missions.find(x=>x.id===id);
+  if(ids.length>6)throw new Error('At most six participating characters.');
+  await save(st => {const s=st[id];if(s?.status!=='active')throw new Error('Start the mission first.');
+    if(!user.isGM){const changed=[...new Set([...ids,...(s.actorIds||[])])].filter(x=>ids.includes(x)!==(s.actorIds||[]).includes(x));
+      if(changed.some(x=>!game.actors.get(x)?.testUserPermission?.(user,'OWNER')))throw new Error('You may only join or leave with your own character.');}
+    s.actorIds=ids;if(m?.automation)s.requirements=requirementsFor(m,ids,s);return ids;});
+  if(m?.automation)await (await import('./mission-automation.mjs')).prepareMission(m);return ids;
 });
-registerHandler('mission.set', async ({id, status, renownTo = null, userId}) => {
+registerHandler('mission.set', async ({id, status, renownTo = null, userId, reason = ''}) => {
   runner(userId); const data = await missionData(); const m = data.missions.find(x => x.id === id); if (!m) return;
   return save(async st => {
-    if (status === 'reset') { if (st[id]) await (await import('./mission-props.mjs')).cleanupMissionProps(m, st[id]); delete st[id]; return null; }
+    if(m.automation && !game.users.get(userId)?.isGM && !(st[id]?.actorIds||[]).some(x=>game.actors.get(x)?.testUserPermission?.(game.users.get(userId),'OWNER')))throw new Error('Only a participating character may change this mission.');
+    if(m.automation && ['reset','failed'].includes(status) && !game.users.get(userId)?.isGM)throw new Error('Ask the GM to reset or fail the whole crew mission.');
+    if (status === 'reset') { if (st[id]) {await (await import('./mission-props.mjs')).cleanupMissionProps(m, st[id]);if(m.automation)await (await import('./mission-automation.mjs')).cleanupMissionResources(m,st[id]);} delete st[id]; return null; }
     if (status === 'done') {
+      if(m.automation && !allDone(m,st[id]) && !game.users.get(userId)?.isGM)throw new Error('Complete the checkpoints and each participant contribution first (or mark a stuck step done).');
+      if(m.automation && !allDone(m,st[id]))st[id].recoveryLog=[...(st[id].recoveryLog||[]),{action:'gm-passed',reason:String(reason).trim()||'GM passed the job',userId,at:Date.now()}];
       if (!game.users.get(userId)?.isGM && (!st[id] || st[id].status!=='active' || !allDone(m,st[id]))) throw new Error('Finish the objectives before claiming mission rewards. Physical deliveries and graffiti missions cannot be bypassed.');
       st[id] ??= {status: 'active', ticks: {}, actorIds: game.actors.filter(a => a.type === 'character' && a.hasPlayerOwner).map(a => a.id)}; return passMission(m, st, renownTo); }
-    if (status === 'failed') { if (st[id]) await (await import('./mission-props.mjs')).cleanupMissionProps(m,st[id]); st[id] = {...(st[id] || {}), status: 'failed'}; return card('MISSION FAILED', label(m), '<p class="smoke-failed">MISSION FAILED</p><p>The GM can reset it to try again.</p>', 'lose'); }
+    if (status === 'failed') { if (st[id]) {await (await import('./mission-props.mjs')).cleanupMissionProps(m,st[id]);if(m.automation)await (await import('./mission-automation.mjs')).cleanupMissionResources(m,st[id]);} st[id] = {...(st[id] || {}), status: 'failed'}; return card('MISSION FAILED', label(m), '<p class="smoke-failed">MISSION FAILED</p><p>The GM can reset it to try again.</p>', 'lose'); }
   });
 });
 const sceneMapId = scene => { const id = scene?.getFlag?.(NS, 'streetAtlas')?.id ?? scene?.getFlag?.(NS, 'place')?.id; return id && id !== 'LDN-OVERVIEW' ? id : null; };
@@ -238,12 +310,20 @@ export function crewWhereabouts(actorIds) {
 export async function missionEvent(ev) {
   if (!isLeader()) return [];
   const data = await missionData();
+  // These three existing subsystems already validate their world actions on the leader.
+  // Enrich only their run-bound receipts, never a client-supplied generic roll or map event.
+  if(['cargoCollected','cargoDelivered','tagPlaced','radioWar'].includes(ev.on)&&ev.missionId&&ev.missionRunId&&!ev.location){
+    const {pointOf}=await import('./mission-automation.mjs');const {actorToken}=await import('./spawn.mjs');
+    const t=actorToken(game.actors.get(ev.actorId));ev={...ev,verified:true,location:pointOf(t),sceneId:t?.parent?.id,worldTime:Number(game.time?.worldTime||0)};
+  }
   return (await withMissionState(async st => {
-    const moved = applyEvent(data.missions, st, ev); if (!moved.length) return NO_WRITE;
+    const moved = applyEvent(data.missions, st, ev);
+    if(ev.on==='missionContribution' && ev.missionId && st[ev.missionId]?.runId===ev.missionRunId && st[ev.missionId]?.status==='active' && ev.verified)moved.push(ev.missionId);
+    if (!moved.length) return NO_WRITE;
     for (const id of moved) {
       const m = data.missions.find(x => x.id === id), s = st[id];
       if (allDone(m, s)) await passMission(m, st);
-      else await card(m.code ?? `MISSION ${m.n}`, m.title, `<p>${m.objectives.map(o => `${objectiveDone(o, s) ? '☑' : '☐'} ${esc(o.text)}${needed(o) > 1 ? ` (${Math.min(needed(o), Number(s.ticks?.[o.id] || 0))}/${needed(o)})` : ''}`).join('<br>')}</p>`, 'mission', {whisper: toAll(s.actorIds || [])});
+      else await card(m.code ?? `MISSION ${m.n}`, m.title, `<p>${m.objectives.map(o => `${objectiveDone(o, s) ? '☑' : '☐'} ${esc(o.text)}${needed(o,s) > 1 ? ` (${Math.min(needed(o,s), Number(s.ticks?.[o.id] || 0))}/${needed(o,s)})` : ''}`).join('<br>')}</p>`, 'mission', {whisper: toAll(s.actorIds || [])});
     }
     return moved;
   })) ?? [];
@@ -278,5 +358,5 @@ registerHandler('faction.set', async ({code, renown, influence, stance, userId})
 });
 export const missionsAPI = {data: missionData, state: missionState, statusOf, factions: factionState, standing, rankOf, RANKS, STANCES, playMode, canRun: canRunMissions,
   setMode: mode => { if (!game.user.isGM) throw new Error('Only the GM sets the play mode.'); return game.settings.set(NS, 'playMode', mode === 'self' ? 'self' : 'story'); },
-  start: (id, actorIds = []) => request('mission.start', {id, actorIds}), tick: (id, objId, delta = 1) => request('mission.tick', {id, objId, delta}),
+  start: (id, actorIds = [], overrideReason = '') => request('mission.start', {id, actorIds, overrideReason}), tick: (id, objId, delta = 1, reason = '', {complete = false} = {}) => request('mission.tick', {id, objId, delta, reason, complete}),
   set: (id, status, renownTo = null) => request('mission.set', {id, status, renownTo}), crew: (id, actorIds) => request('mission.crew', {id, actorIds}), faction: (code, change) => request('faction.set', {code, ...change}), event: missionEvent};

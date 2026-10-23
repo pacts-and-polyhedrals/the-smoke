@@ -1,3 +1,9 @@
+> **CURRENT COMBINED CANDIDATE: 0.5.27-rc.3.** Read `RELEASE-v0.5.27-rc.3.md` (cash and kit, Banana Basket) and `RELEASE-v0.5.27-rc.2.md` (the mission fixes), then `MERGE-REPORT.md` and `INSTALL-CANDIDATE.md`. The following earlier release notes are preserved history, not instructions to publish or install this candidate as Latest. Approved full-build baseline remains v0.5.24.
+
+**v0.5.26 graffiti pieces:** The Tag Studio paints real pieces, with sixteen styles: throw-ups, bubbles, old skool, blockbusters, 3D, new skool, burners, wildstyle, semi-wild, spikes, stencils, drips, fat cap, straight letters and street tags. There are twenty-three graffiti characters to stand beside them, and a Presets gallery with ASMO and 2CB in every style, every faction's pieces with its own character, and station shout-outs. See [RELEASE-v0.5.26.md](RELEASE-v0.5.26.md).
+
+**v0.5.25 nothing lost, token builder, balanced stats, mission files:** A capability guard stops upgrades dropping features (lost chase/driving switches and the GM base Guard are back). Rep unlocks now work: Pat's car jobs, and hired hands from Rep 13. There's a Token Builder in character creation and on the sheet. Twelve backgrounds and nine new perks give every stat a job. Every venue is used, every mission has a GM file, and the creation, stats and Rep guides are rewritten. See [RELEASE-v0.5.25.md](RELEASE-v0.5.25.md).
+
 **v0.5.24 right-click fix:** Players can right-click every vehicle again, including Pat's order bikes and parked cars that were on the map when the world loaded (Nick it / Carjack). See [RELEASE-v0.5.24.md](RELEASE-v0.5.24.md).
 
 **v0.5.23 sat nav and graffiti:** The sat nav follows every mission step by step (cargo, graffiti sites, GM-ticked steps) instead of going back to the first place. A graffiti paint that doesn't count now says why. Tag Studio picks the right surface, commission and tag. Crews can be changed mid-mission. See [RELEASE-v0.5.23.md](RELEASE-v0.5.23.md).

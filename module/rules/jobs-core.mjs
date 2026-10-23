@@ -62,15 +62,41 @@ export function hopDistances(graph, from) {
   }
   return dist;
 }
-/** A destination for a fare / delivery: a named block on a street map within [minHops, maxHops]. */
-export function pickDestination(atlas, fromMapId, {minHops = 0, maxHops = 2, r = Math.random, service = null, exclude = []} = {}) {
+/**
+ * Every campaign venue's street door as a job location (0.5.25): somewhere a fare is going, a parcel is dropped, a
+ * patient collapses or a fight breaks out. {mapId, mapName, zoneId, label, code, kerb} where kerb says the door's block
+ * sits on a road (so a fare or a patient can stand there).
+ */
+export function venueSpots(venues, atlas) {
+  const maps = new Map((atlas?.maps || []).map(m => [m.id, m])), out = [];
+  for (const v of venues?.maps || []) {
+    if (v.kind !== 'venue') continue;
+    const m = maps.get(v.street), zone = m?.zones?.find(z => z.id === v.anchor); if (!zone) continue;
+    out.push({mapId: m.id, mapName: m.name, zoneId: zone.id, label: v.title || v.name, code: v.code, kerb: kerbside(m.zones).some(z => z.id === zone.id)});
+  }
+  return out;
+}
+/** The venue doors on one street map that a fare or a patient can stand outside. */
+export const venueKerbsOn = (spots, mapId) => (spots || []).filter(s => s.mapId === mapId && s.kerb);
+/** A destination for a fare / delivery: a named block on a street map within [minHops, maxHops]. With `venues`
+ * (venueSpots), `venueChance` of the time it is a campaign venue's door instead of a landmark. */
+export function pickDestination(atlas, fromMapId, {minHops = 0, maxHops = 2, r = Math.random, service = null, exclude = [], venues = null, venueChance = 0.4} = {}) {
   const dist = hopDistances(mapGraph(atlas), fromMapId);
+  if (venues?.length && !service && r() < venueChance) {
+    const near = venues.filter(v => { const d = dist.get(v.mapId); return d != null && d >= minHops && d <= maxHops && !exclude.includes(`${v.mapId}:${v.zoneId}`); });
+    if (near.length) { const v = pick(near, r); return {mapId: v.mapId, mapName: v.mapName, zoneId: v.zoneId, label: v.label, code: v.code, hops: dist.get(v.mapId), venue: true}; }
+  }
   const pool = [];
   for (const m of atlas?.maps || []) {
     const d = dist.get(m.id);
     if (d == null || d < minHops || d > maxHops) continue;
-    const blocks = kerbside(m.zones).filter(z => (service ? z.service === service : z.landmark) && !exclude.includes(`${m.id}:${z.id}`));
+    const kerbs = kerbside(m.zones), blocks = kerbs.filter(z => (service ? z.service === service : z.landmark) && !exclude.includes(`${m.id}:${z.id}`));
     for (const z of blocks) pool.push({mapId: m.id, mapName: m.name, zoneId: z.id, label: z.name, hops: d});
+    // 0.5.25: a landmark with no kerb of its own (New Spitalfields Market, the Velopark) is reached by the kerb next door
+    if (!service) for (const z of (m.zones || []).filter(z => z.landmark && !kerbs.includes(z))) {
+      const gate = kerbs.find(k => (z.adjacent || []).includes(k.id) && !exclude.includes(`${m.id}:${k.id}`));
+      if (gate) pool.push({mapId: m.id, mapName: m.name, zoneId: gate.id, label: z.name, hops: d});
+    }
   }
   if (!pool.length) return null;
   return pick(pool, r);

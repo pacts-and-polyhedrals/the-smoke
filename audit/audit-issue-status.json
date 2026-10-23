@@ -1,0 +1,416 @@
+[
+  {
+    "id": "M-01",
+    "priority": "P0",
+    "issue": "Cross-mission cargo proof collision",
+    "status": "IMPLEMENTED / FOCUSED TESTS",
+    "implemented": "Mission ID, run, participant, serial, actual location and duplicate receipt checks. Same p1 on another mission is rejected.",
+    "remaining": "Concurrent GM/client operation and reconnect live sign-off.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-02",
+    "priority": "P0",
+    "issue": "All checkpoints auto-tick",
+    "status": "PARTIAL",
+    "implemented": "894 checkpoint contracts; automatic receipts replace ordinary manual ticks; players cannot tick by hand.",
+    "remaining": "349 authored roll checkpoints and 113 choice checkpoints are not proof that all underlying bespoke scenarios are physically simulated.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-03",
+    "priority": "P0",
+    "issue": "Mission-specific vehicles",
+    "status": "PARTIAL",
+    "implemented": "Opening targets and selected scenario vehicles are spawned and identified by run and serial. CH1 has four bikes for four PCs.",
+    "remaining": "Some career scenarios still lack their full vehicle/escort workflow; CH3 moving van is not yet a scripted multi-map route.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-04",
+    "priority": "P0",
+    "issue": "Party-sized planning",
+    "status": "PARTIAL",
+    "implemented": "One-to-six roster, scaled repeatable resources, distinct contribution requirement and support opportunities.",
+    "remaining": "Not a bespoke workload/balance approval for every mission; heavy cargo and transport capacity remain open.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-05",
+    "priority": "P0",
+    "issue": "Street arrival falsely proves venue task",
+    "status": "IMPLEMENTED / FOCUSED TESTS",
+    "implemented": "Exact-map/zone receipts and staged prerequisites replace broad street entry for interactions.",
+    "remaining": "Counter/hotspot geometry needs actual canvas walk-through.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-06",
+    "priority": "P0",
+    "issue": "Mission actor ownership",
+    "status": "IMPLEMENTED / FOCUSED TESTS",
+    "implemented": "Participant ownership and authoritative start/action checks; GM override has a reason.",
+    "remaining": "Foundry document ownership is not a general anti-cheat boundary against an owner editing their actor.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-07",
+    "priority": "P1",
+    "issue": "Physical cargo exact zones",
+    "status": "IMPLEMENTED / STRUCTURAL TESTS",
+    "implemented": "Explicit pickup/delivery anchors on all 112 cargo definitions; dropped cargo stays recoverable without inventing a delivery receipt.",
+    "remaining": "World placement and two-client delivery acceptance.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-08",
+    "priority": "P1",
+    "issue": "Cargo representation / bulk",
+    "status": "PARTIAL",
+    "implemented": "Vehicles can be run-bound physical resources; parcels retain serialised inventory/ground representation.",
+    "remaining": "Heavy/bulk carrying and all special representations are not implemented; a prize-bike case still needs consolidation of vehicle versus parcel.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-09",
+    "priority": "P1",
+    "issue": "Mission NPC placement",
+    "status": "IMPLEMENTED / STRUCTURAL TESTS",
+    "implemented": "Idempotent contact placement for cast associations; missing-contact preflight errors; Big Sal catalogue entry repaired.",
+    "remaining": "Not every contact has bespoke branching dialogue; canvas/access sign-off.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-10",
+    "priority": "P1",
+    "issue": "Opening locations and branches",
+    "status": "PARTIAL",
+    "implemented": "Opening anchors supplied, cafe routing resolved, M12 branch graph and Stretch actions added.",
+    "remaining": "Not every alternative ending or chase scenario is end-to-end verified.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-11",
+    "priority": "P1",
+    "issue": "Minimum Rep",
+    "status": "IMPLEMENTED / CODE CHECKS",
+    "implemented": "Start/status checks use the mission minimum Rep.",
+    "remaining": "Live offer/start checks for mixed-level crews.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-12",
+    "priority": "P1",
+    "issue": "Vehicle sale/respray identity",
+    "status": "IMPLEMENTED / CODE CHECKS",
+    "implemented": "Bound vehicle identity is carried through theft, service and sale events; loans cannot be fenced as targets.",
+    "remaining": "Complete play-through of theft/respray/sale including scene changes.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-13",
+    "priority": "P1",
+    "issue": "Checkpoint order",
+    "status": "IMPLEMENTED / FOCUSED TESTS",
+    "implemented": "Prerequisite graph, optional/excluded branch states and receipt deduplication.",
+    "remaining": "Editorial review of inferred branch choices and parallel paths.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-14",
+    "priority": "P1",
+    "issue": "Participation and rewards",
+    "status": "IMPLEMENTED / FOCUSED TESTS",
+    "implemented": "Nontravel contribution per participant; saved reward receipts prevent repeat cash/XP on retry.",
+    "remaining": "Multi-client reward acceptance and interrupted faction-reward write.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-15",
+    "priority": "P1",
+    "issue": "Roll-bound proof",
+    "status": "IMPLEMENTED / FOCUSED TESTS",
+    "implemented": "Bound attempt/actor/scene/roll; saved results survive chat-write failure without another roll.",
+    "remaining": "An interruption before a roll result is saved may need GM repair.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-16",
+    "priority": "P2",
+    "issue": "Graffiti crew work and supplies",
+    "status": "PARTIAL",
+    "implemented": "Existing graffiti placement/quality/mark protections preserved; contribution tasks added.",
+    "remaining": "Mission-provisioned crew paint supplies and bespoke crew-size artistic objectives remain open.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-17",
+    "priority": "P2",
+    "issue": "Radio crew work",
+    "status": "PARTIAL",
+    "implemented": "Existing verified station actions preserved; participant support tasks and contribution requirement added.",
+    "remaining": "Not a separate station-action role set tailored to every crew size.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-18",
+    "priority": "P2",
+    "issue": "GM repair and visibility",
+    "status": "IMPLEMENTED / CODE CHECKS",
+    "implemented": "Location, prerequisites, contribution gaps and reviewed override paths surfaced.",
+    "remaining": "Full two-client UI and partial-hit recovery usability.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-19",
+    "priority": "P2",
+    "issue": "Roster changes",
+    "status": "PARTIAL",
+    "implemented": "Requirements preserve completed counts, roster/contribution checks update.",
+    "remaining": "Late-join/leave resizing across every scenario and saved world needs acceptance.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "M-20",
+    "priority": "P2",
+    "issue": "Whole mission release gate",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "1,074 contract projections and 716 resource preparations, plus run/location/identity rejection tests.",
+    "remaining": "These are Node document simulations, not 179 successful full campaign play-throughs.",
+    "evidence": "tests/mission-contracts-v2.test.mjs; tests/mission-preflight-v2.test.mjs; tests/mission-runtime-v2.test.mjs; module/world/mission-automation.mjs"
+  },
+  {
+    "id": "V-01",
+    "priority": "P0",
+    "issue": "All 160 venue interiors lack shop/service menus",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "160 interior profiles and physical counters; 48 non-retail venues have no general retail stock.",
+    "remaining": "Live accessibility and room layout review.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-02",
+    "priority": "P1",
+    "issue": "Corner shop appears anywhere on every street",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Twenty street corners use positioned counters; remote street purchases are rejected.",
+    "remaining": "Actual scene geometry/visibility.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-03",
+    "priority": "P1",
+    "issue": "Existing LDP shops exposed over whole interior",
+    "status": "PARTIAL",
+    "implemented": "New commerce counters enforce room/position checks in core interiors.",
+    "remaining": "Some legacy Local services/rest paths retain older availability semantics.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-04",
+    "priority": "P1",
+    "issue": "Original flat contains Chicken Palace but no food shop",
+    "status": "IMPLEMENTED / STRUCTURAL TESTS",
+    "implemented": "Separate Chicken Palace food counter versus private flat services.",
+    "remaining": "Live interaction and private access.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-05",
+    "priority": "P1",
+    "issue": "No venue-specific range, hours, permissions or stock",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Per-counter stock/services, access, closure and optional fictional opening hours.",
+    "remaining": "Hours are game defaults, not researched real venue hours; barrier enforcement is incomplete.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-06",
+    "priority": "P1",
+    "issue": "Only dealer offers item buy-back",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Canonical-price appraisal/pawn/resell and original-item redemption.",
+    "remaining": "Every resale category and interrupted redemption UI needs live acceptance.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-07",
+    "priority": "P1",
+    "issue": "Shop purchases not mission-coupled to exact venue",
+    "status": "IMPLEMENTED / CODE CHECKS",
+    "implemented": "Purchase events include venue, zone, actor, item and operation identity.",
+    "remaining": "Not every mission has an authored purchase condition; some service early-return events need review.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-01",
+    "priority": "P0",
+    "issue": "Repeat same outfit to remove Heat",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Same worn outfit rejected; shared disguise cooldown and authoritative receipt stop repeated Heat farming.",
+    "remaining": "All disguise-fiction outcomes still require individual acceptance.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-02",
+    "priority": "P0",
+    "issue": "Item-use GM requests not atomic with consumption",
+    "status": "IMPLEMENTED / FAILURE-INJECTION TESTS",
+    "implemented": "Possession/proximity/target checks plus inventory and effect receipts; recovery resumes without another spend.",
+    "remaining": "Foundry has no multi-document atomic transaction; this is resumable staged processing, not ACID atomicity.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-03",
+    "priority": "P1",
+    "issue": "Cable Ties spend split from GM cuff result",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Cable Ties are spent by the authority; reusable cuffs attach to and release the actual target.",
+    "remaining": "All arrest/custody paths, especially legacy NPC actors, require live sign-off.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-04",
+    "priority": "P1",
+    "issue": "Some special weapons do not honor item text",
+    "status": "PARTIAL",
+    "implemented": "Broken Bottle effects, Hand Cannon penalty, nearby Flashbang stun, expiring smoke and timed fire areas added.",
+    "remaining": "Fire spread, blast geometry/line-of-sight and interruption before throwable-roll persistence remain open.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-05",
+    "priority": "P1",
+    "issue": "Outfit perks do not affect roll or access",
+    "status": "PARTIAL",
+    "implemented": "Worn outfits can provide one context-filtered bonus; disguise state/cooldown implemented.",
+    "remaining": "Not every access/impersonation circumstance has a world producer; some need explicit GM context approval.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-06",
+    "priority": "P1",
+    "issue": "Perks can be selected regardless of written when-clause",
+    "status": "PARTIAL",
+    "implemented": "Matching stat alone no longer grants every perk; trusted context tags and recorded GM approval added.",
+    "remaining": "Every written perk circumstance is not independently automated or verified.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-07",
+    "priority": "P1",
+    "issue": "Many tools are text or generic rolls without effect",
+    "status": "PARTIAL",
+    "implemented": "Stateful item actions for locks, restraints, masks, scanner, ID, lights and bicycle locks.",
+    "remaining": "All map doors/padlocks are not authored; scanner/ID/transit/device/job integrations remain incomplete.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-08",
+    "priority": "P1",
+    "issue": "Vehicle Repair Kit lacks described direct repair",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Vehicle Repair Kit performs actual two-Body repair at a safe workshop, consumes a kit and advances time.",
+    "remaining": "Live synthetic vehicle actor and damaged tyre cases.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-09",
+    "priority": "P1",
+    "issue": "Riot Shield and Motorbike Leathers conditional effects missing",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Equipped Riot Shield rejects two-handed weapons; equipped leathers reduce rider crash damage.",
+    "remaining": "Full crash/PIT/ram pathways in Foundry.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-10",
+    "priority": "P1",
+    "issue": "Bonus effect claims beyond perk die not implemented",
+    "status": "IMPLEMENTED / CODE CHECKS",
+    "implemented": "Cabbie tip adjustment, Ghost cooling and Courier late-fee protection wired to relevant systems.",
+    "remaining": "Perk-specific complete job/Heat live scenarios.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-11",
+    "priority": "P2",
+    "issue": "Item state and actor status lack location-scoped access",
+    "status": "PARTIAL",
+    "implemented": "Owner/venue/expiry receipts for passes, bookings, fare credits, hire and documents.",
+    "remaining": "An issued pass is not yet an enforced door barrier; transit credits are not a complete fares/boarding simulation.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-12",
+    "priority": "P2",
+    "issue": "A&E says four hours but does not advance shared clock",
+    "status": "IMPLEMENTED / CODE CHECKS",
+    "implemented": "New A&E counter treatment advances four hours of Watch time.",
+    "remaining": "Legacy service bypass path audit and existing world time/pause behaviour.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-13",
+    "priority": "P2",
+    "issue": "Drugs possession-specific Heat values not honoured",
+    "status": "OPEN",
+    "implemented": "Existing drug use/sale retained.",
+    "remaining": "Police-search possession severity still needs explicit per-drug quantity/Heat integration.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "I-14",
+    "priority": "P1",
+    "issue": "Use of First Aid Kit cannot directly heal another PC",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "First Aid Kit targets a nearby teammate, spends a use and applies the result to that target.",
+    "remaining": "Live target selection and all recovery outcomes.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-08",
+    "priority": "P1",
+    "issue": "New venue stock is not in item catalogue",
+    "status": "PARTIAL",
+    "implemented": "All 67 additions are actual catalogue/compendium entries with functional action classes or intentionally descriptive merchandise.",
+    "remaining": "Not all 67 original proposed workflow promises are implemented; credential issuance differs from access enforcement.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-09",
+    "priority": "P1",
+    "issue": "Restricted/faction venues need actual unlock checks",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Faction/active-job/invitation checks revalidated at counter transaction.",
+    "remaining": "Backstage/private physical movement and bespoke memberships are not fully enforced.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-10",
+    "priority": "P2",
+    "issue": "NPC retail staff not linked to venue sale",
+    "status": "PARTIAL",
+    "implemented": "Counter tokens have staffed/closed state; unstaffed purchases rejected.",
+    "remaining": "Named staffing rosters, shifts and real NPC clerk presence are not fully simulated.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-11",
+    "priority": "P1",
+    "issue": "Shops have infinite stock and no opening hours",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Finite daily stock/reservations and optional campaign-hour closures.",
+    "remaining": "Multi-client restock/contention sign-off; not real-world opening times.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  },
+  {
+    "id": "V-12",
+    "priority": "P1",
+    "issue": "Unbounded user-defined prices and wrong-category goods risk",
+    "status": "IMPLEMENTED / TESTED",
+    "implemented": "Approved stock/category/access and canonical prices for pawn/dealer sale; document issuing is restricted.",
+    "remaining": "Custom items, all legacy price paths and broad owner-edit permissions need ongoing review.",
+    "evidence": "tests/venue-commerce-v2.test.mjs; tests/item-actions-v2.test.mjs; tests/context-and-areas-v2.test.mjs; related module/world implementations"
+  }
+]

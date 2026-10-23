@@ -3,9 +3,11 @@
     <div class="shop-wallet"><span class="kicker">IN YOUR POCKET</span><b>£{{cash}}</b><small>Stash £{{stash}} · Rep {{rep}}</small></div>
     <h3>Open here</h3>
     <ul class="shop-list">{{#each shops}}<li><a data-shop-tab="{{key}}" class="{{#if active}}active{{/if}}">{{name}}</a></li>{{else}}<li class="empty">Nothing open here. Walk up to a shop on the map.</li>{{/each}}</ul>
-    {{#if isGM}}<p class="smoke-hint">GM: every shop is open to you, wherever the character is.</p>{{/if}}
+    {{#if isGM}}<p class="smoke-hint">GM: ordinary transactions use the same counter and access checks. Remote recovery is logged separately.</p>{{/if}}
   </aside>
   <main class="shop-main">
+    {{#each pending}}<p class="smoke-warning">Unfinished {{kind}} transaction. <button type="button" data-recover-operation="{{id}}">Recover {{id}}</button></p>{{/each}}
+    {{#each documentRequests}}<p>{{name}} requested for {{venueId}}. <button type="button" data-approve-document="{{id}}">GM: authorise issue</button></p>{{/each}}
     {{#if shop}}
     <header class="shop-head"><span class="kicker">{{shop.who}}</span><h2>{{shop.name}}</h2><p>{{shop.quote}}</p>{{#if discount}}<span class="shop-discount">−{{discount}}% for you</span>{{/if}}</header>
 
@@ -13,11 +15,11 @@
     <h3>{{label}}{{#if locked}} <small><i class="fa-solid fa-lock"></i> Rep {{minRep}}</small>{{/if}}</h3>
     <div class="shop-grid {{#if locked}}locked{{/if}}">{{#each items}}
       <article class="shop-item"><img src="{{img}}" alt=""><div class="shop-item-body"><b>{{name}}</b><small>{{type}}{{#if (gt unit 1)}} · ×{{unit}}{{/if}}</small><p>{{blurb}}</p></div>
-        <footer><span class="shop-price {{#unless afford}}dear{{/unless}}">£{{price}}</span>{{#unless ../locked}}<input type="number" name="qty" value="1" min="1" max="20"><button type="button" data-buy="{{name}}"><i class="fa-solid fa-cart-shopping"></i> Buy</button>{{/unless}}</footer></article>
+        <footer>{{#if (gt remaining -1)}}<small>Stock {{remaining}}</small>{{/if}}<span class="shop-price {{#unless afford}}dear{{/unless}}">£{{price}}</span>{{#unless ../locked}}<input type="number" name="qty" value="1" min="1" max="20"><button type="button" data-buy="{{name}}" {{#unless available}}disabled{{/unless}}><i class="fa-solid fa-cart-shopping"></i> Buy</button>{{/unless}}</footer></article>
     {{/each}}</div>
     {{/each}}
 
-    {{#if sell.length}}<h3>Sell to Uncle <small>(safer than the street, cheaper too)</small></h3>
+    {{#if sell.length}}<h3>Sell at this counter <small>(the server checks the rate and stock)</small></h3>
     <div class="shop-grid">{{#each sell}}<article class="shop-item"><img src="{{img}}" alt=""><div class="shop-item-body"><b>{{name}}</b><small>× {{qty}} {{unit}}</small></div>
       <footer><span class="shop-price">£{{perUnit}} each</span><input type="number" name="qty" value="1" min="1" max="{{qty}}"><button type="button" data-sell="{{id}}"><i class="fa-solid fa-sterling-sign"></i> Sell</button></footer></article>{{/each}}</div>{{/if}}
 
@@ -32,7 +34,7 @@
     {{#if wardrobe.length}}<h3>Get changed <small>(1–2 stars, out of sight: a new look loses Heat)</small></h3>
     <div class="shop-wardrobe">{{#each wardrobe}}<button type="button" data-wear="{{id}}" class="{{#if worn}}worn{{/if}}"><img src="{{img}}" alt="">{{name}}{{#if worn}} ✓{{/if}}</button>{{/each}}</div>{{/if}}
     {{else}}
-    <div class="shop-empty"><i class="fa-solid fa-store-slash"></i><p>{{#if nothing}}No shops here. On a street map there is always a corner shop; Pat's Arches, the markets, Uncle's Cafe, the respray shops, Bow Breakers, A&amp;E and your flat are marked on the maps.{{else}}Pick a shop.{{/if}}</p></div>
+    <div class="shop-empty"><i class="fa-solid fa-store-slash"></i><p>{{#if nothing}}No open counter is within reach. Walk to a mapped till or venue contact. Restricted counters require an invitation, faction standing or an active job; closed and unstaffed counters cannot sell.{{else}}Pick a shop.{{/if}}</p></div>
     {{/if}}
   </main>
 </div>

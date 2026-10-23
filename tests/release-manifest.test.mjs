@@ -6,7 +6,7 @@ const root=resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const json=JSON.parse(readFileSync(resolve(root,'system.json'),'utf8'));
 const build=JSON.parse(readFileSync(resolve(root,'data/build-info.json'),'utf8'));
 assert.equal(json.id,'the-smoke');
-assert.match(json.version,/^\d+\.\d+\.\d+$/);
+assert.match(json.version,/^\d+\.\d+\.\d+(?:-rc\.\d+)?$/);
 assert.equal(json.version,build.version);
 assert.equal(json.manifest,'https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json');
 assert.equal(json.download,`https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v${json.version}/the-smoke-v${json.version}.zip`);

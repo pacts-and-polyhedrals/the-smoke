@@ -23,7 +23,7 @@ A note about the heavy speaker cases: they are explicitly described as vehicle-s
 - **Carry** is a real embedded character item with a mission ID, run ID and parcel serial. Carried property follows that character's actor inventory between maps.
 - **Drop** removes that item and creates a visible, persistent scene token. Other participating crew members may pick it up. You can drop on different maps, not just the original collection point.
 - **Deliver** works only for the recorded current carrier on the designated map. Where the job specifies a room/zone, you must enter that area. Delivery consumes that item and records the serial as delivered. Duplicate deliveries are refused.
-- **Objective counters** advance on actual collect/deliver actions, once per serialized item. Physical objectives cannot be ticked manually by players to bypass carrying the object. GM overrides remain for exceptional recovery.
+- **Objective counters** advance on actual collect/deliver actions, once per serialized item. If something won't tick, a player on the job can **Mark done** a ready step in Self-play and the GM can mark any step done or reopen it (0.5.27); each change is logged on the run, so carrying the object for real stays the normal way.
 - **Recovery:** a GM can select *Repair missing mission property* on the Mission Board. Lost world tokens can respawn; accidentally deleted held inventory items are returned only to their recorded carrier. Reset/failed missions clean up the current run's props and carried items.
 
 ## Maps and manual exits

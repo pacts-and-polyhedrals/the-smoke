@@ -1,3 +1,4 @@
+import {adjustedWitnessHeat} from './rules/item-context.mjs';
 import {NS, CRIMES, HEAT} from './config.mjs';
 import {clampHeat, heatAfterCrime} from './rules/core.mjs';
 import {CONDITION_LIBRARY, WATCH_CONDITION_DEFAULTS} from './rules/conditions.mjs';
@@ -59,7 +60,7 @@ export class SmokeActor extends Actor {
   async reportCrime(crimeKey, {witnessed = true, byPolice = false} = {}) {
     const crime = CRIMES[crimeKey]; if (!crime) return this.system.heat?.value;
     if (witnessed) await this.setFlag(NS, 'recentCrimes', [...(clampHeat(this.system.heat?.value) ? this.getFlag(NS, 'recentCrimes') || [] : []), {key: crimeKey, at: Date.now(), byPolice}].slice(-20));
-    return this.setHeat(heatAfterCrime(this.system.heat?.value, crimeKey, {witnessed, byPolice}), `${crime.label}${byPolice ? ' — in front of the police' : ''}.`);
+    return this.setHeat(adjustedWitnessHeat(this,Number(this.system.heat?.value||0),heatAfterCrime(this.system.heat?.value, crimeKey, {witnessed, byPolice}),{witnessed,byPolice}), `${crime.label}${byPolice ? ' — in front of the police' : ''}.`);
   }
   async addCondition(name) {
     const existing=this.items.find(i=>i.type==='condition'&&i.name===name);

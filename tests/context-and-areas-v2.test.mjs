@@ -1,0 +1,34 @@
+import assert from 'node:assert/strict';
+import {makeWorld} from './world-fixture.mjs';
+import {J} from './fakes.mjs';
+const NS='the-smoke',w=await makeWorld({players:3}),[a,b,c]=w.pcs;
+const {enableItemRules,perkEligible,contextualEquipment,weaponRestriction,crashRiderDamage}=await import('../module/rules/item-context.mjs');
+const {createWeaponArea,tickWeaponAreas,smokeBlocks}=await import('../module/world/weapon-areas.mjs');
+const {resolveCombatHit}=await import('../module/combat/combat.mjs');
+enableItemRules();
+const lib=J('london-items.json').items,add=async(a,name)=>(await a.createEmbeddedDocuments('Item',[structuredClone(lib.find(i=>i.name===name))]))[0];
+const at=await w.put(a,'LDP-ARCHES',[350,350]),bt=await w.put(b,'LDP-ARCHES',[650,350]),ct=await w.put(c,'LDP-ARCHES',[750,350]);
+const scene=at.parent;const bp=await add(a,'Bike Thief');
+assert.equal(perkEligible(a,bp,bp.system.stat,{}),false,'unrelated roll cannot claim Bike Thief');
+const vehicle=w.createActor({name:'Bike',type:'vehicle',system:{vehicle:{klass:'bicycle'}}});
+const vt=await w.addToken(scene,{actorId:vehicle.id,actorLink:true,x:400,y:400});
+assert.equal(perkEligible(a,bp,bp.system.stat,{context:{kind:'theft',target:vt.uuid}}),true);
+const suit=await add(a,'Smart Suit');suit.system.worn=true;await at.setFlag(NS,'policeStop',{id:'test'});
+assert.equal(contextualEquipment(a,'frt',{context:{kind:'policeTalk'}})?.name,'Smart Suit');
+const shield=await add(a,'Riot Shield');shield.system.equipped=true;
+assert.ok(weaponRestriction(a,{system:{twoHanded:true}}));assert.equal(weaponRestriction(a,{system:{twoHanded:false}}),null);
+const leathers=await add(a,'Motorbike Leathers');leathers.system.equipped=true;assert.equal(crashRiderDamage(a,vehicle,5),3);
+// One successful flashbang affects nearby people, without damaging them. Forged request fields are ignored.
+const flash=await add(a,'Flashbang');const msg=await ChatMessage.implementation.create({flags:{[NS]:{roll:{actorUuid:a.uuid,context:{kind:'attack',target:bt.uuid,weaponId:flash.id,weapon:flash.name},margin:4,total:14,outcomeKey:'success',explosions:0}}}});
+const hp=b.system.resources.health.value;
+const hit={messageId:msg.id,attackerTokenUuid:at.uuid,targetTokenUuid:bt.uuid,weaponName:'Forgery',effect:'fire',impact:999,userId:'user1'};
+await resolveCombatHit(hit);assert.equal(b.system.resources.health.value,hp);assert.ok(b.items.some(i=>i.name==='Stunned'));assert.ok(c.items.some(i=>i.name==='Stunned'));assert.ok(!scene.getFlag(NS,'weaponAreas'));
+assert.equal((await resolveCombatHit(hit)).alreadyResolved,true);
+// Transient smoke blocks crossing sight-lines; gas caused by the cloud clears in fresh air.
+await createWeaponArea(scene,{id:'smoke_test_01',kind:'smoke',target:bt});
+assert.ok(b.items.some(i=>i.name==='Gassed'));assert.equal(smokeBlocks(at,ct),true);
+const original=await a.createEmbeddedDocuments('Item',[{name:'Gassed',type:'condition',system:{},flags:{}}]);
+game.time.worldTime+=61;await tickWeaponAreas();assert.deepEqual(scene.getFlag(NS,'weaponAreas'),{});
+game.time.worldTime+=7;await tickWeaponAreas();assert.ok(!b.items.some(i=>i.name==='Gassed'));assert.ok(a.items.includes(original[0]),'unrelated pre-existing gas is not removed');
+console.log('context and areas v2: conditional perks/outfits, shield hands, rider protection, authoritative flashbang effects/replay, smoke expiry and preservation of unrelated conditions passed');
+process.exit(0);

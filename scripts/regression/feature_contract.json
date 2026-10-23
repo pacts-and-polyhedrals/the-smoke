@@ -1,0 +1,719 @@
+{
+  "contract": "The Smoke feature-preservation contract",
+  "contractEdition": "2026-10-21",
+  "referenceVersion": "0.5.24",
+  "notes": "A minimum viable feature fingerprint, NOT a proof that a feature works in live Foundry. The 59 Node regression suites additionally exercise behaviour. Planned assets are separated from shipped features.",
+  "minimumCounts": {
+    "atlasStreetMaps": 20,
+    "interiorAndApproachMaps": 211,
+    "londonPlacesMaps": 4,
+    "streetScenes": 21,
+    "allSceneDocuments": 236,
+    "vehicleActors": 29,
+    "namedCampaignActors": 108,
+    "basicNPCActors": 39,
+    "characterPregens": 4,
+    "shopItems": 171,
+    "conditions": 31,
+    "guideJournals": 27,
+    "guidePages": 270,
+    "coreMissions": 125,
+    "taggingMissions": 42,
+    "radioWarMissions": 12,
+    "totalMissions": 179,
+    "factions": 12,
+    "graffitiSites": 57,
+    "tagPacks": 13,
+    "graffitiQualityTiers": 6,
+    "radioWarContacts": 6,
+    "testSuites": 59,
+    "compendiumPacks": 10
+  },
+  "features": [
+    {
+      "id": "core.rules",
+      "label": "Core dice/stats and Hustle",
+      "paths": [
+        "module/rules/core.mjs",
+        "module/rules/difficulty.mjs",
+        "module/dice/formula.mjs",
+        "module/dice/roll.mjs"
+      ],
+      "tests": [
+        "rules.test.mjs",
+        "driving.test.mjs"
+      ]
+    },
+    {
+      "id": "characters.creator",
+      "label": "PC creation, templates, advancement",
+      "paths": [
+        "module/apps/creator.mjs",
+        "module/apps/levelling.mjs",
+        "module/rules/creation.mjs",
+        "module/rules/advancement.mjs"
+      ],
+      "tests": [
+        "advancement.test.mjs"
+      ]
+    },
+    {
+      "id": "characters.conditions",
+      "label": "Conditions/injuries, drugs and game-time expiry",
+      "paths": [
+        "module/rules/conditions.mjs",
+        "module/apps/drug-fx.mjs",
+        "module/rules/watch-clock.mjs",
+        "module/apps/banana-watch.mjs"
+      ],
+      "tests": [
+        "watch-conditions.test.mjs"
+      ]
+    },
+    {
+      "id": "characters.sheets",
+      "label": "Player, NPC, item and vehicle sheets",
+      "paths": [
+        "module/apps/sheets.mjs",
+        "module/data-models.mjs",
+        "module/documents.mjs"
+      ],
+      "tests": [
+        "smoke-import.test.mjs"
+      ]
+    },
+    {
+      "id": "combat.speed",
+      "label": "Speed-dice round order and refresh",
+      "paths": [
+        "module/combat/combat.mjs",
+        "module/apps/combat-console.mjs"
+      ],
+      "tokens": {
+        "module/combat/combat.mjs": [
+          "beginRound(",
+          "speedFor(",
+          "combat.next"
+        ]
+      },
+      "tests": [
+        "speed-dice-refresh.test.mjs",
+        "combat-flow.test.mjs"
+      ]
+    },
+    {
+      "id": "combat.outcomes",
+      "label": "Hits, damage, dodge and combat response cards",
+      "paths": [
+        "module/combat/rules.mjs",
+        "module/gameplay.mjs"
+      ],
+      "tests": [
+        "combat-rules.test.mjs"
+      ]
+    },
+    {
+      "id": "combat.surrender",
+      "label": "Surrender status bounded to current combat",
+      "paths": [
+        "module/combat/combat.mjs"
+      ],
+      "tokens": {
+        "module/combat/combat.mjs": [
+          "surrenderedIn("
+        ]
+      },
+      "tests": [
+        "speed-dice-refresh.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.start",
+      "label": "Automatic police chase on sightings",
+      "paths": [
+        "module/world/chase.mjs",
+        "module/world/heat.mjs"
+      ],
+      "tokens": {
+        "module/world/chase.mjs": [
+          "reg('autoChase'",
+          "default: true",
+          "startChaseNow"
+        ]
+      },
+      "tests": [
+        "full-auto.test.mjs",
+        "chase.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.modes",
+      "label": "Full auto, assisted and manual chase modes",
+      "paths": [
+        "module/world/chase.mjs",
+        "module/world/chase-state.mjs"
+      ],
+      "tokens": {
+        "module/world/chase.mjs": [
+          "autopilot(",
+          "migrateChasePacing(",
+          "advanceOnce("
+        ]
+      },
+      "tests": [
+        "full-auto.test.mjs",
+        "full-auto-blocker.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.gauge",
+      "label": "Vehicle movement tally and green/yellow/red gauge",
+      "paths": [
+        "module/map/drive-gauge.mjs",
+        "module/world/incidents.mjs"
+      ],
+      "tests": [
+        "audit-chase.test.mjs",
+        "driving.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.incidents",
+      "label": "Evasive maneuvers, driving check and duplicate resolution guards",
+      "paths": [
+        "module/world/incidents.mjs"
+      ],
+      "tokens": {
+        "module/world/incidents.mjs": [
+          "recoverCompletedPrompts"
+        ]
+      },
+      "tests": [
+        "driving-prompt-resolution.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.blockers",
+      "label": "Encounter-scoped prompt blockers and recovery",
+      "paths": [
+        "module/world/chase-state.mjs",
+        "module/apps/combat-console.mjs"
+      ],
+      "tokens": {
+        "module/world/chase-state.mjs": [
+          "pendingResponseDetails(",
+          "chaseParticipants("
+        ]
+      },
+      "tests": [
+        "full-auto-blocker.test.mjs",
+        "audit-chase.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.reinforcements",
+      "label": "Police additions to active combat tracker",
+      "paths": [
+        "module/world/chase.mjs",
+        "module/world/heat.mjs"
+      ],
+      "tokens": {
+        "module/world/chase.mjs": [
+          "joinReinforcements("
+        ]
+      },
+      "tests": [
+        "police-reinforcements.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.aircraft",
+      "label": "Helicopter has a bounded round phase",
+      "paths": [
+        "module/world/heat.mjs",
+        "module/world/chase.mjs"
+      ],
+      "tokens": {
+        "module/world/heat.mjs": [
+          "helicopterPhase"
+        ]
+      },
+      "tests": [
+        "chase.test.mjs"
+      ]
+    },
+    {
+      "id": "chase.escape",
+      "label": "Player controlled escape move and one-star search",
+      "paths": [
+        "module/world/pursuit.mjs",
+        "module/world/chase.mjs"
+      ],
+      "tokens": {
+        "module/world/pursuit.mjs": [
+          "finishEscape"
+        ]
+      },
+      "tests": [
+        "escape-move.test.mjs"
+      ]
+    },
+    {
+      "id": "heat.crimes",
+      "label": "Per-crime star ceilings and detected killings",
+      "paths": [
+        "module/world/heat.mjs",
+        "module/config.mjs",
+        "module/rules/core.mjs"
+      ],
+      "tokens": {
+        "module/rules/core.mjs": [
+          "heatAfterCrime",
+          "policeResponse"
+        ]
+      },
+      "tests": [
+        "heat-scaling.test.mjs"
+      ]
+    },
+    {
+      "id": "heat.police",
+      "label": "Scaled police response, unit cap and stand-down",
+      "paths": [
+        "module/world/heat.mjs",
+        "module/world/slow-guard.mjs"
+      ],
+      "tests": [
+        "heat-scaling.test.mjs",
+        "slow-guard.test.mjs"
+      ]
+    },
+    {
+      "id": "world.roads",
+      "label": "Connected street routes and scene exits",
+      "paths": [
+        "module/world/roads.mjs",
+        "module/map/map-transit.mjs",
+        "module/map/map-zones.mjs"
+      ],
+      "tests": [
+        "maps-import.test.mjs",
+        "venues.test.mjs"
+      ]
+    },
+    {
+      "id": "world.satnav",
+      "label": "Sat nav across map/venue/mission stages",
+      "paths": [
+        "module/map/satnav.mjs",
+        "module/map/satnav-core.mjs"
+      ],
+      "tokens": {
+        "module/map/satnav.mjs": [
+          "missionTarget"
+        ]
+      },
+      "tests": [
+        "satnav.test.mjs",
+        "satnav-missions.test.mjs"
+      ]
+    },
+    {
+      "id": "vehicles.control",
+      "label": "Vehicle movement, damage, abilities and lights",
+      "paths": [
+        "module/vehicles/vehicle-movement.mjs",
+        "module/vehicles/vehicle-abilities.mjs"
+      ],
+      "tests": [
+        "driving.test.mjs"
+      ]
+    },
+    {
+      "id": "vehicles.board",
+      "label": "Vehicle boarding and seat choice",
+      "paths": [
+        "module/vehicles/vehicle-boarding.mjs",
+        "module/vehicles/vehicle-seat-math.mjs"
+      ],
+      "tests": [
+        "vehicle-ambient-crew.test.mjs"
+      ]
+    },
+    {
+      "id": "vehicles.riders",
+      "label": "Move rider tokens in atomic batch with vehicle",
+      "paths": [
+        "module/vehicles/vehicle-boarding.mjs",
+        "module/world/traffic-crew.mjs"
+      ],
+      "tokens": {
+        "module/world/traffic-crew.mjs": [
+          "carryCrewInBatch"
+        ]
+      },
+      "tests": [
+        "vehicle-ambient-crew.test.mjs"
+      ]
+    },
+    {
+      "id": "vehicles.traffic",
+      "label": "Moving traffic NPCs, occupant assignment",
+      "paths": [
+        "module/world/traffic.mjs",
+        "module/world/traffic-crew.mjs"
+      ],
+      "tests": [
+        "traffic.test.mjs",
+        "vehicle-ambient-crew.test.mjs"
+      ]
+    },
+    {
+      "id": "vehicles.meter",
+      "label": "Travel distances and batched world persistence",
+      "paths": [
+        "module/vehicles/travel-meter.mjs"
+      ],
+      "tokens": {
+        "module/vehicles/travel-meter.mjs": [
+          "withMeters"
+        ]
+      },
+      "tests": [
+        "slow-guard.test.mjs"
+      ]
+    },
+    {
+      "id": "vehicles.theft",
+      "label": "Nick/carjack, including an NPC at the wheel",
+      "paths": [
+        "module/world/theft.mjs"
+      ],
+      "tokens": {
+        "module/world/theft.mjs": [
+          "npcAtWheel",
+          "carjackable"
+        ]
+      },
+      "tests": [
+        "player-theft.test.mjs",
+        "player-right-click.test.mjs"
+      ]
+    },
+    {
+      "id": "interaction.rightclick",
+      "label": "Safe non-owned token context menu installed at init",
+      "paths": [
+        "module/interaction/player-context.mjs",
+        "the-smoke.mjs"
+      ],
+      "tokens": {
+        "module/interaction/player-context.mjs": [
+          "rearmDrawnTokens",
+          "installPlayerInteractions"
+        ]
+      },
+      "tests": [
+        "player-right-click.test.mjs"
+      ]
+    },
+    {
+      "id": "interaction.perms",
+      "label": "GM-authoritative world interactions and safe requests",
+      "paths": [
+        "module/world/net.mjs",
+        "module/gm/requests.mjs"
+      ],
+      "tests": [
+        "requests.test.mjs",
+        "fence.test.mjs"
+      ]
+    },
+    {
+      "id": "missions.board",
+      "label": "Persistent 125 campaign quests, branching objectives",
+      "paths": [
+        "module/world/missions.mjs",
+        "module/apps/mission-board.mjs"
+      ],
+      "tokens": {
+        "module/world/missions.mjs": [
+          "withMissionState",
+          "mission.crew",
+          "crewWhereabouts"
+        ]
+      },
+      "tests": [
+        "missions.test.mjs"
+      ]
+    },
+    {
+      "id": "missions.property",
+      "label": "Physical multi-item property pickup, transit, handover",
+      "paths": [
+        "module/world/mission-props.mjs"
+      ],
+      "tests": [
+        "mission-property-catalogue.test.mjs",
+        "mission-props-transit.test.mjs"
+      ]
+    },
+    {
+      "id": "missions.jobs",
+      "label": "Taxi, bus, courier, ambulance, fire, police, Pat's jobs",
+      "paths": [
+        "module/world/jobs.mjs",
+        "module/rules/jobs-core.mjs"
+      ],
+      "tests": [
+        "jobs-e2e.test.mjs"
+      ]
+    },
+    {
+      "id": "missions.progress",
+      "label": "12 factions and separate reputation, renown and influence",
+      "paths": [
+        "module/world/missions.mjs",
+        "module/rules/advancement.mjs"
+      ],
+      "tests": [
+        "rep-milestones.test.mjs",
+        "missions.test.mjs"
+      ]
+    },
+    {
+      "id": "graffiti.studio",
+      "label": "Custom Tag Studio, persistent spray quality/pigments",
+      "paths": [
+        "module/apps/tag-studio.mjs",
+        "module/graffiti/core.mjs",
+        "module/graffiti/glyph-outlines.mjs"
+      ],
+      "tests": [
+        "graffiti-core.test.mjs",
+        "tag-studio-v14-startup.test.mjs"
+      ]
+    },
+    {
+      "id": "graffiti.authority",
+      "label": "GM-authored persisted SVG/Tiles and decal recovery",
+      "paths": [
+        "module/graffiti/runtime.mjs"
+      ],
+      "tests": [
+        "graffiti-authority.test.mjs",
+        "graffiti-drop-to-paint.test.mjs"
+      ]
+    },
+    {
+      "id": "graffiti.missions",
+      "label": "42 commissions, minimum quality and feedback",
+      "paths": [
+        "module/graffiti/paint-choices.mjs",
+        "module/graffiti/runtime.mjs"
+      ],
+      "tokens": {
+        "module/graffiti/paint-choices.mjs": [
+          "paintChoices",
+          "paintShortfall"
+        ]
+      },
+      "tests": [
+        "tagging-missions-e2e.test.mjs"
+      ]
+    },
+    {
+      "id": "graffiti.canvas",
+      "label": "Automatically place and repair mission paint surfaces",
+      "paths": [
+        "module/graffiti/mission-placements.mjs",
+        "module/graffiti/auto-sites.mjs",
+        "module/graffiti/runtime.mjs"
+      ],
+      "tokens": {
+        "module/graffiti/runtime.mjs": [
+          "repairMissionSpots"
+        ]
+      },
+      "tests": [
+        "tagging-mission-canvas.test.mjs"
+      ]
+    },
+    {
+      "id": "graffiti.buses",
+      "label": "Four actual parked tagging buses, not symbolic markers",
+      "paths": [
+        "module/graffiti/runtime.mjs"
+      ],
+      "tokens": {
+        "module/graffiti/runtime.mjs": [
+          "parkMissionBus"
+        ]
+      },
+      "tests": [
+        "tagging-mission-canvas.test.mjs"
+      ]
+    },
+    {
+      "id": "graffiti.territory",
+      "label": "Tiles determine crew territory and street reputation",
+      "paths": [
+        "module/graffiti/runtime.mjs",
+        "module/graffiti/core.mjs"
+      ],
+      "tests": [
+        "graffiti-core.test.mjs"
+      ]
+    },
+    {
+      "id": "radio.listen",
+      "label": "Pirate radio stations in car and Blower phone",
+      "paths": [
+        "module/radio/stations.mjs",
+        "module/radio/receiver.mjs",
+        "module/radio/radio.mjs"
+      ],
+      "tests": [
+        "radio-webplayer-fallback.test.mjs"
+      ]
+    },
+    {
+      "id": "radio.war",
+      "label": "Six radio-war locations and twelve radio missions",
+      "paths": [
+        "module/radio/war.mjs",
+        "module/radio/war-core.mjs"
+      ],
+      "tests": [
+        "radio-war.test.mjs"
+      ]
+    },
+    {
+      "id": "radio.studio",
+      "label": "Radio Studio request/outbox and GM privacy",
+      "paths": [
+        "module/radio/studio.mjs"
+      ],
+      "tests": [
+        "radio-studio-beta.test.mjs"
+      ]
+    },
+    {
+      "id": "world.services",
+      "label": "Street services and shops",
+      "paths": [
+        "module/world/services.mjs",
+        "module/world/shops.mjs",
+        "module/apps/shop.mjs"
+      ],
+      "tests": [
+        "shops.test.mjs"
+      ]
+    },
+    {
+      "id": "world.contacts",
+      "label": "London named cast, ambient NPCs and actor import",
+      "paths": [
+        "module/world/cast.mjs",
+        "module/world/spawn.mjs"
+      ],
+      "tests": [
+        "maps-import.test.mjs"
+      ]
+    },
+    {
+      "id": "world.phone",
+      "label": "Blower phone and HUD crew controls",
+      "paths": [
+        "module/apps/phone.mjs",
+        "module/apps/crew-bar.mjs"
+      ],
+      "tests": [
+        "console-template.test.mjs"
+      ]
+    },
+    {
+      "id": "world.watch",
+      "label": "Banana Watch / fictional time progression",
+      "paths": [
+        "module/apps/banana-watch.mjs",
+        "module/rules/watch-clock.mjs"
+      ],
+      "tests": [
+        "watch-conditions.test.mjs"
+      ]
+    },
+    {
+      "id": "world.upgrade",
+      "label": "Guide migration retains custom GM edits",
+      "paths": [
+        "module/content.mjs",
+        "data/guide-history.json"
+      ],
+      "tokens": {
+        "module/content.mjs": [
+          "refreshShippedPages"
+        ]
+      },
+      "tests": [
+        "journal-upgrade.test.mjs"
+      ]
+    },
+    {
+      "id": "world.performance",
+      "label": "Slow-guard for simulation load",
+      "paths": [
+        "module/world/slow-guard.mjs"
+      ],
+      "tests": [
+        "slow-guard.test.mjs"
+      ]
+    },
+    {
+      "id": "ui.scroll",
+      "label": "Scroll-safe Foundry 14 sheets, panels and HUD menus",
+      "paths": [
+        "module/apps/fit-menus.mjs",
+        "styles/the-smoke.css"
+      ],
+      "tests": [
+        "console-template.test.mjs"
+      ]
+    },
+    {
+      "id": "data.compendiums",
+      "label": "Prebuilt importable Foundry compendiums",
+      "paths": [
+        "packs/guides",
+        "packs/london-streets",
+        "packs/london-venues"
+      ],
+      "tests": [
+        "maps-import.test.mjs",
+        "journal-upgrade.test.mjs"
+      ]
+    }
+  ],
+  "knownPlannedNotShipped": [
+    {
+      "item": "78 individually art-directed SVG faction/quality variants",
+      "detail": "Catalogue points to 13 \u00d7 6 artwork paths that are marked planned. Runtime procedural SVG artwork IS shipped.",
+      "severity": "future artwork"
+    },
+    {
+      "item": "Real taggable train or DLR carriage props at three railway sites",
+      "detail": "The sites currently use markers; no train/rail fleet actor is included.",
+      "severity": "known content gap"
+    },
+    {
+      "item": "Fully autonomous escort AI, NPC dialogue or offline/headless self-play GM",
+      "detail": "Human-controlled story decisions and online GM authority are deliberate current limitations.",
+      "severity": "known design boundary"
+    },
+    {
+      "item": "Mandatory van capacity/weight rules for oversized carried mission items",
+      "detail": "The property system tracks exact serials and locations but has no strict physical loading limit.",
+      "severity": "known rules boundary"
+    }
+  ]
+}

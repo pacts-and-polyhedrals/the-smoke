@@ -77,12 +77,33 @@
 
     <div class="phone-card pat">
       <div class="kicker">AUNTIE PAT</div>
-      <p>"Need a bit of work, darling?"</p>
+      <p>"Need a bit of work, darling?"</p><p class="phone-hint">{{patTier}}</p>
       <button type="button" data-pat><i class="fa-solid fa-link"></i> Ask Pat for an order</button>
     </div>
+    {{#if deliveries.on}}
+    <div class="phone-card orders">
+      <div class="kicker">BANANA BASKET{{#if deliveries.waiting}} · {{deliveries.waiting}} AT THE FLAT{{/if}}</div>
+      {{#each deliveries.list}}<p class="phone-order {{#if waiting}}waiting{{/if}}"><b>{{text}}</b> <small>{{eta}}</small></p>{{else}}<p class="phone-hint">Order from the corner shop, Pat's, the market, the bodyshops or the chemist, delivered to the flat.</p>{{/each}}
+      <div class="row"><button type="button" data-orders><i class="fa-solid fa-basket-shopping"></i> Order to the flat</button>{{#if deliveries.waiting}}{{#if deliveries.here}}<button type="button" class="hot" data-collect-orders><i class="fa-solid fa-box-open"></i> Collect</button>{{/if}}{{/if}}</div>
+      {{#if deliveries.waiting}}{{#unless deliveries.here}}<p class="phone-hint">Go to Your Flat (or a safehouse) to collect.</p>{{/unless}}{{/if}}
+    </div>
+    {{/if}}
+    {{#if hires}}{{#if hires.locked}}<div class="phone-card crew locked"><div class="kicker">YOUR OWN CREW</div><p class="phone-hint">At Rep {{hires.rep}} (Top Boy) you can put people on the payroll: a driver, muscle, a lookout…</p></div>{{else}}
+    <div class="phone-card crew"><div class="kicker">YOUR CREW · {{hires.used}}/{{hires.slots}}</div>
+      {{#each hires.hands}}<div class="row"><img src="{{img}}" alt="" class="phone-hand"> <b>{{name}}</b> <small>{{role}}</small> <button type="button" data-hand-sheet="{{id}}" title="Open their sheet"><i class="fa-solid fa-id-card"></i></button><button type="button" data-hand-dismiss="{{id}}" title="Let them go"><i class="fa-solid fa-user-minus"></i></button></div>{{/each}}
+      {{#unless hires.full}}<p class="phone-hint">Put someone on the payroll (paid up front):</p><div class="row">{{#each hires.types}}<button type="button" data-hire="{{key}}" {{#unless can}}disabled{{/unless}} title="{{why}}">{{label}} £{{fee}}</button>{{/each}}</div>{{else}}<p class="phone-hint">That's everyone you can keep on at your Rep.</p>{{/unless}}
+    </div>{{/if}}{{/if}}
+    {{#if chases}}<div class="phone-card chases">
+      <div class="kicker">POLICE CHASES · {{#if chases.autoChase}}TURN-BASED{{else}}REAL TIME{{/if}}</div>
+      <p>{{#if chases.autoChase}}When the police clock you at the wheel (or at two stars), the chase goes turn-based in the Combat Console.{{else}}Pursuits stay in real time until someone starts a chase by hand.{{/if}}</p>
+      <div class="row"><button type="button" data-chase-switch="autoChase" class="{{#if chases.autoChase}}on{{/if}}"><i class="fa-solid fa-car-on"></i> Turn-based: {{#if chases.autoChase}}ON{{else}}OFF{{/if}}</button></div>
+      <div class="row">{{#each chases.modes}}<button type="button" data-chase-default-mode="{{key}}" class="{{#if on}}on{{/if}}" title="{{hint}}">{{label}}</button>{{/each}}</div>
+      <div class="row"><button type="button" data-chase-switch="autoEvade" class="{{#if chases.autoEvade}}on{{/if}}" title="Driving over another vehicle rolls the swerve for you">Evasive auto: {{#if chases.autoEvade}}ON{{else}}OFF{{/if}}</button><button type="button" data-chase-switch="autoDriveChecks" class="{{#if chases.autoDriveChecks}}on{{/if}}" title="Yellow / red and PIT checks roll themselves">Y/R auto: {{#if chases.autoDriveChecks}}ON{{else}}OFF{{/if}}</button></div>
+    </div>{{/if}}
     <div class="phone-apps">
       <button type="button" data-missions><i class="fa-solid fa-flag-checkered"></i><span>Missions</span></button>
       <button type="button" data-sheet><i class="fa-solid fa-id-card"></i><span>My sheet</span></button>
+      <button type="button" data-orders><i class="fa-solid fa-basket-shopping"></i><span>Shop</span></button>
       <button type="button" data-satnav><i class="fa-solid fa-diamond-turn-right"></i><span>Sat nav</span></button>
       <button type="button" data-travel><i class="fa-solid fa-map-location-dot"></i><span>Travel</span></button>
       <button type="button" data-guide><i class="fa-solid fa-book-open"></i><span>How to play</span></button>

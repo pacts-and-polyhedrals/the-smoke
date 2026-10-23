@@ -7,7 +7,7 @@ const read=path=>readFileSync(resolve(root,path),'utf8');
 const manifest=JSON.parse(read('system.json'));
 test.ok(read('templates/phone.hbs').includes('{{{banana}}} THE BLOWER'),'Blower icon markup must not be escaped');
 const prefix='systems/the-smoke/';
-test.equal(manifest.version,'0.5.24');
+test.equal(manifest.version,'0.5.27-rc.3');
 test.equal(manifest.persistentStorage,true);
 test.equal(manifest.id,'the-smoke');
 test.equal(manifest.download, `https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v${manifest.version}/the-smoke-v${manifest.version}.zip`);

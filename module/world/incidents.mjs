@@ -1,3 +1,4 @@
+import {crashRiderDamage} from '../rules/item-context.mjs';
 // Incidents behind the wheel: the chase movement gauge (green / yellow / red) and the driving checks it calls for, the
 // evasive manoeuvre when a player's vehicle drives over another vehicle, collisions and losing control, the incident
 // log on each vehicle, and fire: a vehicle at 0 Body burns until the end of the next round (or a few seconds outside a
@@ -102,7 +103,9 @@ export async function promptCheck(vt, {kind, band = 'yellow', difficulty = null,
     const r = await npcDriveRoll(vt, {band: diff, label: `${vt.name}: ${title}`, penalty: kind === 'driveCheck' ? 0 : D.bandPenalty(tallyOf(vt, ctx.key).band)});
     return resolve({...ctx, outcomeKey: r.outcomeKey, margin: r.margin, driver: vt.name});
   }
-  const automatic = kind === 'evade' && setting('autoEvade', true);
+  // Evasive manoeuvres roll themselves by default; yellow / red and PIT checks only when the GM switches that on
+  // (0.5.1's "Driving checks roll themselves", restored in 0.5.25 as its own setting).
+  const automatic = kind === 'evade' ? Boolean(setting('autoEvade', true)) : ['driveCheck', 'pitSave'].includes(kind) && Boolean(setting('autoDriveChecks', false));
   if (automatic) ctx.automatic = true;
   await vt.update({[`flags.${NS}.prompts.${pid}`]: {kind, at: Date.now(), band, context: ctx, actorUuid: pilot.actor.uuid}}, {acVehicleCarry: true});
   if (automatic) {
@@ -223,9 +226,10 @@ async function shakeRiders(vt, amount, conditions = []) {
   const out = [];
   for (const t of riderTokens(vt)) {
     if (!t.actor?.isPerson) continue;
-    if (amount) await t.actor.applyDamage(amount);
+    const taken=crashRiderDamage(t.actor,vt.actor,amount);
+    if (taken) await t.actor.applyDamage(taken);
     for (const c of conditions) await t.actor.addCondition(c);
-    if (amount || conditions.length) out.push(`${t.name}${amount ? ` −${amount}` : ''}${conditions.length ? ` (${conditions.join(', ')})` : ''}`);
+    if (amount || conditions.length) out.push(`${t.name}${taken ? ` −${taken}` : ''}${conditions.length ? ` (${conditions.join(', ')})` : ''}`);
   }
   return out;
 }

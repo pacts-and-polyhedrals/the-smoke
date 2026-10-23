@@ -1,58 +1,78 @@
 {
   "player-guide|Welcome to the ends": [
     "l9-1tr3mu7",
-    "1ap-1j7s2hm"
+    "1ap-1j7s2hm",
+    "1cc-15cukd1",
+    "1cs-1sts0ov",
+    "1ar-1b64t6u"
   ],
   "player-guide|Read your character sheet": [
     "xj-19iul9m",
-    "125-1xmualb"
+    "125-1xmualb",
+    "127-1ekdqe1"
   ],
   "player-guide|Make a new face": [
     "my-1t3c47l",
-    "1bf-1fuewi4"
+    "1bf-1fuewi4",
+    "1n1-1oooby1"
   ],
   "player-guide|The roll": [
     "uq-1052yco",
-    "1g6-9w7swf"
+    "1g6-9w7swf",
+    "1g8-mctk77"
   ],
   "player-guide|Outcomes and combat": [
     "108-1k7klok",
     "2ju-17zuwl5",
-    "2jn-k68onn"
+    "2jn-k68onn",
+    "2jp-uv5zx"
   ],
   "player-guide|Vehicles and London": [
     "14n-17alqf8",
     "1ee-1g585yv",
     "38f-1mvczsr",
     "3ve-17x0hmp",
-    "3vf-1sfweg5"
+    "3vf-1sfweg5",
+    "42r-13hifs7",
+    "479-m92qwb",
+    "42t-1u5uwj9"
   ],
   "player-guide|Heat, cash and consequences": [
     "vl-as5ml",
-    "1y0-1w49o25"
+    "1y0-1w49o25",
+    "2ib-1597xjm",
+    "2id-3wjija"
   ],
   "player-guide|Work, recovery and growth": [
     "103-1hgh086",
     "10c-1md6it2",
-    "2lt-1561uei"
+    "2lt-1561uei",
+    "2lm-b5zvk9",
+    "2lo-u8isb9"
   ],
   "player-guide|Live pirate radio": [
     "ud-jb7l7f",
     "15z-eezg5h",
     "1c6-114d5xt",
-    "1do-1ybz64s"
+    "1do-1ybz64s",
+    "1dq-1boqnwu"
   ],
   "player-guide|Services, recovery and advancement": [
     "xw-1p9udde",
-    "1o5-1yt8nxx"
+    "1o5-1yt8nxx",
+    "1ny-180eskc",
+    "1o0-1trro2e"
   ],
   "player-guide|When a fight goes wrong": [
     "f9-tnosqb",
-    "111-aiko0h"
+    "111-aiko0h",
+    "10u-1l4efb2",
+    "10w-1e7uxsw"
   ],
   "gm-guide|Start the world": [
     "v5-1n8mau5",
-    "qm-1o07ve9"
+    "qm-1o07ve9",
+    "rc-w6frqa"
   ],
   "gm-guide|The first night": [
     "ru-1shy3yv",
@@ -69,11 +89,13 @@
   ],
   "gm-guide|Adjudicate the streets": [
     "183-pkd5l8",
-    "33t-vmldly"
+    "33t-vmldly",
+    "33m-ix3zmt"
   ],
   "gm-guide|Control the pace": [
     "14y-1srm0zi",
-    "1lq-gvwufz"
+    "1lq-gvwufz",
+    "1o9-1vi425d"
   ],
   "gm-guide|A borough full of hooks": [
     "qb-t6n37g",
@@ -101,7 +123,8 @@
   ],
   "jobs-handbook|Paramedic": [
     "hz-1n6nykl",
-    "l1-13khyou"
+    "l1-13khyou",
+    "mw-69e54w"
   ],
   "jobs-handbook|Fire and bus": [
     "i1-1ahruhy",
@@ -122,21 +145,26 @@
   "rules-reference|Combat and harm": [
     "tq-meudn0",
     "36j-izyzdz",
-    "36c-x1gctl"
+    "36c-x1gctl",
+    "365-177xk7i"
   ],
   "rules-reference|Vehicles and chases": [
     "ne-13zu2gq",
     "2ad-9jhl8m",
     "4dh-5d4fkd",
-    "4di-3gbb0j"
+    "4di-3gbb0j",
+    "4ku-1jtqzgt",
+    "4pc-1ekg3a5"
   ],
   "rules-reference|Heat and losses": [
     "fv-jvwifj",
-    "1xv-ll0uou"
+    "1xv-ll0uou",
+    "2i6-ae3dpn"
   ],
   "rules-reference|Growth and recovery": [
     "m6-17ubsv7",
-    "1nw-tl2dko"
+    "1nw-tl2dko",
+    "1np-l8mtpb"
   ],
   "london-directory|A working atlas": [
     "ld-7wo2dn",
@@ -172,7 +200,8 @@
   ],
   "gear-reference|Weapons, protection and a way out": [
     "h7-1ttlh5m",
-    "24k-odevjz"
+    "24k-odevjz",
+    "24d-1a27emc"
   ],
   "gear-reference|Getting paid": [
     "g8-3vycve",
@@ -182,34 +211,45 @@
     "v6-fsda8i",
     "xn-1f52cyl",
     "y0-17d1eo6",
-    "1ba-cpquw"
+    "1ba-cpquw",
+    "1cx-1b5lanj",
+    "1dd-10il1p5",
+    "1bc-dd60zi"
   ],
   "players-handbook|Making a Character": [
     "1h8-1tb2dgf",
-    "1c3-sne0h2"
+    "1c3-sne0h2",
+    "61w-il8v6q"
   ],
   "players-handbook|Your Stats": [
     "oa-3aktia",
     "ot-uz2ka5",
-    "1lm-1rdivs3"
+    "1lm-1rdivs3",
+    "4u2-1872hoo"
   ],
   "players-handbook|Rolling the Dice": [
     "12j-19nerw5",
-    "1gx-1tyhxfd"
+    "1gx-1tyhxfd",
+    "1gz-1q91n6v"
   ],
   "players-handbook|Harm and Conditions": [
     "1xe-bdz2l3",
-    "38i-1t366k8"
+    "38i-1t366k8",
+    "38b-146mtb3",
+    "38d-z7p7jx"
   ],
   "players-handbook|Heat and the Police": [
     "13u-1l4tfa6",
     "2yq-lm8507",
-    "1yd-1j9lbpl"
+    "1yd-1j9lbpl",
+    "2io-1427cxc",
+    "2iq-u0yrba"
   ],
   "players-handbook|Fighting": [
     "1f5-ankun4",
     "2nc-prf0fo",
-    "2n5-d2ycx4"
+    "2n5-d2ycx4",
+    "2n7-1jrcwlk"
   ],
   "players-handbook|Motors": [
     "1h8-sxrha7",
@@ -217,48 +257,62 @@
     "1l9-15qp9e4",
     "1u4-1aa0q4o",
     "3dh-1q0iuhs",
-    "3l8-1qin35n"
+    "3l8-1qin35n",
+    "3la-1n2jelf"
   ],
   "players-handbook|Jobs": [
     "nj-stz5xo",
-    "1ho-y3w8y1"
+    "1ho-y3w8y1",
+    "1hq-to5yx9"
   ],
   "players-handbook|Money and Shops": [
     "142-g7jchs",
-    "1zt-1at35on"
+    "1zt-1at35on",
+    "1zm-1k3vn8a",
+    "1zo-k9rtu8"
   ],
   "players-handbook|Kit": [
     "49r-1pcl040",
     "4i7-1ykdqer",
     "bzt-tfhpgh",
-    "bzu-1q0156t"
+    "bzu-1q0156t",
+    "bzw-v4l4jp"
   ],
   "players-handbook|Rep and Levelling": [
     "wg-sqbfo8",
     "2je-1mi2742",
     "1t8-rumyea",
-    "1tg-1a1x2x"
+    "1tg-1a1x2x",
+    "62d-1iooi5w"
   ],
   "gms-book|Running The Smoke": [
     "ru-1nc4f1k",
     "1km-19bwfzj",
-    "25i-1b5wyxc"
+    "25i-1b5wyxc",
+    "28r-1uzrxyh",
+    "25k-q45f26"
   ],
   "gms-book|The GM Screen": [
     "rt-1r13lzt",
-    "1fn-14azewq"
+    "1fn-14azewq",
+    "1i6-144tqem",
+    "1fp-1hh3z6e"
   ],
   "gms-book|Quick Checks": [
     "1ye-1awc2cs",
-    "1zl-1x0ea93"
+    "1zl-1x0ea93",
+    "1zn-1syi321"
   ],
   "gms-book|Hazards": [
     "vf-1682zb1",
-    "2ev-101ktdo"
+    "2ev-101ktdo",
+    "2eo-8h1nax",
+    "2eq-1pnwty5"
   ],
   "gms-book|Street Events": [
     "1m3-10ncq98",
-    "1vj-1gg7h7o"
+    "1vj-1gg7h7o",
+    "1vl-1fz00z4"
   ],
   "gms-book|Police Response": [
     "nq-13fqamc",
@@ -267,28 +321,37 @@
     "3qf-1iy7cpn",
     "3p9-1rmzikq",
     "3pa-16whrxq",
-    "3wm-wfssjs"
+    "3wm-wfssjs",
+    "4gx-11rw4q9",
+    "4lf-syxadd",
+    "4gz-6j54az"
   ],
   "gms-book|Running Combat": [
     "nj-1o8y6q2",
     "v2-nreiop",
     "2io-l1qeal",
     "450-o5gbho",
-    "44t-eha428"
+    "44t-eha428",
+    "44m-osp1u7",
+    "475-ni7b0j",
+    "44o-192h107"
   ],
   "gms-book|People of Hackney": [
     "3qv-1rixwyj",
-    "40b-117j6xz"
+    "40b-117j6xz",
+    "40d-1svxjit"
   ],
   "gms-book|Rewards and XP": [
     "e6-137dtc0",
     "nb-2bk2z1",
     "2y0-aeok0d",
-    "2y8-k8acny"
+    "2y8-k8acny",
+    "49j-aippey"
   ],
   "gms-book|Maps and Places": [
     "fd-10hlygv",
-    "pn-1p9utyu"
+    "pn-1p9utyu",
+    "pp-kfx9mi"
   ],
   "london-guide|The Map of The Smoke": [
     "cd-1ixs4n9",
@@ -439,14 +502,19 @@
     "2b7-6aapll",
     "2b5-mpq0zx",
     "2ow-qp1v30",
-    "3ep-1olran3"
+    "3ep-1olran3",
+    "8my-ffx4be",
+    "9k7-12ur0je",
+    "9kf-6iftun"
   ],
   "missions-guide|Mission 2 — The Whippet": [
     "kx-jj0xy9",
     "272-kzc4rn",
     "270-1bqzkgt",
     "2bv-10fu3im",
-    "30v-g8zfmm"
+    "30v-g8zfmm",
+    "80z-1m9so4m",
+    "8tp-muzdfk"
   ],
   "missions-guide|Mission 3 — Lights and Sirens": [
     "p9-1yir019",
@@ -454,56 +522,79 @@
     "2ka-oosbt3",
     "2pe-1fwwi5",
     "3ft-e5mufu",
-    "3fi-1pi5uio"
+    "3fi-1pi5uio",
+    "911-fdsvyr",
+    "9zf-1gqysxy"
   ],
   "missions-guide|Mission 4 — Lea Boys": [
     "jq-vdf0cn",
-    "17o-k9i4h9"
+    "17o-k9i4h9",
+    "4nu-pi8lbv",
+    "5hc-p6ruqc"
   ],
   "missions-guide|Mission 5 — Chop Chop": [
     "jg-7jek4z",
     "jg-19o1g61",
-    "175-10f7rp3"
+    "175-10f7rp3",
+    "42b-1y1x7pd",
+    "4xq-11afct7"
   ],
   "missions-guide|Mission 6 — Uncle's Errand": [
     "ij-1nduorw",
     "ij-xrnzep",
-    "16f-19k5jnn"
+    "16f-19k5jnn",
+    "3ud-1d9heam",
+    "4q2-13n3atv"
   ],
   "missions-guide|Mission 7 — Hot Wheels": [
     "i7-opzsp3",
     "i7-ot4dda",
     "16f-z9pd36",
-    "18n-2fzmms"
+    "18n-2fzmms",
+    "4ax-1aof33y",
+    "56g-1wnjm52"
   ],
   "missions-guide|Mission 8 — Vale": [
     "jq-19z4tin",
-    "16j-dn0nqy"
+    "16j-dn0nqy",
+    "3k9-3wfpze",
+    "4dq-pbysm5"
   ],
   "missions-guide|Mission 9 — Westfield": [
     "k2-snwx6i",
     "k2-1u8n5u1",
-    "19g-3hm7qt"
+    "19g-3hm7qt",
+    "4u4-ywr76r",
+    "5pf-1nf9ryf",
+    "5ok-1s7l04g"
   ],
   "missions-guide|Mission 10 — The Marshes": [
     "hm-hmuplr",
-    "15l-cg89l7"
+    "15l-cg89l7",
+    "44b-1pyd8et",
+    "4ys-1u64u0z"
   ],
   "missions-guide|Mission 11 — Raid": [
     "hy-1mplm55",
-    "14h-y5yw5y"
+    "14h-y5yw5y",
+    "4xz-fg3x4n",
+    "5yy-8yv1ax"
   ],
   "missions-guide|Mission 12 — Big Night": [
     "nm-c3b8m0",
     "nr-1ry6lg1",
-    "1at-7gmwbo"
+    "1at-7gmwbo",
+    "54l-11wao60",
+    "67m-1sc545m",
+    "69a-sa2fow"
   ],
   "gm-guide|Upgrading and running The Smoke": [
     "13i-1a7ujc3",
     "14k-85kg6x",
     "158-10etqqh",
     "17g-gqujr0",
-    "1pp-2x1lho"
+    "1pp-2x1lho",
+    "1sy-vya9vn"
   ],
   "sandbox-campaign|The Sandbox Campaign": [
     "5zg-k3ymrb",
@@ -527,7 +618,8 @@
     "48k-xtp2ez",
     "48j-1aakyck",
     "4hj-10d1d3b",
-    "1u7-1de7oja"
+    "1u7-1de7oja",
+    "1wq-ih4exs"
   ],
   "sandbox-campaign|The Quiet Ledger (GM Truth)": [
     "7z0-669d9t",
@@ -575,31 +667,41 @@
     "299-1mvuuk5",
     "296-b3s4nq",
     "2tt-1aovezq",
-    "3ni-1jv1yky"
+    "3ni-1jv1yky",
+    "b4g-1pf7gw0",
+    "ccb-c8x8w4"
   ],
   "faction-ch|CH5 · The Borrowed Winner": [
     "2g8-rmfj41",
     "2g3-8yk4ky",
     "2qr-1q266po",
-    "3l3-hsm6qq"
+    "3l3-hsm6qq",
+    "brn-xxzla3",
+    "d24-qr424d"
   ],
   "faction-ch|CH6 · The Shop That Was Already Sold": [
     "26f-4a4cap",
     "26b-tnksnh",
     "2pi-zfwa8g",
-    "3jl-1yq3td7"
+    "3jl-1yq3td7",
+    "b3o-1e4weua",
+    "cd9-s3hqnd"
   ],
   "faction-ch|CH7 · Who Runs the Arches": [
     "2dx-17puoe1",
     "2dt-1m5uwah",
     "2oy-1ca6dtk",
-    "3h5-x1zy"
+    "3h5-x1zy",
+    "bl2-jh5j8g",
+    "crq-g5s7x2"
   ],
   "faction-ch|CH8 · Keys to the Arches": [
     "28f-knb4bk",
     "28b-1r82b30",
     "2nk-1s1id69",
-    "3el-34dfu8"
+    "3el-34dfu8",
+    "ahr-2jo0ux",
+    "br4-1uh71j8"
   ],
   "faction-ad|Dead Air Collective": [
     "25g-e6lt00",
@@ -612,49 +714,65 @@
     "214-d4e5kc",
     "210-15xj8lg",
     "29w-1v06cto",
-    "320-1mogrq5"
+    "320-1mogrq5",
+    "9di-41tbb2",
+    "ach-1i2wddj"
   ],
   "faction-ad|AD2 · The Missing Hour": [
     "242-111n5au",
     "23y-3o8ba8",
     "2hc-j87ent",
-    "3ai-1nxseg1"
+    "3ai-1nxseg1",
+    "9qs-gfbwuf",
+    "azg-lb6vv2"
   ],
   "faction-ad|AD3 · Two Stages One Van": [
     "1vt-fptsdb",
     "1vp-h0yj0d",
     "24h-nbpvet",
-    "2x8-1jsicj7"
+    "2x8-1jsicj7",
+    "8qz-ipqqyc",
+    "9xm-1p8yr1d"
   ],
   "faction-ad|AD4 · Pay to Play": [
     "26q-16vvxdf",
     "26m-1ysflz9",
     "2gq-1tnslmj",
-    "3a3-q1qmb3"
+    "3a3-q1qmb3",
+    "9e5-s7zaxz",
+    "aml-xp9yk6"
   ],
   "faction-ad|AD5 · Somebody Else's Voice": [
     "241-eg31wu",
     "23y-1uwohdt",
     "2d1-1tujrdi",
-    "35c-pe9zka"
+    "35c-pe9zka",
+    "8vx-zj6k3m",
+    "a2m-2zqjsj"
   ],
   "faction-ad|AD6 · Open Channel Loud Mouths": [
     "1y5-aguqso",
     "1y2-1yukip1",
     "2bq-1jhp9xd",
-    "35k-6d8xm7"
+    "35k-6d8xm7",
+    "8gg-vjnhbi",
+    "9pa-1vdqqjg"
   ],
   "faction-ad|AD7 · Nia Sets the Terms": [
     "1w2-189q55v",
     "1vz-17djmq6",
     "2ct-1u2q83m",
-    "36h-1frq097"
+    "36h-1frq097",
+    "8ic-1q4nvnm",
+    "9gq-14vqekb"
   ],
   "faction-ad|AD8 · The Whole City Listening": [
     "21w-1lmg0qu",
     "21s-166ej50",
     "2hb-14ula1s",
-    "37i-ilm7uy"
+    "37i-ilm7uy",
+    "8o0-3dlzao",
+    "9tg-syurpi"
   ],
   "faction-lb|The Lea Boys": [
     "267-1ml82j7",
@@ -667,49 +785,65 @@
     "1pc-1q2dsn1",
     "1p9-q1u2ui",
     "22v-1q2lwcq",
-    "2vo-1odiwgg"
+    "2vo-1odiwgg",
+    "8gh-wg5zch",
+    "9mo-24485p"
   ],
   "faction-lb|LB2 · Stretch Wants His Cut": [
     "1w4-11k0yyk",
     "1w2-11ikd7e",
     "26u-106junz",
-    "308-1mtql3u"
+    "308-1mtql3u",
+    "89r-13bu2ye",
+    "9hw-1hypaee"
   ],
   "faction-lb|LB3 · The Larch Job": [
     "220-9qp7bp",
     "21x-8akuuy",
     "2cg-1p3b269",
-    "34i-1tblj0t"
+    "34i-1tblj0t",
+    "7x9-yxlfok",
+    "93l-24iwja"
   ],
   "faction-lb|LB4 · Halo With Teeth": [
     "223-1kset",
     "220-4k0ass",
     "2cn-f0939j",
-    "366-6b6om2"
+    "366-6b6om2",
+    "8k8-9pn9v4",
+    "9q4-1ba8a1k"
   ],
   "faction-lb|LB5 · The Boy Who Kept Receipts": [
     "1yv-1t26u0p",
     "1ys-313gse",
     "2cd-1ljn7c0",
-    "340-xvhgym"
+    "340-xvhgym",
+    "8gq-1dhhwah",
+    "9me-aunonb"
   ],
   "faction-lb|LB6 · Terms From Above": [
     "1vr-teep2y",
     "1vo-x1gic9",
     "27r-14ko0l6",
-    "30n-ndijj5"
+    "30n-ndijj5",
+    "81z-1qb2zvg",
+    "99x-1w7fyfm"
   ],
   "faction-lb|LB7 · Who Speaks for the Lea Boys": [
     "21z-1x2jlaq",
     "21v-13kb346",
     "2is-wvsigz",
-    "3ci-1g6zc1l"
+    "3ci-1g6zc1l",
+    "9dh-d4qwdp",
+    "ajx-17tloly"
   ],
   "faction-lb|LB8 · The Price of a Patch": [
     "22l-3msav1",
     "22h-n2oxaz",
     "2ft-mk0z3b",
-    "361-8xji02"
+    "361-8xji02",
+    "8k0-1sblx6",
+    "9sn-1ukj9ge"
   ],
   "faction-vc|The Velvet Circuit": [
     "25s-1t2d1w4",
@@ -722,49 +856,65 @@
     "1rm-1k39ja8",
     "1rj-1fpbut5",
     "22c-tqi98w",
-    "2vo-jua988"
+    "2vo-jua988",
+    "7ok-jgcyql",
+    "8w4-1yjv0gs"
   ],
   "faction-vc|VC2 · No Guest List for the Missing": [
     "1uj-158ifjw",
     "1ug-p84hgn",
     "24c-1ebxuof",
-    "2z5-n2k18d"
+    "2z5-n2k18d",
+    "7yf-9wzvbd",
+    "98q-7tq2fn"
   ],
   "faction-vc|VC3 · Cash Before Curtain": [
     "23u-tqt0cr",
     "23q-12xahed",
     "2d8-iacrq1",
-    "37o-7zj3iz"
+    "37o-7zj3iz",
+    "98m-1i85pop",
+    "afz-6diza4"
   ],
   "faction-vc|VC4 · The Last Good Batch": [
     "1w3-13ggbfa",
     "1w0-onij37",
     "265-1ssfsth",
-    "2yn-1v6i76"
+    "2yn-1v6i76",
+    "7ry-189wsyc",
+    "8xh-129cd1f"
   ],
   "faction-vc|VC5 · A Set for Nobody": [
     "1xu-x3aa69",
     "1xr-v8396m",
     "2by-qcuk8e",
-    "36c-5cjgmq"
+    "36c-5cjgmq",
+    "8c4-x9s2im",
+    "9o2-1sh3ztl"
   ],
   "faction-vc|VC6 · The Sponsor Behind the Sponsor": [
     "25y-rtwz97",
     "25u-1ip95nj",
     "2k7-156m6md",
-    "3e8-fk3o4v"
+    "3e8-fk3o4v",
+    "91l-1dnd9tb",
+    "aao-1ewg3dd"
   ],
   "faction-vc|VC7 · Last Dance Before the Sale": [
     "238-ssp12h",
     "234-sp6zob",
     "2ep-11quhb7",
-    "380-vzhenu"
+    "380-vzhenu",
+    "8qd-1uc54jq",
+    "9w6-14rb9s"
   ],
   "faction-vc|VC8 · Who Owns the Night": [
     "252-1eoreg5",
     "24y-1f465gb",
     "2gq-1d5t08f",
-    "36v-cde3t1"
+    "36v-cde3t1",
+    "8dq-1h97mt6",
+    "9ld-ff9sbj"
   ],
   "faction-tu|The Towpath Union": [
     "25f-1ceqe64",
@@ -777,49 +927,65 @@
     "1t1-i0a1l",
     "1sy-1uahew0",
     "218-1359r1i",
-    "2uo-3yv9xh"
+    "2uo-3yv9xh",
+    "7qf-edj6ul",
+    "8y2-15l1n6r"
   ],
   "faction-tu|TU2 · The Van and the Debt": [
     "1zd-mttpey",
     "1zb-sufdg0",
     "25a-3acwia",
-    "2yr-1y41hu3"
+    "2yr-1y41hu3",
+    "7wr-kb5vtq",
+    "94k-xbr0b1"
   ],
   "faction-tu|TU3 · The Driver Who Wasn't There": [
     "1y2-138ow8k",
     "1xz-2bm5oj",
     "2a3-n0proq",
-    "32w-1epok6e"
+    "32w-1epok6e",
+    "7r8-1k0dvhc",
+    "8zu-vshz"
   ],
   "faction-tu|TU4 · The Route Book": [
     "25l-1hjhrmu",
     "25h-mutkfq",
     "2jc-pqzo1e",
-    "3dv-zb4bj1"
+    "3dv-zb4bj1",
+    "984-dmyo6j",
+    "ahw-12nno7f"
   ],
   "faction-tu|TU5 · Not the Person in the Photograph": [
     "261-1rvln08",
     "25x-18ywcxs",
     "2h2-8f226t",
-    "3b5-1ko9qc2"
+    "3b5-1ko9qc2",
+    "8ti-aew0hr",
+    "a1c-xrfbv7"
   ],
   "faction-tu|TU6 · The Contract That Eats the Route": [
     "1ze-1xfbsjn",
     "1zb-w45yzo",
     "29b-e2lhhu",
-    "31g-5btms7"
+    "31g-5btms7",
+    "7vm-1hoqe93",
+    "943-9k75bp"
   ],
   "faction-tu|TU7 · Four Loads One Customer": [
     "1wn-1gn5fw6",
     "1wk-5qvbin",
     "274-1fqf6sq",
-    "2zs-1b11vyu"
+    "2zs-1b11vyu",
+    "7h1-1645hxo",
+    "8qo-9gxtuc"
   ],
   "faction-tu|TU8 · The City Still Has to Move": [
     "28e-1c41yxs",
     "28b-djforx",
     "2ih-8fhbnq",
-    "399-10u6rop"
+    "399-10u6rop",
+    "83y-1uk7r8r",
+    "90j-m13m9n"
   ],
   "faction-ge|The Glasshouse Exchange": [
     "238-wnoome",
@@ -832,49 +998,65 @@
     "1x1-pjfivm",
     "1wy-1jmr8n9",
     "25x-17n777y",
-    "304-1o33soc"
+    "304-1o33soc",
+    "8co-28bm8a",
+    "9bd-m8yvec"
   ],
   "faction-ge|GE2 · The Coat With the Appointment": [
     "1y0-ay8a5k",
     "1xw-9m7pfa",
     "28o-dy0bbl",
-    "32n-1mna9e2"
+    "32n-1mna9e2",
+    "8j5-1jjtb6f",
+    "9qh-heyb7y"
   ],
   "faction-ge|GE3 · The House Clearance": [
     "20c-1sffgmj",
     "209-1r8a9e2",
     "2e0-8bjd78",
-    "39a-l2jhqo"
+    "39a-l2jhqo",
+    "8la-wph0o2",
+    "9w2-1apmrk6"
   ],
   "faction-ge|GE4 · Loaned and Lost": [
     "1vj-t7htba",
     "1vg-1m8su3b",
     "27u-knfnit",
-    "2zo-1xt4ndl"
+    "2zo-1xt4ndl",
+    "7jh-oigzhk",
+    "8ok-e397op"
   ],
   "faction-ge|GE5 · A Picture of the Wrong Night": [
     "208-1w5ao0k",
     "205-358j33",
     "2gs-e8cwr2",
-    "3bk-47kbfo"
+    "3bk-47kbfo",
+    "8ba-wu9ia1",
+    "9kw-1pc83us"
   ],
   "faction-ge|GE6 · An Auction for Empty Homes": [
     "24b-1glpz1m",
     "247-1a0r7mk",
     "2hn-bo3ul4",
-    "3at-13edsgb"
+    "3at-13edsgb",
+    "856-shaxqq",
+    "9dc-6bugp2"
   ],
   "faction-ge|GE7 · The Collection That Can Speak": [
     "24y-1men9kb",
     "24u-13xfjrz",
     "2ij-rax32l",
-    "3ci-by8k5l"
+    "3ci-by8k5l",
+    "8kh-1hl7cyj",
+    "9sd-rk3vrz"
   ],
   "faction-ge|GE8 · What Is Worth Keeping": [
     "1yh-58510i",
     "1ye-ms8csd",
     "29q-5na6he",
-    "30t-gm2dt9"
+    "30t-gm2dt9",
+    "7xc-v9zund",
+    "961-1bgdj75"
   ],
   "faction-bb|The Backroom Bookmakers": [
     "26r-k6rtzg",
@@ -887,49 +1069,65 @@
     "1z6-vkkjya",
     "1z2-10vd5m4",
     "25q-1iuviwj",
-    "2zi-1bwel11"
+    "2zi-1bwel11",
+    "81z-eyawqm",
+    "9aa-1yuxg2a"
   ],
   "faction-bb|BB2 · The Wrong Winner": [
     "21c-12ghzpo",
     "218-15qpdfu",
     "2ak-4bfp5y",
-    "34a-1voerfm"
+    "34a-1voerfm",
+    "8k3-g01sd8",
+    "9tw-1ygsfw6"
   ],
   "faction-bb|BB3 · Cash on the Guest List": [
     "1vq-efmzus",
     "1vn-1r5iitp",
     "26v-la6d46",
-    "2zp-824r0j"
+    "2zp-824r0j",
+    "7z6-1olde66",
+    "95x-g3e6p4"
   ],
   "faction-bb|BB4 · A Result Before the Race": [
     "1yk-9mc5ng",
     "1yh-1i4eep9",
     "2ax-1yb49i",
-    "35a-18agkd1"
+    "35a-18agkd1",
+    "83b-1n25tfy",
+    "9b9-hi2pqi"
   ],
   "faction-bb|BB5 · Your Name in Someone Else's Book": [
     "1w7-mdkqrw",
     "1w5-1cejmrk",
     "292-1lq76un",
-    "321-1ajexpo"
+    "321-1ajexpo",
+    "7te-1oyw7gf",
+    "8zc-numy0n"
   ],
   "faction-bb|BB6 · Land on Credit": [
     "1yf-1frq7lv",
     "1yc-z6vm2k",
     "2d9-wp99ni",
-    "36e-1521g8s"
+    "36e-1521g8s",
+    "80m-19v0zvd",
+    "97p-1uej956"
   ],
   "faction-bb|BB7 · The Final Account": [
     "1u5-1uwtnpj",
     "1u2-s5e7vq",
     "282-jya2xq",
-    "30x-kdoeoa"
+    "30x-kdoeoa",
+    "7gz-1fw6xa6",
+    "8or-yzy47y"
   ],
   "faction-bb|BB8 · The House Changes Hands": [
     "1xk-2y0zh4",
     "1xh-1cmzye9",
     "2aa-10gcodk",
-    "30l-uom51d"
+    "30l-uom51d",
+    "7su-1odu44j",
+    "915-1twxtla"
   ],
   "faction-nm|The Night Market": [
     "249-1ewfnlz",
@@ -942,49 +1140,65 @@
     "1t9-6lfkxf",
     "1t6-11wgcq2",
     "23d-1ubl3qp",
-    "2yd-1mt4h4g"
+    "2yd-1mt4h4g",
+    "7jf-1g2kjch",
+    "8u4-p8uwnc"
   ],
   "faction-nm|NM2 · One Box Two Buyers": [
     "1wy-19uz5sr",
     "1wv-199d5qe",
     "27x-1iuz79n",
-    "30s-1kpbsmj"
+    "30s-1kpbsmj",
+    "7hd-1joshkw",
+    "8pj-9y4ry0"
   ],
   "faction-nm|NM3 · Everything Must Go": [
     "1r0-15p3png",
     "1qx-7v5adx",
     "1wg-s2dg8b",
-    "2oy-1pe2fmz"
+    "2oy-1pe2fmz",
+    "7kw-nzl4tm",
+    "8rj-1vcyfs3"
   ],
   "faction-nm|NM4 · Protection by Post": [
     "1ya-1s8p1ej",
     "1y7-1dtxlt8",
     "2c5-1805qhp",
-    "36q-1rco7oy"
+    "36q-1rco7oy",
+    "88w-dae7yg",
+    "9j8-wv0yly"
   ],
   "faction-nm|NM5 · The Borrowed Exhibition": [
     "1y8-1dtsval",
     "1y5-vmgkxm",
     "298-15k61nz",
-    "31w-1k1mude"
+    "31w-1k1mude",
+    "82w-10bypb0",
+    "9b3-17ulpev"
   ],
   "faction-nm|NM6 · The Market That Sold Itself": [
     "1we-1dmmfd5",
     "1wb-aeamh2",
     "2a0-7yfcqr",
-    "337-a3jg1j"
+    "337-a3jg1j",
+    "7w8-1acxtdb",
+    "93j-m0y5zv"
   ],
   "faction-nm|NM7 · A Night to Trade": [
     "1x4-1arvkm5",
     "1x1-11kvnm8",
     "262-ducntr",
-    "2zy-1phetuc"
+    "2zy-1phetuc",
+    "7vu-e3znbe",
+    "91y-5afizx"
   ],
   "faction-nm|NM8 · Who Gets a Place at the Table": [
     "1y3-1oa12ca",
     "1y0-1sj2yt7",
     "28k-zcinql",
-    "2ym-pe16ia"
+    "2ym-pe16ia",
+    "7l3-18mad6m",
+    "8rl-1sphb83"
   ],
   "faction-bm|Borough Mutual": [
     "24h-1s32hgu",
@@ -997,49 +1211,65 @@
     "1tr-1dsihv5",
     "1tp-mothfp",
     "1zu-1kdy65n",
-    "2t6-h3vjbb"
+    "2t6-h3vjbb",
+    "7cd-7nnjee",
+    "899-12tqzuw"
   ],
   "faction-bm|BM2 · Benefit Night Rain Check": [
     "20s-1alypg8",
     "20o-194uelu",
     "29y-l075xz",
-    "34h-pte44s"
+    "34h-pte44s",
+    "8t9-1sxbp2t",
+    "a2o-rye3iq"
   ],
   "faction-bm|BM3 · The Signatures Upstairs": [
     "1ym-6y4vq5",
     "1yj-1x40tgm",
     "2b3-ut9rza",
-    "33t-k8eiuj"
+    "33t-k8eiuj",
+    "7h8-t0x76r",
+    "8p3-12ss7i2"
   ],
   "faction-bm|BM4 · After the Batch": [
     "23l-1odkctd",
     "23j-xyztb9",
     "2ck-kmcjwv",
-    "35y-1vm8ojf"
+    "35y-1vm8ojf",
+    "7vz-xx5ck0",
+    "920-177zdba"
   ],
   "faction-bm|BM5 · The Homes on the List": [
     "215-wsqunh",
     "212-19fqx1i",
     "2dx-14s25ce",
-    "392-rdisje"
+    "392-rdisje",
+    "88t-10q5xcc",
+    "9kc-1j0wuvx"
   ],
   "faction-bm|BM6 · Who Can Promise a Home": [
     "1xb-b563i",
     "1x8-tt90nd",
     "237-13g5sx2",
-    "2vq-hk058f"
+    "2vq-hk058f",
+    "7z4-ia2orv",
+    "971-1plxh9l"
   ],
   "faction-bm|BM7 · A Witness Chooses a Door": [
     "23e-wzp4tn",
     "23b-103aabk",
     "2dj-gmj183",
-    "372-nryg0t"
+    "372-nryg0t",
+    "7xh-1wv4z2j",
+    "8va-1n4iss4"
   ],
   "faction-bm|BM8 · The Neighbourhood Gets a Vote": [
     "25i-fp5bp0",
     "25e-1xjxnni",
     "2dz-1pvt4y4",
-    "35k-6qyslf"
+    "35k-6qyslf",
+    "8m0-1qmnnt3",
+    "9un-1qwbruf"
   ],
   "faction-ld|The Lantern Desk": [
     "257-32t3zo",
@@ -1052,49 +1282,65 @@
     "1rt-nl11ie",
     "1rr-1dttnui",
     "1xy-kjpyl6",
-    "2qp-1ltpehy"
+    "2qp-1ltpehy",
+    "738-4e4t5k",
+    "80b-kfxz2z"
   ],
   "faction-ld|LD2 · The Uniform in the Photograph": [
     "1yn-1jilehi",
     "1yl-1mqhtls",
     "260-389erz",
-    "300-19firy9"
+    "300-19firy9",
+    "7to-1noyc8j",
+    "93d-6194qu"
   ],
   "faction-ld|LD3 · A Report With No Visit": [
     "27b-kemwo",
     "277-kpoc14",
     "2ka-824jnv",
-    "3ee-2bmqfj"
+    "3ee-2bmqfj",
+    "91c-ua7ua3",
+    "ab5-aqd403"
   ],
   "faction-ld|LD4 · Someone Else's Property": [
     "1rm-1r43bjq",
     "1rk-atzhik",
     "201-1e8gwlt",
-    "2t4-4aaqmy"
+    "2t4-4aaqmy",
+    "71j-1iie2zc",
+    "87r-zi891y"
   ],
   "faction-ld|LD5 · The Person Behind the File": [
     "1yp-1cmo2wp",
     "1yn-w1yjq3",
     "28v-1efxwor",
-    "31l-ywceh0"
+    "31l-ywceh0",
+    "7g7-1e9jrgo",
+    "8n7-1tffli0"
   ],
   "faction-ld|LD6 · The Inspector's Other Employer": [
     "1yc-1o0ssgq",
     "1y9-t8btvx",
     "27p-camuee",
-    "316-10m2jq1"
+    "316-10m2jq1",
+    "7ov-10vdct8",
+    "8uy-1os7dmx"
   ],
   "faction-ld|LD7 · Four Notices Before Midnight": [
     "20k-1o6vz9u",
     "20h-803go1",
     "29g-1eovj35",
-    "342-1o8lz4b"
+    "342-1o8lz4b",
+    "7v8-y24df4",
+    "96i-14b1hzk"
   ],
   "faction-ld|LD8 · A Case That Survives Its Witnesses": [
     "1xe-ur05ho",
     "1xc-hwsmhu",
     "24y-qo8urz",
-    "2v5-1t4v5nf"
+    "2v5-1t4v5nf",
+    "7ac-18zil5d",
+    "8fx-htkfpn"
   ],
   "faction-mr|Meridian Renewal": [
     "25l-1djh648",
@@ -1107,49 +1353,65 @@
     "1zg-s45mxc",
     "1zd-1pvn6tb",
     "25h-t66zby",
-    "2zm-1n0szp5"
+    "2zm-1n0szp5",
+    "75j-1g73ywi",
+    "847-b4w6a4"
   ],
   "faction-mr|MR2 · The Model Apartment": [
     "1w9-131df7z",
     "1w6-6cqv72",
     "25o-cywylz",
-    "2yg-xhwaso"
+    "2yg-xhwaso",
+    "7x2-1srufzv",
+    "94a-197nvh2"
   ],
   "faction-mr|MR3 · An Invoice for a Driver": [
     "1yj-13srams",
     "1yg-10dayf5",
     "250-1eg44th",
-    "2xi-1vcfvon"
+    "2xi-1vcfvon",
+    "79h-1362iha",
+    "8he-1l7bbaj"
   ],
   "faction-mr|MR4 · The Report and the Door": [
     "203-1ichzmk",
     "200-dcckr5",
     "2d4-1purn5k",
-    "35v-1w18wbs"
+    "35v-1w18wbs",
+    "7h4-1l99r3q",
+    "8p0-yq7r2t"
   ],
   "faction-mr|MR5 · Vacant on Paper": [
     "1zz-1ajvpbf",
     "1zw-xgj8iy",
     "27v-1epcr0s",
-    "31n-v5znex"
+    "31n-v5znex",
+    "7uv-19u6v1v",
+    "94t-euj6cb"
   ],
   "faction-mr|MR6 · Buy the Frequency": [
     "1z8-1d0a7ig",
     "1z5-12gy6zh",
     "27f-x45ip9",
-    "2zw-72vftw"
+    "2zw-72vftw",
+    "7tm-90e31h",
+    "93d-45aog3"
   ],
   "faction-mr|MR7 · The Quiet Hour": [
     "28b-1m6od6v",
     "287-zy1fa5",
     "2kc-1gcjzpv",
-    "3f1-1trm0z2"
+    "3f1-1trm0z2",
+    "7tg-1kiceux",
+    "943-1cjgmig"
   ],
   "faction-mr|MR8 · The City on the Brochure": [
     "2a2-xqztbq",
     "29y-r1lmoi",
     "2hs-1al3poi",
-    "3a8-6ycp9d"
+    "3a8-6ycp9d",
+    "8cq-h7iw73",
+    "9nz-18c6i96"
   ],
   "faction-rt|The Red Thread": [
     "25j-bwd5m0",
@@ -1162,49 +1424,65 @@
     "28a-1re6wgn",
     "286-bb1p87",
     "2ki-m8rfec",
-    "3f9-1uzcdr2"
+    "3f9-1uzcdr2",
+    "8ra-v05t9t",
+    "a27-5cxoyf"
   ],
   "faction-rt|RT2 · The Watch After Midnight": [
     "1yt-15hx9sa",
     "1yp-1yvf4am",
     "26f-1ifidbq",
-    "30j-1xpehri"
+    "30j-1xpehri",
+    "8df-r8i1fk",
+    "9kv-1nphz17"
   ],
   "faction-rt|RT3 · A Photograph Without a Caption": [
     "1zg-1m22j8e",
     "1zd-rgtw4z",
     "29l-rt8c08",
-    "32n-1vmtwx3"
+    "32n-1vmtwx3",
+    "7t6-1o1o0ag",
+    "903-1vhca88"
   ],
   "faction-rt|RT4 · The Night That Repeated": [
     "269-l2tntz",
     "265-1f5k64h",
     "2i8-153qil3",
-    "3cv-d5j0te"
+    "3cv-d5j0te",
+    "8tq-1pzw55o",
+    "a2y-s74qx0"
   ],
   "faction-rt|RT5 · Six Addresses Before the Trouble": [
     "25f-nlc570",
     "25c-4zxsel",
     "2o2-t96vq6",
-    "3hq-1ik492a"
+    "3hq-1ik492a",
+    "81n-1g2de42",
+    "9bs-1hzq4tj"
   ],
   "faction-rt|RT6 · The Woman Who Chose to Vanish": [
     "1yz-1vlbxyv",
     "1yx-16owr41",
     "29a-bp7hlu",
-    "31m-cdc1p0"
+    "31m-cdc1p0",
+    "71v-1jikh8c",
+    "7y6-xy9wxp"
   ],
   "faction-rt|RT7 · Who Holds the Original": [
     "1yb-1ch9bnm",
     "1y8-amu2uj",
     "2b3-h3yt2y",
-    "33v-wqoiq2"
+    "33v-wqoiq2",
+    "7i8-1bd71z7",
+    "8pr-125paok"
   ],
   "faction-rt|RT8 · A Record of What Happened": [
     "27l-2c7bcp",
     "27h-sktb3t",
     "2ft-sk748z",
-    "381-ym2a0x"
+    "381-ym2a0x",
+    "8cu-5bj733",
+    "9mg-wk4f24"
   ],
   "local-cases|How Local Cases Work": [
     "2yd-whhz6o",
@@ -1215,121 +1493,162 @@
     "1ef-11vpb46",
     "1ec-1b8npib",
     "1oq-1bhqwn0",
-    "2fr-1d7nofs"
+    "2fr-1d7nofs",
+    "6tz-37oylk",
+    "7xz-z4we47"
   ],
   "local-cases|S02 · The Alarm Before the Song": [
     "1he-gvlq8v",
     "1hb-hf8200",
     "1o0-xmkm7s",
-    "2fs-13ufvdy"
+    "2fs-13ufvdy",
+    "6oe-1upgoom",
+    "7ug-8nj914"
   ],
   "local-cases|S03 · The Wrong Brother on the Boat": [
     "1dl-1tvpma1",
     "1dh-5kht7j",
     "1mj-1juwxzn",
-    "2dy-1xrfijk"
+    "2dy-1xrfijk",
+    "6il-1l1jlrr",
+    "7pj-pn038r"
   ],
   "local-cases|S04 · The Dog at the Fundraiser": [
     "1hb-1iyq5yc",
     "1h8-9gegj",
     "1ug-1qs0ee1",
-    "2me-1nio3eo"
+    "2me-1nio3eo",
+    "78f-y8rg2y",
+    "8ve-1nhfyew",
+    "8we-1nqxm94"
   ],
   "local-cases|S05 · The Missing Mascot": [
     "1gx-1uh2snf",
     "1gu-8bppmi",
     "1o1-ugwndd",
-    "2fk-meze9g"
+    "2fk-meze9g",
+    "6f4-sx5ib0",
+    "7ma-cq6k5k"
   ],
   "local-cases|S06 · The Cat in the Catalogue": [
     "1fr-n6mqdg",
     "1fo-4ksu19",
     "1o4-11m4hn4",
-    "2fi-1ctdvcq"
+    "2fi-1ctdvcq",
+    "6o6-yf0qp4",
+    "7vc-fiokbt"
   ],
   "local-cases|S07 · The Silent Set": [
     "1ah-16saqqp",
     "1ae-10lwfdc",
     "1ia-vgzefo",
-    "28j-1vzgyn7"
+    "28j-1vzgyn7",
+    "6fe-dsxvue",
+    "7ko-v3kuh5"
   ],
   "local-cases|S08 · The Chicken Palace Key": [
     "1jv-4tpco7",
     "1jt-1a36fgd",
     "1po-c9gtc5",
-    "2hr-wi0m3w"
+    "2hr-wi0m3w",
+    "6pl-1e9jozi",
+    "7uw-141gvn7"
   ],
   "local-cases|S09 · The Projector Belongs to Both of Us": [
     "1c9-1j8thtk",
     "1c6-46kc2l",
     "1k7-1jquf9o",
-    "2b1-wfkvvi"
+    "2b1-wfkvvi",
+    "6i3-jcj10j",
+    "7m2-lpwjm3"
   ],
   "local-cases|S10 · The Sponsor Who Never Arrived": [
     "1dx-12iz1cj",
     "1du-xsrucs",
     "1m2-9mmp2h",
-    "2dm-t1k81m"
+    "2dm-t1k81m",
+    "6i9-163ty20",
+    "7f7-1e8ds68"
   ],
   "local-cases|S11 · The Painting That Keeps Coming Back": [
     "1d6-89ab5a",
     "1d3-di3g5",
     "1jl-gq3cyz",
-    "2aq-12ekakm"
+    "2aq-12ekakm",
+    "6wo-n9qlai",
+    "827-uqfgz0"
   ],
   "local-cases|S12 · The Wedding Dubplate": [
     "1e5-1wbuh2l",
     "1e2-1anzw7e",
     "1l2-1d8iufl",
-    "2ci-1psmq5y"
+    "2ci-1psmq5y",
+    "6jy-179qh2r",
+    "7ru-t9i9t9"
   ],
   "local-cases|S13 · Big Sal on the Poster": [
     "1at-18h1185",
     "1aq-1pkorf0",
     "1li-1dxjjg3",
-    "2br-54i25d"
+    "2br-54i25d",
+    "6ze-1zeto8",
+    "848-o1iju6"
   ],
   "local-cases|S14 · The Passenger Paid Twice": [
     "1bg-xnqm5y",
     "1bd-v7cu7f",
     "1h7-y0ec8u",
-    "27y-1hiwtbf"
+    "27y-1hiwtbf",
+    "6n5-15rj05i",
+    "7sk-140gmav"
   ],
   "local-cases|S15 · The Lucky Jacket": [
     "1fm-qdwgo2",
     "1fj-1x9hpoj",
     "1lr-gc0pir",
-    "2dm-1rtytrv"
+    "2dm-1rtytrv",
+    "72a-a006hj",
+    "88p-1ditviy"
   ],
   "local-cases|S16 · The Cabinet and the Debt": [
     "1eg-qbw392",
     "1ed-1cvx3k3",
     "1os-1s9augo",
-    "2gn-hoyn0c"
+    "2gn-hoyn0c",
+    "6dj-isin5k",
+    "7lb-1gnfgr7"
   ],
   "local-cases|S17 · The Riding Contest": [
     "1f5-uti77d",
     "1f1-nqe0mp",
     "1nl-19w0si4",
-    "2fi-2gh027"
+    "2fi-2gh027",
+    "6ka-im3nkm",
+    "7sq-1klho2c"
   ],
   "local-cases|S18 · The Funeral for a Living Cabbie": [
     "1gy-twc7xq",
     "1gv-4homd1",
     "1ny-regcnl",
-    "2gb-k2kthk"
+    "2gb-k2kthk",
+    "7oh-8tu4lh",
+    "8wd-hq1y4w"
   ],
   "local-cases|S19 · The Bell in the Wrong Crate": [
     "1hk-1sbqdqi",
     "1hh-elm1ad",
     "1oe-1yqsi4f",
-    "2ex-1agxal2"
+    "2ex-1agxal2",
+    "6zo-11s303z",
+    "83z-8hqvd"
   ],
   "local-cases|S20 · The Film with the Missing Van": [
     "1ip-dqtwjo",
     "1im-fm0y29",
     "1nu-4fc62h",
-    "2cf-1si85d7"
+    "2cf-1si85d7",
+    "79h-qn02vl",
+    "8gx-11yqzqd"
   ],
   "venue-register|How to Use the Register": [
     "dku-1x8zjqo",
@@ -1463,21 +1782,30 @@
     "5am-14m4vdu"
   ],
   "rules-reference|Guide Index": [
-    "1vo-1ezu7sl"
+    "1vo-1ezu7sl",
+    "1yq-1upq3ku"
   ],
   "players-handbook|Chases and Police Stops": [
     "22w-4b2mea",
-    "22x-1el9ef2"
+    "22x-1el9ef2",
+    "2a9-1s8683s",
+    "2er-1m52rv8",
+    "2ab-up4urc"
   ],
   "players-handbook|Blower, Radio and Sat Nav": [
-    "1ee-1ypenmc"
+    "1ee-1ypenmc",
+    "1eg-a9gwem"
   ],
   "players-handbook|Missions and Faction Standing": [
-    "1eg-1y2e3tx"
+    "1eg-1y2e3tx",
+    "1ei-13b2475"
   ],
   "gms-book|Automation and Table Pace": [
     "2yg-5c7zn0",
-    "2yh-qh69w8"
+    "2yh-qh69w8",
+    "35t-1uvegly",
+    "3cu-17ustlg",
+    "35v-slw57i"
   ],
   "gm-guide|Mission 1 · On Your Bike": [
     "1pp-keu6si",
@@ -1490,5 +1818,247 @@
   "gm-guide|Mission 3 · Lights and Sirens": [
     "1u5-fimjeb",
     "3fd-1dzjzov"
+  ],
+  "radio-files|How these jobs work": [
+    "1m6-cykxcv",
+    "1zo-cek99n"
+  ],
+  "radio-files|RW-POINT-01 · Point Blank: Spread the Signal": [
+    "3h9-1ddfzam",
+    "3ju-ztis7o",
+    "48o-1mf6r6c"
+  ],
+  "radio-files|RW-POINT-02 · Point Blank: Hold the Frequency": [
+    "35l-1osr7fe",
+    "383-80ovg5",
+    "3wx-ew3gsr"
+  ],
+  "radio-files|RW-RUDEF-01 · Rude FM: Spread the Signal": [
+    "33s-1hqoaws",
+    "36d-g7pw16",
+    "3v3-1g0fj9p"
+  ],
+  "radio-files|RW-RUDEF-02 · Rude FM: Hold the Frequency": [
+    "322-138dq7",
+    "34k-1cnhatm",
+    "3ta-1j7v9c3"
+  ],
+  "radio-files|RW-VISIO-01 · Vision Radio UK: Spread the Signal": [
+    "33v-1pa0avz",
+    "36g-1hfszw7",
+    "3uz-12mv026"
+  ],
+  "radio-files|RW-VISIO-02 · Vision Radio UK: Hold the Frequency": [
+    "37c-jh2rod",
+    "39u-1ykt6sm",
+    "3yd-123b8ul"
+  ],
+  "radio-files|RW-FLEXF-01 · Flex FM: Spread the Signal": [
+    "398-xpp5uf",
+    "3bt-gapfq",
+    "40n-cnisb9"
+  ],
+  "radio-files|RW-FLEXF-02 · Flex FM: Hold the Frequency": [
+    "34l-ravkvg",
+    "373-115oavs",
+    "3vx-rwpqlj"
+  ],
+  "radio-files|RW-SUPRE-01 · Supreme FM: Spread the Signal": [
+    "399-1hv5iwi",
+    "3bu-o4ux6t",
+    "40j-1fcmnfm"
+  ],
+  "radio-files|RW-SUPRE-02 · Supreme FM: Hold the Frequency": [
+    "36l-9gty90",
+    "393-191xfia",
+    "3xs-1tqqo2d"
+  ],
+  "radio-files|RW-RADIO-01 · Radio Caroline: Spread the Signal": [
+    "3bi-1m374ht",
+    "3e3-1yzooco",
+    "431-9o6cq8"
+  ],
+  "radio-files|RW-RADIO-02 · Radio Caroline: Hold the Frequency": [
+    "350-1t4yj9f",
+    "37i-em3nj3",
+    "3wg-1wshbjb"
+  ],
+  "tagging-files|How these jobs work": [
+    "49f-1syjsbe",
+    "4sl-1ipi0u"
+  ],
+  "player-guide|Using missions, counters and kit in the audit candidate": [
+    "tc-1n17a1p"
+  ],
+  "gm-guide|Audit candidate: migration, recovery and limits": [
+    "yq-18r0ii9"
+  ],
+  "tagging-files|TG-INTRO-01 · First Can": [
+    "3t3-1yd1ply",
+    "4gv-b5dqbg"
+  ],
+  "tagging-files|TG-INTRO-02 · Walls Have Ears": [
+    "4av-kpnlvt",
+    "528-kckmb1"
+  ],
+  "tagging-files|TG-INTRO-03 · The Last Bus Home": [
+    "3qd-yvqejt",
+    "4he-9ih1o5"
+  ],
+  "tagging-files|TG-INTRO-04 · A Name That Travels": [
+    "4av-pdu85q",
+    "549-1lvlv8e"
+  ],
+  "tagging-files|TG-CH-01 · The Arches Signal": [
+    "485-ftncvb",
+    "4ze-evpp41"
+  ],
+  "tagging-files|TG-CH-02 · Spokes Across Hackney": [
+    "4yi-ci5fea",
+    "5rp-v2820j"
+  ],
+  "tagging-files|TG-CH-03 · Pat Owns the Route": [
+    "4n5-5p867i",
+    "5jc-1ygm80j"
+  ],
+  "tagging-files|TG-AD-01 · Get the Signal Out": [
+    "43b-137zb6f",
+    "4up-1l9mtd2"
+  ],
+  "tagging-files|TG-AD-02 · The Frequency Run": [
+    "4e7-tbl4qm",
+    "58y-eezfu2"
+  ],
+  "tagging-files|TG-AD-03 · No Dead Air Tonight": [
+    "4h5-15tcd40",
+    "5eb-n9daly"
+  ],
+  "tagging-files|TG-LB-01 · Moth Leaves a Sign": [
+    "3zs-lopvd3",
+    "4q2-6qp6g4"
+  ],
+  "tagging-files|TG-LB-02 · Reeds by the Water": [
+    "4ki-dzms1e",
+    "5dw-1gmn6ao"
+  ],
+  "tagging-files|TG-LB-03 · Stretch Out the Borough": [
+    "4o0-xe40vr",
+    "5kw-ypcsjl"
+  ],
+  "tagging-files|TG-VC-01 · Tonight Only": [
+    "3n2-z3f7aa",
+    "4e5-1e7f11t"
+  ],
+  "tagging-files|TG-VC-02 · The Velvet Trail": [
+    "42e-an4h3y",
+    "4w8-11tpv70"
+  ],
+  "tagging-files|TG-VC-03 · Full House Full City": [
+    "47g-1470cdw",
+    "545-1d75r7m"
+  ],
+  "tagging-files|TG-TU-01 · Tern Marks the Drop": [
+    "3np-79hfjl",
+    "4er-tf232p"
+  ],
+  "tagging-files|TG-TU-02 · Under the Bridges": [
+    "4bp-vxpvje",
+    "559-cq4tch"
+  ],
+  "tagging-files|TG-TU-03 · Last Van Standing": [
+    "4ba-rxtp9f",
+    "58d-188zsw8"
+  ],
+  "tagging-files|TG-GE-01 · Wren Signs His Work": [
+    "3vy-pgj4tl",
+    "4np-1xl1rj6"
+  ],
+  "tagging-files|TG-GE-02 · The Missing Shard": [
+    "4fo-s993sj",
+    "5aa-1c98tum"
+  ],
+  "tagging-files|TG-GE-03 · The Prism Line": [
+    "49g-1d5f0k9",
+    "56k-110qn6v"
+  ],
+  "tagging-files|TG-BB-01 · Odds on the Wall": [
+    "3ox-ffc0j2",
+    "4fz-14wgt2x"
+  ],
+  "tagging-files|TG-BB-02 · Across the Book": [
+    "4gb-7iz3rm",
+    "5a1-1tlembk"
+  ],
+  "tagging-files|TG-BB-03 · The Bookies Countermark": [
+    "4nm-ck0rf3",
+    "5k1-zge7le"
+  ],
+  "tagging-files|TG-NM-01 · Follow the Lantern": [
+    "3q8-qmq8uz",
+    "4gu-1i6321j"
+  ],
+  "tagging-files|TG-NM-02 · Two Buyers No Map": [
+    "4c8-h06hne",
+    "567-1yad30a"
+  ],
+  "tagging-files|TG-NM-03 · Market After Midnight": [
+    "471-mpdgph",
+    "53n-1ggc86t"
+  ],
+  "tagging-files|TG-BM-01 · Mutual Aid Mural": [
+    "41s-dhtbrg",
+    "4sy-13n20p0"
+  ],
+  "tagging-files|TG-BM-02 · A Different Kind of Notice": [
+    "4e0-1ngya9o",
+    "57o-u3zh7q"
+  ],
+  "tagging-files|TG-BM-03 · A Borough Remembers": [
+    "4ok-cr94f6",
+    "5l4-rsa0a9"
+  ],
+  "tagging-files|TG-LD-01 · The Lantern Code": [
+    "41p-lsg7mn",
+    "4ss-172483j"
+  ],
+  "tagging-files|TG-LD-02 · Between the Lines": [
+    "4s1-12q6jpa",
+    "5mm-11pcvu1"
+  ],
+  "tagging-files|TG-LD-03 · A Light in the Wrong Place": [
+    "4cy-lw5ug2",
+    "5aa-pnrzo4"
+  ],
+  "tagging-files|TG-MR-01 · Meridian Says Welcome": [
+    "3tk-uk9m5j",
+    "4kr-6m2owt"
+  ],
+  "tagging-files|TG-MR-02 · New Boundary New Banner": [
+    "4gw-ugkzhn",
+    "5bi-1e7cx22"
+  ],
+  "tagging-files|TG-MR-03 · The Golden Route": [
+    "47z-11bwakj",
+    "55a-4gpzh0"
+  ],
+  "tagging-files|TG-RT-01 · The Red Thread Begins": [
+    "3pi-tx1zik",
+    "4gq-ektqzh"
+  ],
+  "tagging-files|TG-RT-02 · Stitches on the Map": [
+    "4dw-e3vlb1",
+    "582-31lays"
+  ],
+  "tagging-files|TG-RT-03 · The Thread Cannot Break": [
+    "47j-1690yqu",
+    "53q-4hjghq"
+  ],
+  "tagging-files|TG-CITY-01 · From Lea to Bow": [
+    "5kp-6tmpby",
+    "6o5-ba1h15"
+  ],
+  "tagging-files|TG-CITY-02 · Nothing Stays Painted": [
+    "6cb-1xi1skq",
+    "7eh-1srzhnb"
   ]
 }

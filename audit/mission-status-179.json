@@ -1,0 +1,4039 @@
+[
+  {
+    "id": "m01",
+    "code": "CH1",
+    "title": "On Your Bike",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "arrival": 1,
+      "event": 2
+    },
+    "locations": [
+      "Haggerston & London Fields / London Fields Lido",
+      "The Arches · Pat's Cycles / Loading Yard",
+      "The Arches · Pat's Cycles / Pat's Office"
+    ],
+    "resources": [
+      {
+        "id": "targets",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV01",
+          "LV02",
+          "LV06",
+          "LV03"
+        ],
+        "scale": "crewMin2",
+        "location": {
+          "id": "LDN-HAGGERSTON:london-fields-lido",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": "london-fields-lido",
+          "name": "Haggerston & London Fields / London Fields Lido",
+          "rect": [
+            3600,
+            600,
+            600,
+            300
+          ],
+          "x": 3900,
+          "y": 750,
+          "reach": 2.4,
+          "marginSquares": 2
+        },
+        "locked": true
+      }
+    ],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m02",
+    "code": "CH2",
+    "title": "The Whippet",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "arrival": 1,
+      "roll": 1,
+      "event": 1
+    },
+    "locations": [
+      "Bethnal Green / Broadway Market",
+      "The Arches · Pat's Cycles / Loading Yard"
+    ],
+    "resources": [
+      {
+        "id": "targets",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV03"
+        ],
+        "count": 1,
+        "location": {
+          "id": "LDN-BETHNAL-GREEN:broadway-market",
+          "mapId": "LDN-BETHNAL-GREEN",
+          "zoneId": "broadway-market",
+          "name": "Bethnal Green / Broadway Market",
+          "rect": [
+            0,
+            0,
+            300,
+            600
+          ],
+          "x": 150,
+          "y": 300,
+          "reach": 2.4,
+          "marginSquares": 2
+        },
+        "locked": true
+      }
+    ],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m03",
+    "code": "CH3",
+    "title": "Lights and Sirens",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 3,
+      "choice": 1
+    },
+    "locations": [
+      "Homerton East & Wick Woodland / Wick Rd",
+      "South Hackney & Well Street / Morning Ln",
+      "The Arches · Pat's Cycles / Loading Yard",
+      "The Arches · Pat's Cycles / Pat's Office",
+      "Victoria Park & Hackney Wick / Lea Valley Motors"
+    ],
+    "resources": [
+      {
+        "id": "targets",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV21"
+        ],
+        "count": 1,
+        "location": {
+          "id": "LDN-SOUTH-HACKNEY:morning-ln",
+          "mapId": "LDN-SOUTH-HACKNEY",
+          "zoneId": "morning-ln",
+          "name": "South Hackney & Well Street / Morning Ln",
+          "rect": [
+            2700,
+            0,
+            300,
+            600
+          ],
+          "x": 2850,
+          "y": 300,
+          "reach": 2.4,
+          "marginSquares": 2
+        },
+        "locked": true,
+        "moving": true,
+        "routeMaps": [
+          "LDN-SOUTH-HACKNEY",
+          "LDN-WICK-WOODLAND",
+          "LDN-VICTORIA-PARK"
+        ]
+      },
+      {
+        "id": "transport",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV02"
+        ],
+        "scale": "crew",
+        "location": {
+          "id": "LDP-ARCHES:yard",
+          "mapId": "LDP-ARCHES",
+          "zoneId": "yard",
+          "name": "The Arches · Pat's Cycles / Loading Yard",
+          "rect": [
+            100,
+            800,
+            1800,
+            900
+          ],
+          "x": 1000,
+          "y": 1250,
+          "reach": 2.4
+        },
+        "loan": true
+      }
+    ],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Moving van is spawned, but multi-map route/deadline simulation is incomplete."
+  },
+  {
+    "id": "m04",
+    "code": "m04",
+    "title": "Lea Boys",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 1,
+      "roll": 2
+    },
+    "locations": [
+      "Lea Bridge Social Rooms / Counting Office",
+      "The Arches · Pat's Cycles / Loading Yard",
+      "The Arches · Pat's Cycles / Workshop Arch"
+    ],
+    "resources": [
+      {
+        "id": "opponents",
+        "kind": "npc",
+        "npcKey": "lea-boy",
+        "scale": "halfCrew",
+        "location": {
+          "id": "LDP-ARCHES:yard",
+          "mapId": "LDP-ARCHES",
+          "zoneId": "yard",
+          "name": "The Arches · Pat's Cycles / Loading Yard",
+          "rect": [
+            100,
+            800,
+            1800,
+            900
+          ],
+          "x": 1000,
+          "y": 1250,
+          "reach": 2.4
+        },
+        "hostile": true
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Gang/encounter state hooks exist; full authored confrontation needs live acceptance."
+  },
+  {
+    "id": "m05",
+    "code": "m05",
+    "title": "Chop Chop",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Old Ford & Bow / Bow Breakers Yard",
+      "Old Ford & Bow / Roman Block"
+    ],
+    "resources": [
+      {
+        "id": "targets",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV15",
+          "LV16",
+          "LV20"
+        ],
+        "scale": "halfCrew",
+        "location": {
+          "id": "LDN-OLD-FORD:roman-block",
+          "mapId": "LDN-OLD-FORD",
+          "zoneId": "roman-block",
+          "name": "Old Ford & Bow / Roman Block",
+          "rect": [
+            1500,
+            900,
+            900,
+            300
+          ],
+          "x": 1950,
+          "y": 1050,
+          "reach": 2.4
+        },
+        "locked": true
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m06",
+    "code": "m06",
+    "title": "Uncle's Errand",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "arrival": 1,
+      "event": 3
+    },
+    "locations": [
+      "Bethnal Green / Uncle's Cafe",
+      "Old Ford & Bow / Roman Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m07",
+    "code": "m07",
+    "title": "Hot Wheels",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Haggerston & London Fields / Kwik Spray Bodyshop",
+      "Old Ford & Bow / Bow Breakers Yard"
+    ],
+    "resources": [
+      {
+        "id": "targets",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV17"
+        ],
+        "count": 1,
+        "location": {
+          "id": "LDN-HAGGERSTON:kwik-spray-bodyshop",
+          "mapId": "LDN-HAGGERSTON",
+          "zoneId": "kwik-spray-bodyshop",
+          "name": "Haggerston & London Fields / Kwik Spray Bodyshop",
+          "rect": [
+            900,
+            2100,
+            300,
+            600
+          ],
+          "x": 1050,
+          "y": 2400,
+          "reach": 2.4,
+          "marginSquares": 2
+        },
+        "locked": true
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m08",
+    "code": "m08",
+    "title": "Vale",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "roll": 2,
+      "choice": 1
+    },
+    "locations": [
+      "Custody Suite / Interview Room",
+      "Evering Safe Flat / Landing"
+    ],
+    "resources": [
+      {
+        "id": "vale",
+        "kind": "npc",
+        "npcKey": "vale",
+        "count": 1,
+        "location": {
+          "id": "LDP-CUSTODY:interview",
+          "mapId": "LDP-CUSTODY",
+          "zoneId": "interview",
+          "name": "Custody Suite / Interview Room",
+          "rect": [
+            1000,
+            800,
+            900,
+            500
+          ],
+          "x": 1450,
+          "y": 1050,
+          "reach": 2.4
+        }
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m09",
+    "code": "m09",
+    "title": "Westfield",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 5,
+    "modes": {
+      "roll": 1,
+      "arrival": 1,
+      "event": 3
+    },
+    "locations": [
+      "Westfield Stratford City / Concourse",
+      "Your Flat / Back Alley",
+      "Your Flat / Living Room"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "m10",
+    "code": "m10",
+    "title": "The Marshes",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "arrival": 1,
+      "race": 1,
+      "event": 1
+    },
+    "locations": [
+      "Hackney Marshes / Hackney Marshes",
+      "Hackney Marshes / Homerton Rd"
+    ],
+    "resources": [
+      {
+        "id": "transport",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV03"
+        ],
+        "scale": "crew",
+        "location": {
+          "id": "LDN-MARSHES:hackney-marshes-8",
+          "mapId": "LDN-MARSHES",
+          "zoneId": "hackney-marshes-8",
+          "name": "Hackney Marshes / Hackney Marshes",
+          "rect": [
+            2400,
+            2100,
+            900,
+            300
+          ],
+          "x": 2850,
+          "y": 2250,
+          "reach": 2.4,
+          "allowPark": true
+        },
+        "loan": true
+      },
+      {
+        "id": "rivals",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV03"
+        ],
+        "scale": "halfCrew",
+        "location": {
+          "id": "LDN-MARSHES:hackney-marshes-8",
+          "mapId": "LDN-MARSHES",
+          "zoneId": "hackney-marshes-8",
+          "name": "Hackney Marshes / Hackney Marshes",
+          "rect": [
+            2400,
+            2100,
+            900,
+            300
+          ],
+          "x": 2850,
+          "y": 2250,
+          "reach": 2.4,
+          "allowPark": true
+        },
+        "npcKey": "stretch"
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Race gates/rival movement code exists; complete multi-client race not signed off."
+  },
+  {
+    "id": "m11",
+    "code": "m11",
+    "title": "Raid",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "arrival": 1,
+      "event": 4,
+      "roll": 1
+    },
+    "locations": [
+      "The Arches · Pat's Cycles / Loading Yard",
+      "The Arches · Pat's Cycles / Pat's Office",
+      "Your Flat / Living Room"
+    ],
+    "resources": [
+      {
+        "id": "pat",
+        "kind": "npc",
+        "npcKey": "pat",
+        "count": 1,
+        "location": {
+          "id": "LDP-ARCHES:back-arch",
+          "mapId": "LDP-ARCHES",
+          "zoneId": "back-arch",
+          "name": "The Arches · Pat's Cycles / Pat's Office",
+          "rect": [
+            1900,
+            800,
+            800,
+            900
+          ],
+          "x": 2300,
+          "y": 1250,
+          "reach": 2.4
+        },
+        "escortTo": {
+          "id": "LDP-FLAT:living-room",
+          "mapId": "LDP-FLAT",
+          "zoneId": "living-room",
+          "name": "Your Flat / Living Room",
+          "rect": [
+            600,
+            100,
+            1000,
+            900
+          ],
+          "x": 1100,
+          "y": 550,
+          "reach": 2.4
+        }
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Escort transfer is proximity-bound; driving/scene-transition acceptance needed."
+  },
+  {
+    "id": "m12",
+    "code": "m12",
+    "title": "Big Night",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "arrival": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 3
+    },
+    "locations": [
+      "Leyton & Ruckholt / Leyton Orient FC",
+      "Leyton Orient stadium / Loading Apron",
+      "The Arches · Pat's Cycles / Loading Yard",
+      "The Arches · Pat's Cycles / Pat's Office"
+    ],
+    "resources": [
+      {
+        "id": "stretch",
+        "kind": "npc",
+        "npcKey": "stretch",
+        "count": 1,
+        "location": {
+          "id": "LDV-LY1:ly1-6",
+          "mapId": "LDV-LY1",
+          "zoneId": "ly1-6",
+          "name": "Leyton Orient stadium / Loading Apron",
+          "rect": [
+            100,
+            800,
+            1000,
+            1900
+          ],
+          "x": 600,
+          "y": 1750,
+          "reach": 2.4
+        },
+        "escortTo": {
+          "id": "LDP-ARCHES:yard",
+          "mapId": "LDP-ARCHES",
+          "zoneId": "yard",
+          "name": "The Arches · Pat's Cycles / Loading Yard",
+          "rect": [
+            100,
+            800,
+            1800,
+            900
+          ],
+          "x": 1000,
+          "y": 1250,
+          "reach": 2.4
+        }
+      }
+    ],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Alternative branch code exists; full finale economics/consequences not signed off."
+  },
+  {
+    "id": "ch4",
+    "code": "CH4",
+    "title": "The Frame Room",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Clifden Crew Garage / Vehicle Bay",
+      "Hackney Marshes Centre / Foyer",
+      "Oddments Lockup / Invoice Office"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Recoverable bike fleet still needs bespoke resource/workflow authoring."
+  },
+  {
+    "id": "ch5",
+    "code": "CH5",
+    "title": "The Borrowed Winner",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Goldsmiths Riding Workshop / Club Office",
+      "Kingsland Courier Arch / Dispatch Hatch",
+      "Lee Valley VeloPark / Foyer",
+      "Lee Valley VeloPark / Training Hall",
+      "Leyton Orient stadium / Foyer",
+      "The Kenton / Public Bar"
+    ],
+    "resources": [
+      {
+        "id": "prize-bike",
+        "kind": "vehicle",
+        "catalogIds": [
+          "LV03"
+        ],
+        "count": 1,
+        "location": {
+          "id": "LDV-ON1:on1-1",
+          "mapId": "LDV-ON1",
+          "zoneId": "on1-1",
+          "name": "Lee Valley VeloPark / Foyer",
+          "rect": [
+            3000,
+            100,
+            900,
+            2200
+          ],
+          "x": 3450,
+          "y": 1200,
+          "reach": 2.4
+        },
+        "locked": true,
+        "propId": "p1"
+      }
+    ],
+    "contactCount": 6,
+    "supportTasks": 6,
+    "remaining": "Unique prize bike and parcel representations need reconciliation."
+  },
+  {
+    "id": "ch6",
+    "code": "CH6",
+    "title": "The Shop That Was Already Sold",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Clapton Union Rooms / Entrance Hall",
+      "Essex Dry Goods / Shop Front",
+      "Orchard Lease Office / Front Counter",
+      "Stoke Newington Town Hall / Lobby"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ch7",
+    "code": "CH7",
+    "title": "Who Runs the Arches",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 5,
+      "event": 2
+    },
+    "locations": [
+      "Lea Bridge Social Rooms / Boxing Room",
+      "Lea Bridge Social Rooms / Counting Office",
+      "MOTH Club / Entrance Foyer",
+      "Roman Exchange / Front Stall",
+      "Tern Wharf Dispatch / Front Office",
+      "The Arches · Pat's Cycles / Pat's Office"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ch8",
+    "code": "CH8",
+    "title": "Keys to the Arches",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "choice": 2,
+      "roll": 1,
+      "arrival": 2,
+      "event": 2
+    },
+    "locations": [
+      "Chainring Storehouse / Office",
+      "Clifden Crew Garage / Vehicle Bay",
+      "Glasshouse Saleroom / Foyer",
+      "Meridian Sales Pavilion / Account Office",
+      "Meridian Sales Pavilion / Welcome Desk"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad1",
+    "code": "AD1",
+    "title": "Borrowed Speakers",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 2,
+      "roll": 2
+    },
+    "locations": [
+      "Backspin Studio / Live Room",
+      "Cafe OTO / Entrance Bar",
+      "Queensbridge Sound Store / Speaker Hall",
+      "Round Chapel / Event Hall"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad2",
+    "code": "AD2",
+    "title": "The Missing Hour",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Abney Books / Shop Front",
+      "Englefield Listening Flat / Record Cupboard",
+      "Rio Cinema / Foyer",
+      "Signature Brew Haggerston / Taproom"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad3",
+    "code": "AD3",
+    "title": "Two Stages One Van",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Hoxton Hall / Foyer",
+      "North Echo Rehearsal Rooms / Reception",
+      "The Lauriston / Public Bar",
+      "Union Chapel / Entrance Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Full one-van/two-stages crew logistics remains incomplete."
+  },
+  {
+    "id": "ad4",
+    "code": "AD4",
+    "title": "Pay to Play",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Backspin Studio / Record-shop Front",
+      "Lea Bridge Social Rooms / Counting Office",
+      "The Eagle / Public Bar",
+      "The Shacklewell Arms / Entrance Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad5",
+    "code": "AD5",
+    "title": "Somebody Else's Voice",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Grow Hackney / Entrance Bar",
+      "Silt Listening Bunker / Tape Cupboard",
+      "Wallis Tape Rooms / Lobby"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad6",
+    "code": "AD6",
+    "title": "Open Channel Loud Mouths",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Newington Green Meeting House / Porch",
+      "Sadler's Wells East / Foyer",
+      "The Old Church / Porch"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad7",
+    "code": "AD7",
+    "title": "Nia Sets the Terms",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 5,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "choice": 1
+    },
+    "locations": [
+      "Approach Recovery Rooms / Reception",
+      "Evering Safe Flat / Landing",
+      "Willow Cabin / Porch"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ad8",
+    "code": "AD8",
+    "title": "The Whole City Listening",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Bridge Nine Broadcast Garage / Equipment Store",
+      "London Stadium / Foyer",
+      "Round Chapel / Event Hall",
+      "Round Chapel / Foyer",
+      "The View Tube / Counter"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb1",
+    "code": "LB1",
+    "title": "Rent in Arrears",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Lea Bridge Social Rooms / Counting Office",
+      "Shepherdess Coin Rooms / Public Room",
+      "The Gun / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb2",
+    "code": "LB2",
+    "title": "Stretch Wants His Cut",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Old Ford & Bow / Bow Breakers Yard",
+      "Orient Night Shed / Cold Cage",
+      "Orient Night Shed / Dispatch Window",
+      "The Princess of Wales / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb3",
+    "code": "LB3",
+    "title": "The Larch Job",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Blue Hour Basement / Entrance Bar",
+      "Larch Cold Store / Reception",
+      "The Crooked Billet / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb4",
+    "code": "LB4",
+    "title": "Halo With Teeth",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Approach Recovery Rooms / Reception",
+      "Homerton A&E / Triage",
+      "Larch Cold Store / Reception",
+      "The Spread Eagle / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb5",
+    "code": "LB5",
+    "title": "The Boy Who Kept Receipts",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Custody Suite / Interview Room",
+      "The Coach and Horses / Public Bar",
+      "The Red Lion / Public Bar",
+      "Well Street Loan Office / Front Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb6",
+    "code": "LB6",
+    "title": "Terms From Above",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "De Beauvoir Block / Reception",
+      "North Park Hospitality Lodge / Foyer",
+      "Quayline Records Suite / Reception"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb7",
+    "code": "LB7",
+    "title": "Who Speaks for the Lea Boys",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Hackney Marshes North Pavilion / Foyer",
+      "Lea Bridge Social Rooms / Counting Office",
+      "MOTH Club / Entrance Foyer",
+      "York Hall / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "lb8",
+    "code": "LB8",
+    "title": "The Price of a Patch",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Carpenters Breakfast Club / Dining Room",
+      "Clapton Union Rooms / Entrance Hall",
+      "Meridian Sales Pavilion / Welcome Desk",
+      "Roman Exchange / Front Stall"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc1",
+    "code": "VC1",
+    "title": "The Sound Went Missing",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Blue Hour Basement / Entrance Bar",
+      "Howling Hops Tank Bar / Taproom",
+      "Queensbridge Sound Store / Hire Counter"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc2",
+    "code": "VC2",
+    "title": "No Guest List for the Missing",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 3,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Dalston Superstore / Entrance Foyer",
+      "Oslo Hackney / Entrance Bar",
+      "Theatre Royal Stratford East / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc3",
+    "code": "VC3",
+    "title": "Cash Before Curtain",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 5,
+      "event": 2
+    },
+    "locations": [
+      "Clapton Country Club / Foyer",
+      "Hackney Empire / Foyer",
+      "Leyton Great Hall / Lobby",
+      "The Eagle / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc4",
+    "code": "VC4",
+    "title": "The Last Good Batch",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Approach Recovery Rooms / Reception",
+      "Larch Cold Store / Reception",
+      "Number 90 / Entrance Foyer"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc5",
+    "code": "VC5",
+    "title": "A Set for Nobody",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Englefield Listening Flat / Record Cupboard",
+      "North Echo Rehearsal Rooms / Reception",
+      "The Shacklewell Arms / Entrance Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc6",
+    "code": "VC6",
+    "title": "The Sponsor Behind the Sponsor",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 3,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "North Park Hospitality Lodge / Foyer",
+      "The Baring / Public Bar",
+      "The Empress / Public Bar",
+      "The Stratford hotel / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc7",
+    "code": "VC7",
+    "title": "Last Dance Before the Sale",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "3 Mills Studios / Reception",
+      "ABBA Arena / Foyer",
+      "EartH / Entrance Bar",
+      "Sadler's Wells East / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "vc8",
+    "code": "VC8",
+    "title": "Who Owns the Night",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Blue Hour Basement / Entrance Bar",
+      "Bridge Nine Broadcast Garage / Equipment Store",
+      "London Stadium / Foyer",
+      "Marshgate Delivery Depot / Reception"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu1",
+    "code": "TU1",
+    "title": "The Wrong Case",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Hackney City Farm / Reception",
+      "Kingsland Courier Arch / Dispatch Hatch",
+      "Tern Wharf Dispatch / Front Office"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu2",
+    "code": "TU2",
+    "title": "The Van and the Debt",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 3,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Barge East / Deck Saloon",
+      "Barge East / Mooring Landing",
+      "Chainring Storehouse / Office",
+      "Old Ford & Bow / Bow Breakers Yard"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Debt van scenario needs fully bound recovery/escort logic."
+  },
+  {
+    "id": "tu3",
+    "code": "TU3",
+    "title": "The Driver Who Wasn't There",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "New Spitalfields Market administration / Reception",
+      "Orient Way railway depot / Reception",
+      "The Adam and Eve / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu4",
+    "code": "TU4",
+    "title": "The Route Book",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 2,
+      "arrival": 1,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "HBC Community Centre / Reception",
+      "Orient Night Shed / Dispatch Window",
+      "The Duke of Wellington / Public Bar",
+      "The Narrowboat / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu5",
+    "code": "TU5",
+    "title": "Not the Person in the Photograph",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Bethnal Green Library / Entrance",
+      "Hub67 / Reception",
+      "Lee Valley Hockey and Tennis Centre / Foyer",
+      "London Aquatics Centre / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu6",
+    "code": "TU6",
+    "title": "The Contract That Eats the Route",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Meridian Sales Pavilion / Welcome Desk",
+      "Temple Mills International Depot / Reception",
+      "The Baring / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu7",
+    "code": "TU7",
+    "title": "Four Loads One Customer",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Marshgate Delivery Depot / Reception",
+      "New Spitalfields Market produce hall / Trade Entrance",
+      "The View Tube / Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tu8",
+    "code": "TU8",
+    "title": "The City Still Has to Move",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 5,
+    "modes": {
+      "roll": 2,
+      "event": 2,
+      "choice": 1
+    },
+    "locations": [
+      "Bridge Nine Broadcast Garage / Van Bay",
+      "Homerton A&E / Triage",
+      "Pudding Mill Lane DLR station / Street Entrance",
+      "Tern Wharf Dispatch / Dispatch Room",
+      "Tern Wharf Dispatch / Front Office"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge1",
+    "code": "GE1",
+    "title": "The Wrong Provenance",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 5,
+    "modes": {
+      "roll": 3,
+      "arrival": 1,
+      "choice": 1
+    },
+    "locations": [
+      "Glasshouse Saleroom / Foyer",
+      "Lee Valley VeloPark / Foyer",
+      "The Highbury Barn Tavern / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge2",
+    "code": "GE2",
+    "title": "The Coat With the Appointment",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Rosemary Branch Theatre / Foyer",
+      "Sebright Arms / Entrance Bar",
+      "Sutton House / Entrance Hall",
+      "The Scolt Head / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge3",
+    "code": "GE3",
+    "title": "The House Clearance",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Estorick Collection / Foyer",
+      "Split Second Archive / Catalogue Room",
+      "St Mary's New Church / Porch"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge4",
+    "code": "GE4",
+    "title": "Loaned and Lost",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Glasshouse Saleroom / Foyer",
+      "The Trampery Fish Island Village / Reception",
+      "Young V&A / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge5",
+    "code": "GE5",
+    "title": "A Picture of the Wrong Night",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 3,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Quayline Records Suite / Reception",
+      "The Stratford hotel / Foyer",
+      "Victoria Miro / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge6",
+    "code": "GE6",
+    "title": "An Auction for Empty Homes",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Essex Dry Goods / Shop Front",
+      "Glasshouse Saleroom / Foyer",
+      "Leyton Great Hall / Lobby",
+      "Orchard Lease Office / Front Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge7",
+    "code": "GE7",
+    "title": "The Collection That Can Speak",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Forman's Fish Island / Foyer",
+      "Nunnery Gallery / Foyer",
+      "The House Mill / Entrance",
+      "Wallis Tape Rooms / Lobby"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ge8",
+    "code": "GE8",
+    "title": "What Is Worth Keeping",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Glasshouse Saleroom / Foyer",
+      "Split Second Archive / Catalogue Room",
+      "V&A East Museum / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb1",
+    "code": "BB1",
+    "title": "A Small Balance",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Shepherdess Coin Rooms / Public Room",
+      "The Auld Shillelagh / Public Bar",
+      "The Leyton Engineer / Public Bar",
+      "Third Half Bookroom / Front Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb2",
+    "code": "BB2",
+    "title": "The Wrong Winner",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Hackney Marshes North Pavilion / Foyer",
+      "Leyton Orient Supporters Club / Entrance Foyer",
+      "Score Leisure Centre / Foyer",
+      "The Elderfield / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb3",
+    "code": "BB3",
+    "title": "Cash on the Guest List",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Blue Hour Basement / Entrance Bar",
+      "De Beauvoir Block / Reception",
+      "The Alwyne Castle / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb4",
+    "code": "BB4",
+    "title": "A Result Before the Race",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "St Paul's West Hackney / Porch",
+      "The Leyton Star / Public Bar",
+      "Third Half Bookroom / Betting Room",
+      "Timber Lodge / Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb5",
+    "code": "BB5",
+    "title": "Your Name in Someone Else's Book",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Custody Suite / Interview Room",
+      "De Beauvoir Deli / Shop Front",
+      "Well Street Loan Office / Front Counter"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb6",
+    "code": "BB6",
+    "title": "Land on Credit",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Meridian Sales Pavilion / Welcome Desk",
+      "Quayline Records Suite / Reception",
+      "The Talbot / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb7",
+    "code": "BB7",
+    "title": "The Final Account",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Marshgate Delivery Depot / Reception",
+      "The House Mill / Entrance",
+      "Third Half Bookroom / Front Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bb8",
+    "code": "BB8",
+    "title": "The House Changes Hands",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "arrival": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "North Park Hospitality Lodge / Foyer",
+      "The Rose and Crown / Public Bar",
+      "Third Half Bookroom / Front Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm1",
+    "code": "NM1",
+    "title": "Stall Seventeen",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "New Spitalfields Market produce hall / Trade Entrance",
+      "Roman Exchange / Front Stall",
+      "The Princess of Wales / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm2",
+    "code": "NM2",
+    "title": "One Box Two Buyers",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Queensbridge Sound Store / Hire Counter",
+      "Vortex Jazz Club / Entrance Bar",
+      "Wilton Way Deli and Wines / Shop Front"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm3",
+    "code": "NM3",
+    "title": "Everything Must Go",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Clapton Library / Entrance",
+      "Oddments Lockup / Invoice Office",
+      "The Canonbury Tavern / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm4",
+    "code": "NM4",
+    "title": "Protection by Post",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "The Crooked Billet / Public Bar",
+      "The Lord Morpeth / Public Bar",
+      "Wickside Print Shop / Shop Counter"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm5",
+    "code": "NM5",
+    "title": "The Borrowed Exhibition",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 1,
+      "arrival": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Sutton House / Entrance Hall",
+      "The Approach Tavern and Gallery / Foyer",
+      "The Trampery Fish Island Village / Reception"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm6",
+    "code": "NM6",
+    "title": "The Market That Sold Itself",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Carpenters Breakfast Club / Dining Room",
+      "Essex Dry Goods / Shop Front",
+      "St Paul Old Ford / Porch"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm7",
+    "code": "NM7",
+    "title": "A Night to Trade",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "CRATE Brewery / Taproom",
+      "Clissold House / Entrance Hall",
+      "Rio Cinema / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "nm8",
+    "code": "NM8",
+    "title": "Who Gets a Place at the Table",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Roman Exchange / Front Stall",
+      "Saint Martha House / Advice Room",
+      "V&A East Museum / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm1",
+    "code": "BM1",
+    "title": "A Meal and a Receipt",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 2,
+      "roll": 1,
+      "choice": 1
+    },
+    "locations": [
+      "HBC Community Centre / Reception",
+      "Saint Martha House / Advice Room",
+      "Your Flat / Living Room"
+    ],
+    "resources": [],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm2",
+    "code": "BM2",
+    "title": "Benefit Night Rain Check",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Hackney Empire / Foyer",
+      "Haggerston Community Centre / Reception",
+      "Leyton Jubilee Park pavilion / Foyer",
+      "St Paul's West Hackney / Porch"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm3",
+    "code": "BM3",
+    "title": "The Signatures Upstairs",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Dalston CLR James Library / Entrance",
+      "Roman Rooms Printworks / Front Counter",
+      "St John of Jerusalem / Porch"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm4",
+    "code": "BM4",
+    "title": "After the Batch",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Approach Recovery Rooms / Reception",
+      "Homerton A&E / Triage",
+      "The Spread Eagle / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm5",
+    "code": "BM5",
+    "title": "The Homes on the List",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Carpenters Breakfast Club / Dining Room",
+      "Clapton Union Rooms / Entrance Hall",
+      "White Post Workers Rooms / Entrance Hall"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm6",
+    "code": "BM6",
+    "title": "Who Can Promise a Home",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Essex Dry Goods / Shop Front",
+      "Hackney Town Hall / Lobby",
+      "Newington Green Meeting House / Porch"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm7",
+    "code": "BM7",
+    "title": "A Witness Chooses a Door",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 5,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 2
+    },
+    "locations": [
+      "Evering Safe Flat / Landing",
+      "St Mary Bow Church / Porch",
+      "Willow Cabin / Porch",
+      "Your Flat / Living Room"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "bm8",
+    "code": "BM8",
+    "title": "The Neighbourhood Gets a Vote",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Carpenters Breakfast Club / Dining Room",
+      "St John of Jerusalem / Porch",
+      "Stoke Newington Town Hall / Lobby",
+      "V&A East Museum / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld1",
+    "code": "LD1",
+    "title": "The Bait Bike",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "roll": 3,
+      "choice": 1
+    },
+    "locations": [
+      "Custody Suite / Interview Room",
+      "Lantern Case Flat / Interview Room",
+      "The Duke of Richmond / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld2",
+    "code": "LD2",
+    "title": "The Uniform in the Photograph",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Custody Suite / Interview Room",
+      "East Cross Security Compound / Reception",
+      "The Castle Cinema / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld3",
+    "code": "LD3",
+    "title": "A Report With No Visit",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Hackney Town Hall / Lobby",
+      "Highbury Leisure Centre / Foyer",
+      "New Spitalfields Market administration / Reception",
+      "UCL East Marshgate / Public Foyer"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld4",
+    "code": "LD4",
+    "title": "Someone Else's Property",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Clapton Library / Entrance",
+      "Custody Suite / Interview Room",
+      "Forman's Fish Island / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld5",
+    "code": "LD5",
+    "title": "The Person Behind the File",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Approach Recovery Rooms / Reception",
+      "Homerton A&E / Triage",
+      "Pudding Mill Lane DLR station / Street Entrance"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld6",
+    "code": "LD6",
+    "title": "The Inspector's Other Employer",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Lantern Case Flat / Interview Room",
+      "The Stratford hotel / Foyer",
+      "Victoria Miro / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld7",
+    "code": "LD7",
+    "title": "Four Notices Before Midnight",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "East Cross Security Compound / Reception",
+      "Marshgate Delivery Depot / Reception",
+      "Meridian Sales Pavilion / Welcome Desk"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "ld8",
+    "code": "LD8",
+    "title": "A Case That Survives Its Witnesses",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Custody Suite / Interview Room",
+      "Hackney Town Hall / Lobby",
+      "Lantern Case Flat / Interview Room"
+    ],
+    "resources": [],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr1",
+    "code": "MR1",
+    "title": "The Missing Survey Case",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 5,
+    "modes": {
+      "roll": 1,
+      "dialogue": 1,
+      "event": 2,
+      "choice": 1
+    },
+    "locations": [
+      "East Cross Security Compound / Reception",
+      "Highbury Leisure Centre / Foyer",
+      "People's Park Tavern / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr2",
+    "code": "MR2",
+    "title": "The Model Apartment",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Estorick Collection / Foyer",
+      "Oddments Lockup / Invoice Office",
+      "Westfield Stratford City / Customer Desk"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr3",
+    "code": "MR3",
+    "title": "An Invoice for a Driver",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "East Cross Security Compound / Reception",
+      "Orient Way railway depot / Reception",
+      "The De Beauvoir Arms / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr4",
+    "code": "MR4",
+    "title": "The Report and the Door",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "choice": 2,
+      "event": 2
+    },
+    "locations": [
+      "Orchard Lease Office / Front Counter",
+      "Roman Rooms Printworks / Front Counter",
+      "Wickside Print Shop / Shop Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr5",
+    "code": "MR5",
+    "title": "Vacant on Paper",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Carpenters Breakfast Club / Dining Room",
+      "Essex Dry Goods / Shop Front",
+      "White Post Workers Rooms / Entrance Hall"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr6",
+    "code": "MR6",
+    "title": "Buy the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Backspin Studio / Record-shop Front",
+      "Newington Green Meeting House / Porch",
+      "Signorelli at Stratford Cross / Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr7",
+    "code": "MR7",
+    "title": "The Quiet Hour",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 3,
+      "choice": 2,
+      "event": 2
+    },
+    "locations": [
+      "East Cross Security Compound / Reception",
+      "London Stadium / Foyer",
+      "Marshgate Delivery Depot / Reception",
+      "Meridian Sales Pavilion / Welcome Desk"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "mr8",
+    "code": "MR8",
+    "title": "The City on the Brochure",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Carpenters Breakfast Club / Dining Room",
+      "Meridian Sales Pavilion / Welcome Desk",
+      "Quayline Records Suite / Reception",
+      "Stoke Newington Town Hall / Lobby"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt1",
+    "code": "RT1",
+    "title": "The Empty Slot",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Abney Park Chapel / Porch",
+      "Dalston CLR James Library / Entrance",
+      "Split Second Archive / Catalogue Room",
+      "St Peter de Beauvoir / Porch"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt2",
+    "code": "RT2",
+    "title": "The Watch After Midnight",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 2,
+      "dialogue": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Clapton Library / Entrance",
+      "Hub67 / Reception",
+      "The Clapton Hart / Public Bar",
+      "The Prince Arthur / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt3",
+    "code": "RT3",
+    "title": "A Photograph Without a Caption",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Museum of the Home / Foyer",
+      "Sutton House / Entrance Hall",
+      "The Wenlock Arms / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt4",
+    "code": "RT4",
+    "title": "The Night That Repeated",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Grow Hackney / Entrance Bar",
+      "Hackney Picturehouse / Foyer",
+      "Silt Listening Bunker / Tape Cupboard",
+      "Wallis Tape Rooms / Lobby"
+    ],
+    "resources": [],
+    "contactCount": 5,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt5",
+    "code": "RT5",
+    "title": "Six Addresses Before the Trouble",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Clapton Union Rooms / Entrance Hall",
+      "Orchard Lease Office / Front Counter",
+      "Roman Rooms Printworks / Front Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt6",
+    "code": "RT6",
+    "title": "The Woman Who Chose to Vanish",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1
+    },
+    "locations": [
+      "Evering Safe Flat / Landing",
+      "Homerton A&E / Triage",
+      "Willow Cabin / Porch"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt7",
+    "code": "RT7",
+    "title": "Who Holds the Original",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Quayline Records Suite / Reception",
+      "Split Second Archive / Catalogue Room",
+      "V&A East Museum / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 2,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rt8",
+    "code": "RT8",
+    "title": "A Record of What Happened",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 7,
+    "modes": {
+      "roll": 4,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Bridge Nine Broadcast Garage / Equipment Store",
+      "Hackney Town Hall / Lobby",
+      "Split Second Archive / Catalogue Room",
+      "The House Mill / Entrance"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s01",
+    "code": "S01",
+    "title": "The Voice at the Book Club",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "St Mary's New Church / Porch",
+      "The Old Church / Porch",
+      "The Rose and Crown / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s02",
+    "code": "S02",
+    "title": "The Alarm Before the Song",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Abney Books / Shop Front",
+      "Abney Park Chapel / Porch",
+      "The Shacklewell Arms / Entrance Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s03",
+    "code": "S03",
+    "title": "The Wrong Brother on the Boat",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "The Clapton Hart / Public Bar",
+      "The Elderfield / Public Bar",
+      "The Princess of Wales / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s04",
+    "code": "S04",
+    "title": "The Dog at the Fundraiser",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 8,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 4
+    },
+    "locations": [
+      "Hackney Marshes North Pavilion / Foyer",
+      "Leyton Jubilee Park pavilion / Club Room",
+      "Leyton Jubilee Park pavilion / Foyer",
+      "New Spitalfields Market produce hall / Trade Entrance"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s05",
+    "code": "S05",
+    "title": "The Missing Mascot",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "arrival": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Leyton Orient Supporters Club / Entrance Foyer",
+      "Leyton Orient stadium / Foyer",
+      "The Coach and Horses / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s06",
+    "code": "S06",
+    "title": "The Cat in the Catalogue",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Estorick Collection / Foyer",
+      "Newington Green Meeting House / Porch",
+      "The Canonbury Tavern / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s07",
+    "code": "S07",
+    "title": "The Silent Set",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Cafe OTO / Entrance Bar",
+      "Dalston Superstore / Entrance Foyer",
+      "Vortex Jazz Club / Entrance Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s08",
+    "code": "S08",
+    "title": "The Chicken Palace Key",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Oslo Hackney / Entrance Bar",
+      "The Castle Cinema / Foyer",
+      "Your Flat / Living Room"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s09",
+    "code": "S09",
+    "title": "The Projector Belongs to Both of Us",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "HBC Community Centre / Reception",
+      "Hub67 / Reception",
+      "The Kenton / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s10",
+    "code": "S10",
+    "title": "The Sponsor Who Never Arrived",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "dialogue": 1,
+      "roll": 2,
+      "choice": 1
+    },
+    "locations": [
+      "Lee Valley Hockey and Tennis Centre / Foyer",
+      "The Leyton Star / Public Bar",
+      "Timber Lodge / Counter"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s11",
+    "code": "S11",
+    "title": "The Painting That Keeps Coming Back",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "De Beauvoir Deli / Shop Front",
+      "The De Beauvoir Arms / Public Bar",
+      "The Scolt Head / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s12",
+    "code": "S12",
+    "title": "The Wedding Dubplate",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Englefield Listening Flat / Record Cupboard",
+      "The Prince Arthur / Public Bar",
+      "Wilton Way Deli and Wines / Shop Front"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s13",
+    "code": "S13",
+    "title": "Big Sal on the Poster",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 4,
+      "event": 2
+    },
+    "locations": [
+      "The Gun / Public Bar",
+      "The Lauriston / Public Bar",
+      "Wickside Print Shop / Shop Counter"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s14",
+    "code": "S14",
+    "title": "The Passenger Paid Twice",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "arrival": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Barge East / Deck Saloon",
+      "Grow Hackney / Entrance Bar",
+      "People's Park Tavern / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s15",
+    "code": "S15",
+    "title": "The Lucky Jacket",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Theatre Royal Stratford East / Foyer",
+      "V&A East Museum / Foyer",
+      "Westfield Stratford City / Customer Desk"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s16",
+    "code": "S16",
+    "title": "The Cabinet and the Debt",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Rosemary Branch Theatre / Foyer",
+      "Shepherdess Coin Rooms / Public Room",
+      "The Wenlock Arms / Public Bar"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s17",
+    "code": "S17",
+    "title": "The Riding Contest",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Goldsmiths Riding Workshop / Club Office",
+      "Haggerston Community Centre / Reception",
+      "Signature Brew Haggerston / Taproom"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s18",
+    "code": "S18",
+    "title": "The Funeral for a Living Cabbie",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "dialogue": 1,
+      "roll": 3,
+      "event": 2
+    },
+    "locations": [
+      "Bethnal Green Library / Entrance",
+      "St John on Bethnal Green / Porch",
+      "Viktor Wynd Museum / Foyer"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s19",
+    "code": "S19",
+    "title": "The Bell in the Wrong Crate",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 3,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "Forman's Fish Island / Foyer",
+      "Nunnery Gallery / Foyer",
+      "Roman Exchange / Front Stall"
+    ],
+    "resources": [],
+    "contactCount": 3,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "s20",
+    "code": "S20",
+    "title": "The Film with the Missing Van",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "roll": 2,
+      "dialogue": 1,
+      "choice": 1,
+      "event": 2
+    },
+    "locations": [
+      "3 Mills Studios / Reception",
+      "Marshgate Delivery Depot / Reception",
+      "Pudding Mill Lane DLR station / Street Entrance"
+    ],
+    "resources": [],
+    "contactCount": 4,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-intro-01",
+    "code": "TG-INTRO-01",
+    "title": "First Can",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Hackney Central & Homerton / Homerton High St 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-intro-02",
+    "code": "TG-INTRO-02",
+    "title": "Walls Have Ears",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Haggerston & London Fields / Haggerston Rd 1",
+      "Haggerston Park & Hackney Rd / Queensbridge Rd 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-intro-03",
+    "code": "TG-INTRO-03",
+    "title": "The Last Bus Home",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Haggerston & London Fields / Lansdowne Dr & Richmond",
+      "Victoria Park & Hackney Wick / East Cross Route (A12) 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-intro-04",
+    "code": "TG-INTRO-04",
+    "title": "A Name That Travels",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / East Cross Route (A12) 3",
+      "Clapton / Lea Bridge Rd 4",
+      "Stratford & the Stadium / Carpenters Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ch-01",
+    "code": "TG-CH-01",
+    "title": "The Arches Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Hackney Central & Homerton / Homerton High St 2",
+      "Hackney Central & Homerton / Homerton High St 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ch-02",
+    "code": "TG-CH-02",
+    "title": "Spokes Across Hackney",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Clapton / Lea Bridge Rd 4",
+      "Highbury & Albion Rd / Albion Rd 1",
+      "Old Ford & Bow / Roman Rd 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ch-03",
+    "code": "TG-CH-03",
+    "title": "Pat Owns the Route",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Hackney Central & Homerton / Clarence Rd",
+      "Hackney Marshes / Orient Way 3",
+      "Victoria Park & Hackney Wick / East Cross Route (A12) 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ad-01",
+    "code": "TG-AD-01",
+    "title": "Get the Signal Out",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Dalston / Amhurst Rd 1",
+      "Haggerston Park & Hackney Rd / Queensbridge Rd 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ad-02",
+    "code": "TG-AD-02",
+    "title": "The Frequency Run",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Haggerston Park & Hackney Rd / Hoxton St 2",
+      "Stoke Newington & Shacklewell / Amhurst Rd 3",
+      "Stratford & the Stadium / Carpenters Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ad-03",
+    "code": "TG-AD-03",
+    "title": "No Dead Air Tonight",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / Marshgate Lane 2",
+      "Hackney Marshes / Orient Way 2",
+      "Stratford & the Stadium / Carpenters Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-lb-01",
+    "code": "TG-LB-01",
+    "title": "Moth Leaves a Sign",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Clapton / Lea Bridge Rd 4",
+      "Leyton & Ruckholt / Orient Way & Ruckholt"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-lb-02",
+    "code": "TG-LB-02",
+    "title": "Reeds by the Water",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Clapton / Lea Bridge Rd 4",
+      "Hoxton West & the Canal / Eagle Wharf Rd 2",
+      "Victoria Park & Hackney Wick / East Cross Route (A12) 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-lb-03",
+    "code": "TG-LB-03",
+    "title": "Stretch Out the Borough",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Hackney Marshes / Millfields Rd",
+      "Homerton East & Wick Woodland / East Cross Route (A12) 6",
+      "Olympic Park North / East Cross Route (A12) 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-vc-01",
+    "code": "TG-VC-01",
+    "title": "Tonight Only",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Dalston / Kingsland High & Balls Pond",
+      "Hackney Central & Homerton / Lower Clapton & Amhurst"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-vc-02",
+    "code": "TG-VC-02",
+    "title": "The Velvet Trail",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Canonbury & Newington Green / Highbury Grove 2",
+      "Dalston / Dalston Ln 1",
+      "Hoxton West & the Canal / East Rd 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-vc-03",
+    "code": "TG-VC-03",
+    "title": "Full House Full City",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / East Cross Route (A12) 3",
+      "Haggerston & London Fields / Lansdowne Dr & Richmond",
+      "Stratford & the Stadium / Westfield Ave 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-tu-01",
+    "code": "TG-TU-01",
+    "title": "Tern Marks the Drop",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Haggerston & London Fields / Haggerston Rd 1",
+      "Hoxton West & the Canal / Eagle Wharf Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-tu-02",
+    "code": "TG-TU-02",
+    "title": "Under the Bridges",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Clapton / Lea Bridge Rd 4",
+      "Old Ford & Bow / Old Ford Rd 2",
+      "Victoria Park & Hackney Wick / East Cross Route (A12) 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-tu-03",
+    "code": "TG-TU-03",
+    "title": "Last Van Standing",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / Marshgate Lane 1",
+      "Hackney Marshes / Orient Way 3",
+      "Stratford & the Stadium / Carpenters Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ge-01",
+    "code": "TG-GE-01",
+    "title": "Wren Signs His Work",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Canonbury & Newington Green / Canonbury & St Paul's",
+      "Canonbury & Newington Green / Highbury Grove 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ge-02",
+    "code": "TG-GE-02",
+    "title": "The Missing Shard",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "De Beauvoir / De Beauvoir Rd 2",
+      "Haggerston Park & Hackney Rd / Queensbridge Rd 1",
+      "Highbury & Albion Rd / Highbury Park 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ge-03",
+    "code": "TG-GE-03",
+    "title": "The Prism Line",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / East Cross Route (A12) 3",
+      "Olympic Park North / East Cross Route (A12) 2",
+      "Stratford & the Stadium / Westfield Ave 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-bb-01",
+    "code": "TG-BB-01",
+    "title": "Odds on the Wall",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Hoxton West & the Canal / East Rd 1",
+      "Leyton & Ruckholt / East Cross Route (A12) 5"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-bb-02",
+    "code": "TG-BB-02",
+    "title": "Across the Book",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "De Beauvoir / De Beauvoir & Englefield",
+      "Hackney Marshes / Millfields Rd",
+      "Leyton & Ruckholt / High Rd Leyton 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-bb-03",
+    "code": "TG-BB-03",
+    "title": "The Bookies Countermark",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Clapton / Lea Bridge Rd 4",
+      "Hackney Central & Homerton / Lower Clapton & Amhurst",
+      "Homerton East & Wick Woodland / East Cross Route (A12) 6"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-nm-01",
+    "code": "TG-NM-01",
+    "title": "Follow the Lantern",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Hackney Marshes / Homerton Rd",
+      "Old Ford & Bow / Old Ford Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-nm-02",
+    "code": "TG-NM-02",
+    "title": "Two Buyers No Map",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Bethnal Green / Approach Rd 1",
+      "Haggerston Park & Hackney Rd / Queensbridge Rd 1",
+      "Leyton & Ruckholt / Orient Way & Ruckholt"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-nm-03",
+    "code": "TG-NM-03",
+    "title": "Market After Midnight",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / Marshgate Lane 1",
+      "Hackney Marshes / Orient Way 3",
+      "Victoria Park & Hackney Wick / East Cross Route (A12) 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-bm-01",
+    "code": "TG-BM-01",
+    "title": "Mutual Aid Mural",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Bethnal Green / Sewardstone & Old Ford",
+      "Homerton East & Wick Woodland / Waterden Rd"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-bm-02",
+    "code": "TG-BM-02",
+    "title": "A Different Kind of Notice",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Clapton / Northwold & Upper Clapton",
+      "South Hackney & Well Street / Lauriston Rd 1",
+      "Stoke Newington & Shacklewell / Stoke Newington Church St"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-bm-03",
+    "code": "TG-BM-03",
+    "title": "A Borough Remembers",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Canonbury & Newington Green / Highbury Grove 2",
+      "De Beauvoir / De Beauvoir & Englefield",
+      "Hackney Central & Homerton / Clarence Rd"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ld-01",
+    "code": "TG-LD-01",
+    "title": "The Lantern Code",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Bethnal Green / Approach Rd 1",
+      "De Beauvoir / De Beauvoir Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ld-02",
+    "code": "TG-LD-02",
+    "title": "Between the Lines",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Hackney Central & Homerton / Homerton High St 4",
+      "South Hackney & Well Street / Mare & Richmond",
+      "Stoke Newington & Shacklewell / Amhurst Rd 3"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-ld-03",
+    "code": "TG-LD-03",
+    "title": "A Light in the Wrong Place",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / Marshgate Lane 2",
+      "Hackney Marshes / Orient Way 2",
+      "Stratford & the Stadium / Carpenters Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-mr-01",
+    "code": "TG-MR-01",
+    "title": "Meridian Says Welcome",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "Highbury & Albion Rd / Highbury Park 4",
+      "Stratford & the Stadium / Westfield Ave 4"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-mr-02",
+    "code": "TG-MR-02",
+    "title": "New Boundary New Banner",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Canonbury & Newington Green / Highbury Grove 1",
+      "Old Ford & Bow / Old Ford Rd 1",
+      "South Hackney & Well Street / Mare & Richmond"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-mr-03",
+    "code": "TG-MR-03",
+    "title": "The Golden Route",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / East Cross Route (A12) 3",
+      "Homerton East & Wick Woodland / East Cross Route (A12) 6",
+      "Olympic Park North / East Cross Route (A12) 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-rt-01",
+    "code": "TG-RT-01",
+    "title": "The Red Thread Begins",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 2,
+    "modes": {
+      "event": 2
+    },
+    "locations": [
+      "De Beauvoir / De Beauvoir Rd 2",
+      "Stoke Newington & Shacklewell / Stoke Newington Church St"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-rt-02",
+    "code": "TG-RT-02",
+    "title": "Stitches on the Map",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 3,
+    "modes": {
+      "event": 3
+    },
+    "locations": [
+      "Bethnal Green / Approach Rd 1",
+      "Canonbury & Newington Green / Canonbury & St Paul's",
+      "Haggerston & London Fields / Downham Rd 1"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-rt-03",
+    "code": "TG-RT-03",
+    "title": "The Thread Cannot Break",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 4,
+    "modes": {
+      "event": 4
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / East Cross Route (A12) 3",
+      "Hackney Marshes / Orient Way 3",
+      "Hoxton West & the Canal / Eagle Wharf Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-city-01",
+    "code": "TG-CITY-01",
+    "title": "From Lea to Bow",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "event": 6
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / East Cross Route (A12) 3",
+      "Dalston / Amhurst Rd 1",
+      "Highbury & Albion Rd / Albion Rd 1",
+      "Stratford & the Stadium / Carpenters Rd 2",
+      "Victoria Park & Hackney Wick / East Cross Route (A12) 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "tg-city-02",
+    "code": "TG-CITY-02",
+    "title": "Nothing Stays Painted",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 6,
+    "modes": {
+      "event": 6
+    },
+    "locations": [
+      "Bethnal Green / Approach Rd 1",
+      "Clapton / Lea Bridge Rd 4",
+      "De Beauvoir / De Beauvoir Rd 2",
+      "Hackney Marshes / Orient Way 3",
+      "Hoxton West & the Canal / Eagle Wharf Rd 2"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-point-blank-01",
+    "code": "RW-POINT-01",
+    "title": "Point Blank: Spread the Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Hoxton West & the Canal / Eagle Wharf Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-point-blank-02",
+    "code": "RW-POINT-02",
+    "title": "Point Blank: Hold the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Hoxton West & the Canal / Eagle Wharf Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-rude-fm-01",
+    "code": "RW-RUDEF-01",
+    "title": "Rude FM: Spread the Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Haggerston & London Fields / Dalston Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-rude-fm-02",
+    "code": "RW-RUDEF-02",
+    "title": "Rude FM: Hold the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Haggerston & London Fields / Dalston Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-vision-radio-01",
+    "code": "RW-VISIO-01",
+    "title": "Vision Radio UK: Spread the Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Dalston / Shacklewell Block 3"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-vision-radio-02",
+    "code": "RW-VISIO-02",
+    "title": "Vision Radio UK: Hold the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Dalston / Shacklewell Block 3"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-flex-fm-01",
+    "code": "RW-FLEXF-01",
+    "title": "Flex FM: Spread the Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Hackney Central & Homerton / Clarence Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-flex-fm-02",
+    "code": "RW-FLEXF-02",
+    "title": "Flex FM: Hold the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Hackney Central & Homerton / Clarence Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-supreme-fm-01",
+    "code": "RW-SUPRE-01",
+    "title": "Supreme FM: Spread the Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Bethnal Green / Broadway Market"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-supreme-fm-02",
+    "code": "RW-SUPRE-02",
+    "title": "Supreme FM: Hold the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Bethnal Green / Broadway Market"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-radio-caroline-01",
+    "code": "RW-RADIO-01",
+    "title": "Radio Caroline: Spread the Signal",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / Marshgate Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  },
+  {
+    "id": "rw-radio-caroline-02",
+    "code": "RW-RADIO-02",
+    "title": "Radio Caroline: Hold the Frequency",
+    "status": "Played through end to end by the 0.5.27 simulator at 1–6 players and on crowded streets; live Foundry sign-off pending",
+    "checkpoints": 1,
+    "modes": {
+      "event": 1
+    },
+    "locations": [
+      "Bow Flyover & Mill Meads / Marshgate Block"
+    ],
+    "resources": [],
+    "contactCount": 0,
+    "supportTasks": 6,
+    "remaining": "Review each concrete encounter, branch consequence, resource need and route against the narrative; generic interaction contracts do not certify the complete scenario."
+  }
+]

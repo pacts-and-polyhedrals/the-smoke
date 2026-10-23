@@ -7,7 +7,7 @@ const spread = (d8, d6s) => Object.fromEntries(STAT_KEYS.map(k => [k, k === d8 ?
 export const BACKGROUNDS = Object.freeze([
   {key: 'bike-thief', name: 'Bike Thief', blurb: 'You have been nicking bikes since you could reach the pedals. Locks are puzzles; puzzles are money.', stats: spread('grf', ['mov', 'whl', 'sav']),
    perks: ['Bike Thief', 'Parkour', 'Wheelie King'], kit: ['Bolt Cutters', 'Burner Phone', 'Tracksuit', 'Energy Drink'], cash: 40, hustle: 'No lock you can\'t open'},
-  {key: 'getaway-kid', name: 'Getaway Kid', blurb: 'Joyriding at fourteen, driving for older lads at sixteen. You know every rat-run from Dalston to Bow.', stats: spread('whl', ['mov', 'sav', 'btl']),
+  {key: 'getaway-kid', name: 'Getaway Kid', blurb: 'Joyriding at fourteen, driving for older lads at sixteen. You know every rat-run from Dalston to Bow.', stats: spread('whl', ['mov', 'sav', 'aim']),
    perks: ['Getaway Driver', 'Wheelie King', 'Courier'], kit: ['Slim Jim', 'Burner Phone', 'Delivery Rider Jacket'], cash: 40, hustle: 'Drives like they stole it'},
   {key: 'market-trader', name: 'Market Trader', blurb: 'Ridley Road born and bred. You can sell anything to anyone, and buy it back cheaper.', stats: spread('frt', ['sav', 'grf', 'btl']),
    perks: ['Wide Boy', 'Blag Merchant', 'Fixer'], kit: ['Burner Phone', 'Tracksuit', 'Cigarettes'], cash: 120, hustle: 'Knows a bloke'},
@@ -24,7 +24,12 @@ export const BACKGROUNDS = Object.freeze([
   {key: 'cabbies-kid', name: 'Cabbie\'s Kid', blurb: 'Your dad did The Knowledge and made you learn it too. You know London better than the satnav.', stats: spread('whl', ['sav', 'frt', 'grt']),
    perks: ['Cabbie', 'Local Knowledge', 'Night Owl'], kit: ['Oyster Card', 'Burner Phone', 'Smart Suit'], cash: 60, hustle: 'Knows every street in London'},
   {key: 'ex-old-bill', name: 'Ex-Old Bill', blurb: 'You were a copper until you weren\'t. You know how they think, and some of them still owe you.', stats: spread('sav', ['frt', 'btl', 'mus']),
-   perks: ['Ex-Old Bill', 'Silver Tongue', 'Grass Radar'], kit: ['Torch', 'Cable Ties', 'Burner Phone', 'Smart Suit'], cash: 80, hustle: 'Knows how the police think'}
+   perks: ['Ex-Old Bill', 'Silver Tongue', 'Grass Radar'], kit: ['Torch', 'Cable Ties', 'Burner Phone', 'Smart Suit'], cash: 80, hustle: 'Knows how the police think'},
+  // 0.5.25: so every stat is somebody's best (Grit and Bottle had no background of their own)
+  {key: 'scaffolder', name: 'Scaffolder', blurb: 'Up the poles at six in the morning in all weathers, forty foot up and no harness because the gaffer won\'t pay for one. You can carry anything and you don\'t feel the cold.', stats: spread('grt', ['mus', 'mov', 'btl']),
+   perks: ['Hard as Nails', 'Long Shift', 'Heavy Lifting'], kit: ['Heavy Work Jacket', 'Hi-Vis & Hard Hat', 'Toolkit', 'Energy Drink'], cash: 70, hustle: 'Carries the heavy end'},
+  {key: 'door-staff', name: 'Door Staff', blurb: 'Ten years on the door of a Shoreditch club. You\'ve been glassed, swung at and threatened by men twice your size, and you have never once stepped back.', stats: spread('btl', ['mus', 'frt', 'sav']),
+   perks: ['Door Staff', 'Stare Them Down', 'Poker Face'], kit: ['Stab Vest', 'Smart Suit', 'Torch', 'Cable Ties'], cash: 70, hustle: 'Nobody gets past'}
 ]);
 /** One extra thing to start with. */
 export const STARTER_EXTRAS = Object.freeze(['Bike Lock', 'Balaclava', 'Spray Paint', 'Meal Deal', 'Painkillers', 'Bandages', 'Cigarettes', 'Torch', 'Oyster Card', 'Duct Tape']);
@@ -36,8 +41,11 @@ export const STORY_IDEAS = Object.freeze({
 });
 export const CREATION_STEPS = Object.freeze([
   {key: 'who', label: 'Who'}, {key: 'background', label: 'Background'}, {key: 'stats', label: 'Stats'}, {key: 'perk', label: 'Perk'},
-  {key: 'kit', label: 'Kit'}, {key: 'story', label: 'Story'}, {key: 'review', label: 'Done'}
+  {key: 'kit', label: 'Kit'}, {key: 'story', label: 'Story'}, {key: 'token', label: 'Token'}, {key: 'review', label: 'Done'}
 ]);
+/** The Token step (0.5.25) starts from a look that suits the background; the player can change anything. */
+export const BACKGROUND_LOOKS = Object.freeze({'bike-thief': 'writer', 'getaway-kid': 'driver', 'market-trader': 'casual', boxer: 'roadman', carer: 'casual',
+  'phone-tech': 'casual', 'ex-squaddie': 'dark', runner: 'rider', 'cabbies-kid': 'smart', 'ex-old-bill': 'smart', scaffolder: 'mechanic', 'door-staff': 'dark'});
 
 export function blankDraft(name = '') {
   return {name, alias: '', pronouns: '', age: '', ends: 'Hackney Central', look: '', background: '', stats: Object.fromEntries(STAT_KEYS.map(k => [k, 4])),

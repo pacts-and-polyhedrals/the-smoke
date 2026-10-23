@@ -2,6 +2,10 @@
 // (drugs, and shooters from Rep 3), the respray shops, Bow Breakers, Homerton A&E and your flat (kip, stash, wardrobe).
 // Purchases, sales and services run on the leader GM; prices come from the item library, less any discounts earned.
 import {NS} from '../config.mjs';
+import {venueStatus,venueProfile,venueProfiles,venueItemContract} from '../rules/venue-contract.mjs';
+import {shopsHere,checkVenue} from './venues.mjs';
+import {purchase,sellToDealer,availableStock} from './commerce.mjs';
+import {newOperationId} from './transactions.mjs';
 import {clampHeat} from '../rules/core.mjs';
 import {hasUnlock} from '../rules/advancement.mjs';
 import {registerHandler, request, card, ownersOf} from './net.mjs';
@@ -50,11 +54,14 @@ export const SERVICES = Object.freeze({
 export const resprayPrice = vehicle => servicePrice('respray', vehicle);
 export const repairPrice = vehicle => servicePrice('repair', vehicle);
 
+export const shopDefinition=key=>venueProfile(key)||SHOPS[key]||null;
+export const shopKeys=()=>venueStatus().ready?venueProfiles().map(p=>p.key):Object.keys(SHOPS);
+
 /** Discount for this character at this shop (0-0.2). */
 export function discountFor(system, shopKey, perks = []) {
   let d = 0;
   if (hasUnlock(system, 'streetDiscount')) d += .1;
-  if (SHOPS[shopKey]?.discountKey && hasUnlock(system, SHOPS[shopKey].discountKey)) d += .1;
+  if (shopDefinition(shopKey)?.discountKey && hasUnlock(system, shopDefinition(shopKey).discountKey)) d += .1;
   if (perks.includes('Wide Boy')) d += .1;
   return Math.min(.2, d);
 }
@@ -64,14 +71,16 @@ export const unitOf = item => item.type === 'ammo' ? Number(item.system.perBox |
 
 /** The stock this character can see at this shop, as {label, locked, items:[library item + price]}. */
 export function stockFor(shopKey, library, system, perks = []) {
-  const shop = SHOPS[shopKey]; if (!shop) return [];
+  const shop = shopDefinition(shopKey); if (!shop) return [];
   const rep = Number(system?.stage || 1), d = discountFor(system, shopKey, perks);
   return (shop.stock || []).map(line => ({label: line.label || 'For sale', locked: Number(line.minRep || 0) > rep, minRep: line.minRep || 0,
-    items: line.items.map(n => library.find(i => i.name === n)).filter(i => i && !i.system.restricted).map(i => ({...i, price: priceFor(i, d), unit: unitOf(i)}))}));
+    items: line.items.map(n => library.find(i => i.name === n)).filter(i => i && !i.system.restricted).map(i => ({...i, price: priceFor(i, d), unit: unitOf(i),remaining:availableStock(shopKey,i.name)}))}));
 }
 
 /** Which shops are open to this token where it stands. Street maps always have a corner shop. */
 export function shopsAt(token) {
+  if(venueStatus().required&&!venueStatus().ready)return [];
+  if(venueStatus().ready)return shopsHere(token);
   const scene = token?.parent; if (!scene) return [];
   const out = new Set(); const zones = zonesOf(scene), place = scene.getFlag?.(NS, 'place');
   if (place) {
@@ -97,9 +106,15 @@ async function library() { return (await (await fetch(`systems/${NS}/data/london
 const allowed = (userId, actor) => { const u = game.users.get(userId); return u?.isGM || actor?.testUserPermission?.(u, 'OWNER'); };
 const whisperTo = actor => [...ownersOf(actor), ...game.users.filter(u => u.isGM).map(u => u.id)];
 /** Can this user shop at `shopKey` for this actor? The GM can open any shop; a player must be standing at it. */
-function checkAt(userId, actor, shopKey) {
-  if (game.users.get(userId)?.isGM) return true;
-  if (!shopsFor(actor).includes(shopKey)) throw new Error(`${SHOPS[shopKey]?.name ?? 'That shop'} is not here. Go there first.`);
+export function checkAt(userId, actor, shopKey, options={}) {
+  if(venueStatus().required&&!venueStatus().ready)throw new Error(venueStatus().error||'Venue services are loading.');
+  if(venueStatus().ready){
+    const key=venueProfile(shopKey)?shopKey:shopsFor(actor).find(k=>venueProfile(k)?.inherit===shopKey);
+    if(!key)throw new Error('No matching counter is beside this character.');
+    return checkVenue(actor,key,userId,options);
+  }
+  if(game.users.get(userId)?.isGM)return true;
+  if(!shopsFor(actor).includes(shopKey))throw new Error(`${shopDefinition(shopKey)?.name??'That shop'} is not here. Go there first.`);
   return true;
 }
 /** Add `qty` purchases of a library item to an actor, stacking quantities where it makes sense. */
@@ -114,31 +129,14 @@ export async function giveItem(actor, lib, qty = 1) {
   const docs = []; for (let i = 0; i < (stackable ? 1 : qty); i++) docs.push(data);
   return actor.createEmbeddedDocuments('Item', docs);
 }
-registerHandler('shop.buy', async ({actorId, shopKey, itemName, qty = 1, userId}) => {
-  const actor = game.actors.get(actorId); if (!actor || !allowed(userId, actor)) throw new Error('Not allowed.');
-  checkAt(userId, actor, shopKey);
-  const perks = actor.items.filter(i => i.type === 'perk').map(i => i.name);
-  const line = stockFor(shopKey, await library(), actor.system, perks).find(l => l.items.some(i => i.name === itemName));
-  if (!line) throw new Error(`${SHOPS[shopKey].name} does not sell ${itemName}.`);
-  if (line.locked) throw new Error(`${SHOPS[shopKey].who} won't sell you that until you are Rep ${line.minRep}.`);
-  const lib = line.items.find(i => i.name === itemName), n = Math.max(1, Math.min(20, Number(qty) || 1)), cost = lib.price * n;
-  if (Number(actor.system.cash || 0) < cost) throw new Error(`${actor.name} has £${actor.system.cash}; that is £${cost}.`);
-  await giveItem(actor, lib, n);
-  await actor.changeCash(-cost, `${SHOPS[shopKey].name}: ${n > 1 ? `${n} × ` : ''}${itemName}.`);
-  Hooks.callAll('smokeBought', {actor, shop: shopKey, itemName, qty: n});
-  return cost;
-});
-registerHandler('shop.sell', async ({actorId, shopKey, itemId, qty = 1, userId}) => {
-  const actor = game.actors.get(actorId), item = actor?.items.get(itemId); if (!actor || !item || !allowed(userId, actor)) throw new Error('Not allowed.');
-  checkAt(userId, actor, shopKey);
-  const rate = shopKey === 'dealer' && item.type === 'drug' ? SHOPS.dealer.buysDrugs : 0;
-  if (!rate) throw new Error(`${SHOPS[shopKey].who} doesn't buy that.`);
-  const n = Math.max(1, Math.min(Number(item.system.quantity || 1), Number(qty) || 1)), pay = Math.round(Number(item.system.value || 0) * rate * n);
-  const left = Number(item.system.quantity || 1) - n; if (left > 0) await item.update({'system.quantity': left}); else await item.delete();
-  await actor.changeCash(pay, `${SHOPS[shopKey].who} takes ${n} ${item.system.unit || ''} of ${item.name} off your hands.`);
-  return pay;
-});
-registerHandler('shop.service', async ({actorId, shopKey, service, amount = 0, userId}) => {
+export const purchaseFromShop=args=>purchase(args,{definition:shopDefinition,stock:stockFor,at:checkAt,unit:unitOf});
+export const sellAtShop=args=>sellToDealer(args,{definition:shopDefinition,at:checkAt});
+registerHandler('shop.buy',purchaseFromShop);
+registerHandler('shop.sell',sellAtShop);
+registerHandler('shop.service', async (args) => {
+  const {actorId, shopKey, service, amount = 0, userId}=args;
+  if(venueStatus().ready)return (await import('./venue-services.mjs')).runVenueService(args);
+  if(venueStatus().required)throw new Error('Venue services are unavailable; no remote fallback is permitted.');
   const actor = game.actors.get(actorId); if (!actor || !allowed(userId, actor)) throw new Error('Not allowed.');
   checkAt(userId, actor, shopKey);
   if (!(SHOPS[shopKey]?.services || []).includes(service)) throw new Error('Not here.');
@@ -155,6 +153,7 @@ registerHandler('shop.service', async ({actorId, shopKey, service, amount = 0, u
       const fix = ['Bleeding', 'Hurt', 'In Pain', 'Bruised', 'Down', 'Burning', 'Gassed'];
       for (const c of actor.items.filter(i => i.type === 'condition' && fix.includes(i.name))) await c.delete();
       await actor.update({'system.resources.health.value': actor.system.resources.health.max, 'system.states.down': false, 'system.states.downRounds': 0});
+      if(game.time?.advance)await game.time.advance(4*3600);
       const broken = actor.items.some(i => i.type === 'condition' && i.name === 'Broken');
       return card('HOMERTON A&E', `${actor.name} gets seen`, `<p>Four hours, two vending-machine coffees and a junior doctor later: patched up. The NHS: free at the point of use.</p>${broken ? '<p><b>Broken:</b> set in a cast. It needs a week of recovery; the GM removes it then.</p>' : ''}`, 'win', {whisper: whisperTo(actor)});
     }
@@ -174,6 +173,6 @@ registerHandler('shop.service', async ({actorId, shopKey, service, amount = 0, u
   return null;
 });
 
-export const shopAPI = {SHOPS, SERVICES, shopsFor, shopsAt, stockFor, discountFor, buy: (actor, shopKey, itemName, qty = 1) => request('shop.buy', {actorId: actor.id, shopKey, itemName, qty}),
-  sell: (actor, shopKey, item, qty = 1) => request('shop.sell', {actorId: actor.id, shopKey, itemId: item.id, qty}),
-  service: (actor, shopKey, service, amount = 0) => request('shop.service', {actorId: actor.id, shopKey, service, amount})};
+export const shopAPI = {SHOPS, SERVICES, shopDefinition, shopKeys, shopsFor, shopsAt, stockFor, discountFor, buy: (actor, shopKey, itemName, qty = 1) => request('shop.buy', {actorId: actor.id, shopKey, itemName, qty,operationId:newOperationId()}),
+  sell: (actor, shopKey, item, qty = 1) => request('shop.sell', {actorId: actor.id, shopKey, itemId: item.id, qty,operationId:newOperationId()}),
+  service: (actor, shopKey, service, amount = 0) => request('shop.service', {actorId: actor.id, shopKey, service, amount,operationId:newOperationId()})};

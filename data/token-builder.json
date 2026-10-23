@@ -1,0 +1,1592 @@
+{
+ "version": 1,
+ "canvas": 512,
+ "output": 512,
+ "note": "Built by scripts/tokens/draw_parts.py. Parts face the top edge; the builder turns the figure to face the bottom edge like every Smoke token.",
+ "builds": [
+  {
+   "id": "slim",
+   "label": "Slim",
+   "sx": 0.88,
+   "sy": 0.886
+  },
+  {
+   "id": "medium",
+   "label": "Medium",
+   "sx": 1,
+   "sy": 1
+  },
+  {
+   "id": "heavy",
+   "label": "Heavy",
+   "sx": 1.187,
+   "sy": 1.2
+  }
+ ],
+ "categories": [
+  {
+   "key": "body",
+   "label": "Build",
+   "group": "Body"
+  },
+  {
+   "key": "skin",
+   "label": "Skin",
+   "group": "Body"
+  },
+  {
+   "key": "hair",
+   "label": "Hair",
+   "group": "Head",
+   "none": "Bald"
+  },
+  {
+   "key": "hat",
+   "label": "Headwear",
+   "group": "Head",
+   "none": "Nothing"
+  },
+  {
+   "key": "face",
+   "label": "Face",
+   "group": "Head",
+   "none": "Nothing"
+  },
+  {
+   "key": "top",
+   "label": "Top",
+   "group": "Clothes"
+  },
+  {
+   "key": "outerwear",
+   "label": "Jacket",
+   "group": "Clothes",
+   "none": "No jacket"
+  },
+  {
+   "key": "legs",
+   "label": "Bottoms",
+   "group": "Clothes"
+  },
+  {
+   "key": "shoes",
+   "label": "Shoes",
+   "group": "Clothes"
+  },
+  {
+   "key": "gloves",
+   "label": "Gloves",
+   "group": "Clothes",
+   "none": "Bare hands"
+  },
+  {
+   "key": "trim",
+   "label": "Faction trim",
+   "group": "Style",
+   "none": "No trim"
+  },
+  {
+   "key": "neck",
+   "label": "Neck",
+   "group": "Style",
+   "none": "Nothing"
+  },
+  {
+   "key": "back",
+   "label": "Bag",
+   "group": "Kit",
+   "none": "No bag"
+  },
+  {
+   "key": "prop",
+   "label": "In hand",
+   "group": "Kit",
+   "none": "Empty hands"
+  }
+ ],
+ "skins": [
+  {
+   "id": "s1",
+   "label": "Fair",
+   "colour": "#f3d7c2"
+  },
+  {
+   "id": "s2",
+   "label": "Light",
+   "colour": "#e8c0a0"
+  },
+  {
+   "id": "s3",
+   "label": "Light medium",
+   "colour": "#d9a782"
+  },
+  {
+   "id": "s4",
+   "label": "Medium",
+   "colour": "#c68e64"
+  },
+  {
+   "id": "s5",
+   "label": "Tan",
+   "colour": "#a8714a"
+  },
+  {
+   "id": "s6",
+   "label": "Brown",
+   "colour": "#8a5636"
+  },
+  {
+   "id": "s7",
+   "label": "Dark brown",
+   "colour": "#6b3f26"
+  },
+  {
+   "id": "s8",
+   "label": "Deep",
+   "colour": "#4a2b1a"
+  }
+ ],
+ "palettes": {
+  "hair": [
+   {
+    "colour": "#16131a",
+    "label": "Black"
+   },
+   {
+    "colour": "#2a2622",
+    "label": "Dark brown"
+   },
+   {
+    "colour": "#5a3a22",
+    "label": "Brown"
+   },
+   {
+    "colour": "#8a5a32",
+    "label": "Light brown"
+   },
+   {
+    "colour": "#a8452c",
+    "label": "Ginger"
+   },
+   {
+    "colour": "#d8c08a",
+    "label": "Blonde"
+   },
+   {
+    "colour": "#ece4cf",
+    "label": "Platinum"
+   },
+   {
+    "colour": "#9a948a",
+    "label": "Grey"
+   },
+   {
+    "colour": "#ff7fb0",
+    "label": "Pink"
+   },
+   {
+    "colour": "#5ef0c4",
+    "label": "Mint"
+   },
+   {
+    "colour": "#7fb2ff",
+    "label": "Blue"
+   },
+   {
+    "colour": "#b9a2ff",
+    "label": "Lilac"
+   }
+  ],
+  "cloth": [
+   {
+    "colour": "#f1ede2",
+    "label": "White"
+   },
+   {
+    "colour": "#ece4cf",
+    "label": "Bone"
+   },
+   {
+    "colour": "#d9d3c4",
+    "label": "Sand"
+   },
+   {
+    "colour": "#c9b48a",
+    "label": "Stone"
+   },
+   {
+    "colour": "#9aa0a6",
+    "label": "Grey marl"
+   },
+   {
+    "colour": "#2f333a",
+    "label": "Charcoal"
+   },
+   {
+    "colour": "#16181c",
+    "label": "Black"
+   },
+   {
+    "colour": "#22304a",
+    "label": "Navy"
+   },
+   {
+    "colour": "#3d5a80",
+    "label": "Denim"
+   },
+   {
+    "colour": "#7fb2ff",
+    "label": "Sky"
+   },
+   {
+    "colour": "#2f7f7f",
+    "label": "Teal"
+   },
+   {
+    "colour": "#2f5a3a",
+    "label": "Forest"
+   },
+   {
+    "colour": "#5f6b3a",
+    "label": "Olive"
+   },
+   {
+    "colour": "#6b6b45",
+    "label": "Khaki"
+   },
+   {
+    "colour": "#6b4a32",
+    "label": "Brown"
+   },
+   {
+    "colour": "#b0864e",
+    "label": "Tan"
+   },
+   {
+    "colour": "#d0a23a",
+    "label": "Mustard"
+   },
+   {
+    "colour": "#e8742c",
+    "label": "Orange"
+   },
+   {
+    "colour": "#c0392b",
+    "label": "Red"
+   },
+   {
+    "colour": "#6e2a35",
+    "label": "Burgundy"
+   },
+   {
+    "colour": "#e88aa8",
+    "label": "Pink"
+   },
+   {
+    "colour": "#5b4a8a",
+    "label": "Purple"
+   },
+   {
+    "colour": "#d8e03a",
+    "label": "Hi-vis yellow"
+   },
+   {
+    "colour": "#ff8a3d",
+    "label": "Hi-vis orange"
+   }
+  ],
+  "accent": [
+   {
+    "colour": "#ff7fb0",
+    "label": "The Chainring"
+   },
+   {
+    "colour": "#78ecf3",
+    "label": "Dead Air Collective"
+   },
+   {
+    "colour": "#ff5a6e",
+    "label": "The Lea Boys"
+   },
+   {
+    "colour": "#b9a2ff",
+    "label": "The Velvet Circuit"
+   },
+   {
+    "colour": "#5ef0c4",
+    "label": "The Towpath Union"
+   },
+   {
+    "colour": "#e9cc8c",
+    "label": "The Glasshouse Exchange"
+   },
+   {
+    "colour": "#ffc467",
+    "label": "The Backroom Bookmakers"
+   },
+   {
+    "colour": "#ff8a3d",
+    "label": "The Night Market"
+   },
+   {
+    "colour": "#8be6b0",
+    "label": "Borough Mutual"
+   },
+   {
+    "colour": "#7fb2ff",
+    "label": "The Lantern Desk"
+   },
+   {
+    "colour": "#c9d4e0",
+    "label": "Meridian Renewal"
+   },
+   {
+    "colour": "#e2364f",
+    "label": "The Red Thread"
+   },
+   {
+    "colour": "#f1ede2",
+    "label": "Plain white"
+   },
+   {
+    "colour": "#e8c33a",
+    "label": "Gold"
+   }
+  ]
+ },
+ "parts": [
+  {
+   "id": "base",
+   "category": "body",
+   "label": "Body",
+   "file": "assets/tokens/builder/body/base.svg",
+   "always": true
+  },
+  {
+   "id": "hands",
+   "category": "body",
+   "label": "Hands",
+   "file": "assets/tokens/builder/body/hands.svg",
+   "always": true
+  },
+  {
+   "id": "head",
+   "category": "body",
+   "label": "Head",
+   "file": "assets/tokens/builder/body/head.svg",
+   "always": true
+  },
+  {
+   "id": "trainers",
+   "category": "shoes",
+   "label": "Trainers",
+   "file": "assets/tokens/builder/shoes/trainers.svg",
+   "colour": "shoes",
+   "default": "#f1ede2"
+  },
+  {
+   "id": "hightops",
+   "category": "shoes",
+   "label": "High-tops",
+   "file": "assets/tokens/builder/shoes/hightops.svg",
+   "colour": "shoes",
+   "default": "#16181c"
+  },
+  {
+   "id": "runners",
+   "category": "shoes",
+   "label": "Running shoes",
+   "file": "assets/tokens/builder/shoes/runners.svg",
+   "colour": "shoes",
+   "default": "#ff5a6e"
+  },
+  {
+   "id": "boots",
+   "category": "shoes",
+   "label": "Boots",
+   "file": "assets/tokens/builder/shoes/boots.svg",
+   "colour": "shoes",
+   "default": "#3a2a1e"
+  },
+  {
+   "id": "workboots",
+   "category": "shoes",
+   "label": "Work boots",
+   "file": "assets/tokens/builder/shoes/workboots.svg",
+   "colour": "shoes",
+   "default": "#b0864e"
+  },
+  {
+   "id": "smart",
+   "category": "shoes",
+   "label": "Smart shoes",
+   "file": "assets/tokens/builder/shoes/smart.svg",
+   "colour": "shoes",
+   "default": "#16181c"
+  },
+  {
+   "id": "sliders",
+   "category": "shoes",
+   "label": "Sliders & socks",
+   "file": "assets/tokens/builder/shoes/sliders.svg",
+   "colour": "shoes",
+   "default": "#16181c"
+  },
+  {
+   "id": "heels",
+   "category": "shoes",
+   "label": "Heels",
+   "file": "assets/tokens/builder/shoes/heels.svg",
+   "colour": "shoes",
+   "default": "#6e2a35"
+  },
+  {
+   "id": "jeans",
+   "category": "legs",
+   "label": "Jeans",
+   "file": "assets/tokens/builder/legs/jeans.svg",
+   "colour": "legs",
+   "default": "#3d5a80"
+  },
+  {
+   "id": "joggers",
+   "category": "legs",
+   "label": "Joggers",
+   "file": "assets/tokens/builder/legs/joggers.svg",
+   "colour": "legs",
+   "default": "#2f333a"
+  },
+  {
+   "id": "cargos",
+   "category": "legs",
+   "label": "Cargo trousers",
+   "file": "assets/tokens/builder/legs/cargos.svg",
+   "colour": "legs",
+   "default": "#6b6b45"
+  },
+  {
+   "id": "suit",
+   "category": "legs",
+   "label": "Suit trousers",
+   "file": "assets/tokens/builder/legs/suit.svg",
+   "colour": "legs",
+   "default": "#2f333a"
+  },
+  {
+   "id": "shorts",
+   "category": "legs",
+   "label": "Shorts",
+   "file": "assets/tokens/builder/legs/shorts.svg",
+   "colour": "legs",
+   "default": "#6b6b45"
+  },
+  {
+   "id": "skirt",
+   "category": "legs",
+   "label": "Skirt",
+   "file": "assets/tokens/builder/legs/skirt.svg",
+   "colour": "legs",
+   "default": "#16181c"
+  },
+  {
+   "id": "leggings",
+   "category": "legs",
+   "label": "Leggings",
+   "file": "assets/tokens/builder/legs/leggings.svg",
+   "colour": "legs",
+   "default": "#16181c"
+  },
+  {
+   "id": "overalls",
+   "category": "legs",
+   "label": "Overalls",
+   "file": "assets/tokens/builder/legs/overalls.svg",
+   "colour": "legs",
+   "default": "#22304a"
+  },
+  {
+   "id": "tee",
+   "category": "top",
+   "label": "T-shirt",
+   "file": "assets/tokens/builder/top/tee.svg",
+   "colour": "top",
+   "default": "#d9d3c4"
+  },
+  {
+   "id": "vest",
+   "category": "top",
+   "label": "Vest",
+   "file": "assets/tokens/builder/top/vest.svg",
+   "colour": "top",
+   "default": "#f1ede2"
+  },
+  {
+   "id": "longsleeve",
+   "category": "top",
+   "label": "Long sleeves",
+   "file": "assets/tokens/builder/top/longsleeve.svg",
+   "colour": "top",
+   "default": "#16181c"
+  },
+  {
+   "id": "hoodie",
+   "category": "top",
+   "label": "Hoodie",
+   "file": "assets/tokens/builder/top/hoodie.svg",
+   "colour": "top",
+   "default": "#2f333a",
+   "hood": true
+  },
+  {
+   "id": "shirt",
+   "category": "top",
+   "label": "Shirt",
+   "file": "assets/tokens/builder/top/shirt.svg",
+   "colour": "top",
+   "default": "#f1ede2"
+  },
+  {
+   "id": "polo",
+   "category": "top",
+   "label": "Polo shirt",
+   "file": "assets/tokens/builder/top/polo.svg",
+   "colour": "top",
+   "default": "#22304a"
+  },
+  {
+   "id": "football",
+   "category": "top",
+   "label": "Football shirt",
+   "file": "assets/tokens/builder/top/football.svg",
+   "colour": "top",
+   "default": "#c0392b",
+   "number": true
+  },
+  {
+   "id": "stripes",
+   "category": "top",
+   "label": "Striped top",
+   "file": "assets/tokens/builder/top/stripes.svg",
+   "colour": "top",
+   "default": "#f1ede2"
+  },
+  {
+   "id": "rollneck",
+   "category": "top",
+   "label": "Roll neck",
+   "file": "assets/tokens/builder/top/rollneck.svg",
+   "colour": "top",
+   "default": "#16181c"
+  },
+  {
+   "id": "jersey",
+   "category": "top",
+   "label": "Cycling jersey",
+   "file": "assets/tokens/builder/top/jersey.svg",
+   "colour": "top",
+   "default": "#22304a"
+  },
+  {
+   "id": "bomber",
+   "category": "outerwear",
+   "label": "Bomber jacket",
+   "file": "assets/tokens/builder/outerwear/bomber.svg",
+   "colour": "outer",
+   "default": "#3a3f46"
+  },
+  {
+   "id": "puffer",
+   "category": "outerwear",
+   "label": "Puffer jacket",
+   "file": "assets/tokens/builder/outerwear/puffer.svg",
+   "colour": "outer",
+   "default": "#16181c"
+  },
+  {
+   "id": "hivis",
+   "category": "outerwear",
+   "label": "Hi-vis vest",
+   "file": "assets/tokens/builder/outerwear/hivis.svg",
+   "colour": "outer",
+   "default": "#d8e03a",
+   "hivis": true
+  },
+  {
+   "id": "hivisjacket",
+   "category": "outerwear",
+   "label": "Hi-vis jacket",
+   "file": "assets/tokens/builder/outerwear/hivisjacket.svg",
+   "colour": "outer",
+   "default": "#d8e03a",
+   "hivis": true
+  },
+  {
+   "id": "leather",
+   "category": "outerwear",
+   "label": "Leather jacket",
+   "file": "assets/tokens/builder/outerwear/leather.svg",
+   "colour": "outer",
+   "default": "#16181c"
+  },
+  {
+   "id": "trench",
+   "category": "outerwear",
+   "label": "Long coat",
+   "file": "assets/tokens/builder/outerwear/trench.svg",
+   "colour": "outer",
+   "default": "#b9a47a"
+  },
+  {
+   "id": "parka",
+   "category": "outerwear",
+   "label": "Parka",
+   "file": "assets/tokens/builder/outerwear/parka.svg",
+   "colour": "outer",
+   "default": "#5f6b3a",
+   "hood": true
+  },
+  {
+   "id": "tracktop",
+   "category": "outerwear",
+   "label": "Tracksuit top",
+   "file": "assets/tokens/builder/outerwear/tracktop.svg",
+   "colour": "outer",
+   "default": "#22304a"
+  },
+  {
+   "id": "gilet",
+   "category": "outerwear",
+   "label": "Gilet",
+   "file": "assets/tokens/builder/outerwear/gilet.svg",
+   "colour": "outer",
+   "default": "#16181c"
+  },
+  {
+   "id": "blazer",
+   "category": "outerwear",
+   "label": "Blazer",
+   "file": "assets/tokens/builder/outerwear/blazer.svg",
+   "colour": "outer",
+   "default": "#22304a"
+  },
+  {
+   "id": "denim",
+   "category": "outerwear",
+   "label": "Denim jacket",
+   "file": "assets/tokens/builder/outerwear/denim.svg",
+   "colour": "outer",
+   "default": "#4a6d93"
+  },
+  {
+   "id": "courier",
+   "category": "outerwear",
+   "label": "Courier jacket",
+   "file": "assets/tokens/builder/outerwear/courier.svg",
+   "colour": "outer",
+   "default": "#2f7f7f"
+  },
+  {
+   "id": "mac",
+   "category": "outerwear",
+   "label": "Rain mac",
+   "file": "assets/tokens/builder/outerwear/mac.svg",
+   "colour": "outer",
+   "default": "#c0392b",
+   "hood": true
+  },
+  {
+   "id": "stripe",
+   "category": "trim",
+   "label": "Shoulder stripe",
+   "file": "assets/tokens/builder/trim/stripe.svg"
+  },
+  {
+   "id": "double",
+   "category": "trim",
+   "label": "Double stripe",
+   "file": "assets/tokens/builder/trim/double.svg"
+  },
+  {
+   "id": "piping",
+   "category": "trim",
+   "label": "Sleeve piping",
+   "file": "assets/tokens/builder/trim/piping.svg"
+  },
+  {
+   "id": "battenburg",
+   "category": "trim",
+   "label": "Battenburg checks",
+   "file": "assets/tokens/builder/trim/battenburg.svg"
+  },
+  {
+   "id": "collar",
+   "category": "trim",
+   "label": "Glow collar",
+   "file": "assets/tokens/builder/trim/collar.svg"
+  },
+  {
+   "id": "chain",
+   "category": "neck",
+   "label": "Chain",
+   "file": "assets/tokens/builder/neck/chain.svg"
+  },
+  {
+   "id": "bigchain",
+   "category": "neck",
+   "label": "Chunky chain",
+   "file": "assets/tokens/builder/neck/bigchain.svg"
+  },
+  {
+   "id": "scarf",
+   "category": "neck",
+   "label": "Scarf",
+   "file": "assets/tokens/builder/neck/scarf.svg"
+  },
+  {
+   "id": "lanyard",
+   "category": "neck",
+   "label": "Lanyard",
+   "file": "assets/tokens/builder/neck/lanyard.svg"
+  },
+  {
+   "id": "cans",
+   "category": "neck",
+   "label": "Headphones round the neck",
+   "file": "assets/tokens/builder/neck/cans.svg"
+  },
+  {
+   "id": "backpack",
+   "category": "back",
+   "label": "Backpack",
+   "file": "assets/tokens/builder/back/backpack.svg",
+   "colour": "bag",
+   "default": "#2f333a"
+  },
+  {
+   "id": "courierbox",
+   "category": "back",
+   "label": "Courier box",
+   "file": "assets/tokens/builder/back/courierbox.svg",
+   "colour": "bag",
+   "default": "#2f7f7f"
+  },
+  {
+   "id": "messenger",
+   "category": "back",
+   "label": "Messenger bag",
+   "file": "assets/tokens/builder/back/messenger.svg",
+   "colour": "bag",
+   "default": "#5f6b3a"
+  },
+  {
+   "id": "holdall",
+   "category": "back",
+   "label": "Sports holdall",
+   "file": "assets/tokens/builder/back/holdall.svg",
+   "colour": "bag",
+   "default": "#16181c"
+  },
+  {
+   "id": "toolbag",
+   "category": "back",
+   "label": "Tool bag",
+   "file": "assets/tokens/builder/back/toolbag.svg",
+   "colour": "bag",
+   "default": "#b0864e"
+  },
+  {
+   "id": "guitar",
+   "category": "back",
+   "label": "Guitar case",
+   "file": "assets/tokens/builder/back/guitar.svg",
+   "colour": "bag",
+   "default": "#16181c"
+  },
+  {
+   "id": "black",
+   "category": "gloves",
+   "label": "Black gloves",
+   "glove": "#16181c"
+  },
+  {
+   "id": "work",
+   "category": "gloves",
+   "label": "Work gloves",
+   "glove": "#b0864e"
+  },
+  {
+   "id": "latex",
+   "category": "gloves",
+   "label": "Medical gloves",
+   "glove": "#8fb8e8"
+  },
+  {
+   "id": "cycling",
+   "category": "gloves",
+   "label": "Cycling gloves",
+   "glove": "acc"
+  },
+  {
+   "id": "phone",
+   "category": "prop",
+   "label": "Phone",
+   "file": "assets/tokens/builder/prop/phone.svg"
+  },
+  {
+   "id": "spraycan",
+   "category": "prop",
+   "label": "Spray can",
+   "file": "assets/tokens/builder/prop/spraycan.svg"
+  },
+  {
+   "id": "crowbar",
+   "category": "prop",
+   "label": "Crowbar",
+   "file": "assets/tokens/builder/prop/crowbar.svg"
+  },
+  {
+   "id": "bat",
+   "category": "prop",
+   "label": "Baseball bat",
+   "file": "assets/tokens/builder/prop/bat.svg"
+  },
+  {
+   "id": "wrench",
+   "category": "prop",
+   "label": "Wrench",
+   "file": "assets/tokens/builder/prop/wrench.svg"
+  },
+  {
+   "id": "torch",
+   "category": "prop",
+   "label": "Torch",
+   "file": "assets/tokens/builder/prop/torch.svg"
+  },
+  {
+   "id": "cigarette",
+   "category": "prop",
+   "label": "Cigarette",
+   "file": "assets/tokens/builder/prop/cigarette.svg"
+  },
+  {
+   "id": "coffee",
+   "category": "prop",
+   "label": "Coffee",
+   "file": "assets/tokens/builder/prop/coffee.svg"
+  },
+  {
+   "id": "takeaway",
+   "category": "prop",
+   "label": "Takeaway bag",
+   "file": "assets/tokens/builder/prop/takeaway.svg"
+  },
+  {
+   "id": "dlock",
+   "category": "prop",
+   "label": "D-lock",
+   "file": "assets/tokens/builder/prop/dlock.svg"
+  },
+  {
+   "id": "can",
+   "category": "prop",
+   "label": "Can of lager",
+   "file": "assets/tokens/builder/prop/can.svg"
+  },
+  {
+   "id": "radio",
+   "category": "prop",
+   "label": "Police radio",
+   "file": "assets/tokens/builder/prop/radio.svg"
+  },
+  {
+   "id": "shaved",
+   "category": "hair",
+   "label": "Shaved",
+   "file": "assets/tokens/builder/hair/shaved.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "buzz",
+   "category": "hair",
+   "label": "Buzz cut",
+   "file": "assets/tokens/builder/hair/buzz.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "short",
+   "category": "hair",
+   "label": "Short",
+   "file": "assets/tokens/builder/hair/short.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "fade",
+   "category": "hair",
+   "label": "Skin fade",
+   "file": "assets/tokens/builder/hair/fade.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "quiff",
+   "category": "hair",
+   "label": "Quiff",
+   "file": "assets/tokens/builder/hair/quiff.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "curly",
+   "category": "hair",
+   "label": "Curly",
+   "file": "assets/tokens/builder/hair/curly.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "afro",
+   "category": "hair",
+   "label": "Afro",
+   "file": "assets/tokens/builder/hair/afro.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "long",
+   "category": "hair",
+   "label": "Long",
+   "file": "assets/tokens/builder/hair/long.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "ponytail",
+   "category": "hair",
+   "label": "Ponytail",
+   "file": "assets/tokens/builder/hair/ponytail.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "bun",
+   "category": "hair",
+   "label": "Bun",
+   "file": "assets/tokens/builder/hair/bun.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "cornrows",
+   "category": "hair",
+   "label": "Cornrows",
+   "file": "assets/tokens/builder/hair/cornrows.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "locs",
+   "category": "hair",
+   "label": "Locs",
+   "file": "assets/tokens/builder/hair/locs.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "mohawk",
+   "category": "hair",
+   "label": "Mohawk",
+   "file": "assets/tokens/builder/hair/mohawk.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "bob",
+   "category": "hair",
+   "label": "Bob",
+   "file": "assets/tokens/builder/hair/bob.svg",
+   "colour": "hair"
+  },
+  {
+   "id": "cap",
+   "category": "hat",
+   "label": "Cap",
+   "file": "assets/tokens/builder/hat/cap.svg",
+   "colour": "hat",
+   "default": "#16181c",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "capback",
+   "category": "hat",
+   "label": "Cap (backwards)",
+   "file": "assets/tokens/builder/hat/capback.svg",
+   "colour": "hat",
+   "default": "#c0392b",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "beanie",
+   "category": "hat",
+   "label": "Beanie",
+   "file": "assets/tokens/builder/hat/beanie.svg",
+   "colour": "hat",
+   "default": "#16181c",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "bucket",
+   "category": "hat",
+   "label": "Bucket hat",
+   "file": "assets/tokens/builder/hat/bucket.svg",
+   "colour": "hat",
+   "default": "#d9d3c4",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "hood",
+   "category": "hat",
+   "label": "Hood up",
+   "file": "assets/tokens/builder/hat/hood.svg",
+   "hides": [
+    "hair"
+   ]
+  },
+  {
+   "id": "cyclehelmet",
+   "category": "hat",
+   "label": "Cycle helmet",
+   "file": "assets/tokens/builder/hat/cyclehelmet.svg",
+   "colour": "hat",
+   "default": "#f1ede2",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "motohelmet",
+   "category": "hat",
+   "label": "Motorbike helmet",
+   "file": "assets/tokens/builder/hat/motohelmet.svg",
+   "colour": "hat",
+   "default": "#16181c",
+   "hides": [
+    "hair",
+    "face"
+   ]
+  },
+  {
+   "id": "hardhat",
+   "category": "hat",
+   "label": "Hard hat",
+   "file": "assets/tokens/builder/hat/hardhat.svg",
+   "colour": "hat",
+   "default": "#e8c33a",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "flatcap",
+   "category": "hat",
+   "label": "Flat cap",
+   "file": "assets/tokens/builder/hat/flatcap.svg",
+   "colour": "hat",
+   "default": "#6b5a46",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "durag",
+   "category": "hat",
+   "label": "Durag",
+   "file": "assets/tokens/builder/hat/durag.svg",
+   "colour": "hat",
+   "default": "#22304a",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "headscarf",
+   "category": "hat",
+   "label": "Headscarf",
+   "file": "assets/tokens/builder/hat/headscarf.svg",
+   "colour": "hat",
+   "default": "#5b4a8a",
+   "hides": [
+    "hair"
+   ]
+  },
+  {
+   "id": "turban",
+   "category": "hat",
+   "label": "Turban",
+   "file": "assets/tokens/builder/hat/turban.svg",
+   "colour": "hat",
+   "default": "#e8742c",
+   "hides": [
+    "hair"
+   ]
+  },
+  {
+   "id": "bandana",
+   "category": "hat",
+   "label": "Bandana",
+   "file": "assets/tokens/builder/hat/bandana.svg",
+   "colour": "hat",
+   "default": "#c0392b",
+   "hides": [
+    "hair:cap"
+   ]
+  },
+  {
+   "id": "policehelmet",
+   "category": "hat",
+   "label": "Police helmet",
+   "file": "assets/tokens/builder/hat/policehelmet.svg",
+   "hides": [
+    "hair:cap"
+   ],
+   "npc": true
+  },
+  {
+   "id": "policecap",
+   "category": "hat",
+   "label": "Police cap",
+   "file": "assets/tokens/builder/hat/policecap.svg",
+   "hides": [
+    "hair:cap"
+   ],
+   "npc": true
+  },
+  {
+   "id": "glasses",
+   "category": "face",
+   "label": "Glasses",
+   "file": "assets/tokens/builder/face/glasses.svg"
+  },
+  {
+   "id": "shades",
+   "category": "face",
+   "label": "Shades",
+   "file": "assets/tokens/builder/face/shades.svg"
+  },
+  {
+   "id": "balaclava",
+   "category": "face",
+   "label": "Balaclava",
+   "file": "assets/tokens/builder/face/balaclava.svg",
+   "hides": [
+    "hair",
+    "hat"
+   ]
+  },
+  {
+   "id": "snood",
+   "category": "face",
+   "label": "Face mask",
+   "file": "assets/tokens/builder/face/snood.svg"
+  },
+  {
+   "id": "headphones",
+   "category": "face",
+   "label": "Headphones",
+   "file": "assets/tokens/builder/face/headphones.svg"
+  },
+  {
+   "id": "hoops",
+   "category": "face",
+   "label": "Hoop earrings",
+   "file": "assets/tokens/builder/face/hoops.svg"
+  }
+ ],
+ "presets": [
+  {
+   "id": "rider",
+   "label": "Delivery rider",
+   "recipe": {
+    "top": "hoodie",
+    "outerwear": "courier",
+    "back": "courierbox",
+    "legs": "joggers",
+    "shoes": "trainers",
+    "hat": "cyclehelmet",
+    "prop": "phone",
+    "gloves": "cycling",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#2f333a",
+     "outer": "#2f7f7f",
+     "bag": "#2f7f7f",
+     "legs": "#16181c",
+     "shoes": "#f1ede2",
+     "hat": "#f1ede2"
+    }
+   }
+  },
+  {
+   "id": "mechanic",
+   "label": "Mechanic",
+   "recipe": {
+    "top": "tee",
+    "outerwear": "none",
+    "back": "toolbag",
+    "legs": "overalls",
+    "shoes": "workboots",
+    "hat": "none",
+    "prop": "wrench",
+    "gloves": "work",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#9aa0a6",
+     "legs": "#22304a",
+     "shoes": "#b0864e",
+     "bag": "#b0864e"
+    }
+   }
+  },
+  {
+   "id": "roadman",
+   "label": "Roadman",
+   "recipe": {
+    "top": "hoodie",
+    "outerwear": "puffer",
+    "back": "messenger",
+    "legs": "joggers",
+    "shoes": "trainers",
+    "hat": "none",
+    "prop": "phone",
+    "gloves": "none",
+    "trim": "none",
+    "neck": "chain",
+    "face": "none",
+    "colours": {
+     "top": "#16181c",
+     "outer": "#16181c",
+     "legs": "#2f333a",
+     "shoes": "#f1ede2",
+     "bag": "#16181c"
+    }
+   }
+  },
+  {
+   "id": "smart",
+   "label": "Smart casual",
+   "recipe": {
+    "top": "shirt",
+    "outerwear": "blazer",
+    "back": "none",
+    "legs": "suit",
+    "shoes": "smart",
+    "hat": "none",
+    "prop": "coffee",
+    "gloves": "none",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#f1ede2",
+     "outer": "#22304a",
+     "legs": "#2f333a",
+     "shoes": "#16181c"
+    }
+   }
+  },
+  {
+   "id": "casual",
+   "label": "Casual",
+   "recipe": {
+    "top": "tee",
+    "outerwear": "denim",
+    "back": "backpack",
+    "legs": "jeans",
+    "shoes": "trainers",
+    "hat": "none",
+    "prop": "none",
+    "gloves": "none",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#d9d3c4",
+     "outer": "#4a6d93",
+     "legs": "#22304a",
+     "shoes": "#f1ede2",
+     "bag": "#2f333a"
+    }
+   }
+  },
+  {
+   "id": "writer",
+   "label": "Graffiti writer",
+   "recipe": {
+    "top": "hoodie",
+    "outerwear": "none",
+    "back": "backpack",
+    "legs": "cargos",
+    "shoes": "hightops",
+    "hat": "bucket",
+    "prop": "spraycan",
+    "gloves": "black",
+    "trim": "none",
+    "neck": "none",
+    "face": "snood",
+    "colours": {
+     "top": "#5b4a8a",
+     "legs": "#6b6b45",
+     "shoes": "#16181c",
+     "hat": "#d9d3c4",
+     "bag": "#16181c"
+    }
+   }
+  },
+  {
+   "id": "driver",
+   "label": "Wheelman",
+   "recipe": {
+    "top": "tee",
+    "outerwear": "leather",
+    "back": "none",
+    "legs": "jeans",
+    "shoes": "boots",
+    "hat": "none",
+    "prop": "none",
+    "gloves": "black",
+    "trim": "none",
+    "neck": "none",
+    "face": "shades",
+    "colours": {
+     "top": "#16181c",
+     "outer": "#16181c",
+     "legs": "#22304a",
+     "shoes": "#3a2a1e"
+    }
+   }
+  },
+  {
+   "id": "dark",
+   "label": "All in black",
+   "recipe": {
+    "top": "longsleeve",
+    "outerwear": "leather",
+    "back": "none",
+    "legs": "joggers",
+    "shoes": "boots",
+    "hat": "beanie",
+    "prop": "none",
+    "gloves": "black",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#16181c",
+     "outer": "#16181c",
+     "legs": "#16181c",
+     "shoes": "#16181c",
+     "hat": "#16181c"
+    }
+   }
+  },
+  {
+   "id": "old",
+   "label": "Old head",
+   "recipe": {
+    "top": "shirt",
+    "outerwear": "trench",
+    "back": "none",
+    "legs": "suit",
+    "shoes": "smart",
+    "hat": "flatcap",
+    "prop": "cigarette",
+    "gloves": "none",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#d9d3c4",
+     "outer": "#6b5a46",
+     "legs": "#2f333a",
+     "shoes": "#3a2a1e",
+     "hat": "#6b5a46"
+    }
+   }
+  },
+  {
+   "id": "raver",
+   "label": "Night out",
+   "recipe": {
+    "top": "vest",
+    "outerwear": "none",
+    "back": "none",
+    "legs": "skirt",
+    "shoes": "heels",
+    "hat": "none",
+    "prop": "can",
+    "gloves": "none",
+    "trim": "collar",
+    "neck": "chain",
+    "face": "hoops",
+    "colours": {
+     "top": "#16181c",
+     "legs": "#6e2a35",
+     "shoes": "#16181c"
+    }
+   }
+  },
+  {
+   "id": "footy",
+   "label": "Matchday",
+   "recipe": {
+    "top": "football",
+    "outerwear": "none",
+    "back": "none",
+    "legs": "jeans",
+    "shoes": "trainers",
+    "hat": "none",
+    "prop": "can",
+    "gloves": "none",
+    "trim": "none",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#c0392b",
+     "legs": "#3d5a80",
+     "shoes": "#f1ede2"
+    }
+   }
+  },
+  {
+   "id": "police",
+   "label": "Met police officer",
+   "npc": true,
+   "recipe": {
+    "top": "longsleeve",
+    "outerwear": "hivisjacket",
+    "back": "none",
+    "legs": "suit",
+    "shoes": "boots",
+    "hat": "policecap",
+    "prop": "radio",
+    "gloves": "none",
+    "trim": "battenburg",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#16181c",
+     "outer": "#d8e03a",
+     "legs": "#16181c",
+     "shoes": "#16181c",
+     "acc": "#22304a"
+    },
+    "ring": "#7fb2ff"
+   }
+  },
+  {
+   "id": "bobby",
+   "label": "Bobby on foot",
+   "npc": true,
+   "recipe": {
+    "top": "longsleeve",
+    "outerwear": "hivis",
+    "back": "none",
+    "legs": "suit",
+    "shoes": "boots",
+    "hat": "policehelmet",
+    "prop": "radio",
+    "gloves": "none",
+    "trim": "battenburg",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#16181c",
+     "outer": "#d8e03a",
+     "legs": "#16181c",
+     "shoes": "#16181c",
+     "acc": "#22304a"
+    },
+    "ring": "#7fb2ff"
+   }
+  },
+  {
+   "id": "paramedic",
+   "label": "Paramedic",
+   "npc": true,
+   "recipe": {
+    "top": "longsleeve",
+    "outerwear": "hivisjacket",
+    "back": "holdall",
+    "legs": "cargos",
+    "shoes": "boots",
+    "hat": "none",
+    "prop": "none",
+    "gloves": "latex",
+    "trim": "battenburg",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#2f5a3a",
+     "outer": "#d8e03a",
+     "legs": "#2f5a3a",
+     "shoes": "#16181c",
+     "bag": "#2f5a3a",
+     "acc": "#2f5a3a"
+    },
+    "ring": "#8be6b0"
+   }
+  },
+  {
+   "id": "cabbie",
+   "label": "Cabbie",
+   "npc": true,
+   "recipe": {
+    "top": "shirt",
+    "outerwear": "none",
+    "back": "none",
+    "legs": "suit",
+    "shoes": "smart",
+    "hat": "none",
+    "prop": "coffee",
+    "gloves": "none",
+    "trim": "none",
+    "neck": "none",
+    "face": "glasses",
+    "colours": {
+     "top": "#7fb2ff",
+     "legs": "#2f333a",
+     "shoes": "#16181c"
+    },
+    "ring": "#ffc467"
+   }
+  },
+  {
+   "id": "firefighter",
+   "label": "Firefighter",
+   "npc": true,
+   "recipe": {
+    "top": "longsleeve",
+    "outerwear": "hivisjacket",
+    "back": "none",
+    "legs": "cargos",
+    "shoes": "boots",
+    "hat": "hardhat",
+    "prop": "none",
+    "gloves": "black",
+    "trim": "stripe",
+    "neck": "none",
+    "face": "none",
+    "colours": {
+     "top": "#16181c",
+     "outer": "#2f333a",
+     "legs": "#2f333a",
+     "shoes": "#16181c",
+     "hat": "#e8c33a",
+     "acc": "#d8e03a"
+    },
+    "ring": "#ff8a3d"
+   }
+  }
+ ]
+}

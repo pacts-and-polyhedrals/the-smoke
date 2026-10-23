@@ -227,5 +227,30 @@ async function arrestAndBook(vt, call) {
   await new Promise(r => setTimeout(r, 50));
   assert.ok(!state().calls[call.id] && paid() > before, 'order done, bonus paid'); results.pat = paid() - before;
 }
-console.log(`jobs end to end: taxi £${results.taxi}, courier £${results.courier}, ambulance £${results.ambulance}, fire £${results.fire}, bus £${results.bus}, police disturbance £${results.disturbance}, ANPR £${results.anpr}, pursuit £${results.pursuit}, Pat's order £${results.pat} — ok`);
+/* ---------------------------------------------------------------- 0.5.25: Pat's bigger orders (Rep 3) and car jobs (Rep 9) */
+{
+  const {patOrdersFor, PAT_ORDERS} = Jb;
+  assert.ok(patOrdersFor(1).length >= 4 && patOrdersFor(1).every(o => !o.minRep), 'Rep 1-2: the four starter orders');
+  assert.ok(patOrdersFor(3).some(o => o.minRep === 3) && !patOrdersFor(8).some(o => o.car), 'Rep 3: bigger orders, still no car jobs');
+  assert.ok(patOrdersFor(9).filter(o => o.car).length >= 3 && PAT_ORDERS.filter(o => o.car).every(o => o.minRep === 9), 'Rep 9: car jobs');
+  for (const s of scenes) for (const t of [...s.tokens]) await s.deleteEmbeddedDocuments('Token', [t.id]);
+  await game.settings.set(NS, 'jobState', {shifts: {}, calls: {}});
+  const stage = pc.system.stage; pc.system.stage = 9;
+  const realRandom = Math.random; let first = true; Math.random = () => { if (first) { first = false; return 0.999; } return realRandom(); };   // the last Rep 9 order: a car job
+  try { await dispatch('job.crew', {actorId: pc.id, userId: gm.id}); } finally { Math.random = realRandom; }
+  const call = Object.values(state().calls).find(c => c.type === 'crew');
+  assert.ok(call.data.order.car && /car job/.test(call.title) && /Bow Breakers/.test(call.instruction), `a car job, delivered to Bow Breakers: ${call.title}`);
+  for (const s of new Set(call.data.spots.map(x => x.mapId))) Hooks.callAll('smokeTransit', {target: sceneOf(s)});
+  await new Promise(r => setTimeout(r, 50));
+  const motors = scenes.flatMap(s => s.tokens.filter(t => t.getFlag(NS, 'orderFor') === call.id));
+  assert.ok(motors.length && motors.every(t => t.getFlag(NS, 'traffic')?.kind === 'parked' && call.data.order.ids.includes(t.actor.getFlag(NS, 'catalogId'))), 'the tipped-off motors are parked where Kez said');
+  const id = call.data.order.ids[0], before = paid();
+  Hooks.callAll('smokeVehicleSold', {seller: pc, catalogId: id, service: 'gang'}); await new Promise(r => setTimeout(r, 30));
+  assert.equal(state().calls[call.id].data.delivered, 0, 'sold to Pat at The Arches: does not count for a car job');
+  for (let i = 0; i < call.data.order.want; i++) Hooks.callAll('smokeVehicleSold', {seller: pc, catalogId: id, service: 'chop'});
+  await new Promise(r => setTimeout(r, 50));
+  assert.ok(!state().calls[call.id] && paid() - before >= call.data.order.bonus, 'sold at Bow Breakers: the car job completes and Pat pays the bonus');
+  results.carJob = paid() - before; pc.system.stage = stage;
+}
+console.log(`jobs end to end: taxi £${results.taxi}, courier £${results.courier}, ambulance £${results.ambulance}, fire £${results.fire}, bus £${results.bus}, police disturbance £${results.disturbance}, ANPR £${results.anpr}, pursuit £${results.pursuit}, Pat's order £${results.pat}, Pat's car job £${results.carJob} — ok`);
 process.exit(0);

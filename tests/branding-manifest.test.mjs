@@ -6,9 +6,9 @@ import {createHash} from 'node:crypto';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const man = JSON.parse(readFileSync(path.join(root, 'system.json'), 'utf8'));
-assert.equal(man.version, '0.5.24');
+assert.equal(man.version, '0.5.27-rc.3');
 assert.equal(man.id, 'the-smoke');
-assert.equal(man.download, 'https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.24/the-smoke-v0.5.24.zip');
+assert.equal(man.download, `https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v${man.version}/the-smoke-v${man.version}.zip`);
 assert.ok(man.description.includes("You're in Hackney, mate"));
 assert.ok(man.description.includes('Auntie Pat'));
 assert.ok(man.description.includes('Heat'));
@@ -44,4 +44,4 @@ for (const [relative, expected] of Object.entries({
   const gitBlob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex');
   assert.equal(gitBlob, expected, `Website and package branding assets differ for ${relative}`);
 }
-console.log('v0.5.24 listing, all original website assets, remote gallery URLs, and spoiler-safe copy validated');
+console.log('v0.5.26 listing, all original website assets, remote gallery URLs, and spoiler-safe copy validated');

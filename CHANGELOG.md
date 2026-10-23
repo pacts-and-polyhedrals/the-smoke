@@ -1,3 +1,109 @@
+# Changelog
+
+## 0.5.27-rc.3 — What the GM adds counts; Banana Basket
+
+- **Cash and kit added on a sheet now count.**
+  - Characters made with Foundry's Create Actor had unlinked tokens. Kit and cash added on such a token's own sheet went into the token's copy, which the shops, the Tag Studio and the missions never read.
+  - Every character and every character token is now linked (`module/world/characters.mjs`).
+  - At GM login, anything on an unlinked copy (kit added or changed, or higher cash or stash) is moved onto the character before linking, and the GM gets a list.
+- **Spray paint.** Any gear called spray paint, a spray can or similar counts as a can, not only the exact "Spray Paint".
+- **Who controls money and kit.**
+  - The GM always has full control.
+  - In Self-play, players' cash, stash and new kit come through play (setting `selfPlayEarnedOnly`, on by default): the sheet fields lock, and dropping or creating kit by hand is refused.
+  - Story mode is unchanged.
+  - The GM Screen can now take kit as well as give it.
+- **Banana Basket.** Order high-street stock on the Blower, delivered to Your Flat (`module/world/deliveries.mjs`, `module/apps/order.mjs`).
+  - Shops: the corner shop, Pat's, the market, the bodyshops, Bow Breakers and the chemist.
+  - Excluded: no weapons, ammo, drugs, under-the-counter or Rep-locked stock.
+  - Delivery: a fee (£5) and a time (60 Watch minutes), both set in Settings. Collect at the flat or a safehouse; cancel with a refund while it's on the way.
+  - The GM can deliver at once or cancel any order. Payment is receipted.
+- **Tests:** the new suite `resources-and-orders` (76 suites).
+
+## 0.5.27-rc.2 — Every mission plays through again
+
+- **Shared cars count.** "Get some wheels" counts each player aboard any vehicle, so four players in one car complete it. Before, only Pat's loan bikes counted, one each, so a crew sharing a car couldn't complete it.
+- **Nicking and selling.** A motor counts wherever it was nicked, and any model the job asks for counts, not only the one it placed. A sale counts at the right buyer: Pat (anywhere in The Arches) or the chop shop.
+- **Set-up never blocks a job.** Room for the job's vehicles and markers is found on a nearby road, turning the vehicle if needed, ignoring moving traffic. Anything that still can't be placed is listed for the GM, and the job carries on. Before, a parked car on Morning Lane stopped CH3 with "No clear 2 x 4 space".
+- **Old runs carry on.** Runs from older builds keep their progress. Runs that rc.1 froze with "The GM must review the progress retained from the previous build" are released when the world loads, with a note in their log. Very old runs get a run ID, so cargo, paint and radio proofs work for them.
+- **Mark done by hand.**
+  - A player on the job, in Self-play, can mark a ready step done.
+  - The GM can mark any step done, reopen it, or pass the job.
+  - Every change is logged on the run and counts as that player's part in the job.
+- **Sat nav.** It goes to the job's motor first ("Nick the …", "Back to the …"), then the buyer. It also finds the next wall to paint and the radio contact. It finishes what's at the place the crew are in before driving off. Before, on CH3 it stayed on The Arches.
+- **Places checked against the objectives and the GM files.**
+  - M09 Westfield is at Westfield Stratford City, not the London Stadium.
+  - M12's lock-up is behind the Leyton Orient ground, not a betting shop's front bar.
+  - In M11, the ledger is saved during the raid.
+  - Also fixed: CH5, CH6, CH7, CH8, AD1, AD3, AD8, LB2, TU2, TU8, BB4, MR7 and S04.
+  - Every graffiti wall's checkpoint is where its paint spot is, and the Bow Flyover column is under the flyover.
+  - The fixes are in `scripts/missions/fix-contracts.mjs`, with the reason for each.
+- **GM files.** Each GM file's "Live mission contract" table is now generated from the checkpoint data, so its places are always current.
+- **Tests.**
+  - `tests/mission-playthrough.mjs` plays every job the way a crew would, following the sat nav. All 179 pass at 1–6 players (1,074 runs) and on crowded streets (358 runs).
+  - The new suite `mission-playthrough` runs 716 of these on every build. It also checks a run frozen by rc.1, four players in one car, and Mark done.
+  - In total, 75 suites pass.
+
+## 0.5.27-rc.1 - combine audited missions/venues/items with v0.5.26
+
+- Three-way merge against approved v0.5.24; no branch copied wholesale over the other.
+- Retain Token Builder, hires, stat balance, Rep jobs, police/driving controls, expanded GM files and graffiti pieces alongside the audit automation and commerce/item fixes.
+- 247 items, 29 guide journals / 328 pages; source records and three affected packs rebuilt without dropping old IDs.
+- Context bridge for all nine incoming perks; preserve the final thrown weapon through its roll; reconcile story guidance with live mission contracts.
+- Main-stat roll-state controls, one labeled Blower, Token Builder and GM Guard retained in a compact header.
+- Protected baselines are not overwritten by documentation generation. 74 combined suites and 87 capability probes; live Foundry/Forge and native pack loading remain unsigned.
+- This is a merged test candidate. Inherited audit partial/open work remains explicitly recorded in IMPLEMENTATION-STATUS.md and MERGE-REPORT.md.
+
+## 0.5.26 — Graffiti pieces, characters and presets
+
+- **Piece engine** (`module/graffiti/pieces.mjs`): sixteen styles drawn as pure SVG from vector outlines of fifteen open-licensed fonts (`data/graffiti-letters.json`).
+  - Styles: street and marker tags, throw-up, bubble, old skool, blockbuster, deep 3D, new skool, burner, wildstyle, semi-wild, spikes, stencil, drip, fat cap and straight letter.
+  - Drawing: stacked or joined outlines, clouds and keylines, 3D, fills (fade, two-tone, stripes, bubbles, stars, drop-top, bricks, flames, cracks) and shine.
+  - Wild touches: curved arrows, spikes, cuts, drips and overspray.
+  - Two-line layout for long names.
+  - The roll sets the finish: patchy and running on a Proper Mess, glow and crown on Legendary.
+- **Twenty-three graffiti characters** (`module/graffiti/characters.mjs`): writers (including the d20), one per faction, and radio characters. They stand left or right and take the piece's colours.
+- **Ninety presets** (`module/graffiti/presets.mjs`), with art shipped in `assets/graffiti/presets/`:
+  - ASMO and 2CB in every style;
+  - three pieces per faction, in its colours, with its character and its tag pack;
+  - shout-outs for the six stations and the Static Kings;
+  - street pieces.
+- **Tag pack art:** each tag pack's six finishes now exist (`assets/graffiti/svg/`).
+- **Tag Studio:** a grouped style list; Piece options (second fill, fill, character, side, skin); and a Presets gallery that keeps where you're painting.
+- **The GM's paint:** it loads the letters and regenerates pieces from trusted data, keeping only the painter's underline/arrow/drips. Crown, glow and sparkles come from the roll.
+- **Tests:** new suite `graffiti-pieces` (66 suites). The tagging end-to-end run paints pieces too. See `RELEASE-v0.5.26.md`.
+
+## 0.5.25 — Nothing lost on upgrade; a token builder; every stat earns its keep; a GM file for every mission
+
+- **Capability guard.** Every older build was compared with 0.5.24 and anything lost was put back. `tests/capability-manifest.mjs` lists all 76 capabilities since 0.1.0; `tests/capabilities.test.mjs` fails if one, or anything 0.5.24 had, disappears. Human list: `CAPABILITIES.md`.
+- **Restored:**
+  - the chase and driving switches on the Blower and in Street Control (GM; Self-play players with a character);
+  - automatic yellow/red and PIT driving checks (own setting, off by default);
+  - the GM-editable base Guard.
+- **Rep unlocks made real:**
+  - Pat's bigger orders at Rep 3, and car jobs at Rep 9, delivered to Bow Breakers Yard;
+  - hired hands from Rep 13, nine types with 2/3/4 slots;
+  - Known to police 3 makes talking out of a stop a Long Shot.
+  - New at every stop: **Say nothing** (Bottle; never against armed crime).
+- **Token Builder.**
+  - 109 layered parts in 14 categories, three builds, eight skins and 16 presets.
+  - It is step 7 of the Character Creator, and Build/Edit and Randomise sit on every sheet.
+  - Saves to the token everywhere and to the portrait if unset. Hired hands are dressed for the job.
+- **Stat balance:**
+  - twelve backgrounds (new: Scaffolder, Door Staff), so every stat is someone's d8;
+  - nine new perks (five or more per stat);
+  - new GM quick checks for Aim and Muscle;
+  - mission checks spread 9.8–12.2% per stat, pinned by `stat-balance.test.mjs`.
+- **Every place used.** All 160 venues are mission stops and job locations, and all 47 landmarks are destinations.
+- **Mission files.** All 179 missions have a GM file: brief, read-aloud boxes, scenes with checks, who's who and DM notes. Two new GM-only journals: Street Commissions and Radio Wars. Radio play steps now name the real menu and actions.
+- **Guides from the rules.** These pages are generated from the rules code at edition 0.5.25: Making a Character, Your Stats, Rep and Levelling, Make a new face, and the GM's Rewards and XP.
+- **Fixed:** the Quick build set Health to 10 whatever your Grit. It now sets 8 + your Grit modifier.
+- New suites: `capabilities`, `stat-balance`, `token-builder`, `hires`, `chase-settings`, `venue-coverage` (65 suites). See `RELEASE-v0.5.25.md`.
+
+
+# 0.5.25-rc.1 - incomplete audit implementation candidate
+
+See RELEASE-v0.5.25-rc.1.md, IMPLEMENTATION-STATUS.md and LIVE-ACCEPTANCE.md. Not approved for production; preserve v0.5.24 as the baseline.
+
 ## 0.5.24 — Players can right-click every vehicle
 
 - **Fixed: a player's right-click did nothing on vehicles that were already on the map when the world loaded** (Pat's order bikes, parked cars, chained bikes), while the GM could. Foundry fixes a token's right-click when it draws it, and the players' street menu was installed after the first map was drawn. It's now installed before, and tokens already drawn are re-armed.

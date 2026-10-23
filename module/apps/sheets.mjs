@@ -21,20 +21,27 @@ const tokenOf = a => a.token ?? canvas?.scene?.tokens?.find(t => t.actorId === a
 
 /** Fields only the GM changes when "Lock players' progress fields" is on: money, progression, stats and maximums. */
 export const GM_LOCKED_FIELDS = Object.freeze(['system.cash', 'system.stash', 'system.rep.xp', 'system.rep.crew', 'system.rep.street', 'system.rep.police', 'system.stage',
-  'system.advancement.available', 'system.resources.health.max', 'system.resources.hustle.max', 'system.role']);
+  'system.advancement.available', 'system.resources.health.max', 'system.resources.hustle.max', 'system.role', 'system.guard.base']);
+const setting = (key, fallback) => { try { return game.settings.get(NS, key) ?? fallback; } catch (_e) { return fallback; } };
+/** Self-play: players' money and kit come through play (0.5.27). Cash, stash and new kit come from shops, jobs, missions,
+ *  sales and Blower orders, not typed onto the sheet; the GM always has full control, in Story mode and Self-play alike. */
+export const earnedOnly = (user = game.user) => Boolean(user) && !user.isGM && setting('playMode', 'story') === 'self' && setting('selfPlayEarnedOnly', true) !== false;
+export const EARNED_FIELDS = Object.freeze(['system.cash', 'system.stash']);
+export const EARNED_ONLY_TEXT = 'Self-play: money and kit come through play (shops, jobs, missions, sales, Blower orders) or from the GM.';
 export const lockedForUser = (name, user = game.user) => {
   if (user?.isGM) return false;
-  let on = false; try { on = Boolean(game.settings.get(NS, 'lockPlayerSheets')); } catch (_e) {}
-  return on && (GM_LOCKED_FIELDS.includes(name) || /^system\.stats\.[a-z]{3}\.die$/.test(name));
+  if (EARNED_FIELDS.includes(name) && earnedOnly(user)) return true;
+  return Boolean(setting('lockPlayerSheets', false)) && (GM_LOCKED_FIELDS.includes(name) || /^system\.stats\.[a-z]{3}\.die$/.test(name));
 };
+const lockedText = name => EARNED_FIELDS.includes(name) && earnedOnly() ? EARNED_ONLY_TEXT : 'The GM changes this (Settings: lock players\' progress fields).';
 function wireInputs(app, doc) {
   const el = app.element; if (!el) return;
   // Only owners edit; everyone else sees a read-only sheet.
   if (!doc.isOwner) el.querySelectorAll('input, select, textarea, prose-mirror').forEach(i => { i.disabled = true; });
-  else el.querySelectorAll('[name]').forEach(i => { if (lockedForUser(i.name)) { i.disabled = true; i.title = 'The GM changes this (Settings: lock players\' progress fields).'; } });
+  else el.querySelectorAll('[name]').forEach(i => { if (lockedForUser(i.name)) { i.disabled = true; i.title = lockedText(i.name); } });
   el.querySelectorAll('[name]').forEach(input => input.addEventListener('change', async ev => {
     const t = ev.currentTarget; if (!t.name || t.name.startsWith('job.')) return;
-    try { if (!doc.isOwner) throw new Error('You need ownership to change this sheet.'); if (lockedForUser(t.name)) throw new Error('Only the GM changes that.'); await doc.update({[t.name]: value(t)}); }
+    try { if (!doc.isOwner) throw new Error('You need ownership to change this sheet.'); if (lockedForUser(t.name)) throw new Error(lockedText(t.name)); await doc.update({[t.name]: value(t)}); }
     catch (e) { ui.notifications.warn(e.message); }
   }));
   el.querySelector('[data-edit="img"]')?.addEventListener('click', () => {
@@ -52,6 +59,7 @@ function showTab(app) {
 /** Drop kit from a compendium or another actor: a copy, never a move. */
 async function dropItem(sheet, event, data) {
   if (!sheet.actor.isOwner) throw new Error('You need ownership to change this sheet.');
+  if (sheet.actor.type === 'character' && earnedOnly()) { ui.notifications.warn(EARNED_ONLY_TEXT); return null; }
   const item = data?.toObject ? data : await Item.implementation.fromDropData(data); if (!item) return null;
   if (item.parent?.uuid === sheet.actor.uuid) return null;
   const source = item.toObject(); delete source._id; return sheet.actor.createEmbeddedDocuments('Item', [source]);
@@ -65,7 +73,7 @@ export class SmokeActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     const ctx = await super._prepareContext(options); const a = this.actor, s = a.system;
     const heat = Math.max(0, Math.min(5, Number(s.heat?.value || 0)));
     const conditions = a.items.filter(i => i.type === 'condition');
-    return {...ctx, actor: a, system: s, isGM: game.user.isGM, owner: a.isOwner, isNPC: a.type === 'npc', isPC: a.type === 'character',
+    return {...ctx, actor: a, system: s, isGM: game.user.isGM, owner: a.isOwner, isNPC: a.type === 'npc', isPC: a.type === 'character', hasToken: Boolean(Object.keys(s.identity?.tokenParts ?? {}).length),
       stats: STAT_KEYS.map(k => ({key: k, abbr: STATS[k].abbr, label: STATS[k].label, hint: STATS[k].hint, die: s.stats[k]?.die ?? 4, mod: (() => { try { return statModifier(s.stats[k]?.die ?? 4); } catch (_e) { return 2; } })(),
         ladder: difficultyLadder({attributeDie: s.stats[k]?.die ?? 4}).map(b => `${b.label} ${b.tn}`).join(' · ')})),
       dice: DIE_LADDER, heat, heatInfo: HEAT[heat], stars: [1, 2, 3, 4, 5].map(n => ({n, on: n <= heat})),
@@ -99,7 +107,7 @@ export class SmokeActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     act('[data-item-toggle]', n => { mine(); const i = a.items.get(n.dataset.itemToggle); return i?.update({'system.equipped': !i.system.equipped}); });
     act('[data-condition]', n => { mine(); return n.classList.contains('on') ? a.removeCondition(n.dataset.condition) : a.addCondition(n.dataset.condition); });
     act('[data-heat]', n => game.user.isGM ? a.setHeat(Number(n.dataset.heat) === Number(a.system.heat?.value) ? Number(n.dataset.heat) - 1 : Number(n.dataset.heat), 'Set by the GM.') : ui.notifications.info('Only the GM sets Heat by hand.'));
-    act('[data-create]', n => { mine(); return a.createEmbeddedDocuments('Item', [{name: `New ${n.dataset.create}`, type: n.dataset.create}]).then(([i]) => i?.sheet.render(true)); });
+    act('[data-create]', n => { mine(); if (a.type === 'character' && earnedOnly()) throw new Error(EARNED_ONLY_TEXT); return a.createEmbeddedDocuments('Item', [{name: `New ${n.dataset.create}`, type: n.dataset.create}]).then(([i]) => i?.sheet.render(true)); });
     act('[data-heal]', () => { mine(); return a.heal(1); });
     act('[data-hurt]', () => { mine(); return a.applyDamage(1); });
     act('[data-phone]', () => game.smoke.openPhone(a.type === 'character' ? a : null));
@@ -116,6 +124,8 @@ export class SmokeActorSheet extends HandlebarsApplicationMixin(ActorSheetV2) {
     act('[data-level-up]', () => game.smoke.openLevelUp?.(a));
     act('[data-creator]', () => game.smoke.openCreator?.(a));
     act('[data-quick-build]', () => game.smoke.quickBuild(a));
+    act('[data-token-build]', () => game.smoke.tokens.open(a));
+    act('[data-token-random]', () => game.smoke.tokens.randomise(a));
   }
   async _onDropItem(event, data) { return dropItem(this, event, data); }
 }

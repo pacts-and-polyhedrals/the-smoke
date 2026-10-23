@@ -140,7 +140,7 @@ export const UNLOCKS = Object.freeze([
   {key: 'legendary', label: 'Rep 27 — Empire: stats can reach d20', test: s => Number(s.stage) >= 27},
   {key: 'patDiscount', label: 'Chainring 3 — Pat knocks 10% off at The Arches', test: s => Number(s.rep?.crew) >= 3},
   {key: 'streetDiscount', label: 'Street 5 — Known on the street: every shop knocks 10% off', test: s => Number(s.rep?.street) >= 5},
-  {key: 'knownToPolice', label: 'Known to police 3 — Stops start at Wanted: they know your face', test: s => Number(s.rep?.police) >= 3}
+  {key: 'knownToPolice', label: 'Known to police 3 — They know your face: talking your way out of a stop is a Long Shot', test: s => Number(s.rep?.police) >= 3}
 ]);
 export const hasUnlock = (system, key) => Boolean(UNLOCKS.find(u => u.key === key)?.test(system));
 

@@ -46,9 +46,25 @@
     </section>
     {{/if}}
     <h3>Objectives</h3>
+    {{#if m.preflightError}}<p class="smoke-warning">Not everything could be put on the map ({{m.preflightError}}). The job carries on; the GM can move what's in the way and press Review / repair.</p>{{/if}}
     <ul class="mb-objectives">{{#each m.objectives}}<li class="{{#if done}}done{{/if}}">
-      <i class="fa-{{#if done}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i><span>{{text}}{{#if multi}} <b>{{have}}/{{need}}</b>{{/if}}{{#if auto}} <small>ticks itself</small>{{/if}}</span>
-      {{#if ../canRun}}{{#if (eq ../m.status "active")}}{{#unless autoCargo}}<button type="button" data-tick="{{id}}" data-delta="1" title="Tick"><i class="fa-solid fa-check"></i></button>{{#if have}}<button type="button" data-tick="{{id}}" data-delta="-1" title="Untick"><i class="fa-solid fa-rotate-left"></i></button>{{/if}}{{/unless}}{{/if}}{{/if}}</li>{{/each}}</ul>
+      <i class="fa-{{#if done}}solid fa-square-check{{else}}regular fa-square{{/if}}"></i>
+      <span>{{text}}{{#if multi}} <b>{{have}}/{{need}}</b>{{/if}}{{#if excluded}} <small>Alternative branch: not required</small>{{else}}<small>Automatic verification{{#unless ready}} · awaiting earlier steps{{/unless}}</small>{{/if}}
+      {{#if location}}<small>{{location}}</small>{{/if}}{{#if proof}}<small>Evidence: {{proof}}</small>{{/if}}</span>
+      {{#if (eq ../m.status "active")}}{{#if strict}}
+        {{#if canAct}}<button type="button" data-mission-action="{{id}}">Interact / check</button>{{/if}}
+        {{#unless done}}{{#if ../isGM}}<button type="button" data-tick="{{id}}" data-complete="1" title="It happened in play: mark the whole step done (logged)">Mark done</button>{{else}}{{#if canMark}}<button type="button" data-tick="{{id}}" data-complete="1" title="The automatic check missed it: mark this step done (logged for the GM)">Mark done</button>{{/if}}{{/if}}{{/unless}}
+        {{#if ../isGM}}{{#if have}}<button type="button" data-tick="{{id}}" data-delta="-1" title="Take the step back (logged)">Reopen</button>{{/if}}{{/if}}
+      {{else}}{{#if ../canRun}}{{#unless autoCargo}}<button type="button" data-tick="{{id}}" data-delta="1">Tick</button>{{/unless}}{{/if}}{{/if}}{{/if}}
+    </li>{{/each}}</ul>
+    {{#if m.automated}}{{#if (eq m.status "active")}}
+    <section class="mb-cargo"><h3>Crew participation</h3><p>Unique story objects stay unique. Every enrolled character must contribute a verified main action or a support task.</p>
+      {{#if m.missingContributions}}<p>Still needs a contribution: <b>{{m.missingContributions}}</b>.</p>{{else}}<p>Every participant has contributed.</p>{{/if}}
+      <details><summary>Support tasks and locations</summary>{{#each m.support}}<p>{{#if done}}✓ {{label}}{{else}}<button type="button" data-mission-action="{{id}}">{{label}}</button>{{/if}}<small>{{location}}</small></p>{{/each}}</details>
+      {{#unless canRun}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}} {{#unless editable}}disabled{{/unless}}> {{name}}</label>{{/each}}</div><button type="button" data-crew>Join / leave with my character</button>{{/unless}}
+      {{#if isGM}}<button type="button" data-repair-mission>Review / repair mission resources</button>{{/if}}
+    </section>{{/if}}{{/if}}
+
     {{#if m.playGuide.length}}
     <details class="mb-playguide" open><summary><i class="fa-solid fa-map"></i> How to play this job without a GM</summary>
       <ol>{{#each m.playGuide}}<li>{{this}}</li>{{/each}}</ol>
@@ -75,10 +91,10 @@
     {{#if m.routable}}<p><button type="button" data-directions><i class="fa-solid fa-diamond-turn-right"></i> Directions{{#if m.stop}}: {{m.stop.name}}{{/if}}</button></p>{{/if}}
     {{#if canRun}}
     <section class="mb-gm">
-      {{#if (eq m.status "available")}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div>
+      {{#if (eq m.status "available")}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}} {{#unless editable}}disabled{{/unless}}> {{name}}</label>{{/each}}</div>
       <button type="button" class="hot" data-start><i class="fa-solid fa-play"></i> Start the mission</button>{{/if}}
-      {{#if (eq m.status "locked")}}{{#if isGM}}<p class="mb-small">You can still start it — a different sponsor or a local lead can bring a job forward:</p><div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div><button type="button" data-start><i class="fa-solid fa-play"></i> Start anyway</button>{{else}}<p class="mb-small">Locked for now. Keep at it.</p>{{/if}}{{/if}}
-      {{#if (eq m.status "active")}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}}> {{name}}</label>{{/each}}</div><button type="button" data-crew title="Change who is on this job (only characters on it get credit and pay)"><i class="fa-solid fa-users"></i> Update who's on it</button>
+      {{#if (eq m.status "locked")}}{{#if isGM}}<p class="mb-small">You can still start it — a different sponsor or a local lead can bring a job forward:</p><div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}} {{#unless editable}}disabled{{/unless}}> {{name}}</label>{{/each}}</div><button type="button" data-start><i class="fa-solid fa-play"></i> Start anyway</button>{{else}}<p class="mb-small">Locked for now. Keep at it.</p>{{/if}}{{/if}}
+      {{#if (eq m.status "active")}}<div class="mb-who">{{#each pcs}}<label><input type="checkbox" name="mbActor" value="{{id}}" {{#if checked}}checked{{/if}} {{#unless editable}}disabled{{/unless}}> {{name}}</label>{{/each}}</div><button type="button" data-crew title="Change who is on this job (only characters on it get credit and pay)"><i class="fa-solid fa-users"></i> Update who's on it</button>
       {{#if m.picks.length}}<label class="mb-small">Renown goes to <select name="mbRenownTo">{{#each m.picks}}<option value="{{code}}">{{name}}</option>{{/each}}</select></label>{{/if}}
       <button type="button" class="hot" data-set="done"><i class="fa-solid fa-flag-checkered"></i> Mission passed (pay out)</button><button type="button" data-set="failed"><i class="fa-solid fa-xmark"></i> Failed</button>{{/if}}
       {{#unless (eq m.status "locked")}}{{#unless (eq m.status "available")}}<button type="button" data-set="reset"><i class="fa-solid fa-rotate-left"></i> Reset</button>{{/unless}}{{/unless}}
@@ -89,7 +105,7 @@
         {{#if m.consequences}}<p><b>What follows:</b> {{{m.consequences}}}</p>{{/if}}
         {{#if m.evidence.length}}<p><b>The Quiet Ledger:</b> {{#each m.evidence}}<a data-ref="{{this}}">{{this}}</a> {{/each}}</p>{{/if}}
         {{#if m.continues.length}}<p><b>Continue with:</b> {{#each m.continues}}<a data-ref="{{code}}">{{code}} {{title}}</a>{{#unless @last}} · {{/unless}}{{/each}}</p>{{else}}{{#if m.next}}<p><b>Next:</b> {{m.next}}</p>{{/if}}{{/if}}</div></details>{{/if}}
-      {{#unless isGM}}<p class="mb-small">Self-play: you run this one. Objectives that "tick themselves" do; tick the rest when they're done, then call it.</p>{{/unless}}
+      {{#unless isGM}}<p class="mb-small">Self-play: you run this one. Objectives that "tick themselves" do; use the named interactions and real mission objects. Checkpoints and the payout verify themselves.</p>{{/unless}}
     </section>
     {{/if}}
     {{/if}}{{/if}}

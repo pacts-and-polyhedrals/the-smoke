@@ -1,3 +1,4 @@
+import {cabbieTip,courierFullPay} from '../rules/item-context.mjs';
 // Jobs: get in a vehicle that does a job (taxi, police, ambulance, fire pump, courier, bus), start a shift,
 // and callouts appear on the map. Accept one and it becomes a short minigame against a real-time clock, played
 // with Covenant rolls: fares and tips, ANPR stolen-vehicle sweeps and pursuits, patients on the Fading track,
@@ -153,6 +154,15 @@ async function cleanup(call) {
 
 /* ------------------------------------------------------------------ generators: one per job type */
 const atlas = async () => (await loadAtlas()).atlas;
+/** Every venue's street door (0.5.25: fares, parcels, patients, fires and fights happen at the campaign venues too). */
+let VENUE_SPOTS = null;
+const venueSpots = async () => { if (VENUE_SPOTS) return VENUE_SPOTS; const {atlas: at, venues} = await loadAtlas(); VENUE_SPOTS = J.venueSpots(venues, at); return VENUE_SPOTS; };
+/** A block on this map for a pickup or an incident: a venue's door `chance` of the time when there is one, else `fallback`. */
+async function blockOrVenue(scene, fallback, chance = 0.35) {
+  const doors = J.venueKerbsOn(await venueSpots(), mapIdOf(scene));
+  if (doors.length && Math.random() < chance) { const d = J.pick(doors), zone = zonesOf(scene).find(z => z.id === d.zoneId); if (zone) return {zone, name: d.label, venue: d.code}; }
+  return fallback ? {zone: fallback, name: fallback.name, venue: null} : null;
+}
 function hopsBetween(at, a, b) { return J.hopDistances(J.mapGraph(at), a).get(b) ?? 0; }
 const GEN = {};
 
@@ -160,18 +170,18 @@ const GEN = {};
 GEN.taxi = {
   async offer(sh, vt) {
     const scene = vt.parent, kerbs = J.kerbside(zonesOf(scene)); if (!kerbs.length) return null;
-    const zone = J.pick(kerbs); const at = await atlas();
-    const dest = J.pickDestination(at, mapIdOf(scene), {minHops: 0, maxHops: 2, exclude: [`${mapIdOf(scene)}:${zone.id}`]}); if (!dest) return null;
+    const from = await blockOrVenue(scene, J.pick(kerbs)), zone = from.zone; const at = await atlas();
+    const dest = J.pickDestination(at, mapIdOf(scene), {minHops: 0, maxHops: 2, exclude: [`${mapIdOf(scene)}:${zone.id}`], venues: await venueSpots()}); if (!dest) return null;
     const hops = dest.hops, est = J.taxiPay({hops, timeLeft: .6});
-    return {title: `Fare: ${zone.name} → ${dest.label}`, text: `Someone's hailing a cab outside <b>${esc(zone.name)}</b>. Going to <b>${esc(dest.label)}</b>, ${esc(dest.mapName)} (${hops ? `${hops} map${hops > 1 ? 's' : ''} away` : 'this map'}). About £${est.total} with tip.`,
-            data: {sceneId: scene.id, zoneId: zone.id, dest, hops}};
+    return {title: `Fare: ${from.name} → ${dest.label}`, text: `Someone's hailing a cab outside <b>${esc(from.name)}</b>. Going to <b>${esc(dest.label)}</b>, ${esc(dest.mapName)} (${hops ? `${hops} map${hops > 1 ? 's' : ''} away` : 'this map'}). About £${est.total} with tip.`,
+            data: {sceneId: scene.id, zoneId: zone.id, pickupName: from.name, pickupVenue: from.venue, dest, hops}};
   },
   async accept(call, sh) {
     const scene = game.scenes.get(call.data.sceneId), zone = zonesOf(scene).find(z => z.id === call.data.zoneId);
     const [x, y] = J.kerbPoint(zone, zonesOf(scene)); const fare = await ensurePersonActor(await randomPedKey());
     const t = await placeToken(scene, fare, x, y, {name: 'Fare', flags: {fare: call.id}});
     Object.assign(call, {stage: 'pickup', deadline: deadline('taxi', 'pickup'), total: J.deadlineSeconds('taxi', 'pickup') * 1000 * clock(), cleanup: [t.id], data: {...call.data, fareTokenId: t.id},
-      instruction: `Pull up next to the fare outside ${zone.name} (within 2 squares).`, ping: {sceneId: scene.id, x, y}});
+      instruction: `Pull up next to the fare outside ${call.data.pickupName || zone.name} (within 2 squares).`, ping: {sceneId: scene.id, x, y}});
     await whisperOwners(sh, 'TAXI', 'Fare accepted', `<p>${esc(call.instruction)}</p>`, 'job');
   },
   async tick(call, sh, vt) {
@@ -193,7 +203,7 @@ GEN.taxi = {
       if (!J.arrivedAt(zonesOf(vt.parent), call.data.dest.zoneId, tokenRect(vt))) return;
       const left = J.timeFraction(call.deadline - now(), call.total);
       const pay = J.taxiPay({hops: call.data.hops, timeLeft: left, rideOutcome: call.chat || 'fullSuccess', vehicleKind: vt.actor?.getFlag(NS, 'catalogId') === 'LV12' ? 'cab' : 'minicab'});
-      const total = pay.total + (call.rush ? pay.tip : 0);
+      const total = pay.total + (call.rush ? pay.tip : 0) + cabbieTip(driverActor(sh),pay.tip);
       return completeCall(call.id, total, `Taxi fare to ${call.data.dest.label}: £${pay.fare} + £${total - pay.fare} tip.`, {repKey: 'street'});
     }
   },
@@ -204,9 +214,9 @@ GEN.taxi = {
 /* ---------- courier */
 GEN.courier = {
   async offer(sh, vt) {
-    const scene = vt.parent, kerbs = J.kerbside(zonesOf(scene)).filter(z => z.landmark || z.service === 'clothes'); const pickZone = J.pick(kerbs.length ? kerbs : J.kerbside(zonesOf(scene)));
-    if (!pickZone) return null; const at = await atlas();
-    const dest = J.pickDestination(at, mapIdOf(scene), {minHops: 0, maxHops: 2, exclude: [`${mapIdOf(scene)}:${pickZone.id}`]}); if (!dest) return null;
+    const scene = vt.parent, kerbs = J.kerbside(zonesOf(scene)).filter(z => z.landmark || z.service === 'clothes'); const first = J.pick(kerbs.length ? kerbs : J.kerbside(zonesOf(scene)));
+    const from = await blockOrVenue(scene, first, 0.4); if (!from) return null; const pickZone = {...from.zone, name: from.name}; const at = await atlas();
+    const dest = J.pickDestination(at, mapIdOf(scene), {minHops: 0, maxHops: 2, exclude: [`${mapIdOf(scene)}:${pickZone.id}`], venues: await venueSpots()}); if (!dest) return null;
     const what = J.pick(['a chicken shop order', 'a pad thai and two Red Stripes', 'a parcel marked FRAGILE', 'a birthday cake', 'a brown envelope (don\'t ask)', 'documents for a solicitor']);
     return {title: `Delivery: ${pickZone.name} → ${dest.label}`, text: `Collect ${what} from <b>${esc(pickZone.name)}</b> and drop it at <b>${esc(dest.label)}</b>, ${esc(dest.mapName)}. About £${J.courierPay({hops: dest.hops, timeLeft: .6})}.`,
             data: {sceneId: scene.id, mapId: mapIdOf(scene), zoneId: pickZone.id, dest, what, body: vt.actor.system.vehicle.body.value}};
@@ -219,25 +229,25 @@ GEN.courier = {
       await whisperOwners(sh, 'COURIER', 'Collected', `<p>${esc(call.data.what)} is in the box. ${esc(call.data.dest.label)}, ${esc(call.data.dest.mapName)}.</p>`, 'job');
     } else if (call.stage === 'dropoff' && mapIdOf(vt.parent) === call.data.dest.mapId && J.arrivedAt(zonesOf(vt.parent), call.data.dest.zoneId, tokenRect(vt))) {
       const damaged = Number(vt.actor.system.vehicle.body.value) < Number(call.body ?? call.data.body);
-      return completeCall(call.id, J.courierPay({hops: call.data.dest.hops, timeLeft: J.timeFraction(call.deadline - now(), call.total), damaged}), `Delivered ${call.data.what}${damaged ? ' (a bit squashed)' : ''}.`);
+      return completeCall(call.id, J.courierPay({hops: call.data.dest.hops, timeLeft: courierFullPay(driverActor(sh))?Math.max(.5,J.timeFraction(call.deadline-now(),call.total)):J.timeFraction(call.deadline - now(), call.total), damaged}), `Delivered ${call.data.what}${damaged ? ' (a bit squashed)' : ''}.`);
     }
   },
-  async timeout(call) { return failCall(call.id, 'Late. The customer cancels and leaves you one star.'); }
+  async timeout(call) { const sh=state().shifts[call.shiftId];if(call.stage==='dropoff'&&sh&&courierFullPay(driverActor(sh))){await updateCall(call.id,{deadline:null,instruction:`Late, but Courier protects the fee: deliver to ${call.data.dest.label}.`});return;}return failCall(call.id, 'Late. The customer cancels and leaves you one star.'); }
 };
 
 /* ---------- ambulance */
 GEN.ambulance = {
   async offer(sh, vt) {
     const scene = vt.parent, kerbs = J.kerbside(zonesOf(scene)); if (!kerbs.length) return null;
-    const zone = J.pick(kerbs), what = J.pick(['a cyclist knocked off at the lights', 'a stabbing outside a chicken shop', 'an elderly man collapsed at the bus stop', 'a builder fallen off scaffolding', 'a woman in labour on the pavement', 'a lad who drank too much on the canal']);
-    return {title: `Cat 1: ${zone.name}`, text: `<b>${esc(what)}</b> outside ${esc(zone.name)}. Treat, load, and get them to A&E.`, data: {sceneId: scene.id, zoneId: zone.id, what}};
+    const at = await blockOrVenue(scene, J.pick(kerbs)), zone = at.zone, what = J.pick(['a cyclist knocked off at the lights', 'a stabbing outside a chicken shop', 'an elderly man collapsed at the bus stop', 'a builder fallen off scaffolding', 'a woman in labour on the pavement', 'a lad who drank too much on the canal']);
+    return {title: `Cat 1: ${at.name}`, text: `<b>${esc(what)}</b> outside ${esc(at.name)}. Treat, load, and get them to A&E.`, data: {sceneId: scene.id, zoneId: zone.id, where: at.name, what}};
   },
   async accept(call, sh) {
     const scene = game.scenes.get(call.data.sceneId), zone = zonesOf(scene).find(z => z.id === call.data.zoneId);
     const [x, y] = J.kerbPoint(zone, zonesOf(scene)); const p = await ensurePersonActor('patient');
     const t = await placeToken(scene, p, x, y, {name: 'Patient', rotation: 90, flags: {patient: call.id}});
     Object.assign(call, {stage: 'pickup', patient: 'Fading', worsenAt: now() + 45000 * clock(), deadline: deadline('ambulance', 'pickup'), total: J.deadlineSeconds('ambulance', 'pickup') * 1000 * clock(),
-      cleanup: [t.id], data: {...call.data, patientTokenId: t.id}, instruction: `Get to the patient outside ${zone.name}.`, ping: {sceneId: scene.id, x, y}});
+      cleanup: [t.id], data: {...call.data, patientTokenId: t.id}, instruction: `Get to the patient outside ${call.data.where || zone.name}.`, ping: {sceneId: scene.id, x, y}});
   },
   async tick(call, sh, vt) {
     if (call.patient !== 'Stable' && call.worsenAt && now() > call.worsenAt) {
@@ -284,8 +294,10 @@ GEN.ambulance = {
 GEN.fire = {
   async offer(sh, vt) {
     const scene = vt.parent, blocks = zonesOf(scene).filter(z => z.kind === 'land' && !z.service && (z.adjacent || []).length); if (!blocks.length) return null;
-    const zone = J.pick(blocks), what = J.pick(['a kitchen fire in a flat above a shop', 'a bin store alight', 'a car on fire on the street', 'smoke from a warehouse', 'an e-bike battery fire in a hallway']);
-    return {title: `Fire: ${zone.name}`, text: `<b>${esc(what)}</b> at ${esc(zone.name)}.`, data: {sceneId: scene.id, zoneId: zone.id, what}};
+    const doors = J.venueKerbsOn(await venueSpots(), mapIdOf(scene)).filter(d => blocks.some(b => b.id === d.zoneId));
+    const door = doors.length && Math.random() < 0.35 ? J.pick(doors) : null, zone = door ? blocks.find(b => b.id === door.zoneId) : J.pick(blocks), where = door?.label ?? zone.name;
+    const what = J.pick(door ? ['smoke pouring out of the back of', 'a kitchen fire at', 'an electrical fire in the basement of', 'a bin store alight behind'] : ['a kitchen fire in a flat above a shop', 'a bin store alight', 'a car on fire on the street', 'smoke from a warehouse', 'an e-bike battery fire in a hallway']);
+    return {title: `Fire: ${where}`, text: door ? `<b>${esc(what)} ${esc(where)}</b>.` : `<b>${esc(what)}</b> at ${esc(where)}.`, data: {sceneId: scene.id, zoneId: zone.id, where, what}};
   },
   async accept(call, sh) {
     const scene = game.scenes.get(call.data.sceneId), zone = zonesOf(scene).find(z => z.id === call.data.zoneId);
@@ -293,7 +305,7 @@ GEN.fire = {
     const [d] = await scene.createEmbeddedDocuments('Drawing', [{x: x + w * .2, y: y + h * .2, shape: {type: 'e', width: w * .6, height: h * .6}, strokeWidth: 8, strokeColor: '#ff8a3d', fillType: 1, fillColor: '#ff5a1e', fillAlpha: .45,
       text: '🔥 FIRE', fontSize: 64, textColor: '#fff3c4', locked: true, flags: {[NS]: {fire: call.id}}}]);
     Object.assign(call, {stage: 'respond', fire: {progress: 0, consequences: 0}, deadline: deadline('fire', 'respond'), total: J.deadlineSeconds('fire', 'respond') * 1000 * clock(),
-      drawings: [{sceneId: scene.id, id: d.id}], instruction: `Get the pump to ${zone.name}.`, ping: {sceneId: scene.id, x: x + w / 2, y: y + h / 2}});
+      drawings: [{sceneId: scene.id, id: d.id}], instruction: `Get the pump to ${call.data.where || zone.name}.`, ping: {sceneId: scene.id, x: x + w / 2, y: y + h / 2}});
   },
   async tick(call, sh, vt) {
     if (call.stage !== 'respond') return;
@@ -346,8 +358,9 @@ GEN.police = {
     const {vehicles} = await loadCatalogs(); const car = J.pick(vehicles.filter(v => ['LV14', 'LV15', 'LV16', 'LV17', 'LV18', 'LV20', 'LV21'].includes(v.id)));
     if (kind === 'anpr') return {title: `ANPR sweep: stolen ${car.name}`, text: `A <b>${esc(car.name)}</b> reported stolen was last seen on <b>${esc(scene.name)}</b>. Run plates on passing traffic with the ANPR scanner (target a car → <i class="fa-solid fa-barcode"></i>) and find it.`, data: {kind, sceneId: scene.id, carId: car.id, carName: car.name}};
     if (kind === 'pursuit') return {title: `Pursuit: ${car.name} failing to stop`, text: `A <b>${esc(car.name)}</b> has just failed to stop for a unit on <b>${esc(scene.name)}</b>. Join the pursuit.`, data: {kind, sceneId: scene.id, carId: car.id, carName: car.name}};
-    const zone = J.pick(J.kerbside(zonesOf(scene))); if (!zone) return null;
-    return {title: `Disturbance: ${zone.name}`, text: `Reports of a fight outside <b>${esc(zone.name)}</b>.`, data: {kind, sceneId: scene.id, zoneId: zone.id}};
+    const first = J.pick(J.kerbside(zonesOf(scene))); if (!first) return null;
+    const at = await blockOrVenue(scene, first), zone = at.zone;
+    return {title: `Disturbance: ${at.name}`, text: `Reports of a fight outside <b>${esc(at.name)}</b>.`, data: {kind, sceneId: scene.id, zoneId: zone.id, where: at.name}};
   },
   async accept(call, sh) {
     const scene = game.scenes.get(call.data.sceneId); const vt = vehicleOfShift(sh);
@@ -355,7 +368,7 @@ GEN.police = {
       const zone = zonesOf(scene).find(z => z.id === call.data.zoneId); const [x, y] = J.kerbPoint(zone, zonesOf(scene));
       const a = await ensurePersonActor('suspect'), b = await ensurePersonActor(await randomPedKey());
       const t1 = await placeToken(scene, a, x, y, {name: 'Brawler', flags: {suspect: call.id}}), t2 = await placeToken(scene, b, x + scene.grid.size, y, {name: 'Brawler', flags: {suspect: call.id}});
-      Object.assign(call, {stage: 'respond', deadline: deadline('police', 'respond'), total: J.deadlineSeconds('police', 'respond') * 1000 * clock(), cleanup: [t1.id, t2.id], data: {...call.data, suspectTokenId: t1.id}, instruction: `Get to ${zone.name}.`, ping: {sceneId: scene.id, x, y}});
+      Object.assign(call, {stage: 'respond', deadline: deadline('police', 'respond'), total: J.deadlineSeconds('police', 'respond') * 1000 * clock(), cleanup: [t1.id, t2.id], data: {...call.data, suspectTokenId: t1.id}, instruction: `Get to ${call.data.where || zone.name}.`, ping: {sceneId: scene.id, x, y}});
       return;
     }
     // ANPR and pursuits: put the stolen car in the traffic, hidden among decoys
@@ -459,12 +472,27 @@ GEN.police = {
 };
 
 /* ---------- The Chainring: Auntie Pat's orders (no vehicle needed) */
-const PAT_ORDERS = [
-  {want: 2, ids: null, text: 'Two bikes. Any bikes. I have a man in Leyton who is not fussy.', bonus: 40},
-  {want: 1, ids: ['LV03'], text: 'A carbon road bike. One of them Whippets — the Lycra lot leave them outside the coffee places on Broadway Market and in Shoreditch.', bonus: 120},
-  {want: 3, ids: ['LV01', 'LV02'], text: 'Three BMXs or mountain bikes for the lads in Tottenham.', bonus: 60},
-  {want: 1, ids: ['LV07', 'LV08'], text: 'A moped or a scrambler. Somebody is doing deliveries and needs wheels, no questions.', bonus: 90}
-];
+/** Pat's orders. `minRep` gates them: the Rep 3 unlock ("Pat gives you the bigger orders") and the Rep 9 unlock ("Pat's
+ * car jobs — motors, not bikes") were listed on every sheet since 0.2.0 but never existed; 0.5.25 makes them real.
+ * Car jobs go to Bow Breakers Yard (Pat has squared it with them): the sale there counts toward her order. */
+export const PAT_ORDERS = Object.freeze([
+  {key: 'any-two', want: 2, ids: null, text: 'Two bikes. Any bikes. I have a man in Leyton who is not fussy.', bonus: 40},
+  {key: 'whippet', want: 1, ids: ['LV03'], text: 'A carbon road bike. One of them Whippets — the Lycra lot leave them outside the coffee places on Broadway Market and in Shoreditch.', bonus: 120},
+  {key: 'bmx-three', want: 3, ids: ['LV01', 'LV02'], text: 'Three BMXs or mountain bikes for the lads in Tottenham.', bonus: 60},
+  {key: 'moped', want: 1, ids: ['LV07', 'LV08'], text: 'A moped or a scrambler. Somebody is doing deliveries and needs wheels, no questions.', bonus: 90},
+  // Rep 3: the bigger orders
+  {key: 'family-four', minRep: 3, want: 4, ids: null, text: 'Four bikes, darling. A woman in Walthamstow is kitting out the whole family and she thinks they\'re refurbished. Let her.', bonus: 110},
+  {key: 'scrambler-fleet', minRep: 3, want: 3, ids: ['LV07', 'LV08'], text: 'Three mopeds or scramblers. A delivery firm in Leyton is expanding and they don\'t ask where the fleet comes from.', bonus: 200},
+  {key: 'superbikes', minRep: 3, want: 2, ids: ['LV09', 'LV10'], text: 'Two proper motorbikes. A Kestrel or a Fang. There\'s a lad in Romford paying silly money and I want his silly money.', bonus: 260},
+  // Rep 9: car jobs (motors, not bikes) — delivered to Bow Breakers Yard
+  {key: 'hot-hatch', minRep: 9, car: true, want: 1, ids: ['LV14', 'LV15'], text: 'A hatchback. A Vexa or a Fiester ST, nothing flash. Take it to Bow Breakers on Roman Road — I\'ve squared it with them.', bonus: 320},
+  {key: 'school-run', minRep: 9, car: true, want: 1, ids: ['LV17'], text: 'A Range Ruler. Clean, black if you can, the kind that does the school run in Victoria Park Village. Bow Breakers are expecting it.', bonus: 650},
+  {key: 'estate-van', minRep: 9, car: true, want: 2, ids: ['LV16', 'LV21'], text: 'An estate and a white van for a removals job that isn\'t a removals job. Both to Bow Breakers, one at a time.', bonus: 480},
+  {key: 'badge', minRep: 9, car: true, want: 1, ids: ['LV18', 'LV19'], text: 'Something with a badge. An Ashdown GT or, if you\'re feeling lucky, the Toro. There\'s a container leaving Tilbury Thursday. Bow Breakers first.', bonus: 950}
+]);
+/** The orders Pat will give a character at this Rep (bigger orders from Rep 3, car jobs from Rep 9). */
+export const patOrdersFor = stage => PAT_ORDERS.filter(o => Number(stage || 1) >= Number(o.minRep || 1));
+const BIKE_IDS = ['LV01', 'LV02', 'LV02', 'LV03', 'LV05'];
 GEN.crew = {
   async offer() { return null; },
   async accept() {},
@@ -475,19 +503,20 @@ registerHandler('job.crew', async ({actorId, userId}) => {
   const actor = game.actors.get(actorId), user = game.users.get(userId); if (!actor) throw new Error('No character.');
   if (!user?.isGM && !actor.testUserPermission(user, 'OWNER')) throw new Error('Not your character.');
   const s0 = state(); if (Object.values(s0.calls).some(c => c.type === 'crew' && c.actorId === actorId)) throw new Error('Pat is still waiting on your last order.');
-  const order = J.pick(PAT_ORDERS); const at = await atlas();
+  const order = {...J.pick(patOrdersFor(actor.system?.stage))}; const at = await atlas();
   // seed the order: the bikes she wants, chained up on nearby streets (not on her own doorstep)
   const maps = [...J.hopDistances(J.mapGraph(at), 'LDN-HACKNEY')].filter(([id, d]) => d >= 1 && d <= 2).map(([id]) => id);
   const spots = [];
   for (let i = 0; i < order.want + 1; i++) {
     const mapId = J.pick(maps); const m = at.maps.find(x => x.id === mapId); const zone = J.pick(J.kerbside(m.zones).filter(z => z.kind === 'land'));
-    if (zone) spots.push({mapId, mapName: m.name, zoneId: zone.id, label: zone.name, vid: order.ids ? J.pick(order.ids) : J.pick(['LV01', 'LV02', 'LV02', 'LV03', 'LV05'])});
+    if (zone) spots.push({mapId, mapName: m.name, zoneId: zone.id, label: zone.name, vid: order.ids ? J.pick(order.ids) : J.pick(BIKE_IDS)});
   }
-  const call = {id: uid(), type: 'crew', shiftId: null, actorId, userIds: ownersOf(actor), status: 'active', title: `Pat's order: ${order.want} × ${order.ids ? 'specific bikes' : 'bikes'}`, text: order.text,
+  const what = order.car ? (order.want > 1 ? 'motors' : 'motor') : order.ids ? 'specific bikes' : 'bikes';
+  const call = {id: uid(), type: 'crew', shiftId: null, actorId, userIds: ownersOf(actor), status: 'active', title: `Pat's ${order.car ? 'car job' : 'order'}: ${order.want} × ${what}`, text: order.text,
     data: {order, spots, delivered: 0}, deadline: deadline('crew', 'order'), total: J.deadlineSeconds('crew', 'order') * 1000 * clock(),
-    instruction: `Tip-offs: ${spots.map(s => `${s.label} (${s.mapName})`).join('; ')}. Nick them and ride them to The Arches.`};
+    instruction: `Tip-offs: ${spots.map(s => `${s.label} (${s.mapName})`).join('; ')}. ${order.car ? 'Nick them and drive them to Bow Breakers Yard on Roman Road (Old Ford & Bow): Pat has squared it.' : 'Nick them and ride them to The Arches.'}`};
   await mutate(s => { s.calls[call.id] = call; });
-  await card('THE CHAINRING', 'Auntie Pat has a job', `<p>"${esc(order.text)}"</p><p><b>Tip-offs from Kez:</b></p><ul>${spots.map(s => `<li>${esc(s.label)} — ${esc(s.mapName)}</li>`).join('')}</ul><p class="smoke-dim">Bring them to The Arches, Morning Lane (Hackney Central). Bonus £${order.bonus} when the order's complete.</p>`, 'crew', {whisper: [...call.userIds, ...game.users.filter(u => u.isGM).map(u => u.id)]});
+  await card('THE CHAINRING', 'Auntie Pat has a job', `<p>"${esc(order.text)}"</p><p><b>Tip-offs from Kez:</b></p><ul>${spots.map(s => `<li>${esc(s.label)} — ${esc(s.mapName)}</li>`).join('')}</ul><p class="smoke-dim">${order.car ? 'Drive them to Bow Breakers Yard, Roman Road (Old Ford &amp; Bow) and sell them there' : 'Bring them to The Arches, Morning Lane (Hackney Central)'}. Bonus £${order.bonus} when the order's complete.</p>`, 'crew', {whisper: [...call.userIds, ...game.users.filter(u => u.isGM).map(u => u.id)]});
   return call.id;
 });
 /** Seed the tipped-off bikes the first time anyone loads the map they are on. */
@@ -502,7 +531,7 @@ async function seedCrewBikesNow(scene) {
     for (const s of todo) {
       const zone = zonesOf(scene).find(z => z.id === s.zoneId); if (!zone) continue;
       const [x, y] = J.pointIn(zone, Math.random, 90); const a = await ensureVehicleActor(s.vid);
-      await placeToken(scene, a, x, y, {flags: {locked: true, parked: true, orderFor: call.id, traffic: {kind: 'bike'}}});
+      await placeToken(scene, a, x, y, {flags: {locked: true, parked: true, orderFor: call.id, traffic: {kind: call.data.order?.car ? 'parked' : 'bike'}}});
       s.seeded = true;
     }
     await updateCall(call.id, current=>({data:{...current.data,spots:call.data.spots}}));
@@ -574,13 +603,14 @@ export function installJobs() {
     await GEN[call.type].event?.(call, sh, {kind: 'scan', targetId: target.id});
   });
   Hooks.on('smokeVehicleSold', async ({seller, catalogId, service}) => {
-    if (!isLeader() || service !== 'gang') return;
+    if (!isLeader() || !['gang', 'chop'].includes(service)) return;
     // Count the bike in the same write that reads the order (0.5.23: two sales close together both read "0 delivered"
     // and the order never completed), and finish it once.
     let hit = null;
     await mutate(s => {
       const call = Object.values(s.calls).find(c => c.type === 'crew' && c.actorId === seller?.id && !c.completing); if (!call) return;
-      const o = call.data.order; if (o.ids && !o.ids.includes(catalogId)) return;
+      const o = call.data.order; if ((service === 'chop') !== Boolean(o.car)) return;   // bikes to Pat, car jobs to Bow Breakers
+      if (o.ids && !o.ids.includes(catalogId)) return;
       call.data.delivered = Number(call.data.delivered || 0) + 1;
       if (call.data.delivered >= o.want) call.completing = true;
       hit = {id: call.id, delivered: call.data.delivered, want: o.want, bonus: o.bonus, done: Boolean(call.completing), userIds: call.userIds};

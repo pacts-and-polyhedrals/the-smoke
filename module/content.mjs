@@ -11,7 +11,7 @@ import {applyDriverControl, reconcileOccupants} from './vehicles/vehicle-boardin
 import {textHash} from './text-hash.mjs';
 import {OLD_REP, xpFor} from './rules/advancement.mjs';
 
-export const VERSION = '0.5.3';
+export const VERSION = '0.5.27-rc.3';
 let setupRunning = null;
 const guideAliases = {'player-guide': ['The Smoke — Player Guide'], 'gm-guide': ['The Smoke — GM Guide'], 'missions-guide': ['Hackney Missions — On Your Bike']};
 const norm = s => String(s ?? '').toLowerCase().trim();
@@ -62,6 +62,9 @@ export async function migrateItems(items = null) {
   for (const i of game.items) await fix(i);
   for (const a of game.actors) {
     for (const i of a.items) await fix(i);
+    if (a.type === 'npc' && a.getFlag?.(NS, 'npcKey') === 'arv' && !a.items.some(i => i.name === 'Handcuffs')) {
+      const cuffs = byName.get('gear:Handcuffs'); if (cuffs) { const d=foundry.utils.deepClone(cuffs); delete d._id; await a.createEmbeddedDocuments('Item',[d]); n++; }
+    }
     if (a.type === 'character' && !a.system.creation?.done && Object.values(a.system.stats || {}).some(s => Number(s.die) > 4)) { await a.update({'system.creation.done': true}); n++; }
   }
   return n;
@@ -288,6 +291,10 @@ export async function migrateWorld() {
   lines.push('New in 0.5.1–0.5.3: chases have <b>Full Auto, Assisted and Manual</b> modes (police spot and start chases on their own by default; switch it off in Settings for a fully manual sandbox). Story mode gives control to the GM; participating Self-play players can manage their own chase. <b>All civilian traffic moves together</b>, police and PCs act separately, and chat responses always wait for you. Evasive manoeuvres while travelling roll automatically, and police stops resolve through one-star successes, a single vehicle/foot escape move, custody or an armed response.');
   lines.push('New in 0.5.2: <b>all 27 journals use the mission/Blower style</b>, with 270 current pages. Rules, recovery, conditions, Rep, jobs and police-stop instructions agree across the guides. The Guides compendium and world setup use the same text; use Rules at a Glance → Guide Index for navigation.');
   lines.push('New in 0.5.3: completed evasive, yellow/red driving, PIT and ram checks now release their movement and turn gates correctly. GM login recovers old completed checks from their saved chat results, without rerolling or applying damage twice. The 0.5.2 journal edition is retained.');
+  if (foundry.utils.isNewerVersion('0.5.27-rc.3', installed)) lines.push('New in 0.5.27-rc.3: <b>cash and kit added on a token\'s sheet now count</b>. Characters\' tokens are linked to the character, and anything added to a token\'s own copy has been moved onto the character (the GM gets a list). Any can called spray paint works. In Self-play, players\' money and kit come through play; the GM always has full control, and the GM Screen can now take kit as well as give it. <b>Banana Basket</b> on the Blower orders from the corner shop, Pat\'s, the market, the bodyshops and the chemist, delivered to Your Flat.');
+  if (foundry.utils.isNewerVersion('0.5.27-rc.2', installed)) lines.push('New in 0.5.27: <b>jobs tick themselves again</b>. Everyone in a shared car counts for "Get some wheels", a motor counts wherever you nicked it, and a sale counts at the right buyer, not only at Pat\'s. A job never waits for its set-up, and a job left waiting for a GM review by rc.1 carries on with its progress. The sat nav goes to the job\'s motor, the wall to paint or the radio contact, and finishes what\'s at the place you\'re in before driving off. A player on the job (Self-play) can <b>Mark done</b> a ready step, and the GM can mark any step done, reopen it or pass the job. Checkpoints that were in the wrong place now match their objectives (Westfield, Big Night\'s lock-up and thirteen more), and every graffiti wall\'s checkpoint is where its paint spot is.');
+  if (foundry.utils.isNewerVersion('0.5.26', installed)) lines.push('New in 0.5.26: <b>graffiti pieces</b> in the Tag Studio — throw-ups, bubbles, block, 3D, new skool, burners, wildstyle and more, with characters beside the letters and a <b>Presets</b> gallery: ASMO and 2CB in every style, each faction\'s pieces with its own character, and shout-outs for the stations on the dial.');
+  if (foundry.utils.isNewerVersion('0.5.25', installed)) lines.push('New in 0.5.25: <b>every mission has a GM file</b> \u2014 brief, read-aloud boxes, scenes with their checks, who\'s who and DM notes \u2014 in the mission journals, plus two new GM-only journals for the street commissions and the radio wars. A <b>token builder</b> in character creation (and on the sheet), nine new perks so every stat has its own, hired hands at Rep 13, crew orders from Pat, Pat\'s car jobs, police who know your face, saying nothing at a stop, and chase settings on the Blower. The character, stats and Rep guides are rewritten to match.');
   await card('THE SMOKE', `Upgraded to ${VERSION}`, lines.map(l => `<p>${l}</p>`).join(''), 'job', {whisper: [game.user.id]});
   ui.notifications.info(`The Smoke upgraded to ${VERSION}.`);
 }

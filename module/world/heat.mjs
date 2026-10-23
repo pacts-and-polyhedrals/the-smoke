@@ -1,3 +1,4 @@
+import {ghostCooldown} from '../rules/item-context.mjs';
 // Heat: the wanted level in play. Police units come to whichever map a wanted character is on — area cars,
 // bikes, carriers, NPAS India 99 at three stars, armed response at four, roadblocks at five. Out of sight of every
 // unit for long enough, a star drops. Down and out: Wasted (A&E). Caught: Busted (custody suite).
@@ -252,7 +253,7 @@ async function sightTick(scene) {
       if (!(seat || stars >= 2) || t.getFlag(NS, 'stopped') || t.getFlag(NS, 'indoors')) continue;
       if (game.combats.some(c => c.scene?.id === scene.id && c.combatants.some(x => x.tokenId === t.id))) continue;
       if (!ground.some(u => distanceSquares(u, body) <= SIGHT)) continue;
-      await request('chase.start', {sceneId: scene.id, targetId: t.id, reason: seat ? 'Police pursuit' : 'Police chase'}).catch(error => console.warn('The Smoke | starting a chase', error));
+      await request('chase.start', {sceneId: scene.id, targetId: t.id, reason: seat ? 'Police pursuit' : 'Police chase', started: 'sight'}).catch(error => console.warn('The Smoke | starting a chase', error));
       return;
     }
   }
@@ -269,7 +270,7 @@ async function sightTick(scene) {
     if (seen) { lastSeen.set(a.id, Date.now()); continue; }
     if (!setting('heatCooling', true)) continue;
     const since = lastSeen.get(a.id) ?? Date.now(); if (!lastSeen.has(a.id)) lastSeen.set(a.id, since);
-    if (Date.now() - since >= coolDownSeconds(stars) * 1000) { lastSeen.set(a.id, Date.now()); await a.setHeat(stars - 1, 'Out of sight long enough: the heat dies down a little.'); if (stars - 1 === 0) await standDown(scene); }
+    if (Date.now() - since >= ghostCooldown(a,coolDownSeconds(stars)) * 1000) { lastSeen.set(a.id, Date.now()); await a.setHeat(stars - 1, 'Out of sight long enough: the heat dies down a little.'); if (stars - 1 === 0) await standDown(scene); }
   }
   // close enough to nick someone on foot?
   for (const t of wantedTokens(scene)) {

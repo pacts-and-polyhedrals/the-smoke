@@ -13,7 +13,7 @@ import {clampHeat} from '../rules/core.mjs';
 import {isLeader, registerHandler, request, card, esc} from './net.mjs';
 import {tokenCentre, distanceSquares, ensurePersonActor, placeToken} from './spawn.mjs';
 import {drivingNetwork} from './roads.mjs';
-import {chaseOf, chaseMode, stateOf, actionKey, currentCombatant, ridersOf, pilotOf, vehicleOf, tallyOf, civilianTraffic, pendingResponses, canManageChase} from './chase-state.mjs';
+import {chaseOf, chaseMode, stateOf, actionKey, currentCombatant, ridersOf, pilotOf, vehicleOf, tallyOf, civilianTraffic, pendingResponses, canManageChase, canSetChases} from './chase-state.mjs';
 import {recordJourney} from '../vehicles/travel-meter.mjs';
 import {carryCrewInBatch,deployPoliceCrew} from './traffic-crew.mjs';
 import {npcDriveRoll, npcRoll, promptCheck, lostControl, logIncident, fireRoundEnd} from './incidents.mjs';
@@ -35,11 +35,12 @@ const combatClass = () => CONFIG.Combat?.documentClass ?? getDocumentClass('Comb
 
 export function registerChaseSettings() {
   const reg = (k, o) => { try { game.settings.register(NS, k, {scope: 'world', config: true, ...o}); } catch (_e) {} };
-  reg('autoChase', {name: 'Chases: start turn-based pursuits automatically', hint: 'Start a chase when ground police spot a wanted driver or anyone wanted at two stars or more. Disable for a fully manual sandbox.', type: Boolean, default: true});
+  reg('autoChase', {name: 'Chases: start turn-based pursuits automatically', hint: 'Start a chase when ground police spot a wanted driver or anyone wanted at two stars or more. Off: pursuits stay real time until someone starts a chase by hand. Also switchable from Street Control and the Blower.', type: Boolean, default: true});
   reg('chaseAuto', {name: 'Chase: legacy automatic NPC control', hint: 'Compatibility with old worlds; choose Full Auto / Assisted / Manual using Chase mode.', type: Boolean, default: true});
   reg('chaseMode', {name: 'Chases: GM automation mode', hint: 'Full Auto resolves police, traffic and round transitions once player choices are completed. Assisted requires Continue after NPC turns. Manual is controlled by the GM.', type: String, choices: {full: 'Full Auto', assisted: 'Assisted', manual: 'Manual'}, default: 'full'});
   reg('chaseTrafficMode', {name: 'Chases: civilian traffic turns', hint: 'One shared traffic phase, or individual speed dice for up to 12 nearby civilian motors.', type: String, choices: {shared: 'Shared traffic phase', individual: 'Individual traffic speed dice'}, default: 'shared'});
   reg('chaseDelay', {name: 'Chases: seconds before an assisted action', hint: 'Reading time before NPC actions in Full Auto and Assisted modes. Full Auto advances finished NPC turns; Assisted pauses for GM review.', type: Number, default: 3, range: {min: 2, max: 10, step: 1}});
+  reg('autoDriveChecks', {name: 'Driving: roll yellow / red and PIT checks automatically', hint: 'On: pushing into the yellow or red band, or holding it straight after a PIT, rolls Wheels for the driver at once with the result in chat (as 0.5.1 did). Off (default): a card in chat asks the driver to roll.', type: Boolean, default: false});
   reg('autoEvade', {name: 'Driving: roll evasive manoeuvres automatically', hint: 'When a player drives over a vehicle, roll Wheels and apply the swerve or crash immediately, even outside a chase. Off: ask the driver to roll in chat.', type: Boolean, default: true});
   reg('chasePacingVersion', {scope: 'world', config: false, type: Number, default: 0});
 }
@@ -57,7 +58,7 @@ export function startChaseNow(scene,opts={}){
   void task.finally(()=>{if(starting.get(scene.id)===task)starting.delete(scene.id);}).catch(()=>{});
   return task;
 }
-async function startChaseInternal(scene, {targetId = null, auto = null, reason = 'Police chase'} = {}) {
+async function startChaseInternal(scene, {targetId = null, auto = null, reason = 'Police chase', started = 'manual'} = {}) {
   if (!scene) return null;
   let combat = chaseOf(scene); const already = combat?.getFlag(NS, 'chase');
   const g = scene.grid.size;
@@ -75,7 +76,7 @@ async function startChaseInternal(scene, {targetId = null, auto = null, reason =
   combat ??= await combatClass().create({scene: scene.id, active: true});
   if(scene.getFlag(NS,'chaseCombatId')!==combat.id)await scene.setFlag(NS,'chaseCombatId',combat.id);
   const seenAtStart=Object.fromEntries([...pcs].map(id=>scene.tokens.get(id)).filter(Boolean).filter(t=>units.some(u=>distanceSquares(u,bodyOf(t))<=14)).map(t=>[t.actorId,{at:Date.now(),point:tokenCentre(bodyOf(t))}]));
-  const chase = {auto: auto ?? mode !== 'manual', mode, trafficMode, since: Date.now(), reason, action: null, searching: false, lastSeen: {...seenAtStart,...(already?.lastSeen??{})}};
+  const chase = {auto: auto ?? mode !== 'manual', mode, trafficMode, since: Date.now(), reason, started: already?.started ?? (started === 'sight' ? 'sight' : 'manual'), action: null, searching: false, lastSeen: {...seenAtStart,...(already?.lastSeen??{})}};
   await combat.update({[`flags.${NS}.chase`]: {...(already || {}), ...chase}});
   const have = new Set(combat.combatants.map(c => c.tokenId));
   const chosenTraffic=trafficMode==='individual'?traffic.filter(t=>near(t,24)).sort((a,b)=>Math.min(...centres.map(c=>Math.hypot(sq(a,g).x-c.x,sq(a,g).y-c.y)))-Math.min(...centres.map(c=>Math.hypot(sq(b,g).x-c.x,sq(b,g).y-c.y)))).slice(0,12):[];
@@ -485,7 +486,7 @@ export async function migrateChasePacing() {
 }
 
 /* ------------------------------------------------------------------ requests */
-registerHandler('chase.start', async ({sceneId, targetId = null, reason, userId}) => {
+registerHandler('chase.start', async ({sceneId, targetId = null, reason, started = 'manual', userId}) => {
   const u = game.users.get(userId), scene = game.scenes.get(sceneId); if (!scene) return null;
   if (!u) throw new Error('Unknown user.');
   if (!u?.isGM) {
@@ -494,8 +495,46 @@ registerHandler('chase.start', async ({sceneId, targetId = null, reason, userId}
     targetId = t.id;
   }
   if (chaseOf(scene)) return null;
-  return startChaseNow(scene, {targetId, reason: reason || 'Police chase'});
+  // Only the GM's own sighting loop marks a chase as started by sight (those end if turn-based chases are switched off).
+  return startChaseNow(scene, {targetId, reason: reason || 'Police chase', started: u.isGM && started === 'sight' ? 'sight' : 'manual'});
 });
+/** The chase and driving switches (Street Control, the Blower): the GM, or in Self-play any player with a character.
+ * Restored in 0.5.25 — 0.5.1 had them on the Blower and in Street Control; later merges dropped the controls. */
+export const CHASE_SETTING_KEYS = Object.freeze(['autoChase', 'chaseMode', 'chaseTrafficMode', 'autoEvade', 'autoDriveChecks']);
+registerHandler('chase.settings', async ({change = {}, userId}) => {
+  const u = game.users.get(userId);
+  if (!canSetChases(u)) throw new Error('In Story mode the GM decides how chases and driving checks run.');
+  const done = [];
+  for (const [k, v] of Object.entries(change || {})) {
+    if (!CHASE_SETTING_KEYS.includes(k)) throw new Error(`Unknown chase setting: ${k}.`);
+    if (k === 'chaseMode' && !['full', 'assisted', 'manual'].includes(v)) throw new Error('Chase mode is Full Auto, Assisted or Manual.');
+    if (k === 'chaseTrafficMode' && !['shared', 'individual'].includes(v)) throw new Error('Traffic is shared or individual.');
+    if (['autoChase', 'autoEvade', 'autoDriveChecks'].includes(k) && typeof v !== 'boolean') throw new Error(`${k} is on or off.`);
+    if (setting(k, null) === v) continue;
+    await game.settings.set(NS, k, v); done.push(k);
+  }
+  if (!done.length) return null;
+  if (done.includes('autoChase') && !setting('autoChase', true)) await endSightChases('Turn-based chases are off: back to real time.');
+  Hooks.callAll('smokeChaseSettings', {keys: done});
+  return card('CHASES & DRIVING', chaseSettingsSummary().title, `<p>${esc(u?.name ?? 'The GM')} changed the settings.</p><ul>${chaseSettingsSummary().lines.map(l => `<li>${l}</li>`).join('')}</ul>`, 'chase');
+});
+const MODE_LABEL = {full: 'Full Auto', assisted: 'Assisted', manual: 'Manual'};
+/** What the switches currently say, in plain words (for the card and the Blower). */
+export function chaseSettingsSummary() {
+  const on = setting('autoChase', true), mode = setting('chaseMode', 'full');
+  return {title: `Turn-based police chases: ${on ? 'ON' : 'OFF'}`, lines: [
+    on ? 'When ground police clock a wanted driver (or anyone at two stars or more), the chase goes turn-based in the Combat Console.' : 'Pursuits stay in real time. Start a chase by hand from Street Control or the Combat Console.',
+    `New chases start in <b>${MODE_LABEL[mode] ?? mode}</b>${mode === 'full' ? ': the police and traffic drive themselves' : mode === 'assisted' ? ': the AI takes each NPC turn, then waits for the GM' : ': the GM runs the police and traffic'}.`,
+    `Civilian traffic in a chase: <b>${setting('chaseTrafficMode', 'shared') === 'individual' ? 'its own speed dice' : 'one shared traffic phase'}</b>.`,
+    `Evasive manoeuvres ${setting('autoEvade', true) ? '<b>roll themselves</b>' : 'ask the driver to roll'}; yellow / red and PIT checks ${setting('autoDriveChecks', false) ? '<b>roll themselves</b>' : 'ask the driver to roll'}.`]};
+}
+/** Turn-based chases switched off: chases the police started by sight go back to real time (ones started by hand stay). */
+async function endSightChases(why) {
+  if (!isLeader() || setting('autoChase', true)) return 0;
+  let ended = 0;
+  for (const c of [...(game.combats?.contents ?? [])]) { const f = c.getFlag?.(NS, 'chase'); if (f && f.started === 'sight') { await endChase(c, {why}).catch(() => null); ended++; } }
+  return ended;
+}
 registerHandler('chase.auto', async ({combatId, auto, mode = null, userId}) => {
   const combat = game.combats.get(combatId); if (!combat?.getFlag(NS, 'chase')) return;
   if (!canManageChase(combat, game.users.get(userId) ?? null)) throw new Error('The GM controls chases in Story mode. In Self-play a participating player can toggle assistance.');
@@ -581,6 +620,7 @@ export const chaseAPI = {
   end: combat => request('chase.end', {combatId: combat.id}),
   auto: (combat, on) => request('chase.auto', {combatId: combat.id, auto: on}),
   mode: (combat, mode) => request('chase.auto', {combatId: combat.id, mode}),
+  settings: change => request('chase.settings', {change}), canSet: canSetChases, summary: chaseSettingsSummary,
   npcTurn: combat => request('chase.npcTurn', {combatId: combat.id, key: actionKey(combat)}),
   pit, evasive, chaseOf, trafficPhase, joinReinforcements, policeUnitInFight
 };

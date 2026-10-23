@@ -36,7 +36,8 @@ for(const site of catalogue.sites.filter(s=>!foundSites.has(s.id))){
  located++;if(r.approximate)approx++;
 }
 assert.equal(located,57,'all 57 planned sites are placeable, including three not yet used by the 42 missions');
-assert.equal(approx,6,'only six sites without anchors need a GM location refinement');
+assert.equal(approx,5,'only five sites without anchors need a GM location refinement (0.5.27: the Bow Flyover column names its zone)');
+assert.equal(missionPaintPosition(atlas.maps.find(m=>m.id==='LDN-BOW-FLYOVER'),catalogue.sites.find(s=>s.id==='SP-BF-PILLAR'),null,venues.maps,places.maps,[],100).via,'zone','the column is placed under the flyover');
 assert.equal(activePaintTargets('LDN-HACKNEY',catalogue,missionList,{}).length,0,'no unrelated mission spots appear');
 
 const gm={id:'gm',isGM:true,active:true},player={id:'p1',isGM:false,active:true};

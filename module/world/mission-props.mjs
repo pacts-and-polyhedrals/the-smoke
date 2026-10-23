@@ -89,9 +89,9 @@ export async function ensureMissionProps(m) {
       try{
         const scene=p?.sceneId?game.scenes.get(p.sceneId)||await findOrImportScene(id):await findOrImportScene(id);
         const seen=scene.tokens?.find?.(t=>matchRun(t,m,serial,s.runId));
-        if(seen){if(p?.tokenId!==seen.id || p?.sceneId!==scene.id){s.parcels[serial]={status:'world',sceneId:scene.id,tokenId:seen.id};changed=true;}continue;}
+        if(seen){if(p?.tokenId!==seen.id || p?.sceneId!==scene.id){s.parcels[serial]={...p,status:'world',sceneId:scene.id,tokenId:seen.id};changed=true;}continue;}
         const created=await placeGround(m,prop,serial,s,scene,{at:p?.at??null});
-        s.parcels[serial]={status:'world',sceneId:scene.id,tokenId:created.id};changed=true;
+        s.parcels[serial]={...p,status:'world',sceneId:scene.id,tokenId:created.id};changed=true;
       }catch(error){console.warn(`The Smoke | Unable to place ${m.id} ${serial}`,error);}
     }
     // merge just this run's cargo into a fresh copy of the state (other missions may have moved meanwhile)
@@ -113,7 +113,7 @@ function inDeliveryArea(scene,token,p,m){
   const zone=zoneFor(scene,zoneCode);
   if(!zone || zone.code!==zoneCode&&zone.id!==zoneCode)return false;
   const [x,y,w,h]=zone.rect,[cx,cy]=tokenCentre(token),g=scene.grid?.size||100;
-  return Math.hypot(Math.max(x-cx,0,cx-(x+w)),Math.max(y-cy,0,cy-(y+h)))<=g*1.15;
+  return Math.hypot(Math.max(x-cx,0,cx-(x+w)),Math.max(y-cy,0,cy-(y+h)))<= (m.automation ? 0 : g*1.15);
 }
 function itemData(m,p,serial,s){return {name:p.name,type:'gear',img:ICON,system:{quantity:1,value:0,description:`<p>${esc(p.description||'Campaign cargo')}</p><p><b>${esc(m.code||m.id)} ${esc(m.title)}</b>. Use this item to drop it or deliver it.</p>`},flags:{[NS]:{[ITEM_FLAG]:{missionId:m.id,serial,runId:s.runId}}}};}
 async function partyCard(m,actor,headline,description){
@@ -134,10 +134,11 @@ async function moveParcel({missionId,serial,action,actorId,sceneId,tokenId,userI
    const ground=scene.tokens.get(tokenId);
    if(!ground||!matchRun(ground,m,serial,s.runId))throw new Error('The property has been moved or collected.');
    requiredNear(token,ground);
+   if(m.automation&&p.pickupAnchor&&mapIdOf(scene)===p.pickupAnchor.mapId){const {pointOf}=await import('./mission-automation.mjs');const {atAnchor}=await import('../rules/mission-contract.mjs');if(!atAnchor(pointOf(token),p.pickupAnchor)&&!ps.droppedBy)throw new Error('Step inside the marked pickup area before collecting the property.');}
    const [item]=await actor.createEmbeddedDocuments('Item',[itemData(m,p,serial,s)]);
    try {await scene.deleteEmbeddedDocuments('Token',[ground.id],{smokeMissionProps:true});}
    catch(e){await item.delete();throw e;}
-   ps.status='held';ps.actorId=actor.id;ps.sceneId=null;ps.tokenId=null;delete ps.at;
+   ps.status='held';ps.actorId=actor.id;ps.collectedBy ??= actor.id;ps.collectedAt ??= Number(game.time?.worldTime || 0);ps.collectedLocation={mapId:mapIdOf(scene),sceneId:scene.id,x:tokenCentre(token)[0],y:tokenCentre(token)[1],zoneIds:sceneZones(scene).filter(z=>{const [x,y,w,h]=z.rect,[cx,cy]=tokenCentre(token);return cx>=x&&cx<=x+w&&cy>=y&&cy<=y+h;}).map(z=>z.id)};ps.sceneId=null;ps.tokenId=null;delete ps.at;
   }else if(action==='drop'){
    if(ps.status!=='held'||ps.actorId!==actor.id)throw new Error('You are not carrying this parcel.');
    const item=cargoItem(actor,m.id,serial,s.runId);if(!item)throw new Error('Mission cargo item missing from your sheet. Ask the GM to recover it.');
@@ -145,7 +146,7 @@ async function moveParcel({missionId,serial,action,actorId,sceneId,tokenId,userI
    const ground=await placeGround(m,p,serial,s,scene,{at:{x,y}});
    try {await item.delete();}
    catch(e){await scene.deleteEmbeddedDocuments('Token',[ground.id],{smokeMissionProps:true});throw e;}
-   ps.status='world';ps.actorId=null;ps.sceneId=scene.id;ps.tokenId=ground.id;ps.at={x,y};
+   ps.status='world';ps.actorId=null;ps.sceneId=scene.id;ps.tokenId=ground.id;ps.at={x,y};ps.droppedBy=actor.id;
   }else if(action==='deliver'){
    if(ps.status!=='held'||ps.actorId!==actor.id)throw new Error('You must physically collect this parcel first.');
    if(!inDeliveryArea(scene,token,p,m)){
@@ -153,13 +154,13 @@ async function moveParcel({missionId,serial,action,actorId,sceneId,tokenId,userI
     throw new Error(`Deliver ${p.name} at ${dest?.name||dest?.mapId||'the mission destination'}${p.deliveryZone?` (${p.deliveryZone})`:''}. You must be in the correct mapped area.`);
    }
    const item=cargoItem(actor,m.id,serial,s.runId);if(!item)throw new Error('Mission cargo item missing from your sheet. Ask the GM to recover it.');
-   await item.delete();ps.status='delivered';ps.actorId=actor.id;ps.sceneId=scene.id;ps.tokenId=null;
+   await item.delete();ps.status='delivered';ps.deliveredBy=actor.id;ps.deliveredAt=Number(game.time?.worldTime || 0);ps.deliveredLocation={mapId:mapIdOf(scene),sceneId:scene.id,x:tokenCentre(token)[0],y:tokenCentre(token)[1],zoneIds:sceneZones(scene).filter(z=>{const [x,y,w,h]=z.rect,[cx,cy]=tokenCentre(token);return cx>=x&&cx<=x+w&&cy>=y&&cy<=y+h;}).map(z=>z.id)};ps.actorId=actor.id;ps.sceneId=scene.id;ps.tokenId=null;
   }else throw new Error('Unknown mission cargo action.');
   s.parcels={...(s.parcels||{}),[serial]:ps};
   await withMissionState(st=>{if(!st[m.id])return;st[m.id]={...st[m.id],parcels:{...(st[m.id].parcels||{}),[serial]:ps}};});
   await partyCard(m,actor,`${p.name} · ${action}`,`${action==='collect'?'collected':action==='drop'?'dropped':'delivered'} ${p.name}`);
   if(action==='collect'||action==='deliver'){
-   try {await missionEvent({on:action==='collect'?'cargoCollected':'cargoDelivered',propId:p.id,actorId:actor.id});}
+   try {await missionEvent({on:action==='collect'?'cargoCollected':'cargoDelivered',propId:p.id,actorId:actor.id,missionId:m.id,missionRunId:s.runId,serial,status:ps.status,sceneId:scene.id,mapId:mapIdOf(scene),zoneId:action==='collect'?p.pickupZone:p.deliveryZone});}
    catch(e){console.error('The Smoke | objective update after cargo change',e);ui.notifications.warn('Cargo moved, but its objective could not update. The GM can review Mission Board.');}
   }
   return {status:ps.status,missionId:m.id,serial};

@@ -1,3 +1,48 @@
+> **CURRENT COMBINED CANDIDATE: 0.5.27-rc.3.** Read `RELEASE-v0.5.27-rc.3.md` (cash and kit, Banana Basket) and `RELEASE-v0.5.27-rc.2.md` (the mission fixes), then `MERGE-REPORT.md` and `INSTALL-CANDIDATE.md`. The following earlier release notes are preserved history, not instructions to publish or install this candidate as Latest. Approved full-build baseline remains v0.5.24.
+
+## v0.5.27-rc.3 validation
+
+- `node tests/run-all.mjs`: **76/76 suites passed** (75 + `resources-and-orders`).
+- **The bug reproduced:** Spray Paint and cash added on an unlinked character token's sheet are missing from the character. Linking moves them across without doubling existing kit, and new characters and tokens come out linked.
+- **The rest, covered by the same suite:** any spray can counts; the Self-play rule and GM control; GM give and take; and Banana Basket.
+- **Banana Basket in detail:** paid once on retry; weapons, drugs, under-the-counter stock and Uncle refused; delivered after the Watch hour; collected only at the flat; cancel refunds; the GM delivers now; fee, time and off switch work.
+- **Missions:** every mission still plays through at 1–6 players and on crowded streets.
+- **Templates and windows:** 18 templates compile, and the scroll audit finds 0 of 532 renders with unreachable content, including the new Banana Basket window and Blower card, which were also screenshotted. The capability check passes all 95 capabilities.
+- **Not covered:** this is not a live Foundry or Forge session.
+
+## v0.5.27-rc.2 validation
+
+- `node tests/run-all.mjs`: **75/75 suites passed** (74 + `mission-playthrough`; `tagging-mission-canvas` updated because the Bow Flyover column now names its zone).
+- **Every job, played through:** `node tests/mission-playthrough.mjs 1,2,3,4,5,6` → 1,074/1,074 clean; `node tests/mission-playthrough.mjs 1,4 --crowded` → 358/358 clean. Each run follows the sat nav, does what the objective says and checks that the step ticks from that alone, then that the job passes. On the rc.1 code, the same run fails CH3 at four players (wheels, then the van), M05's car and the crowded set-up, as reported.
+- **Places:** `node scripts/missions/fix-contracts.mjs --check` passes. Each checkpoint was compared with its objective text, the GM file's scene places and the people it names.
+- **Sat nav:** `nav-all2` checked 179 missions in 1,788 states with 0 wrong.
+- **Templates and windows:** 17 templates compile and render 99 ways. `scroll-audit` found 0 of 512 renders with unreachable content. `menu-check` reached every menu. All 105 modules import.
+- **Packs:** `scripts/release/rebuild_packs.py` rebuilt items, people and guides from source, then checked records, CRCs and readback. `capabilities`: 91 capabilities pass, and every 0.5.26 baseline trace is present.
+- **Not covered:** this is not a live Foundry or Forge session.
+
+## v0.5.26 validation
+
+- `node tests/run-all.mjs`: **66/66 suites passed** (65 + `graffiti-pieces`).
+- **Engine coverage:** `graffiti-pieces` renders all 16 styles × 6 finishes for ASMO, 2CB and NIGHT MARKET, cycling every character and fill. Every output is well-formed SVG with no bad numbers.
+- **Worst case:** eighteen heavy letters with a character at Legendary, blinder 4, comes in under the GM's 400k limit. The largest shipped piece is 68k.
+- **Fonts:** every allowed character exists in every font.
+- **Presets:** ASMO and 2CB in every style; every faction has 3 or more presets with its tag pack; all six stations have shout-outs; every character appears in a preset.
+- **Shipped art:** it matches the engine (`build-art.mjs --check`), and every tag pack has its six finishes.
+- **Sanitiser:** it rejects unknown styles, characters and fills, and bad colours.
+- **End to end:** the tagging run paints classic tags and pieces through `graffiti.paint`, and both come out as clean SVG.
+- **Tag Studio:** the template compiles and renders with piece contexts, and the scroll audit finds nothing unreachable. It was also rendered with the real context and a preset loaded.
+- This is not a live Foundry run.
+
+## v0.5.25 validation
+
+- `node tests/run-all.mjs`: **65/65 suites passed** (59 + `capabilities`, `stat-balance`, `token-builder`, `hires`, `chase-settings`, `venue-coverage`).
+- **Capability guard:** 76 capabilities probed, plus every handler, setting, API, button and data record from 0.5.24.
+- **Stat balance:** across 1,188 checks in the 179 mission files, the stats split mus 10.9%, grt 12.2%, mov 11.4%, whl 11.5%, aim 11.5%, grf 9.8%, sav 11.3%, frt 10.5% and btl 10.7%. Every stat is one background's d8, and has 5 or more perks, a hired hand and 3 or more GM Screen checks.
+- **Token Builder:** 105 part files and 318 compositions on three builds, plus 16 presets and 300 random looks. A browser run of the panel covered parts, colours, build, skin, preset, reset, randomise and rasterise to WebP.
+- **Compendiums:** guides (29 journals, 326 pages) and items (180) match the shipped JSON. 3,827 compendium links and 882 asset references all resolve.
+- **Guide pages:** rendered and checked in a browser.
+- This is not a live Foundry run.
+
 ## v0.5.24 right-click validation
 
 - `node tests/run-all.mjs`: **59/59 suites passed** (58 + `player-right-click.test.mjs`).

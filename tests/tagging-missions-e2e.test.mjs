@@ -24,8 +24,9 @@ const chat = []; const messages = new Map();
 globalThis.ChatMessage = {implementation: {create: async d => { const m = {...d, id: `m${chat.length}`}; chat.push(m); return m; }}, getSpeaker: () => ({})};
 game.messages = {get: id => messages.get(id)};
 game.time = {advance: async () => null};
-globalThis.File = class { constructor(parts, name) { this.name = name; } };
-foundry.applications.apps = {...(foundry.applications.apps || {}), FilePicker: {uploadPersistent: async (ns, dir, file) => ({path: `uploads/${file.name}`})}};
+globalThis.File = class { constructor(parts, name) { this.name = name; this.body = parts.join(''); } text() { return Promise.resolve(this.body); } };
+const uploads = [];   // 0.5.26: the decals the GM made, to check classic tags and pieces both come out
+foundry.applications.apps = {...(foundry.applications.apps || {}), FilePicker: {uploadPersistent: async (ns, dir, file) => { uploads.push(file); return {path: `uploads/${file.name}`}; }}};
 foundry.utils.setProperty ??= (o, k, v) => { const p = k.split('.'); let c = o; for (const x of p.slice(0, -1)) c = c[x] ??= {}; c[p.at(-1)] = v; };
 let nextId = 0; const uid = p => `${p}${++nextId}`;
 const flagsDoc = (o) => Object.assign(o, {
@@ -102,8 +103,9 @@ async function paint(sc, tok, quality, choice) {
   const attemptId = `att${String(++nextId).padStart(8, '0')}`, msgId = uid('msg');
   const roll = {context: {kind: 'tagPaint', attemptId, sceneId: sc.id, spotTokenId: tok.id, actorId: char.id}, actorUuid: char.uuid, userId: player.id, stat: 'grf', band, outcomeKey: quality};
   messages.set(msgId, flagsDoc({id: msgId, flags: {[NS]: {roll}}}));
-  return dispatch('graffiti.paint', {sceneId: sc.id, spotTokenId: tok.id, actorId: char.id, rollMessageId: msgId, attemptId, tagPackId: choice.tagPackId, missionId: choice.missionId || null, design: {text: 'PATCH'}, userId: player.id});
+  return dispatch('graffiti.paint', {sceneId: sc.id, spotTokenId: tok.id, actorId: char.id, rollMessageId: msgId, attemptId, tagPackId: choice.tagPackId, missionId: choice.missionId || null, design: {text: 'PATCH', style: PAINT_STYLES[nextId % PAINT_STYLES.length], character: nextId % 3 ? '' : 'canman', extras: {crown: true}}, userId: player.id});
 }
+const PAINT_STYLES = ['handstyle', 'throwup', 'wildstyle', 'bubble', 'burner', 'stencil'];
 const order = ['severeFailure', 'costlyFailure', 'narrowSuccess', 'fullSuccess', 'strongSuccess', 'exceptionalSuccess'];
 const problems = []; const navProblems = [];
 const navCheck = (m, label) => {
@@ -186,5 +188,9 @@ await dispatch('mission.set', {id: 'tg-intro-01', status: 'reset', userId: gm.id
 const {rectDistanceSquares} = await import(`${ROOT}/module/graffiti/core.mjs`);
 assert.ok(rectDistanceSquares({x: 720, y: 560, width: 1, height: 1}, {x: 300, y: 300, width: 2, height: 6, rotation: 90}) < 1.6, 'side-on bus: its end is within reach');
 assert.ok(rectDistanceSquares({x: 720, y: 560, width: 1, height: 1}, {x: 300, y: 300, width: 2, height: 6, rotation: 0}) > 1.6);
-console.log('tagging missions end to end: all 42 commissions pass as Tag Studio picks; sat nav follows every next site after paints and GM ticks; too-rough, free-paint and not-on-the-job paints say why; crew can be changed; the nearest needed surface and the job’s own tag are chosen; side-on buses are in reach — ok');
+// the GM drew classic tags and pieces alike from trusted data; a piece's crown comes from the roll, not the client
+const svgs = await Promise.all(uploads.map(f => f.text()));
+assert.ok(svgs.some(t => t.includes('graffiti tag')) && svgs.some(t => t.includes('graffiti piece')), 'classic tags and pieces were both painted');
+assert.ok(svgs.every(t => t.startsWith('<svg') && !/NaN|undefined/.test(t)), 'every decal is clean SVG');
+console.log('tagging missions end to end: all 42 commissions pass as Tag Studio picks (classic tags and pieces); sat nav follows every next site after paints and GM ticks; too-rough, free-paint and not-on-the-job paints say why; crew can be changed; the nearest needed surface and the job’s own tag are chosen; side-on buses are in reach — ok');
 process.exit(0);

@@ -1,0 +1,32 @@
+<div class="smoke-shop-inner">
+  <aside class="shop-rail">
+    <div class="shop-wallet"><span class="kicker">IN YOUR POCKET</span><b>£{{cash}}</b><small>Stash £{{stash}} · delivery £{{fee}}</small></div>
+    <h3>Delivers to the flat</h3>
+    <ul class="shop-list">{{#each shops}}<li><a data-order-shop="{{key}}" class="{{#if active}}active{{/if}}">{{name}}</a></li>{{else}}<li class="empty">Nobody will deliver right now.</li>{{/each}}</ul>
+    <p class="smoke-hint">{{#if minutes}}Orders reach Your Flat about {{minutes}} Watch minutes later.{{else}}Orders are waiting at Your Flat straight away.{{/if}} Collect them there (or at a safehouse) from the Blower. No weapons, ammo, drugs or under-the-counter stock: fetch those in person.</p>
+  </aside>
+  <main class="shop-main">
+    {{#if orders.list.length}}
+    <section class="order-parcels">
+      <h3>Your orders</h3>
+      <ul>{{#each orders.list}}<li class="{{#if waiting}}waiting{{/if}}"><b>{{text}}</b> <small>{{shop}} · {{eta}}</small>
+        {{#unless waiting}}<button type="button" data-cancel-order="{{id}}" title="Cancel for a full refund">Cancel</button>{{#if ../isGM}}<button type="button" data-deliver-now="{{id}}">GM: deliver now</button>{{/if}}{{else}}{{#if ../isGM}}<button type="button" data-cancel-order="{{id}}">GM: cancel and refund</button>{{/if}}{{/unless}}</li>{{/each}}</ul>
+      {{#if orders.waiting}}{{#if orders.here}}<button type="button" class="hot" data-collect><i class="fa-solid fa-box-open"></i> Collect {{orders.waiting}} parcel(s)</button>{{else}}{{#if isGM}}<button type="button" data-collect><i class="fa-solid fa-box-open"></i> GM: hand them over now</button>{{else}}<p class="smoke-hint">Parcels are waiting at Your Flat. Go there to collect them.</p>{{/if}}{{/if}}{{/if}}
+    </section>
+    {{/if}}
+    {{#unless on}}<div class="shop-empty"><i class="fa-solid fa-store-slash"></i><p>The GM has switched off phone orders.</p></div>{{else}}
+    {{#if shop}}
+    <header class="shop-head"><span class="kicker">{{shop.who}}</span><h2>{{shop.name}}</h2><p>Delivered to Your Flat · £{{fee}} delivery per order.</p></header>
+    {{#each lines}}
+    <h3>{{label}}</h3>
+    <div class="shop-grid">{{#each items}}
+      <article class="shop-item"><img src="{{img}}" alt=""><div class="shop-item-body"><b>{{name}}</b><small>{{type}}{{#if (gt unit 1)}} · ×{{unit}}{{/if}}</small><p>{{blurb}}</p></div>
+        <footer><span class="shop-price {{#unless afford}}dear{{/unless}}">£{{price}}</span><input type="number" name="qty" value="1" min="1" max="20" aria-label="How many"><button type="button" data-order="{{name}}"><i class="fa-solid fa-truck-fast"></i> Order</button></footer></article>
+    {{/each}}</div>
+    {{/each}}
+    {{else}}
+    <div class="shop-empty"><i class="fa-solid fa-basket-shopping"></i><p>Pick a shop.</p></div>
+    {{/if}}
+    {{/unless}}
+  </main>
+</div>

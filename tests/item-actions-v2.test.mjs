@@ -1,0 +1,30 @@
+import assert from 'node:assert/strict';
+import {makeWorld} from './world-fixture.mjs';
+import {J} from './fakes.mjs';
+const NS='the-smoke',w=await makeWorld({players:2}),a=w.pcs[0],b=w.pcs[1],lib=J('london-items.json').items;
+const {installItemActions,useItemAction,recoverItemAction}=await import('../module/world/item-actions.mjs');
+const {dispatch}=await import('../module/world/net.mjs');
+installItemActions();let rolls=0;globalThis.Roll=class{constructor(f){this.formula=f;this.total=100;this.dice=[{faces:6,results:[{result:5}]}];}async evaluate(){rolls++;return this;}};
+await w.put(a,'LDP-ARCHES',[350,350]);await w.put(b,'LDP-ARCHES',[450,350]);
+const scene=canvas.scene,body=w.createActor({name:'Test van',type:'vehicle',system:{vehicle:{klass:'van',body:{value:3,max:12},fuel:{value:1,max:10},flats:0,lock:'medium',plateless:false}}});
+const vehicle=await w.addToken(scene,{actorId:body.id,actorLink:true,x:400,y:400,width:1,height:1,flags:{[NS]:{unlocked:true}}});
+let counter=0;const add=async name=>(await a.createEmbeddedDocuments('Item',[structuredClone(lib.find(i=>i.name===name))]))[0];
+const run=(item,action,target=null,operationId=`item_test_${++counter}`)=>useItemAction({actorUuid:a.uuid,itemId:item.id,action,targetUuid:target?.uuid||null,operationId,userId:'user1'});
+const fuel=await add('Jerry Can');const fu='item_fuel_once_01';await run(fuel,'refuel',vehicle,fu);assert.equal(body.system.vehicle.fuel.value,6);assert.equal(fuel.system.quantity,0);await run(fuel,'refuel',vehicle,fu);assert.equal(body.system.vehicle.fuel.value,6);
+await assert.rejects(run(fuel,'refuel',vehicle),/None/);
+await assert.rejects(useItemAction({actorUuid:a.uuid,itemId:fuel.id,action:'refuel',targetUuid:vehicle.uuid,operationId:'unauthorised_fuel',userId:'user2'}),/own character/);
+await assert.rejects(dispatch('items.refuel',{actorId:a.id,sceneId:scene.id,vehicleTokenId:vehicle.id,userId:'user1'}),/unverified/);
+const kit=await add('Vehicle Repair Kit');const when=game.time.worldTime;await run(kit,'repairKit',vehicle);assert.equal(body.system.vehicle.body.value,5);assert.equal(kit.system.quantity,0);assert.equal(game.time.worldTime,when+300);
+const medical=await add('First Aid Kit');b.system.resources.health.value=2;await b.addCondition('Bleeding');const tb=scene.tokens.find(t=>t.actor===b);await run(medical,'consume',tb);assert.equal(b.system.resources.health.value,4);assert.ok(!b.items.some(i=>i.name==='Bleeding'));assert.equal(medical.system.quantity,2);assert.equal(a.system.resources.health.value,10);
+const suit=await add('Smart Suit'),tracksuit=await add('Tracksuit');a.system.heat.value=2;await run(suit,'wear');assert.equal(a.system.heat.value,1);await assert.rejects(run(suit,'wear'),/already wearing/);await run(tracksuit,'wear');assert.equal(a.system.heat.value,1,'switching back cannot farm Heat');
+const ties=await add('Cable Ties');await assert.rejects(run(ties,'restrain',tb),/held/);await b.addCondition('Grabbed');await run(ties,'restrain',tb);assert.ok(b.items.some(i=>i.name==='Cuffed'));assert.equal(ties.system.quantity,(lib.find(i=>i.name==='Cable Ties').system.quantity||1)-1);
+await b.removeCondition('Cuffed');await b.addCondition('Grabbed');const cuffs=await add('Handcuffs');await run(cuffs,'restrain',tb);assert.equal(cuffs.getFlag(NS,'attachedTo'),tb.uuid);await run(cuffs,'releaseCuffs',tb);assert.ok(!b.items.some(i=>i.name==='Cuffed'));assert.equal(cuffs.getFlag(NS,'attachedTo'),null);
+// Chat persistence failure after rolling. The leader saved the exact result beforehand.
+const plates=await add('Spare Plates'),id='item_saved_roll_01',old=ChatMessage.implementation.create;let fail=true;
+ChatMessage.implementation.create=async d=>{if(fail){fail=false;throw new Error('injected chat write failure');}return old(d);};
+const priorRolls=rolls;await assert.rejects(run(plates,'plates',vehicle,id),/injected/);assert.equal(rolls,priorRolls+1);
+await recoverItemAction(a,id,'user1');assert.equal(rolls,priorRolls+1,'recovered result is not rerolled');assert.equal(plates.system.quantity,0);assert.match(vehicle.getFlag(NS,'plate'),/^[A-Z]{2}\d{2} [A-Z]{3}$/);
+// Effect write failure after inventory spend: recover without spending again.
+const fuel2=await add('Jerry Can'),origUpdate=body.update.bind(body);let bad=true;body.update=async change=>{if(bad&&Object.hasOwn(change,'system.vehicle.fuel.value')){bad=false;throw new Error('injected effect write failure');}return origUpdate(change);};
+await assert.rejects(run(fuel2,'refuel',vehicle,'item_retry_effect_01'),/injected/);assert.equal(fuel2.system.quantity,0);await recoverItemAction(a,'item_retry_effect_01','user1');assert.equal(body.system.vehicle.fuel.value,10);assert.equal(fuel2.system.quantity,0);
+console.log('item actions v2: possession, proximity, ownership, refuel/kit, teammate first aid, outfit exploit, reusable cuffs, saved roll and inventory/effect failure recovery passed');process.exit(0);

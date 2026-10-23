@@ -78,7 +78,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/ch/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/ch/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-AD",
@@ -99,7 +99,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/ad/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/ad/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-LB",
@@ -120,7 +120,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/lb/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/lb/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-VC",
@@ -141,7 +141,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/vc/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/vc/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-TU",
@@ -162,7 +162,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/tu/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/tu/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-GE",
@@ -183,7 +183,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/ge/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/ge/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-BB",
@@ -204,7 +204,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/bb/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/bb/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-NM",
@@ -225,7 +225,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/nm/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/nm/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-BM",
@@ -246,7 +246,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/bm/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/bm/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-LD",
@@ -267,7 +267,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/ld/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/ld/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-MR",
@@ -288,7 +288,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/mr/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/mr/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-RT",
@@ -309,7 +309,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/rt/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/rt/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     },
     {
       "id": "TAG-STREET",
@@ -329,7 +329,7 @@
         "exceptionalSuccess": "assets/graffiti/svg/street/exceptionalSuccess.svg"
       },
       "runtimeFallback": "assets/graffiti/webp/street/{outcome}.webp",
-      "sourceStatus": "planned; artwork not yet generated"
+      "sourceStatus": "implemented: six shipped SVG finishes; procedural piece engine active; legacy WebP export template remains unbuilt and is not used by the runtime"
     }
   ],
   "sites": [
@@ -1115,7 +1115,8 @@
       "implementation": "scene-bound hotspot + transparent vector decal",
       "anchorPx": null,
       "anchorRotation": null,
-      "siteOwner": null
+      "siteOwner": null,
+      "anchorZone": "east-cross-route-stratford-high"
     },
     {
       "id": "SP-BF-MARSHGATE",

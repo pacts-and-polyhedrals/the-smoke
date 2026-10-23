@@ -306,12 +306,13 @@ async function walkIn(source, target, people, land, {vehicle = null} = {}) {
     // A passenger who walks into a venue is no longer attached to the parked motor.
     foundry.utils.setProperty(d, `flags.${NS}.vehicleSeat`, null); foundry.utils.setProperty(d, `flags.${NS}.ambientCrew`, null);
     foundry.utils.setProperty(d,`flags.${NS}.transitAt`,Date.now()); d.x = spots[i].x; d.y = spots[i].y; return d; });
+  const departure=people.map(t=>({actorId:t.actorId,x:t.x,y:t.y,width:t.width,height:t.height,walking:!t.getFlag(NS,'vehicleSeat')}));
   const created = await target.createEmbeddedDocuments('Token', data, {acVehicleCarry: true, acTransit: true});
   const idMap = {}; people.forEach((t, i) => { idMap[t.id] = created[i].id; });
   await remapCombat(source, target, idMap);
   await source.deleteEmbeddedDocuments('Token', people.map(t => t.id), {acTransit: true});
   await (await import('../world/jobs.mjs')).remapJobsForTransit({source,target,idMap});
-  Hooks.callAll('smokeTransit', {source, target, idMap});
+  Hooks.callAll('smokeTransit', {source, target, idMap,departure});
   return created;
 }
 async function driveTo(source, target, vehicle, land) {

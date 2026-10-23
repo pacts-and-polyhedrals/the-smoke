@@ -261,7 +261,7 @@ const G = await import('../module/gameplay.mjs');
 {
   const content = J('content.json');
   assert.equal(content.version, (await import('../module/content.mjs')).VERSION, 'journal source uses its own retained content edition; a system hotfix must not rewrite guides');
-  assert.equal(content.actors.length, 72, '4 pregens, 15 named NPCs, 24 Londoners, 29 motors');
+  assert.equal(content.actors.length, 73, '4 pregens, 16 named NPCs including Big Sal, 24 Londoners, 29 motors');
   assert.equal(content.items.filter(i => i.type === 'condition').length, 31);
   const names = new Set(LIB.map(i => i.name));
   const from013 = ['Police Baton', 'Compact Pistol', 'ARV Carbine', 'Conducted-Energy Device', 'Thrown Brick', 'Ballistic Vest', 'Heavy Work Jacket', 'Cordless Angle Grinder', 'Screwdriver', 'Paramedic Bag', 'Firefighter Kit',
@@ -274,7 +274,7 @@ const G = await import('../module/gameplay.mjs');
   assert.match(pat.system.biography, /Tea before business/); assert.match(pat.system.biography, /Pat's Cycle Repairs/, 'both bios kept');
   assert.ok(content.actors.find(a => a.flags[NS].npcKey === 'pc').items.some(i => i.name === 'Handcuffs'));
   const keys = content.journals.map(j => j.flags[NS].contentKey);
-  const campaignKeys = ['sandbox-campaign', ...['ch', 'ad', 'lb', 'vc', 'tu', 'ge', 'bb', 'nm', 'bm', 'ld', 'mr', 'rt'].map(f => `faction-${f}`), 'local-cases', 'venue-register'];
+  const campaignKeys = ['sandbox-campaign', ...['ch', 'ad', 'lb', 'vc', 'tu', 'ge', 'bb', 'nm', 'bm', 'ld', 'mr', 'rt'].map(f => `faction-${f}`), 'local-cases', 'venue-register', 'tagging-files', 'radio-files'];  // 0.5.25: two GM-only mission-file journals
   assert.deepEqual(keys, ['player-guide', 'gm-guide', 'jobs-handbook', 'rules-reference', 'london-directory', 'crew-dossiers', 'gear-reference', 'players-handbook', 'gms-book', 'london-guide', 'street-papers', 'missions-guide', ...campaignKeys]);
   assert.deepEqual(content.journals.filter(j => !j.ownership.default).map(j => j.flags[NS].contentKey), ['gm-guide', 'gms-book', 'missions-guide', ...campaignKeys], 'GM guides (and the whole Sandbox Campaign) are private');
   assert.ok(content.journals.find(j => j.flags[NS].contentKey === 'player-guide').pages.some(p => p.name === 'Live pirate radio'));

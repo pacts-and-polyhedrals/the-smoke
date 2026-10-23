@@ -32,8 +32,9 @@ export async function offerStop(t, unit, combat = chaseOf(t.parent)) {
   const s = {id: foundry.utils.randomID(), unit: unit?.uuid ?? null, combatId: combat?.id ?? null, status: 'choice', talked: false};
   // Reserve before creating a card; another sight tick cannot create a duplicate.
   await t.setFlag(NS, 'policeStop', s);
-  await post(t, s, `"Stop! Police!" — ${t.name}`, `<p>${esc(unit?.name ?? 'The police')} orders you to stop. Choose one response.</p>`,
-    button(t, s, 'talk', 'Talk your way out · Front') + button(t, s, 'run', 'Make a break · Moves / Wheels') + button(t, s, 'surrender', 'Come quietly · arrested') + button(t, s, 'fight', 'Resist · fight'));
+  const known = Number(t.actor.system.rep?.police || 0) >= 3 ? ' <b>They know your face</b> (Known to police 3): talking your way out is a Long Shot.' : '';
+  await post(t, s, `"Stop! Police!" — ${t.name}`, `<p>${esc(unit?.name ?? 'The police')} orders you to stop. Choose one response.${known}</p>`,
+    button(t, s, 'talk', 'Talk your way out · Front') + (armedCrime(t.actor) ? '' : button(t, s, 'silent', 'Say nothing · Bottle')) + button(t, s, 'run', 'Make a break · Moves / Wheels') + button(t, s, 'surrender', 'Come quietly · arrested') + button(t, s, 'fight', 'Resist · fight'));
 }
 async function clearStop(t, s) { await markCard(s); await t.setFlag(NS, 'policeStop', null); await t.setFlag(NS, 'stopped', null); }
 async function finishIfClear(combat) {
@@ -140,8 +141,10 @@ registerHandler('chase.respond', async ({tokenUuid, responseId, choice, vehicleI
     return;
   }
   if (s.status !== 'choice') throw new Error('Finish the current police decision first.');
-  if (!['talk', 'run', 'surrender', 'fight'].includes(choice)) throw new Error('Unknown police response.');
+  if (!['talk', 'silent', 'run', 'surrender', 'fight'].includes(choice)) throw new Error('Unknown police response.');
   if (choice === 'talk' && s.talked) throw new Error('You already tried talking at this stop.');
+  if (choice === 'silent' && (s.talked || s.silent)) throw new Error('You have already said your piece at this stop.');
+  if (choice === 'silent' && armedCrime(t.actor)) throw new Error('Armed police are not asking questions.');
   if (choice === 'surrender') { await clearStop(t, s); const {busted} = await import('./heat.mjs'); await busted(t.actor); await finishIfClear(combat); return; }
   if (choice === 'fight') {
     await clearStop(t, s);
@@ -150,10 +153,28 @@ registerHandler('chase.respond', async ({tokenUuid, responseId, choice, vehicleI
     return policeFightNow(t);
   }
   await t.setFlag(NS, 'policeStop', {...s, status: 'rolling'});
+  // 0.5.25 · Say nothing (Bottle): "No comment." Medium at one star, Hard at two, a Long Shot higher. Success: they have
+  // nothing to hold you on: one star off and they let you walk (no escape move needed; they won't stop you again for a
+  // minute). Failure: same as a failed bluff.
+  if (choice === 'silent') {
+    let quiet;
+    try { const h = clampHeat(t.actor.system.heat.value); quiet = await t.actor.rollStat('btl', {band: h >= 3 ? 'miracle' : h >= 2 ? 'hard' : 'medium', label: 'Say nothing', sceneId: t.parent.id, tokenId: t.id, requestedBy: userId, context: {kind: 'policeSilent'}}); }
+    catch (error) { await t.setFlag(NS, 'policeStop', s); throw error; }
+    if (!quiet?.result) { await t.setFlag(NS, 'policeStop', s); return; }
+    await markCard(s);
+    if (!isSuccess(quiet.result.outcomeKey)) return enforce(t, {...s, silent: true}, userId);
+    await clearStop(t, s);
+    await t.actor.setHeat(clampHeat(t.actor.system.heat?.value) - 1, 'No comment: they had nothing to hold you on.');
+    await t.parent.setFlag(NS, 'chaseCooldown', {until: Date.now() + 60000, last: {[t.actorId]: tokenCentre(vehicleOf(t) ?? t)}});
+    await card('NO COMMENT', `${t.name} says nothing`, `<p>Name, address, nothing else. They run your details, get nothing back they can use, and let you walk. One star off; they won't pull you again for a minute.</p>`, 'win');
+    return finishIfClear(combat);
+  }
   let out;
   try {
     const vt = vehicleOf(t), driving = vt && t.getFlag(NS, 'vehicleSeat')?.seatId === 'pilot';
-    out = await t.actor.rollStat(choice === 'talk' ? 'frt' : driving ? 'whl' : 'mov', {band: choice === 'talk' ? (clampHeat(t.actor.system.heat.value) >= 3 ? 'miracle' : 'hard') : (clampHeat(t.actor.system.heat.value) >= 3 ? 'hard' : 'medium'), label: choice === 'talk' ? 'Talk your way out' : 'Make a break', sceneId: t.parent.id, tokenId: t.id, requestedBy: userId});
+    // Known to police 3 (busted three times or more): they know your face, so talking your way out is a Long Shot.
+    const knownFace = Number(t.actor.system.rep?.police || 0) >= 3;
+    out = await t.actor.rollStat(choice === 'talk' ? 'frt' : driving ? 'whl' : 'mov', {band: choice === 'talk' ? (knownFace || clampHeat(t.actor.system.heat.value) >= 3 ? 'miracle' : 'hard') : (clampHeat(t.actor.system.heat.value) >= 3 ? 'hard' : 'medium'), label: choice === 'talk' ? 'Talk your way out' : 'Make a break', sceneId: t.parent.id, tokenId: t.id, requestedBy: userId, context: {kind: choice === 'talk' ? 'policeTalk' : 'policeEscape'}});
   } catch (error) { await t.setFlag(NS, 'policeStop', s); throw error; }
   if (!out?.result) { await t.setFlag(NS, 'policeStop', s); return; }
   await markCard(s);

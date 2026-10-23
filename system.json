@@ -2,7 +2,7 @@
   "id": "the-smoke",
   "title": "The Smoke",
   "description": "<p><img src=\"https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/logos/The-Smoke-Full-Logo-Horizontal-Dark.png\" alt=\"The Smoke — Pacts &amp; Polyhedrals\" width=\"460\" style=\"max-width:100%;height:auto;\" loading=\"lazy\"></p><p>You're in Hackney, mate. Morning Lane, E8. Rent's due, your Blower's buzzing, and Auntie Pat's got a little favour to ask. You've got a bike, a few quid if you're lucky, and a crew to look after. No one's handing you a fortune. You've got to graft for it.</p><p>Work the borough your way. Run deliveries, shift nicked motors, take a taxi or bus shift, chase a payday, or do a job for someone whose hands are best kept clean. Twenty linked street maps, 160 mapped venues, proper traffic, pirate radio and a whole lot of wrong 'uns make London feel like it carries on without you. And when things get loud, the filth turn up. Five stars of Heat ain't a badge of honour if you can't shake 'em.</p><p>Make your name. Spray the crew's mark on walls, bridges and buses, build territory, earn Renown across twelve rival factions, and find out who's got your back when it all goes sideways. Your jobs, money, favours and trouble follow you across the city; the Banana Watch keeps the hours, and the Mission Board keeps the score.</p><p>Start beneath the arches on Morning Lane. Take the long way round or put your foot down. London won't wait for you.</p><p><img src=\"https://raw.githubusercontent.com/pacts-and-polyhedrals/the-smoke-web/bf186f7a1249e7c5e7234723c0a26eee59ee6074/assets/brand/graphics/01-The-City-Is-The-Board-Landscape.png\" alt=\"The City Is The Board — a schematic Hackney and London street artwork\" width=\"630\" style=\"max-width:100%;height:auto;\" loading=\"lazy\"></p><p>The Smoke is a street-level London crime tabletop roleplaying system for Foundry VTT, made by Pacts &amp; Polyhedrals.</p><p><small>Independent radio streams are linked for listening only. Their operators are not affiliated with or endorsing The Smoke. All fictional station contacts, messages and radio-war activity are game roleplay; no real station receives in-game requests.</small></p>",
-  "version": "0.5.24",
+  "version": "0.5.27-rc.3",
   "compatibility": {
     "minimum": "14"
   },
@@ -264,6 +264,6 @@
     "requires": []
   },
   "manifest": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/latest/download/system.json",
-  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.24/the-smoke-v0.5.24.zip",
+  "download": "https://github.com/pacts-and-polyhedrals/the-smoke/releases/download/v0.5.27-rc.3/the-smoke-v0.5.27-rc.3.zip",
   "persistentStorage": true
 }

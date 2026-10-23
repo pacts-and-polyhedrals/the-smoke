@@ -63,6 +63,13 @@
     </div>
     {{/if}}
 
+    {{#if (eq step "token")}}
+    <h2>Your token</h2>
+    <p class="cr-lead">How you look on the map, seen from above. It starts from your background; change anything, or press <b>Next</b> to keep it. You can rebuild it any time from your sheet.</p>
+    {{{tokenPanel}}}
+    {{#unless isNew}}<label class="cr-lead"><input type="checkbox" data-token-skip {{#unless tokenOn}}checked{{/unless}}> Keep the token this character already has (don't save a new one)</label>{{/unless}}
+    {{/if}}
+
     {{#if (eq step "review")}}
     <h2>{{#if draft.name}}{{draft.name}}{{else}}Nearly there{{/if}}</h2>
     {{#if review}}<p class="cr-summary">{{review}}</p>

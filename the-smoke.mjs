@@ -25,16 +25,25 @@ import {installRequests} from './module/gm/requests.mjs';
 import {SmokeGMScreen, openGMScreen} from './module/apps/gm-screen.mjs';
 import './module/gm/automation.mjs';
 import {openShop} from './module/apps/shop.mjs';
+import {registerDeliverySettings, installDeliveries, deliveriesAPI} from './module/world/deliveries.mjs';
+import {openOrders} from './module/apps/order.mjs';
 import {combatAPI, registerCombatSettings, installCombat} from './module/combat/combat.mjs';
 import {installMenuFit} from './module/apps/fit-menus.mjs';
 import {openCombat} from './module/apps/combat-console.mjs';
 import {openCreator} from './module/apps/creator.mjs';
+import {openTokenBuilder, randomiseToken} from './module/apps/token-creator.mjs';
+import {tokenAPI} from './module/tokens/kit.mjs';
+import {hiresAPI} from './module/world/hires.mjs';
 import {openLevelUp} from './module/apps/levelling.mjs';
 import {openTagStudio} from './module/apps/tag-studio.mjs';
 import {registerMissionSettings, installMissions, missionsAPI} from './module/world/missions.mjs';
 import {castAPI} from './module/world/cast.mjs';
+import {installMissionAutomation} from './module/world/mission-automation.mjs';
+import {installCharacterLinks, linkCharacterTokens, charactersAPI} from './module/world/characters.mjs';
 import {openMissions} from './module/apps/mission-board.mjs';
-import {shopAPI} from './module/world/shops.mjs';
+import {shopAPI,SHOPS} from './module/world/shops.mjs';
+import {registerVenueSettings,installVenues} from './module/world/venues.mjs';
+import {requireVenues} from './module/rules/venue-contract.mjs';
 import {SmokeCombatant, installGameplay, firstAid, rest, advance} from './module/gameplay.mjs';
 import {registerServiceSettings, installServices, openServices} from './module/world/services.mjs';
 import {registerRadioSettings, installRadio, radioAPI, selectRadioActor, migrateRadioPresets} from './module/radio/radio.mjs';
@@ -56,6 +65,7 @@ const safe = (label, fn) => { try { fn(); } catch (error) { console.error(`The S
 const ITEM_TYPES = ['weapon', 'armour', 'gear', 'condition', 'perk', 'ammo', 'drug', 'consumable', 'outfit'];
 
 Hooks.once('init', () => {
+  installCharacterLinks();   // a character's tokens are always the character (0.5.27)
   try { document.body?.classList.add('smoke-system'); } catch (_e) {}   // scopes the dialog scrolling rules to worlds running The Smoke
   console.log('The Smoke | Initialising');
   // Before the first map is drawn: Foundry fixes each token's right-click handlers when it draws it (0.5.23).
@@ -78,10 +88,12 @@ Hooks.once('init', () => {
   DSC.registerSheet(foundry.documents.Item, NS, SmokeItemSheet, {makeDefault: true, label: 'The Smoke — Item'});
   for (const [k, f] of Object.entries({eq: (a, b) => a === b || String(a) === String(b), gt: (a, b) => Number(a) > Number(b), times: (n, block) => { let o = ''; for (let i = 0; i < Number(n); i++) o += block.fn(i); return o; }, json: v => JSON.stringify(v)}))
     if (!Handlebars.helpers[k]) Handlebars.registerHelper(k, f);
-  registerTrafficSettings(); registerHeatSettings(); registerJobSettings(); registerCombatSettings(); registerMissionSettings(); registerGraffitiSettings(); registerServiceSettings(); registerRadioSettings(); registerRadioWarSettings(); registerSatnavSettings(); registerChaseSettings(); registerCrewBarSettings(); registerDrugFxSettings(); registerWatchSettings();
+  requireVenues();registerVenueSettings();
+  registerTrafficSettings(); registerHeatSettings(); registerJobSettings(); registerCombatSettings(); registerMissionSettings(); registerGraffitiSettings(); registerServiceSettings(); registerRadioSettings(); registerRadioWarSettings(); registerSatnavSettings(); registerChaseSettings(); registerCrewBarSettings(); registerDrugFxSettings(); registerWatchSettings(); registerDeliverySettings();
   game.settings.register(NS, 'worldSetup', {scope: 'world', config: false, type: Boolean, default: false});
   game.settings.register(NS, 'contentVersion', {scope: 'world', config: false, type: String, default: ''});
   game.settings.register(NS, 'migrationVersion', {scope: 'world', config: false, type: Number, default: 0});
+  game.settings.register(NS, 'selfPlayEarnedOnly', {name: 'Self-play: money and kit come through play', hint: 'On (default): in Self-play, players cannot type cash or stash onto their sheets or drop new kit onto them; it comes from shops, jobs, missions, sales and Blower orders. The GM always has full control, in Story mode and Self-play. Off: players can edit their own sheets as normal.', scope: 'world', config: true, type: Boolean, default: true});
   game.settings.register(NS, 'lockPlayerSheets', {name: 'Character sheets: lock players\' progress fields', hint: 'On: players cannot type new values into their own cash, stash, XP, Rep, Rep level, stats, advances or Health/Hustle maximums — they change through play (shops, jobs, levelling) or by the GM. Off (default): owners can edit everything, as Foundry normally allows.', scope: 'world', config: true, type: Boolean, default: false});
   game.settings.registerMenu(NS, 'streetControl', {name: 'Street Control & world setup', label: 'Open Street Control', hint: 'Set up the world, manage Street Life, police, Heat, advances and shifts.', icon: 'fa-solid fa-city', type: StreetControl, restricted: true});
   game.settings.registerMenu(NS, 'gmScreen', {name: 'The Smoke — GM Screen', label: 'Open the GM Screen', hint: 'Roll requests, hazards, street and police events, rewards, NPCs, odds and every GM tool.', icon: 'fa-solid fa-user-secret', type: SmokeGMScreen, restricted: true});
@@ -99,6 +111,11 @@ Hooks.once('init', () => {
     creator: quickBuild, quickBuild, openCreator, openLevelUp, openShop, openCombat, openMissions, openGMScreen, openTagStudio,
     phone: (actor = null) => openPhone(actor), openPhone: (actor = null) => openPhone(actor),
     tags: {open: (actor = null, options={}) => openTagStudio(actor,options)},
+    tokens: {...tokenAPI, open: (actor, options = {}) => openTokenBuilder(actor, options), randomise: actor => randomiseToken(actor).catch(error => ui.notifications.warn(error.message))},
+    openTokenBuilder,
+    hires: hiresAPI,
+    characters: charactersAPI,
+    deliveries: {...deliveriesAPI, open: actor => openOrders(actor)}, openOrders,
     control: async () => {
       if (!game.user.isGM) { ui.notifications.warn('Street Control is for the GM.'); return null; }
       // reuse the open window (from here or Game Settings), bring it forward; start afresh if the last one broke
@@ -116,6 +133,8 @@ Hooks.once('init', () => {
 
 Hooks.once('ready', async () => {
   safe('net', installNet);
+  // cash and kit added on an unlinked token's own sheet never reached the character: fold it in and link (0.5.27)
+  if (isLeader() && game.user.isGM) try { await linkCharacterTokens(); } catch (error) { console.error('The Smoke | linking characters to their tokens', error); }
   try { await migrateChasePacing(); } catch (error) { console.error('The Smoke | chase defaults upgrade', error); }
   safe('vehicle boarding', installVehicleBoarding);
   safe('player right-click actions', installPlayerInteractions);
@@ -136,12 +155,15 @@ Hooks.once('ready', async () => {
   safe('combat', installCombat);
   safe('gameplay', installGameplay);
   safe('services', installServices);
+  safe('phone orders', installDeliveries);
   try { await migrateRadioPresets(); } catch (error) { console.warn('The Smoke | radio preset upgrade', error); }
   safe('radio', installRadio);
   safe('radio war maps', installRadioWar);
   safe('sat nav', installSatnav);
   safe('items', installItems);
   safe('requests', installRequests);
+  try { await installMissionAutomation(); } catch(error) { console.error('The Smoke | mission automation',error); ui.notifications.error(`Mission automation needs repair: ${error.message}`); }
+  try {await installVenues(SHOPS);}catch(error){console.error('The Smoke | venue services',error);ui.notifications.error(`Venue services need repair: ${error.message}`);}
   safe('missions', installMissions);
   safe('graffiti decals', installGraffiti);
   safe('mission property', () => { void installMissionProps().catch(e=>console.warn('The Smoke | mission property',e)); });

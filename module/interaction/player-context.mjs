@@ -18,6 +18,7 @@ export function playerContextAllowed(placeable,user=game.user) {
   if(canvas?.scene && doc.parent?.id !== canvas.scene.id)return false;
   // Painted surfaces and buses have a dedicated safe right-click menu for ALL
   // users (including the GM). Hold Shift for the ordinary Foundry owner HUD.
+  if(doc.getFlag?.(NS,'missionAction')||doc.getFlag?.(NS,'missionResource')?.escortTo||doc.getFlag?.(NS,'venueCounter'))return true;
   if(doc.getFlag?.(NS,'tagSpot') || isPublicTransportVehicle(doc) || radioWarAtToken(doc))return true;
   if(user.isGM||placeable.isOwner||actor.isOwner)return false;
   return true;
@@ -25,6 +26,9 @@ export function playerContextAllowed(placeable,user=game.user) {
 /** Access to the context menu NEVER replaces the per-action GM-side authorisation checks. */
 export function playerActionsFor(doc,user=game.user) {
   if(!doc?.actor||doc.hidden)return [];
+  if(doc.getFlag?.(NS,'missionAction'))return [{icon:'fa-solid fa-flag-checkered',title:'Work this mission location',fn:()=>game.smoke.missionActions.marker(doc)}];
+  if(doc.getFlag?.(NS,'missionResource')?.escortTo)return [{icon:'fa-solid fa-person-walking',title:'Escort / accompany',fn:()=>game.smoke.missionActions.escort(doc)}];
+  if(doc.getFlag?.(NS,'venueCounter'))return [{icon:'fa-solid fa-store',title:'Open this counter',fn:()=>game.smoke.venues.open(doc)}];
   if(radioWarAtToken(doc))return [
     {icon:'fa-solid fa-tower-broadcast',title:'Work this radio contact',fn:()=>openRadioWar(doc)},
     {icon:'fa-solid fa-chart-line',title:'Radio-war standing',fn:()=>inspectRadioWar(doc)},

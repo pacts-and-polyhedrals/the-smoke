@@ -21,3 +21,29 @@ Bitstream Vera licence: https://dejavu-fonts.github.io/License.html
 The website is a brilliant **visual reference** but the label "free for commercial use" doesn't necessarily grant permission to bundle/distribute the original font binary in another app. In particular, its default FFC licence does not permit publishing the font files without permission. For any future font addition, verify that **the individual font** is under an OFL, Apache or equivalently redistributable licence before creating the glyph outlines or adding it to Smoke.
 
 This build uses an offline, self-contained vector approach precisely so later Forge updates, browsers and installed artwork can't revert to Arial or lose a custom font. The five styles are adapted graphic lettering, not the original families distributed as font software.
+
+## Piece styles (0.5.26)
+
+The piece engine (`module/graffiti/pieces.mjs`) draws throw-ups, bubbles, block letters, 3D, new skool, wildstyle and the rest from **vector outlines** of these open-licensed fonts, stored as path coordinates in `data/graffiti-letters.json`. No font files are shipped and no font is loaded at runtime. The arrows, spikes, drips, 3D, fills, clouds, highlights and characters are drawn by The Smoke itself.
+
+| Piece style | Source typeface | Designer | Licence | Source |
+| --- | --- | --- | --- | --- |
+| Tag · Street hand | Sedgwick Ave Display | Kevin Burke, Google | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Tag · Fat marker | Permanent Marker | Font Diner | Apache License 2.0 | Google Fonts, via the Fontsource npm package |
+| Throw-up · Fat & quick | Cherry Bomb One | Satsuyako | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Bubble · Puffy | Sniglet ExtraBold | Haley Fiege | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Old Skool · Block 3D | Bungee | David Jonathan Ross | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Blockbuster · Roller | Bowlby One | Vernon Adams | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| 3D · Deep block; Wildstyle · Arrows & locks | Russo One | Jovanny Lemonad | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| New Skool · Bounce & flare | Knewave | Tyler Finck | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Burner · Full colour | Shrikhand | Jonny Pinhorn | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Semi-Wild · Sharp | Squada One | Joe Prince | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Spikes · Beastly | Rubik Beastly | NaN, Luke Prowse (Rubik) | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Stencil · Cut plate | Wallpoet | Lars Berggren | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Drip · Wet paint | Rubik Wet Paint | NaN, Luke Prowse (Rubik) | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Fat Cap · Sprayed | Rubik Spray Paint | NaN, Luke Prowse (Rubik) | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+| Straight Letter · Clean | Londrina Solid Black | Marcelo Magalhães | SIL Open Font License 1.1 | Google Fonts, via the Fontsource npm package |
+
+Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
+
+Each font's licence was checked in its package metadata (`license` field of the Fontsource package) before outlining. The graffiti characters are original drawings made for The Smoke.

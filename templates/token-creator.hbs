@@ -1,0 +1,11 @@
+<div class="smoke-token-builder-inner">
+  <header class="tb-head"><div><span class="kicker">TOKEN BUILDER{{#if isNPC}} · NPC{{/if}}</span><h2>{{actor.name}}</h2>
+    <p class="smoke-hint">Pick a part on the right to see it on your figure. Colours change the piece you're on. Your choices are saved with the character, so you can come back and change one thing later.</p></div></header>
+  <div class="tb-scroll">{{{panel}}}</div>
+  <footer class="tb-foot">
+    <label><input type="checkbox" data-tb-portrait {{#if portrait}}checked{{/if}}> Use as the portrait too</label>
+    <span></span>
+    <button type="button" data-tb-cancel><i class="fa-solid fa-xmark"></i> Close</button>
+    <button type="button" class="hot" data-tb-save {{#if saving}}disabled{{/if}}><i class="fa-solid {{#if saving}}fa-spinner fa-spin{{else}}fa-floppy-disk{{/if}}"></i> {{#if saving}}Saving…{{else}}Save token{{/if}}</button>
+  </footer>
+</div>

@@ -1039,6 +1039,18 @@ body.smoke-fx-subtle #smoke-fx .fx-flash { display: none; }
 .smoke-tag-studio .tag-preview-frame { min-height: 360px; border: 1px dashed rgba(255,202,125,.18); border-radius: 16px; background: radial-gradient(circle at 50% 45%, rgba(255,255,255,.08), rgba(0,0,0,.18)); display: grid; place-items: center; padding: 12px; overflow: auto; }
 .smoke-tag-studio .tag-preview-frame svg { width: 100%; height: auto; max-height: 520px; }
 .smoke-tag-studio .tag-library-list { overflow: auto; display: flex; flex-direction: column; gap: 10px; }
+/* 0.5.26: piece options and the preset gallery */
+.smoke-tag-studio .tag-piece-options input[type="color"] { width: 100%; min-height: 34px; border-radius: 8px; }
+.smoke-tag-studio .tag-presets { display: flex; flex-direction: column; gap: 6px; min-height: 0; }
+.smoke-tag-studio .tag-presets > header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.smoke-tag-studio .tag-presets > header h2 { margin: 0; font-size: 1.05rem; }
+.smoke-tag-studio .tag-presets > header select { min-width: 200px; }
+.smoke-tag-studio .tag-preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.smoke-tag-studio .tag-preset { display: flex; flex-direction: column; gap: 2px; padding: 4px; height: auto; line-height: 1.2; border-radius: 10px; border: 1px solid rgba(255,202,125,.14);
+  background: repeating-linear-gradient(0deg, transparent 0 13px, rgba(0,0,0,.18) 13px 14px), repeating-linear-gradient(90deg, transparent 0 29px, rgba(0,0,0,.18) 29px 30px), #6f6a62; }
+.smoke-tag-studio .tag-preset:hover, .smoke-tag-studio .tag-preset:focus-visible { border-color: var(--smoke-amber); box-shadow: 0 0 0 2px rgba(255,202,125,.35); }
+.smoke-tag-studio .tag-preset img { width: 100%; aspect-ratio: 860 / 420; height: auto; border: 0; object-fit: contain; }
+.smoke-tag-studio .tag-preset span { font-size: 11px; color: #f3ead8; background: rgba(0,0,0,.55); border-radius: 6px; padding: 1px 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .smoke-tag-studio .tag-library-item { border: 1px solid rgba(255,202,125,.1); border-radius: 12px; padding: 8px; display: grid; grid-template-columns: 92px 1fr; gap: 8px; background: rgba(255,255,255,.02); }
 .smoke-tag-studio .tag-library-thumb { grid-row: span 2; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.18)); border-radius: 10px; display: grid; place-items: center; padding: 4px; min-height: 72px; }
 .smoke-tag-studio .tag-library-thumb svg { width: 100%; height: auto; }
@@ -1140,3 +1152,98 @@ body.smoke-system .application.dialog select[size], body.smoke-system .applicati
    that group scrolls (the core buttons and their pop-out palettes are left alone). */
 #token-hud .smoke-hud-group { display: contents; }
 #token-hud .smoke-hud-group.scrolls { display: flex; flex-direction: column; align-items: center; gap: inherit; overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; overscroll-behavior: contain; pointer-events: auto; }
+
+/* 0.5.25 · the chase and driving switches (Blower card and Street Control) */
+.phone-card.chases { border-left-color: var(--smoke-blue, #7fb2ff); }
+.phone-card.chases .kicker { color: var(--smoke-blue, #7fb2ff); }
+.phone-card.chases button.on { background: var(--smoke-blue, #7fb2ff); color: var(--smoke-ink, #0a0d10); }
+.smoke-control .smoke-chase-switches { align-items: center; flex-wrap: wrap; }
+.smoke-control .smoke-chase-switches .smoke-hint { margin: 0 4px; }
+.smoke-control .smoke-chase-summary { margin: 4px 0 10px 18px; padding: 0; }
+.smoke-sheet .bar.guard .guard-base { font-size: 10px; margin-left: 6px; color: var(--smoke-bone2); }
+.smoke-sheet .bar.guard .guard-base input { width: 3em; }
+
+/* 0.5.25 · Token Builder (window and the Character Creator's Token step) */
+.smoke-token-builder .window-content { padding: 0; }
+.smoke-token-builder-inner { display: flex; flex-direction: column; height: 100%; background: linear-gradient(160deg, var(--smoke-ink3), var(--smoke-ink)); color: var(--smoke-bone); font-family: var(--smoke-mono); }
+.smoke-token-builder .tb-head { padding: 8px 12px 0; } .smoke-token-builder .tb-head h2 { font-family: var(--smoke-display); letter-spacing: 1px; margin: 0; border: none; }
+.smoke-token-builder .tb-head .kicker, .tb-panel .tb-label { color: var(--smoke-orange); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+.smoke-token-builder .tb-scroll { flex: 1; overflow: auto; padding: 8px 12px; }
+.smoke-token-builder .tb-foot { display: flex; gap: 8px; align-items: center; padding: 8px 12px; border-top: 1px solid #2a3238; }
+.smoke-token-builder .tb-foot span { flex: 1; } .smoke-token-builder .tb-foot button { width: auto; }
+.tb-panel { display: grid; grid-template-columns: minmax(260px, 340px) 1fr; gap: 14px; align-items: start; }
+.tb-panel .tb-preview { position: sticky; top: 0; display: flex; flex-direction: column; gap: 6px; }
+.tb-panel .tb-big { width: 100%; max-width: 320px; aspect-ratio: 1; align-self: center; border: none; background: radial-gradient(circle, #2a3238 0%, #121a1f 70%); border-radius: 12px; }
+.tb-panel .tb-row { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.tb-panel .tb-row .tb-label { min-width: 54px; }
+.tb-panel button { width: auto; flex: none; font-size: 11px; line-height: 1.3; padding: 2px 8px; margin: 0; background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid #3a444c; border-radius: 12px; }
+.tb-panel button.on { border-color: var(--smoke-orange); color: var(--smoke-orange); box-shadow: 0 0 0 1px var(--smoke-orange); }
+.tb-panel button.tb-swatch { width: 20px; height: 20px; padding: 0; border-radius: 50%; border: 2px solid #0a0d10; }
+.tb-panel button.tb-swatch.on { border-color: var(--smoke-bone); box-shadow: 0 0 0 2px var(--smoke-orange); }
+.tb-panel input[type=color] { width: 28px; height: 22px; padding: 0; border: none; background: none; }
+.tb-panel select { width: auto; flex: 1; min-width: 120px; }
+.tb-panel .tb-cats { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 8px; }
+.tb-panel .tb-group { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+.tb-panel .tb-options { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 6px; max-height: 430px; overflow: auto; padding: 2px; }
+.tb-panel .tb-option { display: flex; flex-direction: column; align-items: center; gap: 2px; border-radius: 8px; padding: 4px; }
+.tb-panel .tb-option img { width: 88px; height: 88px; border: none; }
+.tb-panel .tb-option span { font-size: 10px; text-align: center; white-space: normal; }
+.tb-panel .tb-colours { margin-top: 8px; }
+@media (max-width: 760px) { .tb-panel { grid-template-columns: 1fr; } .tb-panel .tb-preview { position: static; } }
+.smoke-creator .tb-panel { margin-top: 6px; }
+.phone-card.crew { border-left-color: var(--smoke-pink, #ff7fb0); } .phone-card.crew .kicker { color: var(--smoke-pink, #ff7fb0); }
+.phone-card.crew.locked { opacity: .7; } .phone-card .phone-hand { width: 28px; height: 28px; border: none; vertical-align: middle; }
+.phone-card button[disabled] { opacity: .45; cursor: not-allowed; }
+.phone-card.crew { border-left-color: var(--smoke-pink, #ff7fb0); } .phone-card.crew .kicker { color: var(--smoke-pink, #ff7fb0); }
+.phone-card.crew.locked { opacity: .7; } .phone-card .phone-hand { width: 28px; height: 28px; border: none; vertical-align: middle; }
+.phone-card button[disabled] { opacity: .45; cursor: not-allowed; }
+
+/* 0.5.25 · DM mission files */
+.smoke-journal .sj-dm-file { margin: 10px 0 18px; }
+.smoke-journal .sj-brief { margin: 12px 18px; padding: 10px 14px; border: 1px solid #3a2f40; border-left: 5px solid var(--smoke-pink, #ff7fb0); background: rgba(255, 127, 176, .06); border-radius: 6px; }
+.smoke-journal .sj-brief p { margin: 4px 0; }
+.smoke-journal .sj-read-aloud { display: block; margin: 12px 18px; padding: 12px 16px 10px 44px; position: relative; border-radius: 6px; border: 1px solid #4a4334; background: linear-gradient(160deg, rgba(236, 228, 207, .09), rgba(236, 228, 207, .03)); color: var(--smoke-bone); font-style: italic; }
+.smoke-journal .sj-read-aloud::before { content: '“'; position: absolute; left: 12px; top: 2px; font-size: 44px; line-height: 1; color: var(--smoke-amber); font-style: normal; font-family: Georgia, serif; }
+.smoke-journal .sj-read-aloud > b { display: block; font-style: normal; font-family: var(--smoke-display); letter-spacing: 2px; text-transform: uppercase; font-size: 12px; color: var(--smoke-amber); margin-bottom: 4px; }
+.smoke-journal .sj-read-aloud p { margin: 4px 0; }
+.smoke-journal .sj-scene { margin: 10px 0 16px; padding: 0 0 6px; border-bottom: 1px dashed #2f3940; }
+.smoke-journal .sj-scene h3 { margin: 10px 18px 4px; }
+.smoke-journal .sj-room { display: inline-block; font-family: var(--smoke-mono); font-size: 11px; padding: 1px 6px; border-radius: 4px; background: var(--smoke-ink3, #1b242a); border: 1px solid var(--smoke-cy); color: var(--smoke-cy); vertical-align: middle; }
+.smoke-journal .sj-checks td.sj-roll { white-space: nowrap; }
+.smoke-journal .sj-cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin: 8px 18px; }
+.smoke-journal .sj-person { display: flex; gap: 10px; padding: 8px; border: 1px solid #2f3940; border-radius: 8px; background: rgba(255, 255, 255, .02); }
+.smoke-journal .sj-person img { width: 64px; height: 64px; border: none; flex: none; }
+.smoke-journal .sj-person h4 { margin: 0; font-family: var(--smoke-display); letter-spacing: 1px; }
+.smoke-journal .sj-person p { margin: 2px 0; font-size: 12px; }
+.smoke-journal .sj-voice { color: var(--smoke-amber); font-style: italic; }
+.smoke-journal .sj-dm-notes { margin: 6px 18px 6px 36px; }
+.smoke-journal .sj-dm-notes li { margin: 3px 0; }
+.smoke-journal h2.sj-plan { margin-top: 22px; border-top: 2px solid var(--smoke-orange); padding-top: 10px; }
+.smoke-journal .sj-cover.pink { border-color: var(--smoke-pink, #ff7fb0); }
+
+/* Audit branch: verified mission/counter panels and main-sheet roll state. */
+
+/* Next-roll controls belong with the main stats, not advancement. */
+.smoke-roll-states{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;margin:0 0 .75rem;padding:.5rem;border-bottom:1px solid var(--smoke-line,#49505b)}
+.smoke-roll-states label{display:flex;align-items:center;gap:.35rem}
+/* The sole Blower control carries a text label; do not force it into an icon-only slot. */
+.smoke-sheet .smoke-id{min-width:0}
+.smoke-sheet .smoke-name{width:100%}
+.smoke-sheet .smoke-head-actions{flex:0 0 auto;align-items:flex-end}
+.smoke-sheet .smoke-head-actions button[data-phone]{width:auto;min-width:72px;padding:0 7px;white-space:nowrap}
+
+/* Combined sheet: keep the named Blower and four icon actions compact. A five-row
+   icon stack made the new token controls crowd out the stats at small heights. */
+.smoke-sheet .smoke-head-actions{display:grid;grid-template-columns:34px 34px;gap:4px;align-content:center;justify-items:stretch;flex:0 0 auto}
+.smoke-sheet .smoke-head-actions button{width:34px;min-width:0;height:30px;padding:0}
+.smoke-sheet .smoke-head-actions button[data-phone]{grid-column:1/-1;width:72px;min-width:72px;padding:0 4px}
+
+/* 0.5.27: Banana Basket, phone orders delivered to the flat */
+.phone-card.orders { border-left-color: var(--smoke-green); } .phone-card.orders .kicker { color: var(--smoke-green); }
+.phone-card .phone-order { margin: 2px 0; } .phone-card .phone-order small { color: var(--smoke-bone2); } .phone-card .phone-order.waiting b { color: var(--smoke-green); }
+.smoke-orders .order-parcels { margin-bottom: 12px; padding: 8px 10px; border: 1px solid var(--smoke-green); border-radius: 6px; background: rgba(139, 230, 176, .06); }
+.smoke-orders .order-parcels ul { list-style: none; margin: 0 0 8px; padding: 0; }
+.smoke-orders .order-parcels li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 3px 0; }
+.smoke-orders .order-parcels li small { color: var(--smoke-bone2); flex: 1 1 auto; } .smoke-orders .order-parcels li.waiting b { color: var(--smoke-green); }
+.smoke-orders .order-parcels button { flex: 0 0 auto; width: auto; background: var(--smoke-ink); color: var(--smoke-bone); border: 1px solid var(--smoke-orange); border-radius: 4px; font-family: var(--smoke-mono); font-size: 11px; padding: 2px 8px; }
+.smoke-orders .order-parcels button:hover, .smoke-orders .order-parcels button.hot { background: var(--smoke-orange); color: var(--smoke-ink); }

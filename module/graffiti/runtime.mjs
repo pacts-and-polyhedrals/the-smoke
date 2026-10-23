@@ -5,8 +5,10 @@ import {NS} from '../config.mjs';
 import {registerHandler,request,isLeader,card,esc} from '../world/net.mjs';
 import {mapIdOf,ensureVehicleActor,placeToken} from '../world/spawn.mjs';
 import {watchSeconds} from '../rules/watch-clock.mjs';
-import {QUALITY,QUALITY_LABEL,QUALITY_SCORE,qualityAtLeast,tagMinutes,witnessedTag,rectDistanceSquares,territoryForMarks,computeTileGeometry} from './core.mjs';
+import {QUALITY,QUALITY_LABEL,QUALITY_SCORE,qualityAtLeast,tagMinutes,witnessedTag,rectDistanceSquares,territoryForMarks,computeTileGeometry,isSprayCan} from './core.mjs';
 import {buildSvg,sanitiseTagDesign,QUALITY_PRESETS} from '../apps/tag-studio.mjs';
+import {isPieceStyle} from './pieces.mjs';
+import {loadPieceLetters} from './letters.mjs';
 import {missionEvent,missionState,missionData,standing,factionState} from '../world/missions.mjs';
 import {nextAutoSpotName,inferredMissionSite,vehicleSurface,isPublicTransportVehicle} from './auto-sites.mjs';
 import {activePaintTargets,missionPaintPosition,parkedAlong} from './mission-placements.mjs';
@@ -55,20 +57,20 @@ export function bandForTagSite({surface='wall',approved=false}={}){
   return ['train','bus','bridge','overpass'].includes(surface)?'hard':'medium';
 }
 export function markCan(gear){
-  if(!gear||gear.type!=='gear'||gear.name!=='Spray Paint'||Number(gear.system?.quantity??1)<1)return null;
+  if(!isSprayCan(gear)||Number(gear.system?.quantity??1)<1)return null;
   const charges=gear.getFlag(NS,'spray');
   return {capacity:6,remainingCharges:Number.isInteger(charges?.remainingCharges)?charges.remainingCharges:6};
 }
 function equippedCan(actor){
-  const can=actor.items.find(x=>x.type==='gear'&&x.name==='Spray Paint'&&Number(x.system.quantity||0)>=1&&markCan(x)?.remainingCharges>0);
-  if(!can)throw new Error('You need a Spray Paint gear item with paint left. Buy one from a shop.');
+  const can=actor.items.find(x=>markCan(x)?.remainingCharges>0);
+  if(!can)throw new Error(`${actor.name} has no Spray Paint with paint left. Buy a can (Pat's, or order one on the Blower), or the GM can add one to the sheet.`);
   return can;
 }
 async function spendCan(can,attemptId){
   const current=markCan(can);if(!current||current.remainingCharges<1)throw new Error('No paint left.');
   if(current.remainingCharges>1){
     await can.setFlag(NS,'spray',{v:1,capacity:6,remainingCharges:current.remainingCharges-1,lastAttemptId:attemptId});
-  } else if(Number(can.system.quantity||0)>1) {
+  } else if(Number(can.system.quantity??1)>1) {
     // Stacked new cans are distinct; finishing the first opens the next with a full six charges.
     await can.update({'system.quantity':Number(can.system.quantity)-1});
     await can.setFlag(NS,'spray',{v:1,capacity:6,remainingCharges:6,lastAttemptId:attemptId});
@@ -119,7 +121,9 @@ function validDesignFromUser(input,outcome,blinder=0){
   const clean=sanitiseTagDesign(input);
   clean.quality=outcome;
   clean.blinder=blinder;
-  clean.extras={...QUALITY_PRESETS[outcome].extras};
+  // Classic tags take their extras from the roll. Pieces keep the painter's underline/arrow/drips; their crown, glow
+  // and sparkles come from the quality and blinder inside the piece engine.
+  clean.extras=isPieceStyle(clean.style)?{underline:Boolean(input?.extras?.underline),arrow:Boolean(input?.extras?.arrow),drips:Boolean(input?.extras?.drips),spark:false,halo:false,crown:false}:{...QUALITY_PRESETS[outcome].extras};
   clean.background='transparent';
   return clean;
 }
@@ -202,8 +206,9 @@ async function paintOnLeader({sceneId,spotTokenId,actorId,rollMessageId,attemptI
   const blinder={ordinary:0,niceOne:1,blinder:2,absoluteScenes:3,frontPage:4}[roll.blinder]??0;
   const clean=validDesignFromUser(design,roll.outcomeKey,blinder);
   if(tagPackId!=='TAG-STREET') clean.text=cat.tagPacks.find(p=>p.id===tagPackId).title.slice(0,18); // no spoofing a sponsor with unrelated lettering
+  if(isPieceStyle(clean.style))await loadPieceLetters();   // regenerate the piece from trusted letters, never the client's SVG
   const svg=buildSvg(clean);
-  if(!svg.startsWith('<svg')||svg.length>100_000)throw new Error('SVG validation failed.');
+  if(!svg.startsWith('<svg')||svg.length>400_000)throw new Error('SVG validation failed.');
   // Perform asset and tile writes before charging the player; absent files don't become mission proof.
   const filePath=await assetUpload(svg,attemptId);
   const oldVisible=records.filter(m=>m.status==='visible'&&m.siteId===spec.siteId);

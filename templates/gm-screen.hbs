@@ -106,7 +106,7 @@
         <button type="button" data-reward-rep="street"><i class="fa-solid fa-road"></i> +1 Street</button><button type="button" data-reward-rep="police"><i class="fa-solid fa-shield-halved"></i> +1 Known to police</button></div>
       <h2>Give kit</h2>
       <div class="gm-row"><select name="giveItem">{{#each itemGroups}}<optgroup label="{{label}}">{{#each items}}<option>{{this}}</option>{{/each}}</optgroup>{{/each}}</select>
-        <label>× <input type="number" name="giveQty" value="1" min="1"></label><button type="button" data-give-item><i class="fa-solid fa-gift"></i> Give</button></div>
+        <label>× <input type="number" name="giveQty" value="1" min="1"></label><button type="button" data-give-item><i class="fa-solid fa-gift"></i> Give</button><button type="button" data-give-item="take"><i class="fa-solid fa-minus"></i> Take</button></div>
       {{/if}}
 
       {{#if (eq tab "npcs")}}

@@ -127,7 +127,7 @@ export class SmokeGMScreen extends HandlebarsApplicationMixin(ApplicationV2) {
     on('[data-give-xp]', () => reward({xp: Number(el.querySelector('[name=xp]').value || 0)}));
     on('[data-reward]', n => reward({[n.dataset.reward]: true}));
     on('[data-reward-rep]', n => reward({rep: n.dataset.rewardRep}));
-    on('[data-give-item]', () => reward({itemName: el.querySelector('[name=giveItem]').value, qty: Number(el.querySelector('[name=giveQty]').value || 1)}));
+    on('[data-give-item]', n => reward({itemName: el.querySelector('[name=giveItem]').value, qty: Number(el.querySelector('[name=giveQty]').value || 1), take: n.dataset.giveItem === 'take'}));
     // npcs
     on('[data-npc-role]', n => { this.npcRole = n.value; }, 'change');
     on('[data-npc-make]', () => { this.npc = makeNPC(this.npcRole || null); rerender(); });

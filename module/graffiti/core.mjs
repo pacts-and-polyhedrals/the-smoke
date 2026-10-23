@@ -60,3 +60,6 @@ export function computeTileGeometry(spot,scene,{vehicle=false}={}) {
   const x=Math.round((Number(spot?.x)||0)+(sw-w)/2),y=Math.round((Number(spot?.y)||0)+(sh-h)/2);
   return {x,y,width:w,height:h,rotation:Number(spot?.rotation)||0};
 }
+/** A can of spray paint: the library's "Spray Paint", or kit the GM made by hand and called "spray paint", "spray can" or
+ *  "Spray Paint Can" (0.5.27: only the exact name used to count, so hand-made cans said "buy one from a shop"). */
+export const isSprayCan = item => item?.type === 'gear' && /\bspray[\s-]*(paint|can)/i.test(String(item?.name || ''));

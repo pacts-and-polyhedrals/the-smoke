@@ -90,12 +90,12 @@ export function attackPlan({weapon, distance = 1, cover = 'none', burst = false,
 /** Damage from a hit. */
 export const hitDamage = ({margin, impact, armour = 0}) => Math.max(0, Math.floor(Number(margin) + Number(impact) - Number(armour)));
 /** Conditions a weapon's effect adds on a hit (on top of the damage severity). */
-export function effectConditions(effect, {damage = 0, outcomeKey = 'fullSuccess'} = {}) {
+export function effectConditions(effect, {damage = 0, outcomeKey = 'fullSuccess', weaponName = ''} = {}) {
   switch (effect) {
-    case 'stun': return ['Stunned', 'Prone'];
+    case 'stun': return weaponName==='Flashbang'?['Stunned']:['Stunned', 'Prone'];
     case 'gas': case 'smoke': return ['Gassed'];
     case 'fire': return ['Burning'];
-    case 'bleed': return damage > 0 && ['strongSuccess', 'exceptionalSuccess'].includes(outcomeKey) ? ['Bleeding'] : [];
+    case 'bleed': return damage > 0 && (weaponName==='Broken Bottle'||['strongSuccess', 'exceptionalSuccess'].includes(outcomeKey)) ? ['Bleeding'] : [];
     default: return [];
   }
 }

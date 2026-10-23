@@ -1,3 +1,6 @@
+import {withActionLocks} from '../world/action-locks.mjs';
+import {weaponRestriction} from '../rules/item-context.mjs';
+import {smokeBlocks,createWeaponArea} from '../world/weapon-areas.mjs';
 // Combat in Foundry: speed-dice rounds on the core Combat document, attacks with ranges/cover/ammo, grabs and arrests,
 // ramming and tyres, cover and dodging, round-end bleeding and burning, and police officers who take their own turns.
 // Every write that touches someone else's document runs on the leader GM.
@@ -98,22 +101,31 @@ export async function attack(attackerToken, {weapon = null, target = null, auto 
   const form = auto && weapon ? {w: weapon.id} : await DialogV2.input({window: {title: `${actor.name} attacks`}, content, ok: {label: 'Attack', icon: 'fa-solid fa-crosshairs'}});
   if (!form) return null;
   const w = actor.items.get(form.w) ?? weapons.find(x => x.name === 'Fists'); if (!w) throw new Error('No weapon.');
+  const restriction=weaponRestriction(actor,w);if(restriction)throw new Error(restriction);
+  if(smokeBlocks(attackerToken,target))throw new Error('Smoke blocks this line of sight.');
+  const aimedReceipt=attackerToken.getFlag(NS,'aiming')?foundry.utils.randomID(12):null;
+  if(aimedReceipt)await attackerToken.setFlag(NS,'attackAimReceipt',aimedReceipt);
   const seat = seatOf(attackerToken);
-  const plan = R.attackPlan({weapon: w.system, distance: d, cover: def.cover, burst: Boolean(form.burst), aimed: Boolean(form.aimed || attackerToken.getFlag(NS, 'aiming')),
+  const plan = R.attackPlan({weapon: w.system, distance: d, cover: def.cover, burst: Boolean(form.burst), aimed: Boolean(attackerToken.getFlag(NS, 'aiming')),
     seat: seat ? (seat.seatId === 'pilot' ? 'pilot' : 'passenger') : null, targetInVehicle: def.inside, dodging: def.dodging, tyres: Boolean(form.tyres)});
   if (!plan.ok) { if (plan.needsReload) ui.notifications.warn(`${w.name}: ${plan.reason}`); else ui.notifications.warn(plan.reason); return null; }
   // spend ammo / the thrown thing, and the aim
   if (plan.ammoCost) await w.update({'system.ammo.value': Number(w.system.ammo.value) - plan.ammoCost});
-  if (w.system.thrown) { const left = Number(w.system.quantity || 1) - 1; if (left <= 0) await w.delete(); else await w.update({'system.quantity': left}); }
+  // Reserve the last thrown object but retain its document while the roll selects
+  // contextual perks (Good Arm). Deleting it first loses the trusted weapon type.
+  let spentThrown = null;
+  if (w.system.thrown) { const left = Math.max(0, Number(w.system.quantity ?? 1) - 1); await w.update({'system.quantity': left}); if (!left) spentThrown = w; }
   if (attackerToken.getFlag(NS, 'aiming')) await request('combat.flag', {tokenUuid: attackerToken.uuid, key: 'aiming', value: false});
   const tn = def.guard + plan.guardBonus;
-  const out = await actor.rollStat(w.system.stat || 'mus', {tn, modifier: plan.modifier, effortUpgrades: plan.effortUpgrades, hustle: Number(form.hustle || 0),
-    label: `${w.name} → ${target.name}${form.burst ? ' (burst)' : ''}${form.tyres ? ' (tyres)' : ''}`, context: {kind: 'attack', weapon: w.name, target: target.uuid},
+  let out;
+  try { out = await actor.rollStat(w.system.stat || 'mus', {tn, modifier: plan.modifier, effortUpgrades: plan.effortUpgrades, hustle: Number(form.hustle || 0),
+    label: `${w.name} → ${target.name}${form.burst ? ' (burst)' : ''}${form.tyres ? ' (tyres)' : ''}`, context: {kind: 'attack', weapon: w.name, weaponId:w.id, target: target.uuid,burst:Boolean(form.burst),aimed:Boolean(aimedReceipt),aimReceipt:aimedReceipt},
     cardExtra: plan.notes.length ? `<ul class="smoke-notes">${plan.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''});
+  } finally { if (spentThrown && actor.items.get(spentThrown.id) && Number(spentThrown.system.quantity) === 0) await spentThrown.delete(); }
   if (!out?.result) return null;
   const r = out.result, hit = r.margin != null && r.margin >= 0;
   if (w.name === 'Converted Pistol' && r.outcomeKey === 'severeFailure') { await w.update({'system.ammo.value': 0}); ui.notifications.warn('The Converted Pistol jams. Reload to clear it.'); }
-  return request('combat.hit', {attackerTokenUuid: attackerToken.uuid, targetTokenUuid: target.uuid, weaponName: w.name, weaponCrime: w.system.crime, effect: w.system.effect, loud: w.system.loud,
+  return request('combat.hit', {messageId:out.message.id,attackerTokenUuid: attackerToken.uuid, targetTokenUuid: target.uuid, weaponName: w.name, weaponCrime: w.system.crime, effect: w.system.effect, loud: w.system.loud,
     hit, margin: r.margin, total: r.total, outcomeKey: r.outcomeKey, explosions: r.explosions, impact: plan.impact, armourBonus: plan.armourBonus, tyres: Boolean(form.tyres), band: plan.band});
 }
 
@@ -380,9 +392,22 @@ async function notifyTurn(combat, entry) {
     ? `<p>Drive it: drag your vehicle along the road — <b class="g">green</b> is safe, <b class="y">yellow</b> and <b class="r">red</b> push it and need a Wheels check. Or ram, PIT, go evasive, shoot, bail out — then press <b>Done</b> in the Combat Console.</p>`
     : `<p>Attack, move, take cover, aim, reload, grab, run, surrender — then press <b>Done</b> in the Combat Console.</p>`, 'combat', {whisper: to});
 }
-registerHandler('combat.hit', async ({attackerTokenUuid, targetTokenUuid, weaponName, weaponCrime, effect, loud, hit, margin, total, outcomeKey, explosions, impact, armourBonus, tyres, band, userId}) => {
+async function applyCombatHit({messageId=null,attackerTokenUuid, targetTokenUuid, weaponName, weaponCrime, effect, loud, hit, margin, total, outcomeKey, explosions, impact, armourBonus, tyres, band, userId}) {
   const at = await fromUuid(attackerTokenUuid), tt = await fromUuid(targetTokenUuid); if (!at || !tt || !okFor(userId, at)) throw new Error('Not allowed.');
   const scene = tt.parent, attacker = at.actor, target = tt.actor, lines = [];
+  const message=messageId?game.messages.get(messageId):null,proof=message?.getFlag(NS,'roll');
+  if(message){if(proof?.actorUuid!==attacker.uuid||proof.context?.kind!=='attack'||proof.context?.target!==tt.uuid)throw new Error('That attack roll does not match these tokens.');hit=Number(proof.margin)>=0;margin=proof.margin;outcomeKey=proof.outcomeKey;total=proof.total;explosions=proof.explosions;}
+  if(message){
+    const ctx=proof.context;let weapon=attacker.items.get(ctx.weaponId)||attacker.items.find(i=>i.type==='weapon'&&i.name===ctx.weapon);
+    if(!weapon&&ctx.weapon){const lib=(await fetch(`systems/${NS}/data/london-items.json`).then(r=>r.json())).items;weapon=lib.find(i=>i.type==='weapon'&&i.name===ctx.weapon&&i.system.thrown);}
+    if(weapon){weaponName=weapon.name;weaponCrime=weapon.system.crime;effect=weapon.system.effect;loud=weapon.system.loud;impact=Number(weapon.system.impact||0);}
+    else if(['Fists','Unarmed'].includes(ctx.weapon)){weaponName=ctx.weapon;weaponCrime='assault';effect='';loud=false;impact=0;}
+    else throw new Error('The recorded weapon is missing; the GM must review this attack.');
+  }
+  const areaId=messageId||foundry.utils.randomID(16);
+  if(weaponName==='Broken Bottle'&&outcomeKey==='severeFailure'){const bottle=attacker.items.find(i=>i.name==='Broken Bottle');if(bottle)await bottle.update({'system.quantity':Math.max(0,Number(bottle.system.quantity??1)-1),'system.equipped':false});}
+  if(effect==='smoke'){await createWeaponArea(scene,{id:areaId,kind:'smoke',target:tt});return card('SMOKE','Smoke deployed','<p>The cloud blocks targeting through it, causes Gassed, and clears after 60 Watch seconds or two combat rounds.</p>');}
+  if(!hit&&effect==='fire')await createWeaponArea(scene,{id:areaId,kind:'fire',target:tt,miss:true});
   // A weapon that kills when it drops someone: guns, blades, fire, explosives and the heaviest melee weapons. Fists,
   // bats, tasers and spray knock people down (that's assault); taking a life is what brings the high stars.
   const lethal = weaponCrime === 'shooting' || ['bleed', 'fire', 'area'].includes(effect) || Number(impact) >= 4;
@@ -399,12 +424,12 @@ registerHandler('combat.hit', async ({attackerTokenUuid, targetTokenUuid, weapon
     return card('TYRE', `${tt.name}: blown tyre`, `<p>Bang — ${flats} flat. Performance down a step and Handling −2 per flat.</p>`, 'win');
   }
   const armour = target?.type === 'vehicle' ? Number(target.system.vehicle.armour || 0) : Number(target?.system?.armour || 0) + Number(armourBonus || 0);
-  const dmg = R.hitDamage({margin, impact, armour}), cons = target?.type === 'vehicle' ? {conditions: [], breakthrough: [], label: ''} : damageConsequences(dmg, {explosions});
-  const extra = target?.type === 'vehicle' ? [] : R.effectConditions(effect, {damage: dmg, outcomeKey});
+  const dmg = weaponName==='Flashbang'?0:R.hitDamage({margin, impact, armour}), cons = target?.type === 'vehicle' ? {conditions: [], breakthrough: [], label: ''} : damageConsequences(dmg, {explosions});
+  const extra = target?.type === 'vehicle' ? [] : R.effectConditions(effect, {damage: dmg, outcomeKey,weaponName});
   const conditions = [...new Set([...extra, ...(dmg >= 3 ? cons.conditions.slice(0, 1) : [])])];
   const victims = [tt];
-  if (effect === 'area' || effect === 'smoke') for (const t of scene.tokens.filter(x => x.id !== tt.id && x.actor && x.actor.type !== 'vehicle' && distanceSquares(x, tt) <= R.RANGE_SQUARES.Engaged)) victims.push(t);
-  const auto = setting('combatAutoDamage', true);
+  if (effect === 'area' || effect === 'smoke' || weaponName==='Flashbang') for (const t of scene.tokens.filter(x => x.id !== tt.id && x.actor && x.actor.type !== 'vehicle' && distanceSquares(x, tt) <= R.RANGE_SQUARES.Engaged)) victims.push(t);
+  const auto = weaponName==='Flashbang'||setting('combatAutoDamage', true);
   for (const v of victims) {
     const a = v.actor; if (!a) continue;
     const vdmg = v.id === tt.id ? dmg : (effect === 'smoke' ? 0 : Math.max(0, dmg - Number(a.system?.armour || 0)));
@@ -412,7 +437,7 @@ registerHandler('combat.hit', async ({attackerTokenUuid, targetTokenUuid, weapon
       await reportKill(attacker, v, {before, lethal, seen, byPolice}); }
     lines.push(`${v.name}: ${vdmg} damage${(v.id === tt.id ? conditions : extra).length ? ` · ${(v.id === tt.id ? conditions : extra).join(', ')}` : ''}`);
   }
-  if (effect === 'smoke') await tt.update({[`flags.${NS}.cover`]: 'full'});
+  if(effect==='fire')await createWeaponArea(scene,{id:areaId,kind:'fire',target:tt});
   if (auto) return card('HIT', `${weaponName} → ${tt.name}: ${dmg}`, `<p>${esc(cons.label || '')}</p><ul>${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>`, 'damage');
   // The target's owner (or the GM) resolves the hit once: take it, or spend their reaction to Dodge. Then the GM picks
   // at most one condition the fiction warrants; a weapon's own effect (stun, gas, fire…) lands with the hit.
@@ -424,6 +449,28 @@ registerHandler('combat.hit', async ({attackerTokenUuid, targetTokenUuid, weapon
     <div class="smoke-buttons"><button type="button" data-smoke-damage="${esc(tt.uuid)}" data-amount="${dmg}"><i class="fa-solid fa-burst"></i> Take hit · ${dmg}</button>${canDodge ? `<button type="button" data-smoke-dodge="${esc(tt.uuid)}"><i class="fa-solid fa-person-running"></i> Dodge · use reaction</button>` : ''}</div>
     ${choose.length ? `<p class="smoke-dim">GM: choose one fitting condition if the fiction warrants it.</p>${choose.map(c => `<button type="button" data-smoke-condition="${esc(tt.uuid)}" data-condition="${esc(c)}">${esc(c)}</button>`).join('')}` : ''}
     ${splash ? `<p class="smoke-dim">Caught in it too:</p>${splash}` : ''}`, 'damage', {flags: {[NS]: {attack: attackFlag, chaseCombatId: game.combats?.find?.(c=>c.scene?.id===scene.id && c.active)?.id ?? null}}});
+}
+export async function resolveCombatHit(data){
+  const msg=data.messageId&&game.messages.get(data.messageId);
+  if(!msg&&!game.users.get(data.userId)?.isGM)throw new Error('A recorded attack roll is required.');
+  return withActionLocks([`hit:${data.messageId||data.attackerTokenUuid}`],async()=>{
+    if(msg?.getFlag(NS,'hitResolved'))return {alreadyResolved:true,messageId:msg.id};
+    const state=msg?.getFlag(NS,'hitResolution');
+    if(state&&state.status!=='done')throw new Error(`Attack ${msg.id} needs GM review after an interrupted effect; it will not apply damage twice.`);
+    if(msg){const at=await fromUuid(data.attackerTokenUuid),r=msg.getFlag(NS,'roll');
+      if(!at||!okFor(data.userId,at)||r?.actorUuid!==at.actor.uuid||r.context?.kind!=='attack'||r.context?.target!==data.targetTokenUuid)throw new Error('This attack receipt does not match.');
+      await msg.setFlag(NS,'hitResolution',{status:'processing',at:Number(game.time?.worldTime||0)});
+    }
+    try {const result=await applyCombatHit(data);if(msg)await msg.update({[`flags.${NS}.hitResolved`]:true,[`flags.${NS}.hitResolution.status`]:'done'});return result;}
+    catch(error){if(msg)await msg.setFlag(NS,'hitResolution',{status:'review',error:String(error.message),at:Number(game.time?.worldTime||0)});throw error;}
+  });
+}
+registerHandler('combat.hit',resolveCombatHit);
+registerHandler('combat.hitReview',async({messageId,reason,userId})=>{
+ if(!game.users.get(userId)?.isGM||String(reason||'').trim().length<8)throw new Error('GM review and an explanation are required.');
+ const msg=game.messages.get(messageId);if(msg?.getFlag(NS,'hitResolution')?.status!=='review')throw new Error('This attack is not waiting for review.');
+ await msg.update({[`flags.${NS}.hitResolved`]:true,[`flags.${NS}.hitResolution`]:{status:'done',reviewedBy:userId,reason:String(reason).slice(0,500)}});
+ await card('ATTACK REVIEW',messageId,`<p>${esc(reason)}</p><p>The GM has checked/applied the missing effects. No damage was replayed.</p>`);return true;
 });
 /**
  * A character's lethal attack has just taken a person from standing to 0 Health: that's a killing, and if anyone saw
@@ -451,7 +498,12 @@ registerHandler('combat.release', async ({tokenUuid, userId}) => {
 });
 registerHandler('combat.cuff', async ({attackerTokenUuid, targetTokenUuid, userId}) => {
   const at = await fromUuid(attackerTokenUuid), tt = await fromUuid(targetTokenUuid); if (!at || !tt || !okFor(userId, at)) throw new Error('Not allowed.');
-  await tt.actor.addCondition('Cuffed'); await tt.actor.removeCondition('Grabbed');
+  const itemActions=await import('../world/item-actions.mjs');
+  if(itemActions.itemActionsReady()){
+    const item=at.actor.items.find(i=>['Handcuffs','Cable Ties'].includes(i.name)&&Number(i.system.quantity??1)>0&&!i.getFlag(NS,'attachedTo'));
+    if(!item)throw new Error('Carry available Handcuffs or Cable Ties to restrain someone.');
+    await itemActions.useItemAction({actorUuid:at.actor.uuid,itemId:item.id,action:'restrain',targetUuid:tt.uuid,operationId:foundry.utils.randomID(20),userId});
+  }else{await tt.actor.addCondition('Cuffed');await tt.actor.removeCondition('Grabbed');}
   const police = at.getFlag(NS, 'police') || at.actor?.system?.role === 'police';
   await card('CUFFED', `${at.name} cuffs ${tt.name}`, police && isPC(tt.actor) ? '<p>"You do not have to say anything…" — <b>Busted.</b></p>' : '<p>Hands behind the back.</p>', 'combat');
   if (police && isPC(tt.actor)) { const {busted} = await import('../world/heat.mjs'); await busted(tt.actor); }

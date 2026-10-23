@@ -5,13 +5,17 @@ import {NS, HEAT, JOB_TYPES, CRIMES, STATS, STAT_KEYS, crimeHeatText} from '../c
 import {jobsAPI, canWorkCall} from '../world/jobs.mjs';
 import {request, esc} from '../world/net.mjs';
 import {ridingNicked, sellVehicle} from '../world/theft.mjs';
-import {missionData, missionState, needed} from '../world/missions.mjs';
+import {missionData, missionState, needed, objectiveDone} from '../world/missions.mjs';
 import {mapIdOf, zonesOf, isStreetScene} from '../world/spawn.mjs';
 import {findOrImportScene, loadAtlas, openTravelDialog} from '../map/map-transit.mjs';
 import {zoneCentre, mapGraph} from '../rules/jobs-core.mjs';
 import {radioMarkup, radioView, bindRadio, selectRadioActor} from '../radio/radio.mjs';
 import {startCallNav, openSatnavPicker, satnavSummary, stopSatNav, toggleSatNav} from '../map/satnav.mjs';
 import {BANANA_SVG, clockNow} from './banana-watch.mjs';
+import {chaseControlsContext, wireChaseControls} from './chase-controls.mjs';
+import {crewCard, hiresAPI} from '../world/hires.mjs';
+import {deliveriesFor, deliveriesAPI} from '../world/deliveries.mjs';
+import {openOrders} from './order.mjs';
 
 const {ApplicationV2, HandlebarsApplicationMixin, DialogV2} = foundry.applications.api;
 const fmt = ms => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
@@ -51,10 +55,10 @@ export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
     const calls = Object.values(st.calls).filter(c => actor && (c.actorId === actor.id || (shift && c.shiftId === shift.id) || (c.status === 'active' && canWorkCall(c, actor))));
     const heat = Math.max(0, Math.min(5, Number(actor?.system?.heat?.value || 0)));
     let riding = null; try { const r = ridingNicked(actor); if (r) riding = {uuid: r.vt.uuid, name: r.vt.name, why: r.why, here: Boolean(r.here), price: r.price, hot: r.hot, who: r.fence.who, where: r.fence.where,
-      order: r.order ? (r.order.counts ? `Counts toward Pat's order: ${r.order.delivered + 1} of ${r.order.want}.` : 'Not what Pat ordered — she will still buy it.') : ''}; } catch (_e) {}
+      order: r.order ? (r.order.counts ? `Counts toward Pat's order: ${r.order.delivered + 1} of ${r.order.want}.` : r.service === 'chop' ? 'Not the motor Pat asked for. Bow Breakers will still buy it.' : 'Not what Pat ordered — she will still buy it.') : ''}; } catch (_e) {}
     let missions = []; try { const md = await missionData(), ms = missionState();
       missions = md.missions.filter(m => ms[m.id]?.status === 'active' && (!ms[m.id].actorIds?.length || ms[m.id].actorIds.includes(actor?.id))).map(m => ({id: m.id, n: m.code ?? `MISSION ${m.n}`, title: m.title, giver: m.giver, route: Boolean(m.stops?.length) || m.group === 'opening',
-        objectives: m.objectives.map(o => { const have = Math.min(needed(o), Number(ms[m.id].ticks?.[o.id] || 0)); return {text: o.text, done: have >= needed(o), count: needed(o) > 1 ? `${have}/${needed(o)}` : ''}; })})); } catch (_e) {}
+        objectives: m.objectives.map(o => { const have = Math.min(needed(o,ms[m.id]), Number(ms[m.id].ticks?.[o.id] || 0)); return {text: o.text, done: objectiveDone(o,ms[m.id]), count: needed(o,ms[m.id]) > 1 ? `${have}/${needed(o,ms[m.id])}` : ''}; })})); } catch (_e) {}
     // shifts this character could start from the driver's seat
     const token = currentToken(actor), seat = token?.getFlag?.(NS, 'vehicleSeat'), vt = seat && token.parent.tokens.get(seat.vehicleTokenId);
     const startable = vt && seat.seatId === 'pilot' && !shift ? (vt.actor?.system?.vehicle?.jobs || []).map(type => ({type, label: JOB_TYPES[type]?.verb ?? JOB_TYPES[type]?.label})).filter(j => j.label) : [];
@@ -67,7 +71,10 @@ export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
         pct: c.total ? Math.max(0, Math.min(100, Math.round(100 * (c.deadline - now) / c.total))) : 0, label: JOB_TYPES[c.type]?.label,
         extra: c.type === 'ambulance' ? `Patient: ${c.patient}` : c.type === 'fire' ? `Progress ${c.fire?.progress ?? 0}/4 · Fire ${c.fire?.consequences ?? 0}/3` : c.type === 'police' && c.stage === 'pursuit' ? `Gap ${c.gap}/5` : c.type === 'crew' ? `Delivered ${c.data?.delivered ?? 0}/${c.data?.order?.want ?? 0}` : ''})),
       satnav: (() => { const s = satnavSummary(); return s && (!actor || s.actorId === actor.id) ? s : null; })(),
-      paused: game.settings.get(NS, 'jobsPaused'), isGM: game.user.isGM,
+      paused: game.settings.get(NS, 'jobsPaused'), isGM: game.user.isGM, chases: (() => { try { return chaseControlsContext(); } catch (_e) { return null; } })(),
+      hires: (() => { try { return crewCard(actor); } catch (_e) { return null; } })(),
+      deliveries: (() => { try { return deliveriesFor(actor); } catch (_e) { return null; } })(),
+      patTier: (() => { const st = Number(actor?.system?.stage || 1); return st >= 9 ? 'Bigger orders and car jobs are on the table.' : st >= 3 ? `Bigger orders are on the table. Car jobs from Rep 9.` : 'Bigger orders from Rep 3, car jobs from Rep 9.'; })(),
       banana: BANANA_SVG, clock: (() => { try { const c = clockNow(); return `${String(c.hours).padStart(2, '0')}:${String(c.minutes).padStart(2, '0')}`; } catch (_e) { return ''; } })(), boot: !this._booted};
   }
   async _onRender(context, options) {
@@ -77,6 +84,10 @@ export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
     const on = (sel, fn) => el.querySelectorAll(sel).forEach(n => n.addEventListener('click', ev => { ev.preventDefault(); Promise.resolve(fn(n)).catch(e => ui.notifications.warn(e.message)); }));
     el.querySelector('[name=actor]')?.addEventListener('change', ev => { this.actorId = ev.currentTarget.value; try { selectRadioActor(actor()); } catch (_e) {} this.render(); });
     el.querySelector('.phone-radio')?.addEventListener('toggle', ev => { this._radioOpen = ev.currentTarget.open; });
+    wireChaseControls(el, () => this.render());
+    on('[data-hire]', n => { const a = actor(); if (!a) throw new Error('Pick a character.'); return hiresAPI.hire(a, n.dataset.hire).then(() => this.render()); });
+    on('[data-hand-dismiss]', async n => { const h = game.actors.get(n.dataset.handDismiss); if (h && await DialogV2.confirm({window: {title: `Let ${h.name} go?`}, content: `<p>${esc(h.name)} walks for good. No refund.</p>`})) return hiresAPI.dismiss(h).then(() => this.render()); });
+    on('[data-hand-sheet]', n => game.actors.get(n.dataset.handSheet)?.sheet.render(true));
     if (actor()) bindRadio(el, {actor: actor()});
     on('[data-accept]', n => jobsAPI.acceptCall(n.dataset.accept));
     on('[data-decline]', n => jobsAPI.declineCall(n.dataset.decline));
@@ -100,6 +111,8 @@ export class SmokePhone extends HandlebarsApplicationMixin(ApplicationV2) {
     on('[data-sheet]', () => actor()?.sheet.render(true));
     on('[data-missions]', () => game.smoke.openMissions());
     on('[data-sell]', async n => { const vt = await fromUuid(n.dataset.sell); if (vt) return sellVehicle(vt); });
+    on('[data-orders]', () => openOrders(actor()));
+    on('[data-collect-orders]', () => deliveriesAPI.collect(actor()).then(() => this.render()));
     // countdowns tick in place, so the radio controls are not redrawn every second
     if (!this._ticker) this._ticker = setInterval(() => this._countdown(), 1000);
     this._countdown();
@@ -124,6 +137,7 @@ export function openPhone(actor = null) {
 const rerender = () => { if (phone?.rendered) phone.render(); };
 Hooks.on('smokeJobsChanged', rerender);
 Hooks.on('smokeMissionsChanged', rerender);
+Hooks.on('smokeDeliveriesChanged', rerender);
 // The radio pings on every token or setting change; only redraw when what the phone shows has changed.
 let radioKey = '';
 Hooks.on('smokeRadioChanged', () => {
@@ -132,6 +146,11 @@ Hooks.on('smokeRadioChanged', () => {
   if (key === radioKey) return; radioKey = key; phone.render();
 });
 Hooks.on('updateActor', a => { if (phone?.rendered && a.id === phone.actorId) phone.render(); });
+// The chase / driving switches sync to every client as world settings: redraw the Blower and Street Control.
+Hooks.on('updateSetting', st => {
+  if (!['autoChase', 'chaseMode', 'chaseTrafficMode', 'autoEvade', 'autoDriveChecks'].some(k => st?.key === `${NS}.${k}`)) return;
+  rerender(); const sc = foundry.applications.instances?.get?.('smoke-street-control'); if (sc?.rendered) sc.render();
+});
 
 /** Directions to a call: the sat nav (bottom right) routes you there live, and the spot is pinged if it is on this map. */
 export async function showJobRoute(actor, call) {
@@ -171,11 +190,12 @@ export async function spawnJobVehicle(type) {
 /** The quick build: pick one d8, three d6 and five d4 (the full Character Creator is game.smoke.openCreator). */
 export async function quickBuild(actor = null) {
   const rows = STAT_KEYS.map((key, i) => `<label>${STATS[key].label}<select name="${key}">${[4, 6, 8].map(d => `<option value="${d}" ${Number(actor?.system.stats[key]?.die ?? (i === 0 ? 8 : i < 4 ? 6 : 4)) === d ? 'selected' : ''}>d${d}</option>`).join('')}</select></label>`).join('');
-  const form = await DialogV2.input({window: {title: actor ? `Build ${actor.name}` : 'New face in the Smoke'}, content: `<div class="the-smoke smoke-creator"><p>Choose <b>one d8, three d6 and five d4</b>. Everyone begins with Health 10, Hustle 3 and £40. For backgrounds, kit and a story, use the full <b>Character Creator</b>.</p><label>Name<input name="name" value="${esc(actor?.name || 'New face')}" required></label><div class="smoke-field-grid three">${rows}</div><label>Day hustle<input name="hustle" value="${esc(actor?.system.identity.hustle || '')}" placeholder="Courier, mechanic, student…"></label><label>Ambition<input name="ambition" value="${esc(actor?.system.identity.ambition || '')}" placeholder="What would getting out look like?"></label></div>`, ok: {label: actor ? 'Apply build' : 'Create character'}});
+  const form = await DialogV2.input({window: {title: actor ? `Build ${actor.name}` : 'New face in the Smoke'}, content: `<div class="the-smoke smoke-creator"><p>Choose <b>one d8, three d6 and five d4</b>. Health is 8 + your Grit modifier (10 to 12); everyone begins with Hustle 3 and £40. For backgrounds, kit and a story, use the full <b>Character Creator</b>.</p><label>Name<input name="name" value="${esc(actor?.name || 'New face')}" required></label><div class="smoke-field-grid three">${rows}</div><label>Day hustle<input name="hustle" value="${esc(actor?.system.identity.hustle || '')}" placeholder="Courier, mechanic, student…"></label><label>Ambition<input name="ambition" value="${esc(actor?.system.identity.ambition || '')}" placeholder="What would getting out look like?"></label></div>`, ok: {label: actor ? 'Apply build' : 'Create character'}});
   if (!form) return;
   const {validateStartingSpread} = await import('../rules/core.mjs'); const stats = Object.fromEntries(STAT_KEYS.map(key => [key, {die: Number(form[key])}])); const check = validateStartingSpread(stats); if (!check.valid) throw new Error(check.message);
-  const system = {stats, identity: {hustle: String(form.hustle || ''), ambition: String(form.ambition || '')}, creation: {done: true, background: '', levelledTo: 1}};
-  if (actor) return actor.update({name: String(form.name || actor.name), ...Object.fromEntries(STAT_KEYS.map(k => [`system.stats.${k}.die`, stats[k].die])), 'system.identity.hustle': system.identity.hustle, 'system.identity.ambition': system.identity.ambition, 'system.creation.done': true});
+  const {startingHealth} = await import('../rules/creation.mjs'), hp = startingHealth(stats.grt.die);   // same Health rule as the Character Creator
+  const system = {stats, resources: {health: {value: hp, max: hp}}, identity: {hustle: String(form.hustle || ''), ambition: String(form.ambition || '')}, creation: {done: true, background: '', levelledTo: 1}};
+  if (actor) return actor.update({name: String(form.name || actor.name), ...Object.fromEntries(STAT_KEYS.map(k => [`system.stats.${k}.die`, stats[k].die])), 'system.identity.hustle': system.identity.hustle, 'system.identity.ambition': system.identity.ambition, 'system.resources.health.max': hp, 'system.resources.health.value': hp, 'system.creation.done': true});
   const a = await Actor.implementation.create({name: String(form.name || 'New face'), type: 'character', system, prototypeToken: {actorLink: true, disposition: 1}, ownership: {default: 0, [game.user.id]: 3}}); a.sheet.render(true); return a;
 }
 
@@ -190,7 +210,7 @@ export class StreetControl extends HandlebarsApplicationMixin(ApplicationV2) {
       .map(([key, label, icon]) => ({key, label, icon, on: part(key, () => Boolean(game.settings.get(NS, key)), false)}));
     const tokens = scene ? part('tokens', () => [...scene.tokens], []) : [];
     return {scene, isGM: game.user.isGM, settings, setUp: part('setup', () => Boolean(game.settings.get(NS, 'worldSetup')), false), street: part('street', () => isStreetScene(scene), false),
-      selfPlay: part('playMode', () => game.settings.get(NS, 'playMode') === 'self', false), chaseOn: part('chase', () => Boolean(game.settings.get(NS, 'autoChase')), true),
+      selfPlay: part('playMode', () => game.settings.get(NS, 'playMode') === 'self', false), chaseControls: part('chase', () => chaseControlsContext(), null),
       traffic: tokens.filter(t => t.getFlag?.(NS, 'traffic')).length, moving: tokens.filter(t => t.getFlag?.(NS, 'traffic')?.kind === 'moving').length, units: tokens.filter(t => t.getFlag?.(NS, 'police')).length,
       shifts: part('shifts', () => Object.values(st.shifts || {}).map(s => ({...s, actor: game.actors.get(s.actorId)?.name, label: JOB_TYPES[s.type]?.label})), []),
       crimes: Object.entries(CRIMES).map(([key, c]) => ({key, ...c, heatText: crimeHeatText(c)})),
@@ -205,6 +225,7 @@ export class StreetControl extends HandlebarsApplicationMixin(ApplicationV2) {
     const scene = () => { if (!canvas?.scene) throw new Error('View a London street scene first.'); return canvas.scene; };
     const street = () => { const s = scene(); if (!isStreetScene(s)) throw new Error(`${s.name} isn't a street map: Street Life runs on the twenty London street maps.`); return s; };
     on('[data-toggle]', n => n.dataset.toggle === 'jobsPaused' ? jobsAPI.pause(!game.settings.get(NS, 'jobsPaused')) : game.settings.set(NS, n.dataset.toggle, !game.settings.get(NS, n.dataset.toggle)));
+    wireChaseControls(el, () => this.render());
     on('[data-populate]', async () => { const s = street(), made = Number(await request('traffic.populate', {sceneId: s.id})) || 0;
       ui.notifications.info(made ? `Street Life: ${made} more on ${s.name}.` : `Street Life: ${s.name} is already full. Clear it to start afresh, or raise the numbers in Settings.`); });
     on('[data-clear]', async () => { const s = scene(), gone = Number(await request('traffic.clear', {sceneId: s.id})) || 0; ui.notifications.info(`Street Life: cleared ${gone} from ${s.name}.`); });

@@ -1,7 +1,12 @@
 import {NS, STATS} from '../config.mjs';
 import {isPublicTransportVehicle} from '../graffiti/auto-sites.mjs';
+import {isSprayCan} from '../graffiti/core.mjs';
 import {paintChoices} from '../graffiti/paint-choices.mjs';
 import {GRAFFITI_GLYPHS} from '../graffiti/glyph-outlines.mjs';
+import {PIECE_STYLES, FILL_MODES, isPieceStyle, renderPiece} from '../graffiti/pieces.mjs';
+import {CHARACTERS, CHARACTER_GROUPS} from '../graffiti/characters.mjs';
+import {GRAFFITI_PRESETS, PRESET_GROUPS, presetById, presetArt} from '../graffiti/presets.mjs';
+import {loadPieceLetters, pieceLetters} from '../graffiti/letters.mjs';
 
 const {ApplicationV2, HandlebarsApplicationMixin} = foundry.applications.api;
 const BLINDER_RANK = {ordinary: 0, niceOne: 1, blinder: 2, absoluteScenes: 3, frontPage: 4};
@@ -22,6 +27,7 @@ export const QUALITY_PRESETS = Object.freeze({
 });
 const DEFAULT_STATE = Object.freeze({
   actorId: '', spotTokenId: '', missionId: '', tagPackId: 'TAG-STREET', text: 'ASMO', style: 'handstyle', fill: '#f6f2d2', outline: '#111111', shadow: '#7c1a16', accent: '#ffd95a', background: 'transparent',
+  fill2: '#c4451c', fillMode: '', character: '', charSide: 'right', skin: '#8d5a3b', presetGroup: 'ASMO',
   width: 860, height: 420, stat: 'grf', band: 'medium', quality: 'fullSuccess', blinder: 0,
   extras: {underline: true, arrow: true, drips: false, spark: false, halo: false, crown: false}
 });
@@ -33,9 +39,12 @@ export function sanitiseTagDesign(design={}) {
   const extras={}; for(const key of ['underline','arrow','drips','spark','halo','crown'])extras[key]=Boolean(d.extras?.[key]);
   return {
     text:String(d.text??'TAG').replace(/[^a-zA-Z0-9 !?&._-]/g,'').slice(0,18)||'TAG',
-    style:STYLE_PRESETS[d.style]?d.style:'handstyle',
+    style:STYLE_PRESETS[d.style]||isPieceStyle(d.style)?d.style:'handstyle',
     fill:safe(d.fill,'#f6f2d2'), outline:safe(d.outline,'#111111'),
     shadow:safe(d.shadow,'#7c1a16'), accent:safe(d.accent,'#ffd95a'),
+    // 0.5.26 pieces: second fill colour, fill pattern, a character beside the letters and its skin tone
+    fill2:safe(d.fill2,'#c4451c'), fillMode:Object.hasOwn(FILL_MODES,d.fillMode)?d.fillMode:'',
+    character:Object.hasOwn(CHARACTERS,d.character)?d.character:'', charSide:d.charSide==='left'?'left':'right', skin:safe(d.skin,'#8d5a3b'),
     background:d.background==='solid'?'solid':'transparent',
     width:Math.round(clamp(d.width??860,320,1600)),height:Math.round(clamp(d.height??420,220,1000)),
     quality:QUALITY_PRESETS[d.quality]?d.quality:'fullSuccess',
@@ -152,7 +161,15 @@ function arrowPath(letters, h) {
   return `M ${end - 110} ${base + 62} Q ${end - 38} ${base + 30} ${end} ${base - 10} M ${end - 38} ${base - 10} L ${end} ${base - 10} L ${end - 10} ${base + 28}`;
 }
 export function buildSvg(state) {
-  const full=applyQuality(sanitiseTagDesign(state)),style=STYLE_PRESETS[full.style]||STYLE_PRESETS.handstyle;
+  // 0.5.26: the piece styles (throw-ups, bubbles, wildstyle, 3D, characters…) are drawn by the piece engine. Their
+  // extras are only the ones the painter chose; crowns, glows and sparkles come from the roll (quality and blinder).
+  const clean=sanitiseTagDesign(state);
+  if(isPieceStyle(clean.style)){
+    const letters=pieceLetters();
+    if(letters)return renderPiece(clean,letters);
+    clean.style='throwie';   // letters still loading: a classic throw-up for the moment
+  }
+  const full=applyQuality(clean),style=STYLE_PRESETS[full.style]||STYLE_PRESETS.handstyle;
   const quality=full.qualityPreset||QUALITY_PRESETS.fullSuccess;
   const width=clamp(full.width,320,1600),height=clamp(full.height,220,1000);
   const strokeW=Math.max(3,Math.round(style.outline*quality.outline));
@@ -199,6 +216,7 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
     return ownedActors().map(a => ({id: a.id, label: actorLabel(a), selected: a.id === (this.actor?.id ?? '')}));
   }
   async _prepareContext() {
+    await loadPieceLetters().catch(error => ui.notifications.warn(`Tag Studio: ${error.message}`));
     const actor = this.actor;
     if (actor && !this.tagDraft.actorId) this.tagDraft.actorId = actor.id;
     this.previewSvg = buildSvg(this.tagDraft);
@@ -222,12 +240,19 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
       paintHint:pick.hint,
       paintPacks:[{id:'TAG-STREET',label:'My crew / personal tag',selected:this.tagDraft.tagPackId==='TAG-STREET'},...packs.map(p=>({id:p.id,label:`${p.title} (${p.faction})`,selected:p.id===this.tagDraft.tagPackId}))],
       canPaint:Boolean(currentSpot&&actor),
-      paintCanLabel:(()=>{const can=actor?.items?.find?.(i=>i.type==='gear'&&i.name==='Spray Paint'&&Number(i.system.quantity||0)>0);return can?`${can.getFlag?.(NS,'spray')?.remainingCharges??6}/6 charges`:'No Spray Paint in inventory';})(),
+      paintCanLabel:(()=>{const can=actor?.items?.find?.(i=>isSprayCan(i)&&Number(i.system.quantity??1)>0);return can?`${can.getFlag?.(NS,'spray')?.remainingCharges??6}/6 charges`:'No Spray Paint in inventory';})(),
       districtTagScores:Object.entries(game.smoke?.graffiti?.territory?.()?.[canvasScene?.getFlag?.(NS,'streetAtlas')?.id||canvasScene?.getFlag?.(NS,'place')?.id]||{}).map(([faction,points])=>({faction,points})).sort((a,b)=>b.points-a.points),
       actors: this.actorChoices(),
       stats: Object.entries(STATS).map(([key, value]) => ({key, label: `${value.label} (${value.abbr})`, selected: key === this.tagDraft.stat})),
       bands: ['easy', 'medium', 'hard', 'miracle'].map(key => ({key, label: key[0].toUpperCase() + key.slice(1), selected: key === this.tagDraft.band})),
-      styles: Object.entries(STYLE_PRESETS).map(([key, value]) => ({key, label: value.label, selected: key === this.tagDraft.style})),
+      styles: [...Object.entries(STYLE_PRESETS), ...Object.entries(PIECE_STYLES)].map(([key, value]) => ({key, label: value.label, selected: key === this.tagDraft.style})),
+      styleGroups: [{label: 'Classic tags', styles: Object.entries(STYLE_PRESETS).map(([key, value]) => ({key, label: value.label, selected: key === this.tagDraft.style}))},
+        ...[...new Set(Object.values(PIECE_STYLES).map(v => v.group))].map(group => ({label: group, styles: Object.entries(PIECE_STYLES).filter(([, v]) => v.group === group).map(([key, value]) => ({key, label: value.label, selected: key === this.tagDraft.style}))}))],
+      isPiece: isPieceStyle(this.tagDraft.style),
+      fillModes: [{key: '', label: 'Style default', selected: !this.tagDraft.fillMode}, ...Object.entries(FILL_MODES).map(([key, label]) => ({key, label, selected: key === this.tagDraft.fillMode}))],
+      characterGroups: Object.entries(CHARACTER_GROUPS).map(([label, keys]) => ({label, characters: [...new Set(keys)].map(key => ({key, label: CHARACTERS[key].label, selected: key === this.tagDraft.character}))})),
+      presetGroups: PRESET_GROUPS.map(g => ({key: g, label: g, selected: g === this.tagDraft.presetGroup})),
+      presets: GRAFFITI_PRESETS.filter(p => p.group === (PRESET_GROUPS.includes(this.tagDraft.presetGroup) ? this.tagDraft.presetGroup : PRESET_GROUPS[0])).map(p => ({id: p.id, label: p.label, img: `systems/${NS}/${presetArt(p.id)}`})),
       qualities: Object.entries(QUALITY_PRESETS).map(([key, value]) => ({key, label: value.label, selected: key === this.tagDraft.quality})),
       blinderOptions: [0, 1, 2, 3, 4].map(v => ({value: v, label: v ? `${v}` : '0', selected: v === Number(this.tagDraft.blinder || 0)})),
       previewSvg: this.previewSvg,
@@ -248,6 +273,12 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
     this.tagDraft.outline = String(fd.get('outline') || '#111111');
     this.tagDraft.shadow = String(fd.get('shadow') || '#7c1a16');
     this.tagDraft.accent = String(fd.get('accent') || '#ffd95a');
+    if (fd.has('fill2')) this.tagDraft.fill2 = String(fd.get('fill2') || '#c4451c');
+    if (fd.has('fillMode')) this.tagDraft.fillMode = String(fd.get('fillMode') || '');
+    if (fd.has('character')) this.tagDraft.character = String(fd.get('character') || '');
+    if (fd.has('charSide')) this.tagDraft.charSide = String(fd.get('charSide') || 'right');
+    if (fd.has('skin')) this.tagDraft.skin = String(fd.get('skin') || '#8d5a3b');
+    if (fd.has('presetGroup')) this.tagDraft.presetGroup = String(fd.get('presetGroup') || 'ASMO');
     this.tagDraft.background = String(fd.get('background') || 'transparent');
     this.tagDraft.stat = String(fd.get('stat') || 'grf');
     this.tagDraft.band = String(fd.get('band') || 'medium');
@@ -277,6 +308,7 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
     on('input, select, textarea', 'change', (el) => {
       // Recalculate the choices after changing character, location or commission;
       // preserve the selection BEFORE replacing the Handlebars form.
+      if (['style', 'presetGroup'].includes(el.name)) { this.updateFromForm(); return this.render(); }   // piece options and the gallery follow the choice
       if (['actorId', 'spotTokenId', 'missionId'].includes(el.name)) {
         this.updateFromForm();
         // a commission the player picked (even "free paint") stays picked; a new surface or character chooses afresh
@@ -292,6 +324,7 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
     on('[data-tag-copy]', 'click', async () => { this.updateFromForm(); await navigator.clipboard.writeText(buildSvg(this.tagDraft)); ui.notifications.info('SVG copied to the clipboard.'); });
     on('[data-tag-save]', 'click', () => this.saveCurrent());
     on('[data-load-tag]', 'click', button => this.loadSaved(button.dataset.loadTag));
+    on('[data-preset]', 'click', button => this.loadPreset(button.dataset.preset));
     on('[data-delete-tag]', 'click', button => this.deleteSaved(button.dataset.deleteTag));
   }
   async paintOnMap() {
@@ -323,6 +356,7 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
       id: foundry.utils.randomID(), name: `${this.tagDraft.text || 'Tag'} · ${STYLE_PRESETS[this.tagDraft.style]?.label ?? this.tagDraft.style}`,
       savedAt: Date.now(), text: this.tagDraft.text, style: this.tagDraft.style, fill: this.tagDraft.fill, outline: this.tagDraft.outline,
       shadow: this.tagDraft.shadow, accent: this.tagDraft.accent, background: this.tagDraft.background, stat: this.tagDraft.stat, band: this.tagDraft.band,
+      fill2: this.tagDraft.fill2, fillMode: this.tagDraft.fillMode, character: this.tagDraft.character, charSide: this.tagDraft.charSide, skin: this.tagDraft.skin,
       quality: this.tagDraft.quality, blinder: this.tagDraft.blinder, extras: foundry.utils.deepClone(this.tagDraft.extras), svg: buildSvg(this.tagDraft)
     };
     await actor.setFlag(NS, 'tagLibrary', [entry, ...library].slice(0, 24));
@@ -334,6 +368,15 @@ export class SmokeTagStudio extends HandlebarsApplicationMixin(ApplicationV2) {
     const {spotTokenId,missionId,tagPackId}=this.tagDraft;
     Object.assign(this.tagDraft, foundry.utils.deepClone(DEFAULT_STATE), foundry.utils.deepClone(entry));
     this.tagDraft.actorId = actor.id;this.tagDraft.spotTokenId=spotTokenId;this.tagDraft.missionId=missionId;this.tagDraft.tagPackId=tagPackId;
+    await this.render();
+  }
+  /** Load a ready-made piece: its words, style, colours and character. Where you are painting stays as it was;
+   *  a faction piece also picks that faction's tag if the character has unlocked it. */
+  async loadPreset(id) {
+    const preset = presetById(id); if (!preset) throw new Error('Preset not found.');
+    const keep = {actorId: this.tagDraft.actorId, spotTokenId: this.tagDraft.spotTokenId, missionId: this.tagDraft.missionId, missionPicked: this.tagDraft.missionPicked,
+      tagPackId: preset.pack || this.tagDraft.tagPackId, quality: this.tagDraft.quality, blinder: this.tagDraft.blinder, stat: this.tagDraft.stat, band: this.tagDraft.band, presetGroup: preset.group};
+    Object.assign(this.tagDraft, foundry.utils.deepClone(DEFAULT_STATE), foundry.utils.deepClone(preset.design), keep);
     await this.render();
   }
   async deleteSaved(id) {

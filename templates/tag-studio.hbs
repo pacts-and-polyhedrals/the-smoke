@@ -7,7 +7,7 @@
           <select name="actorId">{{#each actors}}<option value="{{id}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select>
         </label>
         <label><span>Tag text</span><input type="text" name="text" value="{{state.text}}" maxlength="18" placeholder="ASMO"></label>
-        <label><span>Style</span><select name="style">{{#each styles}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+        <label><span>Style</span><select name="style">{{#each styleGroups}}<optgroup label="{{label}}">{{#each styles}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</optgroup>{{/each}}</select></label>
         <label><span>Background</span><select name="background"><option value="transparent" {{#if (eq state.background "transparent")}}selected{{/if}}>Transparent</option><option value="solid" {{#if (eq state.background "solid")}}selected{{/if}}>Solid paper</option></select></label>
       </div>
       <div class="tag-swatches">
@@ -16,6 +16,19 @@
         <label><span>Shadow</span><input type="color" name="shadow" value="{{state.shadow}}"></label>
         <label><span>Accent</span><input type="color" name="accent" value="{{state.accent}}"></label>
       </div>
+      {{#if isPiece}}
+      <fieldset class="tag-piece-options">
+        <legend>Piece</legend>
+        <div class="tag-form-grid">
+          <label><span>Second fill</span><input type="color" name="fill2" value="{{state.fill2}}"></label>
+          <label><span>Fill</span><select name="fillMode">{{#each fillModes}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label>
+          <label><span>Character</span><select name="character"><option value="">No character</option>{{#each characterGroups}}<optgroup label="{{label}}">{{#each characters}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</optgroup>{{/each}}</select></label>
+          <label><span>Stands</span><select name="charSide"><option value="right" {{#if (eq state.charSide "right")}}selected{{/if}}>On the right</option><option value="left" {{#if (eq state.charSide "left")}}selected{{/if}}>On the left</option></select></label>
+          <label><span>Skin</span><input type="color" name="skin" value="{{state.skin}}"></label>
+        </div>
+        <p class="smoke-dim">The roll decides the finish: a Proper Mess runs and goes patchy; Smashed It and Legendary add shine, sparkles, a glow and a crown.</p>
+      </fieldset>
+      {{/if}}
       <fieldset>
         <legend>Smoke quality</legend>
         <div class="tag-form-grid">
@@ -58,6 +71,11 @@
     <section class="tag-panel preview">
       <header><h2>Preview</h2><p class="smoke-dim">SVG output — transparent unless you choose a paper background.</p></header>
       <div class="tag-preview-frame">{{{previewSvg}}}</div>
+      <section class="tag-presets">
+        <header><h2>Presets</h2><label><select name="presetGroup" aria-label="Preset set">{{#each presetGroups}}<option value="{{key}}" {{#if selected}}selected{{/if}}>{{label}}</option>{{/each}}</select></label></header>
+        <p class="smoke-dim">Ready-made pieces: click one to load it, then change anything. Where you're painting stays the same.</p>
+        <div class="tag-preset-grid">{{#each presets}}<button type="button" class="tag-preset" data-preset="{{id}}" title="{{label}}"><img src="{{img}}" alt="" loading="lazy"><span>{{label}}</span></button>{{/each}}</div>
+      </section>
     </section>
     <section class="tag-panel library">
       <div class="tag-district-control"><h2>Territory on this map</h2>

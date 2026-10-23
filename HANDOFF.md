@@ -1,3 +1,40 @@
+> **CURRENT COMBINED CANDIDATE: 0.5.27-rc.3.** Read `RELEASE-v0.5.27-rc.3.md` (cash and kit, Banana Basket) and `RELEASE-v0.5.27-rc.2.md` (the mission fixes), then `MERGE-REPORT.md` and `INSTALL-CANDIDATE.md`. The following earlier release notes are preserved history, not instructions to publish or install this candidate as Latest. Approved full-build baseline remains v0.5.24.
+
+# The Smoke v0.5.26 — handoff note (graffiti pieces)
+
+- **Pieces** (`module/graffiti/pieces.mjs`, pure):
+  - `renderPiece(design, letters)`. Style definitions are in cap units (cap height = 100).
+  - Glyphs are parsed and transformed into piece space (`place`), so strokes stay even.
+  - Letters and their decorations sit in `<g id>` groups, reused through `<use>` with inherited paint for the outline, fill, 3D and cloud passes.
+  - Patterns, shine and cuts are masked per letter.
+  - Everything is fitted into the 860×420 canvas at the end.
+- **Letters:** `data/graffiti-letters.json` (fontTools outlines, built by the 0.5.26 font step; credits inside and in `GRAFFITI-FONT-LICENCES.md`). `module/graffiti/letters.mjs` fetches it once.
+- **Characters:** `module/graffiti/characters.mjs`. Each one is drawn facing right in its own box; `flip` keeps any lettering readable when mirrored (see the d20).
+- **Presets:** `module/graffiti/presets.mjs`. After changing a preset, a style or a character, run `node scripts/graffiti/build-art.mjs`; it writes `assets/graffiti/presets/*.svg` and the tag pack finishes. `--check` is run by `tests/graffiti-pieces.test.mjs`.
+- **Tag Studio:** `buildSvg` sends piece styles to the engine (falling back to a classic throw-up until the letters arrive). `sanitiseTagDesign` accepts only known style, character and fill keys. The GM's `paintOnLeader` loads the letters first; its size limit is now 400k.
+
+---
+
+# The Smoke v0.5.25 — handoff note (capability guard, token builder, stat balance, mission files, guides)
+
+- **Capability guard.**
+  - `tests/capability-manifest.mjs` (CAPABILITIES + RETIRED) and `tests/capability-fingerprint.mjs` define it; `tests/capability-baseline.json` is the generated fingerprint and `tests/capabilities.test.mjs` checks it.
+  - After adding a feature, add it to the manifest and run `node scripts/capabilities.mjs` (rewrites the baseline and `CAPABILITIES.md`). To drop something on purpose, move it to RETIRED with the reason.
+- **Token Builder.**
+  - Parts live in `assets/tokens/builder/` (drawn by `scripts/tokens/draw_parts.py`), catalogued in `data/token-builder.json`.
+  - Code: `module/tokens/compose.mjs` (pure SVG compositor), `kit.mjs` (load, rasterise, save via `token.save` on the leader), `panel.mjs` (shared UI) and `module/apps/token-creator.mjs` (window).
+  - The recipe is stored on `system.identity.tokenParts`. The creator's Token step uses the same panel.
+- **Hired hands.** `module/rules/hires-core.mjs` (pure) and `module/world/hires.mjs` (`hire.take` / `hire.dismiss`). Each hand is an NPC flagged `hire.employer`, owned by the employer's players.
+- **Pat's orders.** In `module/world/jobs.mjs` (`PAT_ORDERS`, `minRep`, `car`). Car jobs count only when sold at the chop shop (`theft.mjs`).
+- **Chase switches.** `canSetChases` in `chase-state.mjs`, `chase.settings` handler, `module/apps/chase-controls.mjs`. A chase started by a police sighting carries `started: 'sight'`.
+- **Mission files.**
+  - Sources: `scripts/missions/files/*.mjs` (one export per file, keyed by mission id) and the voices in `scripts/missions/voices/`.
+  - Build: `node scripts/missions/build-files.mjs` writes content.json, london-guides.json, guide-history.json and packs/guides. Useful flags: `--check` and `--preview ids out.html`.
+- **Guides.** `node scripts/journals/edition-0525.mjs` regenerates the creation, stats and Rep pages from the rules modules. Run it **after** build-files. Don't re-run the old `scripts/journals/build.mjs`: it rewraps every page at 0.5.2.
+- **Content edition.** `module/content.mjs` VERSION is 0.5.25, so existing worlds run `updateGuide` once.
+
+---
+
 # The Smoke v0.5.24 — handoff note (player right-click)
 
 - `installPlayerInteractions()` must run at **init**. Foundry's interaction manager holds a token's `_canHUD` and `_onClickRight` from the moment the token is drawn, and the first map is drawn before `ready`.

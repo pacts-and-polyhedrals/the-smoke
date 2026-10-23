@@ -3,6 +3,9 @@
 import {repInfo, levelUpPlan, levelInfo} from '../module/rules/advancement.mjs';
 import {BANANA_SVG} from '../module/apps/banana-watch.mjs';
 import {BACKGROUNDS, CREATION_STEPS, STARTER_EXTRAS, STORY_IDEAS, ENDS, blankDraft} from '../module/rules/creation.mjs';
+import {GRAFFITI_PRESETS, PRESET_GROUPS} from '../module/graffiti/presets.mjs';
+import {PIECE_STYLES, FILL_MODES} from '../module/graffiti/pieces.mjs';
+import {CHARACTERS, CHARACTER_GROUPS} from '../module/graffiti/characters.mjs';
 import {QUICK_GROUPS, QUICK_CHECKS, TEAMWORK, HAZARD_GROUPS, HAZARDS, STREET_EVENTS, POLICE_EVENTS, NPC_ROLES} from '../module/gm/catalogue.mjs';
 const STATS = {mus: 'Muscle', grt: 'Grit', mov: 'Moves', whl: 'Wheels', aim: 'Aim', grf: 'Graft', sav: 'Savvy', frt: 'Front', btl: 'Bottle'};
 const ABBR = {mus: 'MUS', grt: 'GRT', mov: 'MOV', whl: 'WHL', aim: 'AIM', grf: 'GRF', sav: 'SAV', frt: 'FRT', btl: 'BTL'};
@@ -166,5 +169,23 @@ export default function ({add, J}) {
   add('actor-sheet.hbs', {...sheet, rep: repInfo({stage: 19, rep: {xp: 470, crew: 3}})});
   add('street-control.hbs', {scene: {name: 'Hackney'}, street: true, isGM: true, setUp: true, selfPlay: true, settings: [], shifts: [], crimes: [], jobs: [], characters: []});
   add('gm-screen.hbs', {...gm, tab: 'tools', selfPlay: true, highs: ['Blazed', 'Wired']});
+  // 0.5.26: the Tag Studio with a piece loaded, its options and a full preset set
+  for (const group of PRESET_GROUPS.slice(0, 3)) {
+    const preset = GRAFFITI_PRESETS.find(p => p.group === group);
+    add('tag-studio.hbs', {state: {...preset.design, extras: {...preset.design.extras}, quality: 'fullSuccess', blinder: 0, presetGroup: group}, actor: {name: 'Jaz'}, actors: [{id: 'a', label: 'Jaz · Rep 3', selected: true}],
+      styles: [], styleGroups: [{label: 'Pieces', styles: Object.entries(PIECE_STYLES).map(([key, v]) => ({key, label: v.label, selected: key === preset.design.style}))}], isPiece: true,
+      fillModes: Object.entries(FILL_MODES).map(([key, label]) => ({key, label})), characterGroups: Object.entries(CHARACTER_GROUPS).map(([label, keys]) => ({label, characters: keys.map(key => ({key, label: CHARACTERS[key].label}))})),
+      presetGroups: PRESET_GROUPS.map(g => ({key: g, label: g, selected: g === group})), presets: GRAFFITI_PRESETS.filter(p => p.group === group).map(p => ({id: p.id, label: p.label, img: `systems/the-smoke/assets/graffiti/presets/${p.id}.svg`})),
+      stats: [], bands: [], qualities: [], blinderOptions: [], paintSpots: [], paintMissions: [], paintPacks: [], library: [], districtTagScores: [], previewSvg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420"></svg>', qualityLabel: 'Sorted', paintCanLabel: '6/6 charges'});
+  }
+  // 0.5.27: Banana Basket (phone orders to the flat) and the Blower's orders card
+  const libItems = J('london-items.json').items, pick = ns => ns.map(n => libItems.find(i => i.name === n)).filter(Boolean).map(i => ({name: i.name, img: i.img, price: i.system.value, unit: 1, type: 'Kit', blurb: 'x', afford: true}));
+  const orders = {on: true, waiting: 1, here: true, isGM: false, list: [{id: 'o1', text: '4 × Spray Paint', shop: "The Arches · Pat's Cycles", waiting: true, eta: 'At the flat'}, {id: 'o2', text: '1 × Meal Deal', shop: 'Corner Shop', waiting: false, eta: 'Arrives in about 40 Watch minutes'}]};
+  add('order.hbs', {actor, cash: 120, stash: 40, fee: 5, minutes: 60, on: true, isGM: false, shops: [{key: 'gang', name: "The Arches · Pat's Cycles", active: true}, {key: 'corner', name: 'Corner Shop', active: false}],
+    shop: {key: 'gang', name: "The Arches · Pat's Cycles", who: 'Auntie Pat'}, lines: [{label: 'For sale', items: pick(['Spray Paint', 'Bike Lock', 'Toolkit', 'Bolt Cutters', 'D-Lock', 'Courier Backpack'])}], orders});
+  add('order.hbs', {actor, cash: 0, stash: 0, fee: 5, minutes: 0, on: true, isGM: true, shops: [], shop: null, lines: [], orders: {...orders, here: false, isGM: true}});
+  add('order.hbs', {actor, cash: 0, stash: 0, fee: 5, minutes: 60, on: false, isGM: false, shops: [], shop: null, lines: [], orders: {on: false, list: [], waiting: 0}});
+  add('phone.hbs', {actor, actors: [actor], heat: 0, heatInfo: {name: 'Clean', response: ''}, stars: [false, false, false, false, false], offers: [], active: [], missions: [], deliveries: orders});
+  add('phone.hbs', {actor, actors: [actor], heat: 0, heatInfo: {name: 'Clean', response: ''}, stars: [false, false, false, false, false], offers: [], active: [], missions: [], deliveries: {on: true, list: [], waiting: 0, here: false}});
 }
 

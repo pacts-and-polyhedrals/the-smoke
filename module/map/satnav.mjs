@@ -3,6 +3,7 @@
 // from map to map with you, follows a job from stage to stage (pick-up, then drop-off), and draws the same route on
 // the street map you're looking at. Everything here is local to each player's screen; nothing is sent to anyone.
 import {NS} from '../config.mjs';
+import {checkpointReady,checkpointDone,contributionMissing} from '../rules/mission-contract.mjs';
 import {esc} from '../world/net.mjs';
 import {mapIdOf} from '../world/spawn.mjs';
 import {loadAtlas} from './map-transit.mjs';
@@ -291,10 +292,61 @@ function cargoTarget(d, m, st, o, sub) {
  * still to do has a place, the sat nav stays with the last place the job took you to (0.5.23: it went back to the
  * first). `actor` and `here` say what you're driving and where.
  */
+/** The order the sat nav works through a job's ready steps (0.5.27): finish what's here before driving off. Ready steps
+ *  on the map you're standing on come first, then the rest in the job's order, so you pick up the dog at the market
+ *  you're already in instead of driving away and coming back for it. A "repaint any of those" bonus keeps its place at
+ *  the end: you may well get the quality on the next wall anyway. */
+export function stepOrder(m, st = null, actor = null) {
+  const on = actor ? trackedTokens(actor).token?.parent : null, hereMap = on ? mapIdOf(on) : null;
+  const ready = (m.objectives || []).filter(o => !checkpointDone(o, st) && checkpointReady(m, o, st || {}));
+  const local = o => Boolean(hereMap) && !o.auto?.siteIds && (o.checkpoint?.locations || []).some(a => a.mapId === hereMap);
+  return [...ready.filter(local), ...ready.filter(o => !local(o))];
+}
 export function missionTarget(d, m, st = null, stop = null, {actor = null, here = null} = {}) {
   if (stop) return stopTarget(d, m, stop);
   const sub = `${m.code ?? `Mission ${m.n}`} · ${m.title}`, riding = actor ? ridingNow(actor) : null;
-  const list = m.objectives || [], open = o => Number(st?.ticks?.[o.id] || 0) < needed(o);
+  const list=m.objectives||[],open=o=>!checkpointDone(o,st);
+  if(m.automation){
+    for(const o of stepOrder(m,st,actor)){
+      if(['cargoCollected','cargoDelivered'].includes(o.auto?.on)){const t=cargoTarget(d,m,st,o,sub);if(t)return t;}
+      // A wall to paint: the paintable surface itself (0.5.27: the anchor's block, which could be across the map).
+      if(o.auto?.on==='tagPlaced'){
+        const done=st?.tagProof?.[o.id]||[],ids=(o.auto.siteIds??[o.auto.siteId]).filter(id=>!done.includes(id));   // "two of those": not one already counted
+        const live=[...(game.scenes||[])].flatMap(s=>[...(s.tokens||[])]).filter(t=>!t.hidden&&ids.includes(t.getFlag?.(NS,'tagSpot')?.siteId));
+        const at=t=>{const g=t.parent.grid?.size||100;return {mapId:mapIdOf(t.parent),x:t.x+t.width*g/2,y:t.y+t.height*g/2};};
+        const dist=t=>{const p=at(t),gl=here&&C.toGlobal(d.atlas,p.mapId,p.x,p.y);return gl?Math.hypot(gl[0]-here[0],gl[1]-here[1]):0;};
+        const spot=here?live.sort((a,b)=>dist(a)-dist(b))[0]:live[0];
+        if(spot)return {...at(spot),goal:[at(spot).x,at(spot).y],label:o.text,sub};
+        const site=o.stop!=null&&m.stops?.[o.stop]?m.stops[o.stop]:(m.stops||[]).find(x=>ids.includes(x.code));
+        if(site){const t=stopTarget(d,m,site);if(t)return {...t,label:o.text};}
+      }
+      // A radio job: the station's contact on the map.
+      if(o.auto?.on==='radioWar'){
+        const c=[...(game.scenes||[])].flatMap(s=>[...(s.tokens||[])]).find(t=>!t.hidden&&t.getFlag?.(NS,'radioWarNode')?.stationId===o.auto.stationId);
+        if(c){const g=c.parent.grid?.size||100,x=c.x+c.width*g/2,y=c.y+c.height*g/2;return {mapId:mapIdOf(c.parent),x,y,goal:[x,y],label:o.text,sub};}
+      }
+      const group=o.checkpoint?.targetGroup;
+      // A sale, a respray or "bring it back" needs the job's motor first: go to it if nobody has nicked it yet, or back
+      // to it if you've left it; only once you're riding it does the sat nav head for the buyer (0.5.27).
+      if(group&&['sold','service','vehicleReturned'].includes(o.auto?.on)){
+        const mine=[...(game.scenes||[])].flatMap(s=>[...(s.tokens||[])]).filter(t=>{const f=t.getFlag?.(NS,'missionResource');return f?.missionId===m.id&&f.runId===st?.runId&&f.group===group&&!t.hidden;});
+        const taken=mine.filter(t=>t.getFlag?.(NS,'stolen')||t.getFlag?.(NS,'missionLoan'));
+        if(mine.length&&!(riding?.vt&&taken.some(t=>t.id===riding.vt.id))){
+          const v=taken[0]??mine[0],g=v.parent.grid?.size||100;
+          return {mapId:mapIdOf(v.parent),x:v.x+v.width*g/2,y:v.y+v.height*g/2,label:taken.length?`Back to the ${v.name}`:`Nick the ${v.name}`,sub};
+        }
+      }
+      if(group&&['vehicleNicked','boarded','escortArrived'].includes(o.auto?.on)){
+        const t=[...(game.scenes||[])].flatMap(s=>[...(s.tokens||[])]).find(t=>{const f=t.getFlag?.(NS,'missionResource');return f?.missionId===m.id&&f.runId===st?.runId&&f.group===group&&!t.hidden;});
+        if(t&&o.auto.on!=='escortArrived'){const g=t.parent.grid?.size||100;return {mapId:mapIdOf(t.parent),x:t.x+t.width*g/2,y:t.y+t.height*g/2,label:t.name,sub};}
+      }
+      const a=o.checkpoint.locations[0],t=zonePlace(d,a.mapId,a.zoneId,o.text,sub);if(t)return t;
+    }
+    if(actor&&contributionMissing(st).includes(actor.id)){
+      const task=m.automation.support.find(x=>!st?.supportProof?.[x.id]);if(task){const a=task.locations[0];return zonePlace(d,a.mapId,a.zoneId,task.label,sub);}
+    }
+    const a=list.at(-1)?.checkpoint?.locations?.[0];return a?zonePlace(d,a.mapId,a.zoneId,'Mission complete',sub):null;
+  }
   for (const o of list.filter(open)) {
     if (o.stop != null && m.stops?.[o.stop]) { const t = stopTarget(d, m, m.stops[o.stop]); if (t) return t; }
     const a = o.auto; if (!a) continue;
